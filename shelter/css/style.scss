@@ -1,0 +1,344 @@
+
+@import 'normalize';
+
+/**
+ * global
+ *********************************************************************************
+ */
+
+@import 'global';
+
+
+/*****************************************************/
+/*****************************************************/
+
+/*********Придется менять при адаптации****************/
+.header {
+  padding: 6rem 0 0;
+
+  /* start-screen-gradient-background */
+  background: url(noise_lines_transparent@2X.png), radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */, #211F20;
+}
+/**************************************************************/
+
+
+// .container {
+//   border: solid red 2px;
+
+//   // /* start-screen-gradient-background */
+//   // background: url(noise_lines_transparent@2X.png), radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */, #211F20;
+// }
+
+.header__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.logo__title {
+  font-family: 'Georgia';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 3.2rem;
+  line-height: 3.5rem;
+
+  // border: solid 1px red;
+
+  margin-bottom: 1rem;
+
+  // display: flex;
+  // align-items: center;
+  letter-spacing: 0.06em;
+
+  /* color-primary */
+  color: #F1CDB3;
+}
+
+.logo__subtitle {
+  /* logo_subtitle */
+
+  font-family: 'Arial';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.3rem;
+  line-height: 1.5rem;
+  /* identical to box height */
+
+  // border: solid 1px red;
+
+  text-align: center;
+
+  // display: flex;
+  // align-items: center;
+  letter-spacing: 0.1em;
+
+  /* color-light-xl */
+  color: #FFFFFF;
+}
+
+.menu__list {
+  display: flex;
+  justify-content: space-between;
+  // gap: 3.5rem;
+  column-gap: 3.5rem;
+  row-gap: 1rem;
+
+  max-width: 44.3rem;
+  min-height: 2.7rem;
+
+  // border: solid red 2px;
+  flex-wrap: wrap;
+
+  font-family: 'Arial';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.5rem;
+  line-height: 2.4rem;
+  color: #CDCDCD;
+
+  &-item--active{
+    border-bottom: solid #F1CDB3 3px;
+    color: #FAFAFA;
+  }
+}
+
+// .menu__list-link {
+//   font-family: 'Arial';
+//   font-style: normal;
+//   font-weight: 400;
+//   font-size: 1.5rem;
+//   line-height: 2.4rem;
+//   color: #CDCDCD;
+// }
+
+
+/*********************************************************/
+/********************************************************/
+
+.footer {
+  /* footer-gradient-background */
+  background: url(noise_lines_transparent@2X.png), radial-gradient(110.67% 538.64% at 5.73% 50%, #513D2F 0%, #1A1A1C 100%), #211F20;
+}
+
+.footer__inner {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  align-items: flex-start;
+  padding-top: 4rem;
+
+  // border: solid red 1px;
+
+}
+
+// нужен для адаптации на флексах (на гридах не понадобился бы)
+.footer__inner-container {
+  padding-top: 1.6rem;
+  // max-width: 27.8rem;
+  min-height: 25rem;
+
+  column-gap: 13rem;
+
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  align-items: center;
+
+  // border: solid aquamarine 7px;
+}
+
+.footer__contact {
+  // width: 27.8rem;
+  width: 31rem;
+  height: 23.4rem;
+  // padding-top: 1.6rem;
+
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+
+  // border: solid green 4px;
+}
+
+.footer__location {
+  width: 31rem;
+  // width: 32rem;
+  height: 23.4rem;
+  // padding-top: 1.6rem;
+
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+
+  // border: solid green 4px;
+}
+
+.photo--footer {
+  width: 30rem;
+  height: 31rem;
+  background-image: url("../assets/img/footer-puppy.png");
+
+  // border: solid green 4px;
+}
+
+.footer__contact-title {
+  font-size: 3.5rem;
+  line-height: 4.5rem;
+
+  font-family: 'Georgia';
+  font-style: normal;
+  font-weight: 400;
+
+  letter-spacing: 0.06em;
+  color: #FFFFFF;
+}
+
+
+.footer__location-title {
+  font-size: 3.5rem;
+  line-height: 4.5rem;
+
+  font-family: 'Georgia';
+  font-style: normal;
+  font-weight: 400;
+
+  letter-spacing: 0.06em;
+  color: #FFFFFF;
+}
+
+.footer__icon-text {
+  display: flex;
+  align-items: center;
+
+  font-family: 'Georgia';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 2rem;
+  line-height: 2.3rem;
+  /* identical to box height, or 23px */
+  letter-spacing: 0.06em;
+
+  /* color-primary */
+  color: #F1CDB3;
+
+  // border: #FFFFFF solid 1px;
+}
+
+.footer__icon-text p {
+  margin-left: 2rem;
+  width: 26rem;
+}
+
+.photo--icon-mail {
+  width: 4.5rem;
+  height: 2.6rem;
+  background-size: auto;
+  background-image: url("../assets/svg/f-01-mail.svg");
+}
+
+.photo--icon-tel {
+  width: 4.5rem;
+  height: 3.2rem;
+  background-size: 4rem auto;
+  background-image: url("../assets/svg/f-02-phone.svg");
+}
+
+.photo--icon-location {
+  width: 2.2rem;
+  height: 3.2rem;
+  background-image: url("../assets/svg/f-03-pin.svg");
+}
+
+/*****************************************************/
+/*****************************************************/
+
+
+// * {
+//   box-sizing: border-box;
+//   margin: 0;
+//   padding: 0;
+// }
+
+// /* разместил в global */
+// html {
+//   box-sizing: border-box;
+
+//   scroll-behavior: smooth;
+
+  // /* Меняю размер шрифта, чтобы установить новое значение rem */
+  // /* Подгоняю его для экрана 1280 */
+  // font-size: calc(100vw / 1280 * 10);
+
+  // @media (max-width: 1024px) {
+  //   font-size: calc(100vw / 820 * 10);
+  // }
+
+  // /*font-size: calc(24px + (16 + 16 * 0.7) * ((100vw - 320px) /  1280);*/
+// }
+
+
+
+/************************************************************************************/
+
+
+
+  @font-face {
+    font-family: 'Inika';
+    src: url("../assets/fonts/Inika-Bold.ttf");
+    font-weight: 700;
+  }
+
+  @font-face {
+    font-family: 'Inika';
+    src: url("../assets/fonts/Inika-Regular.ttf");
+    font-weight: 400;
+  }
+
+  @font-face {
+    font-family: 'Inter';
+    src: url("../assets/fonts/Inter-Bold.ttf");
+    font-weight: 700;
+  }
+
+  @font-face {
+    font-family: 'Inter';
+    src: url("../assets/fonts/Inter-Regular.ttf");
+    font-weight: 400;
+  }
+
+  // /* @media (max-width: 768px) {
+  //   .section {
+  //     width: 100%;
+  //   }
+  // } */
+
+/************************************************************************************/
+
+
+
+
+
+
+
+/************************************************************************************/
+/************************************************************************************/
+/************************************************************************************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
