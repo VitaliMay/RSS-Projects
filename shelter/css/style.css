@@ -363,7 +363,12 @@ a {
 /***************************************************************/
 /***************************************************************/
 /* чтобы прижать футер к низу страницы*/
-html,
+/*! чтобы всегда была полоса прокрутки и не дергалось при пиксель перфект. 
+Надо убрать для мобилок*/
+html {
+  height: 100.1%;
+}
+
 body {
   height: 100%;
 }
@@ -399,6 +404,7 @@ body {
   padding: 0rem 4rem;
 }
 
+/*****************************************************/
 .photo {
   background-repeat: no-repeat;
   background-position: top;
@@ -406,13 +412,15 @@ body {
   background-size: contain;
 }
 
-/*****************************************************/
+.start {
+  /* start-screen-gradient-background */
+  background: url(noise_lines_transparent@2X.png), radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%), #211F20;
+}
+
 /*****************************************************/
 /*********Придется менять при адаптации****************/
 .header {
-  padding: 6rem 0 0;
-  /* start-screen-gradient-background */
-  background: url(noise_lines_transparent@2X.png), radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%), #211F20;
+  padding: 6rem 0 6rem 0;
 }
 
 /**************************************************************/
@@ -431,7 +439,6 @@ body {
   line-height: 3.5rem;
   margin-bottom: 1rem;
   letter-spacing: 0.06em;
-  /* color-primary */
   color: #F1CDB3;
 }
 
@@ -442,10 +449,8 @@ body {
   font-weight: 400;
   font-size: 1.3rem;
   line-height: 1.5rem;
-  /* identical to box height */
   text-align: center;
   letter-spacing: 0.1em;
-  /* color-light-xl */
   color: #FFFFFF;
 }
 
@@ -470,6 +475,210 @@ body {
   color: #FAFAFA;
 }
 
+/*********************************************************/
+/*********************************************************/
+.not-only__inner {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.start-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 46rem;
+  height: 50rem;
+  padding: 16rem 0 2rem 0;
+}
+
+.start-content__title {
+  font-family: "Georgia";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 4.4rem;
+  line-height: 5.7rem;
+  color: #FFFFFF;
+  margin-right: 15rem;
+}
+
+.start-content__text {
+  font-family: "Arial";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.5rem;
+  line-height: 2.4rem;
+  color: #CDCDCD;
+}
+
+.button {
+  width: 20.7rem;
+  height: 5.2rem;
+  background: #F1CDB3;
+  border: 2px solid #F1CDB3;
+  border-radius: 100px;
+  font-family: "Georgia";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 2.2rem;
+  /* identical to box height, or 22px */
+  letter-spacing: 0.06em;
+  /* color-dark-3xl */
+  color: #292929;
+}
+.button--arrow {
+  width: 5.2rem;
+  height: 5.2rem;
+  background-color: #F6F6F6;
+}
+.button--card {
+  width: 18.7rem;
+  height: 5.2rem;
+  background-color: #FAFAFA;
+}
+.button--primary {
+  width: 26.1rem;
+  height: 5.2rem;
+}
+.button--arrow svg {
+  vertical-align: middle;
+}
+
+.photo--start-foto {
+  width: 70rem;
+  height: 73rem;
+  background-image: url("../assets/img/start-screen-puppy.png");
+}
+
+/*********************************************************/
+/********************************************************/
+.title {
+  font-size: 3.5rem;
+  line-height: 4.5rem;
+  font-family: "Georgia";
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: #545454;
+}
+
+.title--about {
+  padding-right: 6rem;
+}
+
+.about {
+  background-color: #FFFFFF;
+}
+
+.about__inner {
+  padding: 8rem 17.5rem 10rem 17.5rem;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row-reverse;
+  flex-wrap: wrap;
+}
+
+.about-content {
+  width: 43rem;
+  min-height: 41rem;
+  padding: 1.4rem 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.about__text {
+  font-family: "Arial";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.5rem;
+  line-height: 2.4rem;
+  color: #4C4C4C;
+}
+
+.photo--about-foto {
+  width: 30rem;
+  height: 41rem;
+  background-image: url("../assets/img/about-pets.png");
+}
+
+/*********************************************************/
+/********************************************************/
+.our-friends {
+  background-color: #F6F6F6;
+}
+
+.our-friends__inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8rem 0 10rem 0;
+  row-gap: 6rem;
+}
+
+.title--our-friends {
+  max-width: 40rem;
+  text-align: center;
+}
+
+.title-card {
+  font-size: 2rem;
+  line-height: 2.3rem;
+  font-family: "Georgia";
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: #545454;
+}
+
+.slider {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.slider__inner {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  -moz-column-gap: 9rem;
+       column-gap: 9rem;
+  row-gap: 1rem;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #FAFAFA;
+  border-radius: 0.9rem;
+  height: 43.5rem;
+  padding-bottom: 3rem;
+}
+
+.card .photo {
+  width: 27rem;
+  height: 27rem;
+}
+
+.photo--card-01 {
+  background-image: url("../assets/img/pets-katrine.png");
+}
+
+.photo--card-02 {
+  background-image: url("../assets/img/pets-jennifer.png");
+}
+
+.photo--card-03 {
+  background-image: url("../assets/img/pets-woody.png");
+}
+
+/*********************************************************/
+/********************************************************/
 /*********************************************************/
 /********************************************************/
 .footer {
@@ -496,7 +705,7 @@ body {
   align-items: center;
 }
 
-.footer__contact {
+.contact {
   width: 31rem;
   height: 23.4rem;
   display: flex;
@@ -504,41 +713,18 @@ body {
   flex-direction: column;
 }
 
-.footer__location {
-  width: 31rem;
-  height: 23.4rem;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-}
-
-.photo--footer {
-  width: 30rem;
-  height: 31rem;
-  background-image: url("../assets/img/footer-puppy.png");
-}
-
-.footer__contact-title {
+.contact__title {
   font-size: 3.5rem;
   line-height: 4.5rem;
   font-family: "Georgia";
   font-style: normal;
   font-weight: 400;
   letter-spacing: 0.06em;
+  color: #545454;
   color: #FFFFFF;
 }
 
-.footer__location-title {
-  font-size: 3.5rem;
-  line-height: 4.5rem;
-  font-family: "Georgia";
-  font-style: normal;
-  font-weight: 400;
-  letter-spacing: 0.06em;
-  color: #FFFFFF;
-}
-
-.footer__icon-text {
+.contact__icon-text {
   display: flex;
   align-items: center;
   font-family: "Georgia";
@@ -552,9 +738,15 @@ body {
   color: #F1CDB3;
 }
 
-.footer__icon-text p {
+.contact__icon-text p {
   margin-left: 2rem;
   width: 26rem;
+}
+
+.photo--footer {
+  width: 30rem;
+  height: 31rem;
+  background-image: url("../assets/img/footer-puppy.png");
 }
 
 .photo--icon-mail {
@@ -580,26 +772,6 @@ body {
 /*****************************************************/
 /*****************************************************/
 /************************************************************************************/
-@font-face {
-  font-family: "Inika";
-  src: url("../assets/fonts/Inika-Bold.ttf");
-  font-weight: 700;
-}
-@font-face {
-  font-family: "Inika";
-  src: url("../assets/fonts/Inika-Regular.ttf");
-  font-weight: 400;
-}
-@font-face {
-  font-family: "Inter";
-  src: url("../assets/fonts/Inter-Bold.ttf");
-  font-weight: 700;
-}
-@font-face {
-  font-family: "Inter";
-  src: url("../assets/fonts/Inter-Regular.ttf");
-  font-weight: 400;
-}
 /************************************************************************************/
 /************************************************************************************/
 /************************************************************************************/

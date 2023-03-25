@@ -71,10 +71,21 @@ a{
 /***************************************************************/
 
 /* чтобы прижать футер к низу страницы*/
-html,
+// html,
+// body {
+// 	height: 100%;
+// }
+
+/*! чтобы всегда была полоса прокрутки и не дергалось при пиксель перфект. 
+Надо убрать для мобилок*/
+html {
+	height: 100.1%;
+}
+
 body {
 	height: 100%;
 }
+
 
 body {
   font-family: 'Georgia';
@@ -113,12 +124,4 @@ body {
   // border: solid red 2px;
 }
 
-.photo {
 
-  background-repeat: no-repeat;
-  background-position: top;
-  background-clip: border-box;
-
-  background-size: contain;
-
-}
