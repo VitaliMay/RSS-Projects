@@ -489,7 +489,7 @@ body {
   justify-content: space-between;
   width: 46rem;
   height: 50rem;
-  padding: 16rem 0 2rem 0;
+  padding: 16.3rem 0 1.5rem 0;
 }
 
 .start-content__title {
@@ -499,7 +499,6 @@ body {
   font-size: 4.4rem;
   line-height: 5.7rem;
   color: #FFFFFF;
-  margin-right: 15rem;
 }
 
 .start-content__text {
@@ -679,6 +678,155 @@ body {
 
 /*********************************************************/
 /********************************************************/
+.help {
+  background-color: #FFFFFF;
+}
+.help .container {
+  padding: 8rem 4rem 10rem 4rem;
+}
+
+.help__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  row-gap: 6rem;
+}
+
+.title--help {
+  max-width: 40rem;
+  text-align: center;
+}
+
+.help-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  row-gap: 5.5rem;
+  -moz-column-gap: 12rem;
+       column-gap: 12rem;
+}
+
+.help-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 11.3rem;
+}
+
+.help-item__icon-01 {
+  width: 4.786rem;
+  height: 6rem;
+  background-image: url("../assets/svg/01-Vector.svg");
+}
+
+.help-item__icon-02 {
+  width: 5.995rem;
+  height: 6rem;
+  background-image: url("../assets/svg/02-transportation.svg");
+}
+
+.help-item__icon-03 {
+  width: 6rem;
+  height: 6rem;
+  background-image: url("../assets/svg/03-toys.svg");
+}
+
+.help-item__icon-04 {
+  width: 6rem;
+  height: 6rem;
+  background-image: url("../assets/svg/04-bowls-and-cups.svg");
+}
+
+.help-item__icon-05 {
+  width: 3.13rem;
+  height: 6rem;
+  background-image: url("../assets/svg/05-shampoos.svg");
+}
+
+.help-item__icon-06 {
+  width: 6rem;
+  height: 5.416rem;
+  background-image: url("../assets/svg/06-vitamins.svg");
+}
+
+.help-item__icon-07 {
+  width: 6rem;
+  height: 6rem;
+  background-image: url("../assets/svg/07-medicines.svg");
+}
+
+.help-item__icon-08 {
+  width: 6rem;
+  height: 5.243rem;
+  background-image: url("../assets/svg/08-collars-or-leashes.svg");
+}
+
+.help-item__icon-09 {
+  width: 5.629rem;
+  height: 6rem;
+  background-image: url("../assets/svg/09-sleeping-area.svg");
+}
+
+/*********************************************************/
+/********************************************************/
+.donation {
+  background-color: #F6F6F6;
+}
+
+.donation__inner {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  -moz-column-gap: 3rem;
+       column-gap: 3rem;
+}
+
+.donation-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 38rem;
+  min-height: 28.2rem;
+}
+.donation-content__bank-title {
+  color: #545454;
+  font-family: "Georgia";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.5rem;
+  line-height: 110%;
+  /* identical to box height, or 17px */
+  letter-spacing: 0.06em;
+}
+.donation-content__credit-card {
+  display: flex;
+  justify-content: space-between;
+  width: 34.9rem;
+  padding: 1rem 1.5rem;
+  background-color: #F1CDB3;
+  border-radius: 9px;
+}
+.donation-content__text {
+  font-family: "Arial";
+  font-style: italic;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 150%;
+  /* or 18px */
+  color: #B2B2B2;
+}
+
+.photo--donation-foto {
+  width: 50.5rem;
+  height: 28.2rem;
+  background-image: url("../assets/img/donation-dog.png");
+  background-position: center;
+}
+
 /*********************************************************/
 /********************************************************/
 .footer {
