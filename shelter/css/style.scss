@@ -267,11 +267,15 @@
 
   letter-spacing: 0.06em;
 
-  /* color-dark-3xl */
-
   color: #292929;
 
   cursor: pointer;
+
+  &--start:hover {
+    transition: all 0.3s linear;
+    transform: scale(1.03);
+    background-color: #FDDCC4;
+  }
 
   &--arrow {
     width: 5.2rem;
@@ -316,6 +320,12 @@
   &--primary {
     width: 26.1rem;
     height: 5.2rem;
+
+    &:hover {
+      transition: all 0.3s linear;
+      transform: scale(1.03);
+      background-color: #FDDCC4;
+    }
   }
 
   &--arrow svg {
@@ -644,6 +654,12 @@
     padding: 1rem 1.5rem;
     background-color: #F1CDB3;
     border-radius: 9px;
+
+    &:hover {
+      transition: all 0.3s linear;
+      transform: scale(1.03);
+      background-color: #FDDCC4;
+    }
   }
 
   &__text {
@@ -739,8 +755,13 @@
   /* color-primary */
   color: #F1CDB3;
 
-  // border: #FFFFFF solid 1px;
+  &:hover {
+    transition: all 0.3s linear;
+    transform: scale(1.03);
+  }
 }
+
+
 
 .contact__icon-text p {
   margin-left: 2rem;

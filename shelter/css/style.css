@@ -387,9 +387,13 @@ body {
   line-height: 2.2rem;
   /* identical to box height, or 22px */
   letter-spacing: 0.06em;
-  /* color-dark-3xl */
   color: #292929;
   cursor: pointer;
+}
+.button--start:hover {
+  transition: all 0.3s linear;
+  transform: scale(1.03);
+  background-color: #FDDCC4;
 }
 .button--arrow {
   width: 5.2rem;
@@ -425,6 +429,11 @@ body {
 .button--primary {
   width: 26.1rem;
   height: 5.2rem;
+}
+.button--primary:hover {
+  transition: all 0.3s linear;
+  transform: scale(1.03);
+  background-color: #FDDCC4;
 }
 .button--arrow svg {
   vertical-align: middle;
@@ -736,6 +745,11 @@ body {
   background-color: #F1CDB3;
   border-radius: 9px;
 }
+.donation-content__credit-card:hover {
+  transition: all 0.3s linear;
+  transform: scale(1.03);
+  background-color: #FDDCC4;
+}
 .donation-content__text {
   font-family: "Arial";
   font-style: italic;
@@ -810,6 +824,10 @@ body {
   letter-spacing: 0.06em;
   /* color-primary */
   color: #F1CDB3;
+}
+.contact__icon-text:hover {
+  transition: all 0.3s linear;
+  transform: scale(1.03);
 }
 
 .contact__icon-text p {
