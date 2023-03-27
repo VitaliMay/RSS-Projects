@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shelter VitaliMay</title>
+    <title>Shelter pets VitaliMay</title>
     <link rel="stylesheet" href="./css/normalize.css">
-    <link rel="stylesheet" href="./css/style2.css">
+    <link rel="stylesheet" href="./css/style.css">
     <link rel="icon" href="./assets/svg/GR_favicon.ico">
 </head>
 <body>
@@ -14,26 +14,32 @@
         <header class="header header--page">
             <div class="container">
                 <div class="header__inner">
-                    <div class="logo logo--page">
-                        <div class="logo__title logo__title--page">
-                            Cozy&nbsp;House
+
+
+                    <a href="#">
+                        <div class="logo logo--page">
+                            <div class="logo__title logo__title--page">
+                                Cozy&nbsp;House
+                            </div>
+                            <div class="logo__subtitle logo__subtitle--page">
+                                Shelter&nbsp;for&nbsp;pets&nbsp;in&nbsp;Boston
+                            </div>
                         </div>
-                        <div class="logo__subtitle logo__subtitle--page">
-                            Shelter&nbsp;for&nbsp;pets&nbsp;in&nbsp;Boston
-                        </div>
-                    </div>
+                    </a>
+                    
                     <nav class="menu">
                         <ul class="menu__list menu__list--page">
                             <li class="menu__list-item">
-                                <a class="menu__list-link menu__list-link--active"
-                                    href="#">About&nbsp;the&nbsp;shelter</a>
+                                <a class="menu__list-link"
+                                    href="index.html">About&nbsp;the&nbsp;shelter</a>
                             </li>
-                            <li class="menu__list-item menu__list-item--active-page"><a class="menu__list-link" href="#service">Our&nbsp;pets</a>
+                            <li class="menu__list-item menu__list-item--active-page">
+                                <a class="menu__list-link menu__list-link--active" href="#service">Our&nbsp;pets</a>
                             </li>
-                            <li class="menu__list-item"><a class="menu__list-link"
-                                    href="#price">Help&nbsp;the&nbsp;shelter</a>
+                            <li class="menu__list-item">
+                                <a class="menu__list-link" href="index.html#help">Help&nbsp;the&nbsp;shelter</a>
                             </li>
-                            <li class="menu__list-item"><a class="menu__list-link" href="#contacts">Contacts</a></li>
+                            <li class="menu__list-item"><a class="menu__list-link" href="#footer">Contacts</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -118,42 +124,55 @@
 
         </main>
 
-
-
-        <footer class="footer">
+        <footer class="footer" id="footer">
             <div class="container">
                 <div class="footer__inner">
                     <div class="footer__inner-container">
                         <div class="contact">
                             <h2 class="contact__title">For questions and suggestions</h2>
-                            <div class="contact__icon-text">
-                                <div class="photo photo--icon-mail"></div>
-                                <p>email@shelter.com</p>
-                            </div>
-                            <div class="contact__icon-text">
-                                <div class="photo photo--icon-tel"></div>
-                                <p>+13 674 567 75 54</p>
-                            </div>
+        
+                            <a href="mailto:email@shelter.com" target="_blank" rel="noopener noreferrer">
+                                <div class="contact__icon-text">
+                                    <div class="photo photo--icon-mail"></div>
+                                    <p>email@shelter.com</p>
+                                </div>
+                            </a>
+        
+                            <a href="tel:+136745677554">
+                                <div class="contact__icon-text">
+                                    <div class="photo photo--icon-tel"></div>
+                                    <p>+13 674 567 75 54</p>
+                                </div>
+                            </a>
+        
                         </div>
-
+        
                         <div class="contact">
                             <h2 class="contact__title">We are waiting for your visit</h2>
-                            <div class="contact__icon-text">
-                                <div class="photo photo--icon-location"></div>
-                                <p>1 Central Street, Boston (entrance from the store)</p>
-                            </div>
-                            <div class="contact__icon-text">
-                                <div class="photo photo--icon-location"></div>
-                                <p>18 South Park, London </p>
-                            </div>
+        
+                            <a href="location-01.html" target="_blank">
+                                <div class="contact__icon-text">
+                                    <div class="photo photo--icon-location"></div>
+                                    <p>1 Central Street, Boston (entrance from the store)</p>
+                                </div>
+                            </a>
+        
+                            <a href="location-02.html" target="_blank">
+                                <div class="contact__icon-text">
+                                    <div class="photo photo--icon-location"></div>
+                                    <p>18 South Park, London </p>
+                                </div>
+                            </a>
                         </div>
                     </div>
                     <div class="photo photo--footer">
-
+        
                     </div>
                 </div>
             </div>
         </footer>
+
+        
     </div>
 
 </body>

@@ -1,7 +1,6 @@
-
 @import 'normalize';
 /**
- * global привет привет
+ * global
  ********************************************************************************
  */
 @import 'global';
@@ -166,10 +165,6 @@
 
   &--page {
     color:#545454;
-
-    .menu__list-item:hover{
-      color: #292929;
-    }
   }
 
   &-item:hover {
@@ -298,12 +293,7 @@
     width: 5.2rem;
     height: 5.2rem;
     background-color: #F1CDB3;
-
-    &:hover{
-      transition: all 0.3s linear;
-      // transform: scale(1.03);
-      background-color: #FDDCC4;
-    }
+    color: blue;
 
   }
 
@@ -779,6 +769,70 @@
   background-image: url("../assets/svg/f-03-pin.svg");
 }
 
+/*****************************************************/
+/*****************************************************/
+
+
+// * {
+//   box-sizing: border-box;
+//   margin: 0;
+//   padding: 0;
+// }
+
+// /* разместил в global */
+// html {
+//   box-sizing: border-box;
+
+//   scroll-behavior: smooth;
+
+  // /* Меняю размер шрифта, чтобы установить новое значение rem */
+  // /* Подгоняю его для экрана 1280 */
+  // font-size: calc(100vw / 1280 * 10);
+
+  // @media (max-width: 1024px) {
+  //   font-size: calc(100vw / 820 * 10);
+  // }
+
+  // /*font-size: calc(24px + (16 + 16 * 0.7) * ((100vw - 320px) /  1280);*/
+// }
+
+
+
+/************************************************************************************/
+
+
+
+  // @font-face {
+  //   font-family: 'Inika';
+  //   src: url("../assets/fonts/Inika-Bold.ttf");
+  //   font-weight: 700;
+  // }
+
+  // @font-face {
+  //   font-family: 'Inika';
+  //   src: url("../assets/fonts/Inika-Regular.ttf");
+  //   font-weight: 400;
+  // }
+
+  // @font-face {
+  //   font-family: 'Inter';
+  //   src: url("../assets/fonts/Inter-Bold.ttf");
+  //   font-weight: 700;
+  // }
+
+  // @font-face {
+  //   font-family: 'Inter';
+  //   src: url("../assets/fonts/Inter-Regular.ttf");
+  //   font-weight: 400;
+  // }
+
+  // /* @media (max-width: 768px) {
+  //   .section {
+  //     width: 100%;
+  //   }
+  // } */
+
+/************************************************************************************/
 
 
 
@@ -786,11 +840,6 @@
 
 
 
-
-
-
-
-
-
-
-
+/************************************************************************************/
+/************************************************************************************/
+/*********************************************************************************

@@ -1,13 +1,9 @@
-
 @import 'normalize';
-
 /**
- * global
+ * global привет
  ********************************************************************************
  */
-
 @import 'global';
-
 
 // создаю миксин
 
@@ -171,9 +167,17 @@
     color:#545454;
   }
 
+  &-item:hover {
+    color: #FAFAFA;
+  }
+
   &-item--active{
     border-bottom: solid #F1CDB3 3px;
     color: #FAFAFA;
+  }
+
+  &-link--active {
+    cursor: default;
   }
 
   &-item--active-page {
@@ -262,11 +266,19 @@
 
   color: #292929;
 
+  cursor: pointer;
+
   &--arrow {
     width: 5.2rem;
     height: 5.2rem;
     background-color: #F6F6F6;
     // border: 2px solid #F1CDB3;
+
+    &:hover{
+      transition: all 0.3s linear;
+      // transform: scale(1.03);
+      background-color: #FDDCC4;
+    }
   }
   &--arrow-inactive {
     width: 5.2rem;
@@ -274,11 +286,15 @@
     background-color: #F6F6F6;
     border: 2px solid #CDCDCD;
     color: #CDCDCD;
+
+    cursor: default;
   }
   &--arrow-focus {
     width: 5.2rem;
     height: 5.2rem;
     background-color: #F1CDB3;
+    color: blue;
+
   }
 
   &--card {
@@ -420,6 +436,18 @@
 
   height: 43.5rem;
   padding-bottom: 3rem;
+
+  &:hover {
+    // transition: all 0.3s ease;
+    transition: all 0.3s linear;
+    // transition: all 0.3s ease-in;
+    transform: scale(1.1);
+
+    .button--card {
+      background-color: #FDDCC4;
+      transition: all 0.7s ease;
+    }
+  }
 
 }
 
@@ -573,6 +601,8 @@
   flex-wrap: wrap;
 
   column-gap: 3rem;
+
+  padding: 8rem 0 10rem 0;
 }
 
 .donation-content {
@@ -812,20 +842,4 @@
 
 /************************************************************************************/
 /************************************************************************************/
-/************************************************************************************/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/*********************************************************************************
