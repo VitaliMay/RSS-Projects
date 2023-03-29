@@ -302,6 +302,15 @@ body {
   color: #292929;
 }
 
+.logo--page:hover {
+  transition: all 0.3s linear;
+  transform: scale(1.03);
+}
+.logo--page:hover .logo__title {
+  color: #F1CDB3;
+  transition: inherit;
+}
+
 .menu__list {
   display: flex;
   justify-content: space-between;
@@ -561,6 +570,7 @@ body {
 .card:hover {
   transition: all 0.3s linear;
   transform: scale(1.1);
+  filter: drop-shadow(0 0 1rem gray);
 }
 .card:hover .button--card {
   background-color: #FDDCC4;

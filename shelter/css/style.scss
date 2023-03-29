@@ -146,6 +146,25 @@
   }
 }
 
+.logo--page:hover {
+  // padding: 1rem; красивый эффект, но будет дергаться
+  // background-color: #F6F6F6;
+  // border-radius: 0.9rem;
+  // filter: drop-shadow(0 0 4px gray);
+
+  transition: all 0.3s linear;
+  transform: scale(1.03);
+  .logo__title {
+    color: #F1CDB3;
+    // transition: all 0.3s linear;
+    transition: inherit;
+    // color: #292929;
+  }
+  // .logo__subtitle--page {
+  //   color: #545454;
+  // }
+}
+
 .menu__list {
   display: flex;
   justify-content: space-between;
@@ -463,6 +482,7 @@
     transition: all 0.3s linear;
     // transition: all 0.3s ease-in;
     transform: scale(1.1);
+    filter: drop-shadow(0 0 1rem gray);
 
     .button--card {
       background-color: #FDDCC4;
