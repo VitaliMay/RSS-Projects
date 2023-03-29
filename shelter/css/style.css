@@ -248,6 +248,7 @@ body {
   background-position: top;
   background-clip: border-box;
   background-size: contain;
+  transition: 0.42s;
 }
 
 .start {
@@ -282,6 +283,7 @@ body {
   margin-bottom: 1rem;
   letter-spacing: 0.06em;
   color: #F1CDB3;
+  transition: 0.42s;
 }
 .logo__title--page {
   color: #545454;
@@ -300,6 +302,10 @@ body {
 }
 .logo__subtitle--page {
   color: #292929;
+}
+
+.logo--page {
+  transition: 0.42s;
 }
 
 .logo--page:hover {
@@ -398,6 +404,7 @@ body {
   letter-spacing: 0.06em;
   color: #292929;
   cursor: pointer;
+  transition: 0.3s;
 }
 .button--start:hover {
   transition: all 0.3s linear;
@@ -434,6 +441,7 @@ body {
   width: 18.7rem;
   height: 5.2rem;
   background-color: #FAFAFA;
+  transition: 0.42s;
 }
 .button--primary {
   width: 26.1rem;
@@ -566,10 +574,11 @@ body {
   border-radius: 0.9rem;
   height: 43.5rem;
   padding-bottom: 3rem;
+  transition: 0.42s;
 }
 .card:hover {
   transition: all 0.3s linear;
-  transform: scale(1.1);
+  transform: scale(1.06);
   filter: drop-shadow(0 0 1rem gray);
 }
 .card:hover .button--card {
@@ -657,6 +666,12 @@ body {
   align-items: center;
   justify-content: space-between;
   height: 11.3rem;
+  transition: 0.42s;
+}
+
+.help-item:hover .photo {
+  transition: 0.44s;
+  transform: rotate(15deg);
 }
 
 .help-item__icon-01 {
@@ -754,6 +769,7 @@ body {
   padding: 1rem 1.5rem;
   background-color: #F1CDB3;
   border-radius: 9px;
+  transition: 0.3s;
 }
 .donation-content__credit-card:hover {
   transition: all 0.3s linear;
@@ -834,6 +850,7 @@ body {
   letter-spacing: 0.06em;
   /* color-primary */
   color: #F1CDB3;
+  transition: 0.3s;
 }
 .contact__icon-text:hover {
   transition: all 0.3s linear;
