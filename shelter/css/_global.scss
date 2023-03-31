@@ -32,16 +32,9 @@ ol[class] {
 }
 
 body,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
+h1,h2,h3,h4,h5,h6,
 p,
-ul,
-ol,
-li,
+ul,ol,li,
 figure,
 figcaption,
 blockquote,
@@ -119,6 +112,11 @@ body {
   margin: 0 auto;
 
   padding: 0rem 4rem;
+
+  // @media screen and (max-width: 810px){
+  @media screen and (max-width: 1130px){
+    padding: 0rem 3rem;
+  }
 }
 
 

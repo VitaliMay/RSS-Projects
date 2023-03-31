@@ -80,6 +80,10 @@
   // padding: 6rem 0 6rem 0;
   padding: 3rem 0 9rem 0;
 
+  @media screen and (max-width: 1000px) {
+    padding: 3rem 0 6rem 0;
+  }
+
   &--page {
     padding: 3rem 0;
     // border: solid red 2px;
@@ -234,23 +238,40 @@
   display: flex;
   justify-content: space-between;
   // align-items: center;
-  flex-wrap: wrap;
+  // flex-wrap: wrap;
 
-  // border: solid 2px wheat;
+  // border: solid 4px aqua;
+
+  @media screen and (max-width: 1000px) {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 }
 
 
 .start-content {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  // justify-content: space-between;
 
-  width: 46rem;
-  height: 50rem;
+  justify-content: center;
+  row-gap: 4.2rem;
+  padding-bottom: 8rem;
 
-  padding: 16.3rem 0 1.5rem 0;
+  // width: 46rem;
+  // height: 50rem;
+  max-width: 46rem;
+  // min-height: 50rem;
 
-  // border: solid 2px wheat;
+  // padding: 16.3rem 0 1.5rem 0;
+
+  // border: solid 7px seashell;
+
+  @media screen and (max-width: 1000px) {
+    align-items: center;
+    padding-bottom: 10rem;
+  }
+
 }
 
 .start-content__title {
@@ -261,6 +282,8 @@
   line-height: 5.7rem;
 
   color: #FFFFFF;
+
+  // border: solid 2px seashell;
 
   // margin-right: 15rem;
 }
@@ -309,6 +332,7 @@
     height: 5.2rem;
     background-color: #F6F6F6;
     // border: 2px solid #F1CDB3;
+    flex-shrink: 0;
 
     &:hover{
       transition: all 0.3s linear;
@@ -363,9 +387,21 @@
 }
 
 .photo--start-foto {
+  // border: solid 1px seashell;
   width: 70rem;
   height: 73rem;
   background-image: url("../assets/img/start-screen-puppy.png");
+
+  @media screen and (max-width: 1260px) {
+    width: 56.9rem;
+    height: 59.3rem;
+    flex-shrink: 0;
+    margin-left: auto;
+  }
+  @media screen and (max-width: 650px) {
+    flex-shrink: 1;
+    margin-left: 0;
+  }
 }
 
 /*********************************************************/
@@ -383,13 +419,29 @@
   background-color: #FFFFFF;
 }
 
-.about__inner {
-  padding: 8rem 17.5rem 10rem 17.5rem;
+// .about__inner {
+//   padding: 8rem 17.5rem 10rem 17.5rem;
 
+//   display: flex;
+//   justify-content: space-between;
+//   flex-direction: row-reverse;
+//   flex-wrap: wrap;
+// }
+
+.about__inner {
   display: flex;
-  justify-content: space-between;
   flex-direction: row-reverse;
   flex-wrap: wrap;
+
+  // justify-content: space-between;
+  // padding: 8rem 17.5rem 10rem 17.5rem;
+
+  justify-content: center;
+  padding: 8rem 0 10rem 0;
+  column-gap: 12rem;
+  // row-gap: 1rem;
+
+  // border: solid black 1px;
 }
 
 .about-content {
@@ -400,6 +452,8 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  // border: solid black 1px;
 }
 
 .about__text {
@@ -450,25 +504,70 @@
 
 .slider {
   display: flex;
-  justify-content: space-between;
+  // justify-content: space-between;
   align-items: center;
+  justify-content: center;
 
+  min-height: 43.5rem; //чтобы слайдер не схлопывался при position: relative;
+  position: relative; //надо чтобы сработал z-index и карточки стали перед кнопками
+  
   width: 100%;
+
+  // border: solid 1px blue;
 }
+
+.slider__button-container {
+  width: 100%;
+  
+  justify-content: space-between;
+  // border: solid 4px green;
+
+  // position: absolute;
+  // z-index: 8;
+  display: flex;
+  // @media screen and (max-width: 1200px) {
+  //  z-index: 0;
+  //  width: 50%;
+  // //  position: relative;
+  // position: static;
+  // }
+
+}
+
 
 .slider__inner {
   display: flex;
-  justify-content: space-between;
+  // justify-content: space-between;
+  justify-content: center;
   flex-wrap: wrap;
 
   column-gap: 9rem;
-  row-gap: 1rem;
+  // row-gap: 1rem;
+  row-gap: 3rem;
 
-  // border: solid blue 2px;
+  position: absolute; // чтобы карточки стали перед кнопками
+  z-index: 8;
+
+  // border: solid red 1px;
+   // order: -1;
+
+  @media screen and (max-width: 1200px) {
+    //  z-index: 0;
+    //  width: 50%;
+    //  position: relative;
+    column-gap: 4rem;
+    //position: static; // работает
+
+  }
+  @media screen and (max-width: 1100px) {
+    max-width: 60rem;
+    height: 43.5rem;
+    overflow: hidden;
+  }
 
   &--page {
     column-gap: 4rem;
-    row-gap: 3rem;
+    // row-gap: 3rem;
   }
 }
 
@@ -736,9 +835,20 @@
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  row-gap: 6.5rem;
+
+  // justify-content: center;
+  //column-gap: 15rem; // т.к контейнера для текста 310px
 
   align-items: flex-start;
+  
   padding-top: 4rem;
+
+  border: #CDCDCD solid 1px;
+
+  @media screen and (max-width: 1050px) {
+    justify-content: center;
+  }
 
 }
 
@@ -749,13 +859,20 @@
   min-height: 25rem;
 
   column-gap: 13rem;
+  row-gap: 4rem;
 
   display: flex;
-  justify-content: space-between;
+  // justify-content: space-between;
+  justify-content: center;
   flex-wrap: wrap;
 
   align-items: center;
 
+  border: #CDCDCD solid 1px;
+
+  @media screen and (max-width: 1150px) {
+    column-gap: 3rem;
+  }
 }
 
 .contact {
@@ -814,7 +931,7 @@
   height: 31rem;
   background-image: url("../assets/img/footer-puppy.png");
 
-  // border: solid green 4px;
+  // border: #CDCDCD solid 1px;
 }
 
 
