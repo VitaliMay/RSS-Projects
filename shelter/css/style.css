@@ -547,6 +547,13 @@ body {
   row-gap: 6rem;
 }
 
+@media screen and (max-width: 1100px) {
+  .our-friends__inner--page {
+    row-gap: 3rem;
+    padding: 8rem 0 7.6rem 0;
+  }
+}
+
 .title--our-friends {
   max-width: 40rem;
   text-align: center;
@@ -598,11 +605,20 @@ body {
     max-width: 60rem;
     height: 43.5rem;
     overflow: hidden;
+    margin-bottom: 1rem;
   }
 }
 .slider__inner--page {
   -moz-column-gap: 4rem;
        column-gap: 4rem;
+  position: static;
+}
+@media screen and (max-width: 1100px) {
+  .slider__inner--page {
+    width: 90rem;
+    height: 136.5rem;
+    overflow: hidden;
+  }
 }
 
 .card {
