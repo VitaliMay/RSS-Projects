@@ -31,7 +31,6 @@ abbr[title] {
   text-decoration: underline dotted; /* 2 */
 }
 
-
 small {
   font-size: 80%;
 }
@@ -40,33 +39,22 @@ img {
   border-style: none;
 }
 
-/* Forms
-   ========================================================================== */
+/* Forms ========================================================================== */
 
-
-button,
-input,
-optgroup,
-select,
-textarea {
+button,input,optgroup,select,textarea {
   font-family: inherit; /* 1 */
   font-size: 100%; /* 1 */
   line-height: 1.15; /* 1 */
   margin: 0; /* 2 */
 }
 
-
-button,
-input { /* 1 */
+button,input { /* 1 */
   overflow: visible;
 }
 
-
-button,
-select { /* 1 */
+button,select { /* 1 */
   text-transform: none;
 }
-
 
 button::-moz-focus-inner,
 [type="button"]::-moz-focus-inner,
@@ -84,25 +72,6 @@ button:-moz-focusring,
   outline: 1px dotted ButtonText;
 }
 
-
-fieldset {
-  padding: 0.35em 0.75em 0.625em;
-}
-
-
-
-legend {
-  box-sizing: border-box; /* 1 */
-  color: inherit; /* 2 */
-  display: table; /* 1 */
-  max-width: 100%; /* 1 */
-  padding: 0; /* 3 */
-  white-space: normal; /* 1 */
-}
-
-progress {
-  vertical-align: baseline;
-}
 
 textarea {
   overflow: auto;

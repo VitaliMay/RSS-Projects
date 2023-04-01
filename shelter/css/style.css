@@ -37,26 +37,19 @@ img {
   border-style: none;
 }
 
-/* Forms
-   ========================================================================== */
-button,
-input,
-optgroup,
-select,
-textarea {
+/* Forms ========================================================================== */
+button, input, optgroup, select, textarea {
   font-family: inherit; /* 1 */
   font-size: 100%; /* 1 */
   line-height: 1.15; /* 1 */
   margin: 0; /* 2 */
 }
 
-button,
-input { /* 1 */
+button, input { /* 1 */
   overflow: visible;
 }
 
-button,
-select { /* 1 */
+button, select { /* 1 */
   text-transform: none;
 }
 
@@ -73,23 +66,6 @@ button:-moz-focusring,
 [type=reset]:-moz-focusring,
 [type=submit]:-moz-focusring {
   outline: 1px dotted ButtonText;
-}
-
-fieldset {
-  padding: 0.35em 0.75em 0.625em;
-}
-
-legend {
-  box-sizing: border-box; /* 1 */
-  color: inherit; /* 2 */
-  display: table; /* 1 */
-  max-width: 100%; /* 1 */
-  padding: 0; /* 3 */
-  white-space: normal; /* 1 */
-}
-
-progress {
-  vertical-align: baseline;
 }
 
 textarea {
@@ -250,7 +226,6 @@ body {
 }
 
 .start {
-  /* start-screen-gradient-background */
   background: url(noise_lines_transparent@2X.png), radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%), #211F20;
 }
 
@@ -514,20 +489,31 @@ body {
 .about__inner {
   display: flex;
   flex-direction: row-reverse;
-  flex-wrap: wrap;
   justify-content: center;
   padding: 8rem 0 10rem 0;
   -moz-column-gap: 12rem;
        column-gap: 12rem;
+  row-gap: 8rem;
+}
+@media screen and (max-width: 870px) {
+  .about__inner {
+    flex-wrap: wrap;
+  }
 }
 
 .about-content {
-  width: 43rem;
+  max-width: 43rem;
   min-height: 41rem;
   padding: 1.4rem 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+@media screen and (max-width: 910px) {
+  .about-content {
+    min-height: 38rem;
+    padding: 0;
+  }
 }
 
 .about__text {
@@ -543,6 +529,7 @@ body {
   width: 30rem;
   height: 41rem;
   background-image: url("../assets/img/about-pets.png");
+  flex-shrink: 0;
 }
 
 /*********************************************************/
@@ -687,9 +674,6 @@ body {
 .help {
   background-color: #FFFFFF;
 }
-.help .container {
-  padding: 8rem 4rem 10rem 4rem;
-}
 
 .help__inner {
   display: flex;
@@ -697,6 +681,7 @@ body {
   align-items: center;
   justify-content: space-between;
   row-gap: 6rem;
+  padding: 8rem 0 10rem 0;
 }
 
 .title--help {
@@ -712,6 +697,12 @@ body {
   -moz-column-gap: 12rem;
        column-gap: 12rem;
 }
+@media screen and (max-width: 904px) {
+  .help-list {
+    -moz-column-gap: 6rem;
+         column-gap: 6rem;
+  }
+}
 
 .help-item {
   display: flex;
@@ -720,6 +711,11 @@ body {
   justify-content: space-between;
   height: 11.3rem;
   transition: 0.42s;
+}
+@media screen and (max-width: 904px) {
+  .help-item {
+    width: 17rem;
+  }
 }
 
 .help-item:hover .photo {
@@ -795,6 +791,7 @@ body {
   flex-wrap: wrap;
   -moz-column-gap: 3rem;
        column-gap: 3rem;
+  row-gap: 6rem;
   padding: 8rem 0 10rem 0;
 }
 
@@ -841,7 +838,7 @@ body {
 
 .photo--donation-foto {
   width: 50.5rem;
-  height: 28.2rem;
+  height: 26.1rem;
   background-image: url("../assets/img/donation-dog.png");
   background-position: center;
 }
@@ -860,11 +857,11 @@ body {
   row-gap: 6.5rem;
   align-items: flex-start;
   padding-top: 4rem;
-  border: #CDCDCD solid 1px;
 }
 @media screen and (max-width: 1050px) {
   .footer__inner {
     justify-content: center;
+    padding-top: 1rem;
   }
 }
 
@@ -878,7 +875,6 @@ body {
   justify-content: center;
   flex-wrap: wrap;
   align-items: center;
-  border: #CDCDCD solid 1px;
 }
 @media screen and (max-width: 1150px) {
   .footer__inner-container {
