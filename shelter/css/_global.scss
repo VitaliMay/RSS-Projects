@@ -7,7 +7,7 @@ html {
   font-size: 10px;
 
   // /* Подгоняю его для экрана 1280 */
-  // /*font-size: calc(100vw / 1280 * 10);*/
+  // font-size: calc(100vw / 1280 * 10);
 
   // @media (max-width: 1024px) {
   //   font-size: calc(100vw / 820 * 10);
@@ -116,6 +116,9 @@ body {
   // @media screen and (max-width: 810px){
   @media screen and (max-width: 1130px){
     padding: 0rem 3rem;
+  }
+  @media screen and (max-width: 380px){
+    padding: 0rem 1rem;
   }
 }
 
