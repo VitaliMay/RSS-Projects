@@ -53,7 +53,35 @@
 
 // color: #545454;
 
+body.lock {
+  overflow: hidden;
+  // background-color: red;
+  transition: 1s;
+}
+body.lock .wrapper{
+  // opacity: 0.5;
+  transition: 1s;
+}
 
+// body.lock .wrapper {
+//   position: fixed;
+//   background-color: red;
+//   height: 100vh;
+//   width: 100vw;
+//   top: 0;
+//   left: 0;
+//   z-index: 100;
+// }
+// .wrapper {
+//   // position: fixed;
+//   background-color: red;
+//   // height: 100vh;
+//   // width: 100vw;
+//   // top: 0;
+//   // left: 0;
+//   // z-index: 100;
+//   opacity: 0.5;
+// }
 
 
 /*****************************************************/
@@ -69,9 +97,21 @@
 
 }
 
+// .start {
+//   background: url(noise_lines_transparent@2X.png), radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */, #211F20;
+// }
+// .start {
+//   background: url(/assets/images/noise_transparent.png), radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%), #211F20;
+// }
 .start {
-  background: url(noise_lines_transparent@2X.png), radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */, #211F20;
+  background: url(../assets/img/noise.png), radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%), #211F20;
+
+  // opacity: 0.5;
 }
+
+// .start {
+//   background: url(../img/not-only/noise_transparent@2x.png), radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%), #211F20;
+// }
 
 /*****************************************************/
 /*********Придется менять при адаптации****************/
@@ -189,7 +229,7 @@
   position: absolute;
   right: 0px;
 
-  z-index: 8;
+  z-index: 22;
 
   width: 30px;
   height: 22px;
@@ -197,6 +237,7 @@
   /* box-sizing: content-box;  */
   box-sizing: border-box;
 
+  
   border: none;
   border-radius: 0px;
 
@@ -207,10 +248,15 @@
   // position: relative;
 
   background-color: inherit;
-  transition: 0.3s all;
+  transition: 0.6s all;
 
   display: none;
-  @media screen and (max-width: 767px) {
+
+  // &.rotade {
+  //   transform: rotate(-90deg);
+  // }
+
+  @media screen and (max-width: 767.9px) {
     // display: block;
     // margin-left: auto;
     display: flex;
@@ -218,6 +264,12 @@
     flex-direction: column;
     // border: #B2B2B2 solid 1px;
   }
+
+  /***тест***************************************************/
+  // @media screen and (max-width: 766px) {
+  //   transform: rotate(-90deg);
+  // }
+  /**********************************************************/
 
   @media screen and (max-width: 380px){
     right: 10px;
@@ -230,6 +282,15 @@
   }
 }
 
+// надо обращаться к id так как вызов идёт от него
+#burger-button.rotade {
+    transform: rotate(-90deg);
+    transition: 0.4s all;
+
+    .burger-button__cross--page {
+      background-color: #F1CDB3;
+    }
+}
 
 
 /* рисую кнопку *********************************/
@@ -298,6 +359,39 @@
 /****************************************************************/
 /****************************************************************/
 
+// @media screen and (max-width: 767.9px) {
+//   .menu {
+//     border: solid 4px aqua;
+//     position: fixed;
+//     top: 0;
+//     left: 0;
+//     width: 100vw;
+//     height: 100vh;
+//     background: rgba(41, 41, 41, 0.6);
+//   }
+// }
+
+.fon {
+    // border: solid 4px aqua;
+    position: fixed;
+    // transition: 1s all;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    background: rgba(41, 41, 41, 0.6);
+    z-index: -10;
+    // width: 100vw;
+    // height: 100vh;
+}
+.fon.work {
+  // transition: 0.6s all;
+  z-index: 10;
+  width: 100vw;
+  height: 100vh;
+}
+
+
 .menu__list {
   display: flex;
   justify-content: space-between;
@@ -317,20 +411,68 @@
   line-height: 2.4rem;
   color: #CDCDCD;
 
+  // opacity: none;
+
+  // .open {
+  //   right: 0;
+  // }
+
   // border: whitesmoke 1px solid;
 
   // меню исчезает и появляется ПЛАВНО
   transition: 0.7s;
-  @media screen and (max-width: 767px) {
-    position: absolute;
+  @media screen and (max-width: 767.9px) {
+    // position: absolute; появляется белая полоса
+    position: fixed;
+    right: -32.2rem;
+    top: 0;
+    // opacity: 0;
+    opacity: 6;
     transition: 0.7s;
-    transform: translateX(100vw);
-    transition: 0.7s;
-    display: none;
+    //z-index: -1; // чтобы не срабатывало нажатие
+    z-index: 16; // тест
+    
+    // transform: translateX(100vw); рабочий вариант
+    // transform: translateX(100%);
+    // display: none; рабочий вариант
+
+    /************************************************/
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #292929;
+    row-gap: 4rem;
+    width: 32rem;
+    // height: 82.3rem;
+    min-height: 100vh;
+    
+    // color: #FAFAFA;
+    font-size: 3.2rem;
+    line-height: 160%;
+
+    // border: solid 1px wheat;
+
   }
+
+  
+
+/**********************************/
+/********************тест**********/
+/*  меню выезджает */
+
+  &.open {
+    right: 0;
+  }
+/**********************************/
+/************************************/
 
   &--page {
     color:#545454;
+    // z-index: 16;
+    &.open {
+      color: #CDCDCD;
+    }
+
 
     .menu__list-item:hover{
       color: #292929;
@@ -353,6 +495,9 @@
   &-item--active-page {
     color: #292929;
     border-bottom: solid #F1CDB3 3px;
+    @media screen and (max-width: 767.9px) {
+      color: #FAFAFA;
+    }
   }
 }
 
@@ -801,7 +946,7 @@
   row-gap: 3rem;
 
   position: absolute; // чтобы карточки стали перед кнопками
-  z-index: 8;
+  z-index: 1;
 
   // border: solid red 1px;
    // order: -1;
@@ -1241,7 +1386,7 @@
 
 .footer {
   /* footer-gradient-background */
-  background: url(noise_lines_transparent@2X.png), radial-gradient(110.67% 538.64% at 5.73% 50%, #513D2F 0%, #1A1A1C 100%), #211F20;
+  background: url(../assets/img/noise.png), radial-gradient(110.67% 538.64% at 5.73% 50%, #513D2F 0%, #1A1A1C 100%), #211F20;
 }
 
 .footer__inner {

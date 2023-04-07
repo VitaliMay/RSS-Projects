@@ -221,6 +221,15 @@ body {
   }
 }
 
+body.lock {
+  overflow: hidden;
+  transition: 1s;
+}
+
+body.lock .wrapper {
+  transition: 1s;
+}
+
 /*****************************************************/
 .photo {
   background-repeat: no-repeat;
@@ -231,7 +240,7 @@ body {
 }
 
 .start {
-  background: url(noise_lines_transparent@2X.png), radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%), #211F20;
+  background: url(../assets/img/noise.png), radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%), #211F20;
 }
 
 /*****************************************************/
@@ -312,7 +321,7 @@ body {
 .burger-button {
   position: absolute;
   right: 0px;
-  z-index: 8;
+  z-index: 22;
   width: 30px;
   height: 22px;
   /* box-sizing: content-box;  */
@@ -322,10 +331,12 @@ body {
   padding: 0;
   margin: 0;
   background-color: inherit;
-  transition: 0.3s all;
+  transition: 0.6s all;
   display: none;
+  /***тест***************************************************/
+  /**********************************************************/
 }
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 767.9px) {
   .burger-button {
     display: flex;
     justify-content: space-between;
@@ -343,6 +354,14 @@ body {
   cursor: pointer;
 }
 
+#burger-button.rotade {
+  transform: rotate(-90deg);
+  transition: 0.4s all;
+}
+#burger-button.rotade .burger-button__cross--page {
+  background-color: #F1CDB3;
+}
+
 /* рисую кнопку *********************************/
 .burger-button__cross {
   width: 30px;
@@ -355,6 +374,22 @@ body {
 
 /****************************************************************/
 /****************************************************************/
+.fon {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  background: rgba(41, 41, 41, 0.6);
+  z-index: -10;
+}
+
+.fon.work {
+  z-index: 10;
+  width: 100vw;
+  height: 100vh;
+}
+
 .menu__list {
   display: flex;
   justify-content: space-between;
@@ -371,18 +406,40 @@ body {
   line-height: 2.4rem;
   color: #CDCDCD;
   transition: 0.7s;
+  /**********************************/
+  /********************тест**********/
+  /*  меню выезджает */
+  /**********************************/
+  /************************************/
 }
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 767.9px) {
   .menu__list {
-    position: absolute;
+    position: fixed;
+    right: -32.2rem;
+    top: 0;
+    opacity: 6;
     transition: 0.7s;
-    transform: translateX(100vw);
-    transition: 0.7s;
-    display: none;
+    z-index: 16;
+    /************************************************/
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #292929;
+    row-gap: 4rem;
+    width: 32rem;
+    min-height: 100vh;
+    font-size: 3.2rem;
+    line-height: 160%;
   }
+}
+.menu__list.open {
+  right: 0;
 }
 .menu__list--page {
   color: #545454;
+}
+.menu__list--page.open {
+  color: #CDCDCD;
 }
 .menu__list--page .menu__list-item:hover {
   color: #292929;
@@ -400,6 +457,11 @@ body {
 .menu__list-item--active-page {
   color: #292929;
   border-bottom: solid #F1CDB3 3px;
+}
+@media screen and (max-width: 767.9px) {
+  .menu__list-item--active-page {
+    color: #FAFAFA;
+  }
 }
 
 /*********************************************************/
@@ -758,7 +820,7 @@ body {
        column-gap: 9rem;
   row-gap: 3rem;
   position: absolute;
-  z-index: 8;
+  z-index: 1;
 }
 @media screen and (max-width: 1200px) {
   .slider__inner {
@@ -1172,7 +1234,7 @@ body {
 /********************************************************/
 .footer {
   /* footer-gradient-background */
-  background: url(noise_lines_transparent@2X.png), radial-gradient(110.67% 538.64% at 5.73% 50%, #513D2F 0%, #1A1A1C 100%), #211F20;
+  background: url(../assets/img/noise.png), radial-gradient(110.67% 538.64% at 5.73% 50%, #513D2F 0%, #1A1A1C 100%), #211F20;
 }
 
 .footer__inner {
