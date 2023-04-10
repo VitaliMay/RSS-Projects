@@ -390,6 +390,84 @@ body.lock .wrapper {
   height: 100vh;
 }
 
+/**********************************************/
+.modal-wrapper {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-start;
+  top: 0px;
+  left: 0px;
+  width: 0px;
+  height: 0px;
+  /* размещаю по центру */
+  transform: translate(calc(50vw - 450px), calc((100vh - 500px) / 2));
+  z-index: -10;
+  transition: 1s all;
+}
+@media screen and (max-width: 1080px) {
+  .modal-wrapper {
+    transform: translate(calc(50vw - 315px), calc((100vh - 350px) / 2));
+  }
+}
+@media screen and (max-width: 750px) {
+  .modal-wrapper {
+    transform: translate(calc(50vw - 120px), calc((100vh - 341px) / 2));
+  }
+}
+.modal-wrapper .button--arrow {
+  background-color: rgba(0, 0, 0, 0);
+  position: absolute;
+  top: -50px;
+  right: -40px;
+}
+.modal-wrapper.view {
+  width: 900px;
+  height: 500px;
+  z-index: 11;
+  transition: 1s all;
+  /* этот цвет показывается, если карточке не назначен свой */
+  background: rgba(212, 10, 10, 0.6);
+}
+@media screen and (max-width: 1080px) {
+  .modal-wrapper.view {
+    width: 630px;
+    height: 350px;
+  }
+}
+@media screen and (max-width: 750px) {
+  .modal-wrapper.view {
+    width: 240px;
+    height: 341px;
+  }
+}
+.modal-wrapper.view--001 {
+  background-color: aqua;
+}
+.modal-wrapper.view--002 {
+  background-color: goldenrod;
+}
+.modal-wrapper.view--003 {
+  background-color: purple;
+}
+.modal-wrapper.view--004 {
+  background-color: red;
+}
+.modal-wrapper.view--005 {
+  background-color: greenyellow;
+}
+.modal-wrapper.view--006 {
+  background-color: rosybrown;
+}
+.modal-wrapper.view--007 {
+  background-color: hotpink;
+}
+.modal-wrapper.view--008 {
+  background-color: blue;
+}
+
+/*************************************************/
 .menu__list {
   display: flex;
   justify-content: space-between;
@@ -870,6 +948,7 @@ body.lock .wrapper {
   height: 43.5rem;
   padding-bottom: 3rem;
   transition: 0.42s;
+  cursor: pointer;
 }
 .card:hover {
   transition: all 0.3s linear;
