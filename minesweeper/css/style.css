@@ -1,0 +1,74 @@
+@charset "UTF-8";
+* {
+  box-sizing: border-box;
+}
+
+.title {
+  text-align: center;
+}
+
+.playboard {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 5px;
+  border: solid 2px black;
+  width: 458px;
+  margin: 0 auto;
+  padding: 5px;
+}
+
+.block {
+  width: 40px;
+  height: 40px;
+  border: solid 1px black;
+  padding: 4px 0 0 4px;
+  /* margin: 1px;
+  padding: 1px; */
+}
+
+.add-key {
+  width: 106px;
+}
+
+.tab-key {
+  width: 80px;
+}
+
+.capslock-key {
+  width: 90px;
+}
+
+.enter-key {
+  width: 122px;
+}
+
+.slash-key {
+  width: 76px;
+}
+
+.shift-key {
+  width: 134px;
+}
+
+.shift-key--small {
+  width: 78px;
+}
+
+.space-key {
+  width: 275px;
+}
+
+.active {
+  background-color: green;
+}
+
+/* Текст */
+.wrapper-text {
+  border: solid red 2px;
+  padding: 5px;
+  margin: 0 auto 10px;
+  width: 855px;
+  display: flex;
+  justify-content: flex-start;
+}/*# sourceMappingURL=style.css.map */
