@@ -24,9 +24,21 @@ console.log(codeKeyboard.length)
 let column = 10
 let row = 10
 
-let mine = 0
+//let mine = { x: 0,  y: 0 }
+// const mine = {
+//   x: 0,
+//   y: 0,
+//   color: "red"
+// }
+const mine = {
+  x: 0,
+  y: 0
+}
+
 
 // cell unit block item elem (ячейка клетка блок)
+
+/************************************************************************ */
 
 function start(){
 
@@ -39,11 +51,23 @@ function start(){
 
   for (let i = 0; i < row*column; i++){
 
+    mine.x = i % row // определяю координату X ячейки
+    mine.y = Math.floor(i/row) //  определяю координату Y ячейки
+
+    let mineJSON = JSON.stringify(mine)  // это уже строка, поэтому кавычек в data НЕ НАДО!!!
+
     // let addDiv = `<div class="key" data="${codeKeyboard[i]}">` + String.fromCharCode(abcKeys[i]) +'</div>';  рабочий вариант
     //let  addDiv = `<div class="key" data="${codeKeyboard[i]}">` + String.fromCharCode(abc[k][i]) +'</div>';
     //let  block = `<div class="block" data="${mine}">` + String.fromCharCode(abc[k][i]) +'</div>';
 
-    let block = `<div class="block" data="${mine}">${i+1}</div>`;
+    // let block = `<div class="block" data="${mine}">${i+1}</div>`;
+
+    //let block = `<div class="block" data="${mineJSON}"><div>${i+1}</div></div>`;
+
+    //let block = `<div class="block" data="${JSON.stringify(mine)}" data-x="${Math.floor(i/row)}" data-y="${i%row}"><div>${i+1}</div></div>`;
+    // let block = `<div class="block" data-asds=${minewer} data-x="${Math.floor(i/row)}" data-y="${i%row}"><div>${i+1}</div></div>`;
+    //let block = `<div class="block" data=${mineJSON} data-x="${Math.floor(i/row)}"><div>${i+1}</div></div>`;
+    let block = `<div class="block" data=${mineJSON} "><div>${i+1}</div></div>`;
 
     init = init + block;
   }
@@ -55,6 +79,33 @@ function start(){
 }
 
 start()
+
+
+document.querySelectorAll('.block').forEach(function(block){
+  block.addEventListener('click', function(){
+    //alert(` x=${block.dataset.x}\n y=${block.dataset.y}`) // работает выводит координаты ячейки 
+    console.log(typeof block.getAttribute("data"))
+    console.log(JSON.parse(block.getAttribute("data")))
+    let coordinate = JSON.parse(block.getAttribute("data"))
+    console.log(` x=${coordinate.x}\n y=${coordinate.y}`)
+  })
+})
+
+/*
+document.querySelectorAll('.block').forEach(function(block){
+  block.addEventListener('click', function(){
+    //alert(` x=${block.dataset.x}\n y=${block.dataset.y}`) // работает выводит координаты ячейки 
+    console.log(typeof block.getAttribute("data-asds"))
+    console.log(JSON.parse(block.getAttribute("data-asds")))
+    let qwer = JSON.parse(block.getAttribute("data-asds"))
+    console.log(qwer.x)
+  })
+})
+*/
+
+
+
+/************************************************************************************** */
 
 /* Добавляю область для ввода текста */
 

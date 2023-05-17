@@ -1,62 +1,137 @@
 
-* {
+$size: 40px;
+$space: 2px;
+$rows: 10;
+
+html {
   box-sizing: border-box;
+  scroll-behavior: smooth;
+  /* Меняю размер шрифта, чтобы установить новое значение rem */
+  //font-size: 10px;
+  /*font-size: calc(24px + (16 + 16 * 0.7) * ((100vw - 320px) /  1280);*/
 }
+
+
+// * {
+//   box-sizing: border-box;
+//   margin: 0;
+//   padding: 0;
+// }
 
 .title {
   text-align: center;
 }
 
 .playboard {
+  //font-size: 1.6rem;
   display: flex;
   flex-direction: row;
+  //justify-content: center;
+  justify-content: space-around;
+  align-items: center;
+  //align-items: ;
   flex-wrap: wrap;
-  gap: 5px;
-  border: solid 2px black;
+  //gap: 0.5rem;
+  gap: $space;
+  border: solid $space black;
   //width: 458px;
-  width: calc(40px*10 + 5px*11 + 3px);
+  //width: calc(40px*10 + 5px*12);
+
+  //width: calc(($size + $space)*12 + $space);
+
+  //width: calc(($size + $space)*10 + 10*2*0.8px);
+  width: calc(($size + $space)*10 + 2*$space);
+
+  // Почему-то не работает box-sizing: border-box;
+
+  //height: calc(($size + $space)*12 + $space);
+  //width: calc(4rem*11 + 0.5rem*12);
+  //width: 510px;
   margin: 0 auto;
-  padding: 5px;
+  //padding: 5px;
+  // padding: $space $space 0 0;
+  padding: calc(2*$space);
 }
 
 .block {
-  width: 40px;
-  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  //background-color: gray;
+  width: $size;
+  height: $size;
+  // margin-left: $space;
+  // margin-bottom: $space;
+
+  // width: 35px;
+  // height: 35px;
+  // width: 4rem;
+  // height: 4rem;
+
   border: solid 1px black;
+  // padding: 4px 0 0 4px;
+
   //text-align: center;
-  padding: 4px 0 0 4px;
+  
   /* margin: 1px;
   padding: 1px; */
 }
 
-.add-key {
-  width: 106px;
+// [data-x="1"] {
+//   background: red;
+// }
+
+/*
+[data-x="2"] {
+  background: green;
 }
-.tab-key {
-  width: 80px;
+[data|="color"] {
+  background: red;
 }
-.capslock-key {
-  width: 90px;
+*/
+// [data*="color"] {
+//   background: rgb(55, 0, 255);
+// }
+// [data|="color"] {
+//   background: rgb(55, 0, 255);
+// }
+
+/*
+[data|="color"] {
+  color: red;
 }
-.enter-key {
-  width: 122px;
+// [data] {
+//   background: yellow;
+// }
+*/
+
+
+// [data*="y"] {
+//   background-color: blue;
+// }
+
+// [data*="y"][data*="4"] {
+//   background-color: green;
+// }
+
+/************************************************************************************/
+/************************************************************************************/
+
+[data*='"y":3'] {
+  background-color: blue;
 }
 
-.slash-key {
-  width: 76px;
+[data*='"x":7'] {
+  background-color: yellow;
 }
 
-.shift-key {
-  width: 134px;
+[data*='"y":3'][data*='"x":7'] {
+  background-color: red;
 }
 
-.shift-key--small {
-  width: 78px;
-}
-
-.space-key {
-  width: 275px;
-}
+/************************************************************************************/
+/************************************************************************************/
 
 .active {
   background-color: green;
