@@ -28,6 +28,7 @@ html {
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
+  background-color: gray;
   width: 40px;
   height: 40px;
   border: solid 1px black;
@@ -35,24 +36,17 @@ html {
   padding: 1px; */
 }
 
-/*
-[data-x="2"] {
-  background: green;
-}
-[data|="color"] {
-  background: red;
-}
-*/
-/*
-[data|="color"] {
-  color: red;
-}
-// [data] {
-//   background: yellow;
-// }
-*/
 /************************************************************************************/
-/************************************************************************************/
+/******Рабочие варианты обращения к data ********************************************/
+/*
+[data*="y"] {
+  background-color: sandybrown;
+}
+
+[data*="y"][data*="4"] {
+  background-color: green;
+}
+
 [data*='"y":3'] {
   background-color: blue;
 }
@@ -64,7 +58,7 @@ html {
 [data*='"y":3'][data*='"x":7'] {
   background-color: red;
 }
-
+*/
 /************************************************************************************/
 /************************************************************************************/
 .active {

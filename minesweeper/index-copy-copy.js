@@ -1,172 +1,39 @@
-
 /*
-class mineInfo {
-  constructor() {
-    this.mineHere = false // мина здесь?
-    this.mineNear = 0 // сколько мин рядом
-    this.mineOpen = false // состояни ячейки, открыта или нет
-  }
-}
-*/
+let abc = [
+  [96, 49, 50, 51, 52, 53, 54, 55, 56, 57, 48, 45, 61, '', ' ', 113, 119, 101, 114, 116, 121, 117, 105, 111, 112, 92, 91, 93, '', '', 97, 115, 100, 102, 103, 104, 106, 107, 108, 59, 39, '', '', 122, 120, 99, 118, 98, 110, 109, 44, 46, 47, '', '', '', '', '', ' ', '', '', '', '', ''],
+  [1105, 49, 50, 51, 52, 53, 54, 55, 56, 57, 48, 45, 61, 1081, 1094, 1091, 1082, 1077, 1085, 1075, 1096, 1097, 1079, 1093, 1098, 1092, 1099, 1074, 1072, 1087, 1088, 1086, 1083, 1076, 1078, 1101, 92, 1103, 1095, 1089, 1084, 1080, 1090, 1100, 1073, 1102, 46]
+]
+let k = 0
 
-let mineNumber = 10  // всего (количество) мин
+let rusKeys = [1105, 49, 50, 51, 52, 53, 54, 55, 56, 57, 48, 45, 61, 1081, 1094, 1091, 1082, 1077, 1085, 1075, 1096, 1097, 1079, 1093, 1098, 1092, 1099, 1074, 1072, 1087, 1088, 1086, 1083, 1076, 1078, 1101, 92, 1103, 1095, 1089, 1084, 1080, 1090, 1100, 1073, 1102, 46]
+
+
+//let abcKeys = [96, 49, 50, 51, 52, 53, 54, 55, 56, 57, 48, 45, 61, '', ' ', 113, 119, 101, 114, 116, 121, 117, 105, 111, 112, 92, 91, 93, '', 97, 115, 100, 102, 103, 104, 106, 107, 108, 59, 39, '', '', 122, 120, 99, 118, 98, 110, 109, 44, 46, 47, '', '', '', '', '', ' ', '', '', '', '', '']
+let abcKeys = [96, 49, 50, 51, 52, 53, 54, 55, 56, 57, 48, 45, 61, '', ' ', 113, 119, 101, 114, 116, 121, 117, 105, 111, 112, 92, 91, 93, '', '', 97, 115, 100, 102, 103, 104, 106, 107, 108, 59, 39, '', '', 122, 120, 99, 118, 98, 110, 109, 44, 46, 47, '', '', '', '', '', ' ', '', '', '', '', '']
+// let codeKeyboard = ['Backquote', 'Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'Digit6', 'Digit7', 'Digit8', 'Digit9', 'Digit0', 'Minus', 'Equal', 'Backspace', 'Tab', 'KeyQ', 'KeyW', 'KeyE', 'KeyR', 'KeyT', 'KeyY', 'KeyU', 'KeyI', 'KeyO', 'KeyP', 'Backslash', 'BracketLeft', 'BracketRight', 'CapsLock', 'KeyA', 'KeyS', 'KeyD', 'KeyF', 'KeyG', 'KeyH', 'KeyJ', 'KeyK', 'KeyL', 'Semicolon', 'Quote', 'Enter', 'ShiftLeft', 'KeyZ', 'KeyX', 'KeyC', 'KeyV', 'KeyB', 'KeyN', 'KeyM', 'Comma', 'Period', 'Slash', 'ArrowUp', 'ShiftRight', 'ControlLeft', 'MetaLeft', 'AltLeft', 'Space', 'AltRight', 'ControlRight', 'ArrowLeft', 'ArrowDown', 'ArrowRight']
+let codeKeyboard = ['Backquote', 'Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'Digit6', 'Digit7', 'Digit8', 'Digit9', 'Digit0', 'Minus', 'Equal', 'Backspace', 'Tab', 'KeyQ', 'KeyW', 'KeyE', 'KeyR', 'KeyT', 'KeyY', 'KeyU', 'KeyI', 'KeyO', 'KeyP', 'Backslash', 'BracketLeft', 'BracketRight', "Delete",'CapsLock', 'KeyA', 'KeyS', 'KeyD', 'KeyF', 'KeyG', 'KeyH', 'KeyJ', 'KeyK', 'KeyL', 'Semicolon', 'Quote', 'Enter', 'ShiftLeft', 'KeyZ', 'KeyX', 'KeyC', 'KeyV', 'KeyB', 'KeyN', 'KeyM', 'Comma', 'Period', 'Slash', 'ArrowUp', 'ShiftRight', 'ControlLeft', 'MetaLeft', 'AltLeft', 'Space', 'AltRight', 'ControlRight', 'ArrowLeft', 'ArrowDown', 'ArrowRight']
+//let funcButtonIndexArr = [13, 14, 28, 40, 41, 52, 53, 54, 55, 56, 58, 59, 60, 61, 62]
+let funcButtonIndexArr = [13, 14, 28, 29, 41, 42, 53, 54, 55, 56, 57, 59, 60, 61, 62, 63]
+
+// позиция пробела 57 он и так работает 
+//let index = [13, 14, 28, 40, 41, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62]
+
+console.log(abcKeys.length)
+console.log(codeKeyboard.length)
+*/
 let column = 10
 let row = 10
 
-// let matrix = Array(row).fill(Array(column).fill(new mineInfo)) // создаю чистую матрицу
-// console.log(matrix)
-
-/************************************************************************************************** */
-/************************************************************************************************** */
-// let column = 10
-// let row = 10
-
+//let mine = { x: 0,  y: 0 }
 // const mine = {
 //   x: 0,
-//   y: 0
+//   y: 0,
+//   color: "red"
 // }
 const mine = {
   x: 0,
-  y: 0,
-  mineHere: false,
-  mineNear: 0,
-  mineOpen: false
+  y: 0
 }
-
-//let matrix = Array(row).fill(Array(column).fill((mine))) // создаю чистую матрицу не работает, похоже ссылается сама на себя
-// придется делать циклом
-
-//let matrix = []
-
-// let column = 10
-// let row = 10
-
-/*
-let matrix = new Array(row);
-for (let i = 0; i < row; i++) {
-  matrix[i] = new Array(column);
-  for (let j = 0; j < column; j++) {
-    // надо создавать новый объект для каждой ячейки, т.к. иначе будет ссылка на один и тот же объект и X и Y примут последние значения
-    // поэтому лучше использовать класс
-    matrix[i][j] = {
-      x: i,
-      y: j,
-      mineHere: false,
-      mineNear: 0,
-      mineOpen: false
-    };
-    mine.x = i
-    mine.y = j
-    matrix[i][j] = mine
-  }
-}
-*/
-class Mine {
-  constructor(x, y) {
-    this.x = x;
-    this.y = y;
-    this.mineHere = false;
-    this.mineNear = 0;
-    this.mineOpen = false;
-  }
-}
-
-let matrix = new Array(row);
-/*
-for (let i = 0; i < row; i++) {
-  matrix[i] = new Array(column);
-  for (let j = 0; j < column; j++) {
-    matrix[i][j] = new Mine(i, j);
-  }
-}
-*/
-
-// matrix[0][8].x = 25;
-// console.log(matrix[0][8].x);
-// console.log(matrix[0]);
-
-/******************************************************* */
-// функция расстановки мин
-
-const minePlacement = function(){
-
-  /* создаю матрицу игрового поля */
-  matrix = new Array(row); 
-  for (let x = 0; x < row; x++) {
-    matrix[x] = new Array(column);
-    for (let y = 0; y < column; y++) {
-      matrix[x][y] = new Mine(x, y);
-    }
-  }
-
-  /* генерирую случайную расстановку мин */
-  let countMine = mineNumber
-  while(countMine){
-    let x = Math.floor(Math.random() * row)
-    let y = Math.floor(Math.random() * column)
-    if(matrix[x][y].mineHere === false){
-      matrix[x][y].mineHere = true
-      countMine--
-    }
-  }
-}
-
-/********************************************************* */
-/************** считаю количество мин вокруг ячейки */
-
-const mineAround = function(){
-  for (let i = 0; i < matrix.length; i++) {
-     for (let k = 0; k < matrix[i].length; k++) {
-
-      if ((i-1) >= 0 && (k-1) >= 0 && matrix[i-1][k-1].mineHere === true) matrix[i][k].mineNear = matrix[i][k].mineNear + 1;
-      if ((i-1) >= 0 && (k) >= 0 && matrix[i-1][k].mineHere === true) matrix[i][k].mineNear = matrix[i][k].mineNear + 1;
-      if ((i-1) >= 0 && (k + 1) < matrix[i].length && matrix[i-1][k+1].mineHere === true) matrix[i][k].mineNear = matrix[i][k].mineNear + 1;
-      if ((i) >= 0 && (k + 1) < matrix[i].length && matrix[i][k+1].mineHere === true) matrix[i][k].mineNear = matrix[i][k].mineNear + 1;
-      if ((i+1) < matrix.length && (k + 1) < matrix[i].length && matrix[i+1][k+1].mineHere === true) matrix[i][k].mineNear = matrix[i][k].mineNear + 1;
-      if ((i+1) < matrix.length && (k) < matrix[i].length && matrix[i+1][k].mineHere === true) matrix[i][k].mineNear = matrix[i][k].mineNear + 1;
-      if ((i+1) < matrix.length && (k-1) >= 0 && matrix[i+1][k-1].mineHere === true) matrix[i][k].mineNear = matrix[i][k].mineNear + 1;
-      if ((i) < matrix.length && (k-1) >= 0 && matrix[i][k-1].mineHere === true) matrix[i][k].mineNear = matrix[i][k].mineNear + 1;
-
-    }
-  }
-}
-
-minePlacement()
-mineAround()
-console.log(matrix)
-
-/*******Мой код из басик js****(Считает количество мин вокруг ячейки)****************************************************** */
-/*
-function minesweeper(matrix) {
-  let result = [] // объявляю результирующий массив
-
-  for (let i = 0; i < matrix.length; i++) {
-    result[i] = [] // продолжаю формировать массив результата
-    for (let k = 0; k < matrix[i].length; k++) {
-      result[i][k] = 0 // присваиваю начальные значерия в массив результата
-      // суть решения - обхожу по кругу каждую ячейку матрицы,
-      // если нахожу мину(true) увеличиваю значение счётчика (или соответствующей ячейки результирующего массива)
-      if ((i-1) >= 0 && (k-1) >= 0 && matrix[i-1][k-1] === true) result[i][k] = result[i][k] + 1;
-      if ((i-1) >= 0 && (k) >= 0 && matrix[i-1][k] === true) result[i][k] = result[i][k] + 1;
-      if ((i-1) >= 0 && (k + 1) < matrix[i].length && matrix[i-1][k+1] === true) result[i][k] = result[i][k] + 1;
-      if ((i) >= 0 && (k + 1) < matrix[i].length && matrix[i][k+1] === true) result[i][k] = result[i][k] + 1;
-      if ((i+1) < matrix.length && (k + 1) < matrix[i].length && matrix[i+1][k+1] === true) result[i][k] = result[i][k] + 1;
-      if ((i+1) < matrix.length && (k) < matrix[i].length && matrix[i+1][k] === true) result[i][k] = result[i][k] + 1;
-      if ((i+1) < matrix.length && (k-1) >= 0 && matrix[i+1][k-1] === true) result[i][k] = result[i][k] + 1;
-      if ((i) < matrix.length && (k-1) >= 0 && matrix[i][k-1] === true) result[i][k] = result[i][k] + 1;
-    }
-  }
-  return result
-}
-*/
-
-
-
-
-
-
-// minePlacement()
-// console.log(matrix)
 
 
 // cell unit block item elem (ячейка клетка блок)
@@ -189,18 +56,18 @@ function start(){
 
     let mineJSON = JSON.stringify(mine)  // это уже строка, поэтому кавычек в data НЕ НАДО!!!
 
+    // let addDiv = `<div class="key" data="${codeKeyboard[i]}">` + String.fromCharCode(abcKeys[i]) +'</div>';  рабочий вариант
+    //let  addDiv = `<div class="key" data="${codeKeyboard[i]}">` + String.fromCharCode(abc[k][i]) +'</div>';
+    //let  block = `<div class="block" data="${mine}">` + String.fromCharCode(abc[k][i]) +'</div>';
+
     // let block = `<div class="block" data="${mine}">${i+1}</div>`;
+
     //let block = `<div class="block" data="${mineJSON}"><div>${i+1}</div></div>`;
+
     //let block = `<div class="block" data="${JSON.stringify(mine)}" data-x="${Math.floor(i/row)}" data-y="${i%row}"><div>${i+1}</div></div>`;
     // let block = `<div class="block" data-asds=${minewer} data-x="${Math.floor(i/row)}" data-y="${i%row}"><div>${i+1}</div></div>`;
     //let block = `<div class="block" data=${mineJSON} data-x="${Math.floor(i/row)}"><div>${i+1}</div></div>`;
-
-    let temp_bomb = matrix[mine.x][mine.y].mineNear
-    if(matrix[mine.x][mine.y].mineHere) temp_bomb = 88;
-
-
-    // let block = `<div class="block" data=${mineJSON} "><div>${i+1}</div></div>`;
-    let block = `<div class="block" data=${mineJSON} "><div>${temp_bomb}</div></div>`;
+    let block = `<div class="block" data=${mineJSON} "><div>${i+1}</div></div>`;
 
     init = init + block;
   }
@@ -217,16 +84,24 @@ start()
 document.querySelectorAll('.block').forEach(function(block){
   block.addEventListener('click', function(){
     //alert(` x=${block.dataset.x}\n y=${block.dataset.y}`) // работает выводит координаты ячейки 
-    //console.log(typeof block.getAttribute("data"))
+    console.log(typeof block.getAttribute("data"))
     console.log(JSON.parse(block.getAttribute("data")))
     let coordinate = JSON.parse(block.getAttribute("data"))
-    // console.log(` x=${coordinate.x}\n y=${coordinate.y}`)
-    // console.log(` x=${coordinate.x}\n y=${coordinate.y}\n mineHere=${coordinate.mineHere}`)
-    // console.log(` x=${coordinate.x}\n y=${coordinate.y}\n mineHere=${coordinate.mineHere}\n mineNear=${coordinate.mineNear}`)
-    console.log(` x=${coordinate.x}\n y=${coordinate.y}\n mineHere=${coordinate.mineHere}\n mineNear=${coordinate.mineNear}\n mineOpen=${coordinate.mineOpen}`)
+    console.log(` x=${coordinate.x}\n y=${coordinate.y}`)
   })
 })
 
+/*
+document.querySelectorAll('.block').forEach(function(block){
+  block.addEventListener('click', function(){
+    //alert(` x=${block.dataset.x}\n y=${block.dataset.y}`) // работает выводит координаты ячейки 
+    console.log(typeof block.getAttribute("data-asds"))
+    console.log(JSON.parse(block.getAttribute("data-asds")))
+    let qwer = JSON.parse(block.getAttribute("data-asds"))
+    console.log(qwer.x)
+  })
+})
+*/
 
 
 
