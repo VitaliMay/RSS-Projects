@@ -330,7 +330,7 @@ const openNullBlock = function(x, y){ // координаты будет пер�
   } else { // если мины нет
       let temp_bomb = ''
       temp_bomb = matrix[x][y].mineNear
-      //if(temp_bomb === 0) temp_bomb = '';
+      if(temp_bomb === 0) temp_bomb = '';
       matrix[x][y].mineOpen = true
       matrixDoc[index].innerHTML = `${temp_bomb}`
       matrixDoc[index].classList.add('null') // Node коллекция всех блоков (стоят по порядку)
@@ -338,7 +338,36 @@ const openNullBlock = function(x, y){ // координаты будет пер�
       
       if(scoreCloseBlock === 0) alert('Победа');
 
-      if(matrix[x][y].mineNear === 0){ // опция открытия пустых ячеек
+      //if(matrix[x][y].mineNear === 0){ // опция открытия пустых ячеек
+        
+      
+        if (matrix[x][y].mineNear <= 0) { // опция открытия пустых ячеек
+          for (let i = x - 1; i <= x + 1; i++) {
+            for (let j = y - 1; j <= y + 1; j++) {
+              if (i >= 0 && j >= 0 && i <matrix.length && j < matrix[x].length && (i !== x || j !== y)) {
+                openNullBlock(i, j);
+              }
+            }
+          }
+        }
+
+      
+
+
+
+        /*
+        if (matrix[x][y].mineNear === 0) {
+          for (let i = x - 1; i <= x + 1; i++) {
+            for (let j = y - 1; j <= y + 1; j++) {
+              if (i >= 0 && j >= 0 && i < matrix.length && j < matrix[x].length && (i != x || j != y) && matrix[i][j].mineNear === 0) {
+                openNullBlock(i, j);
+              }
+            }
+          }
+        }
+        */
+        
+        
         /*
         let startX = x - 1
         if(startX < 0) startX = x;
@@ -362,7 +391,7 @@ const openNullBlock = function(x, y){ // координаты будет пер�
         
           // for (let i = 0; i < matrix.length; i++) {
             // for (let k = 0; k < matrix[i].length; k++) {
-        
+        /*
               if ((x-1) >= 0 && (y-1) >= 0 && matrix[x-1][y-1].mineNear === 0) openNullBlock(x-1, y-1);
               if ((x-1) >= 0 && (y) >= 0 && matrix[x-1][y].mineNear === 0) openNullBlock(x-1, y);
               if ((x-1) >= 0 && (y + 1) < matrix[x].length && matrix[x-1][y+1].mineNear === 0) openNullBlock(x-1, y+1);
@@ -371,7 +400,7 @@ const openNullBlock = function(x, y){ // координаты будет пер�
               if ((x+1) < matrix.length && (y) < matrix[x].length && matrix[x+1][y].mineNear === 0) openNullBlock(x+1, y);
               if ((x+1) < matrix.length && (y-1) >= 0 && matrix[x+1][y-1].mineNear === 0) openNullBlock(x+1, y-1);
               if ((x) < matrix.length && (y-1) >= 0 && matrix[x][y-1].mineNear === 0) openNullBlock(x, y-1);
-             
+         */    
           //  }
           // }
         
@@ -381,7 +410,7 @@ const openNullBlock = function(x, y){ // координаты будет пер�
 
 
 
-      }
+      //}
 
   }
 
