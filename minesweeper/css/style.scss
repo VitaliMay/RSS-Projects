@@ -78,7 +78,28 @@ html {
   padding: 1px; */
 }
 
+.open {
+  background-color: green;
+}
 
+// .guess {
+//   background-color: aqua;
+// }
+
+.guess::after {
+  /*
+  width: calc($size/2);
+  height: calc($size/2);
+  border-radius: 50%;
+  background-color: aqua;
+  content: "";
+  */
+
+  content: "\2690"; // флаг из спецсимволов
+  color: rgb(141, 37, 37);
+  font-weight: bold;
+
+}
 
 
 /************************************************************************************/

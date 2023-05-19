@@ -126,7 +126,8 @@ const mineAround = function(){
       if ((i+1) < matrix.length && (k) < matrix[i].length && matrix[i+1][k].mineHere === true) matrix[i][k].mineNear = matrix[i][k].mineNear + 1;
       if ((i+1) < matrix.length && (k-1) >= 0 && matrix[i+1][k-1].mineHere === true) matrix[i][k].mineNear = matrix[i][k].mineNear + 1;
       if ((i) < matrix.length && (k-1) >= 0 && matrix[i][k-1].mineHere === true) matrix[i][k].mineNear = matrix[i][k].mineNear + 1;
-
+      /* тест */
+      //if() matrix[i][k].mineNear = 88;
     }
   }
 }
@@ -195,8 +196,10 @@ function start(){
     // let block = `<div class="block" data-asds=${minewer} data-x="${Math.floor(i/row)}" data-y="${i%row}"><div>${i+1}</div></div>`;
     //let block = `<div class="block" data=${mineJSON} data-x="${Math.floor(i/row)}"><div>${i+1}</div></div>`;
 
-    let temp_bomb = matrix[mine.x][mine.y].mineNear
-    if(matrix[mine.x][mine.y].mineHere) temp_bomb = 88;
+    let temp_bomb = ''
+    /* тестовая расстановка бомб */
+    // temp_bomb = matrix[mine.x][mine.y].mineNear
+    // if(matrix[mine.x][mine.y].mineHere) temp_bomb = 88;
 
 
     // let block = `<div class="block" data=${mineJSON} "><div>${i+1}</div></div>`;
@@ -213,7 +216,10 @@ function start(){
 
 start()
 
+/* получаю Node коллекцию блоков */
+let matrixDoc = document.querySelectorAll('.block')
 
+/* получаю координаты ячейки по клику */
 document.querySelectorAll('.block').forEach(function(block){
   block.addEventListener('click', function(){
     //alert(` x=${block.dataset.x}\n y=${block.dataset.y}`) // работает выводит координаты ячейки 
@@ -224,9 +230,56 @@ document.querySelectorAll('.block').forEach(function(block){
     // console.log(` x=${coordinate.x}\n y=${coordinate.y}\n mineHere=${coordinate.mineHere}`)
     // console.log(` x=${coordinate.x}\n y=${coordinate.y}\n mineHere=${coordinate.mineHere}\n mineNear=${coordinate.mineNear}`)
     console.log(` x=${coordinate.x}\n y=${coordinate.y}\n mineHere=${coordinate.mineHere}\n mineNear=${coordinate.mineNear}\n mineOpen=${coordinate.mineOpen}`)
+    
+    /* тестовое открытие бомб */
+    let temp_bomb = ''
+    temp_bomb = matrix[coordinate.x][coordinate.y].mineNear
+    if(matrix[coordinate.x][coordinate.y].mineHere) temp_bomb = '&#9785;';
+    // незакрашенный флаг &#9872;
+    // закрашенный флаг &#9873;
+    // шлем с белым крестом &#9937;
+    // закрашенный улыбающийся смайлик &#9787;
+    // православный крест &#9766;
+    // нахмуренный смайлик &#9785;
+
+    /* Операции с открытой ячейкой */
+
+    matrixDoc[coordinate.y*10 + coordinate.x].innerHTML = `${temp_bomb}`
+    matrixDoc[coordinate.y*10 + coordinate.x].classList.add('open')
+
+    /**************************************** */
+
+    if(!matrix[coordinate.x][coordinate.y].mineNear)
+
+    /**************************************** */
+    // запоминаю в матрицу, координаты ячейки, которая открывалась
+    matrix[coordinate.x][coordinate.y].mineOpen = true
+    //console.log(matrix)
   })
 })
 
+//let matrixDoc = document.querySelectorAll('.block')
+//console.log(matrixDoc[1].innerHTML = 'Ура')
+//console.log(document.querySelectorAll('.block')[99].innerHTML = 'Ура')
+
+/****************************************************** */
+
+/* обработчик правой клавиши */
+// document.querySelectorAll('.block')[99].addEventListener('contextmenu', function(event) {
+// document.querySelectorAll('.block').forEach(function(block){
+document.querySelector('.playboard').addEventListener('contextmenu', function(event) {
+    event.preventDefault()
+    // matrixDoc[1].innerHTML = 'Ура'
+    console.log(event.target.getAttribute("data"))
+    let qwer = JSON.parse(event.target.getAttribute("data"))
+    console.log(qwer)
+    if(event.target.matches('.block')) {
+      //event.target.innerHTML = 'Bomb'
+      //console.log('Нашли ячейку')
+      event.target.classList.toggle('guess')
+    }
+
+  })
 
 
 
