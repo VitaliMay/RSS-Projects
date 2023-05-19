@@ -40,6 +40,10 @@ html {
   background-color: green;
 }
 
+.null {
+  background-color: yellowgreen;
+}
+
 .guess::after {
   /*
   width: calc($size/2);
@@ -48,9 +52,7 @@ html {
   background-color: aqua;
   content: "";
   */
-  content: "⚐";
-  color: rgb(141, 37, 37);
-  font-weight: bold;
+  content: "⛔";
 }
 
 /************************************************************************************/

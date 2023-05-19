@@ -40,7 +40,7 @@ html {
   //width: calc(($size + $space)*12 + $space);
 
   //width: calc(($size + $space)*10 + 10*2*0.8px);
-  width: calc(($size + $space)*10 + 2*$space);
+  width: calc(($size + $space)*$rows + 2*$space);
 
   // Почему-то не работает box-sizing: border-box;
 
@@ -82,6 +82,10 @@ html {
   background-color: green;
 }
 
+.null {
+  background-color: yellowgreen;
+}
+
 // .guess {
 //   background-color: aqua;
 // }
@@ -95,9 +99,15 @@ html {
   content: "";
   */
 
-  content: "\2690"; // флаг из спецсимволов
-  color: rgb(141, 37, 37);
-  font-weight: bold;
+  //content: "⚑"; // флаг из спецсимволов
+  content: "⛔"; // знак из спецсимволов
+  //content: "✸"; // многоугольник из спецсимволов
+  //content: "\2738"; // многоугольник из спецсимволов
+  //content: "\1F4A3"; // бомба из спецсимволов
+  //content: "\1F4A5"; // взрыв из спецсимволов
+  // color: rgb(141, 37, 37);
+  // font-weight: bold;
+  //font-size: 30px;
 
 }
 

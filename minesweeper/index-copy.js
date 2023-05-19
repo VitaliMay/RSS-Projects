@@ -13,6 +13,8 @@ let mineNumber = 10  // всего (количество) мин
 let column = 10
 let row = 10
 
+let scoreCloseBlock = column*row - mineNumber
+
 // let matrix = Array(row).fill(Array(column).fill(new mineInfo)) // создаю чистую матрицу
 // console.log(matrix)
 
@@ -220,6 +222,7 @@ start()
 let matrixDoc = document.querySelectorAll('.block')
 
 /* получаю координаты ячейки по клику */
+/*
 document.querySelectorAll('.block').forEach(function(block){
   block.addEventListener('click', function(){
     //alert(` x=${block.dataset.x}\n y=${block.dataset.y}`) // работает выводит координаты ячейки 
@@ -230,33 +233,52 @@ document.querySelectorAll('.block').forEach(function(block){
     // console.log(` x=${coordinate.x}\n y=${coordinate.y}\n mineHere=${coordinate.mineHere}`)
     // console.log(` x=${coordinate.x}\n y=${coordinate.y}\n mineHere=${coordinate.mineHere}\n mineNear=${coordinate.mineNear}`)
     console.log(` x=${coordinate.x}\n y=${coordinate.y}\n mineHere=${coordinate.mineHere}\n mineNear=${coordinate.mineNear}\n mineOpen=${coordinate.mineOpen}`)
-    
+
     /* тестовое открытие бомб */
+    /*
     let temp_bomb = ''
     temp_bomb = matrix[coordinate.x][coordinate.y].mineNear
-    if(matrix[coordinate.x][coordinate.y].mineHere) temp_bomb = '&#9785;';
-    // незакрашенный флаг &#9872;
-    // закрашенный флаг &#9873;
+    if(matrix[coordinate.x][coordinate.y].mineHere) temp_bomb = '💥';
+    */
+
+    // 💥 столкновение взрыв HTML-код	&#128165; CSS-код	\1F4A5
+    // незакрашенный флаг &#9872; (\2690) в CSS
+    // закрашенный флаг &#9873; (\2691) в CSS
     // шлем с белым крестом &#9937;
     // закрашенный улыбающийся смайлик &#9787;
     // православный крест &#9766;
+    // крест ✝
     // нахмуренный смайлик &#9785;
 
+    // многоугольник	&#10040;	&#x2738;	✸
+
+    //⛔	 	&#9940;	Вход запрещен (кирпич)
+    //⛳	 	&#9971;	Флаг в воронке, местоположение, место встречи, гольф
+
+    // ⛑	&#9937;	\26D1	Шлем с белым крестом
+    // ⚑	&#9873;	\2691	Закрашенный флаг
+    // ⚐	&#9872;	\2690	Незакрашенный флаг
+    // ☹	&#9785;	\2639	Нахмуренный смайлик
+    // ☺	&#9786;	\263A	Улыбающийся смайлик
+    // ☻	&#9787;	\263B	Закрашенный улыбающийся смайлик
+
     /* Операции с открытой ячейкой */
-
-    matrixDoc[coordinate.y*10 + coordinate.x].innerHTML = `${temp_bomb}`
-    matrixDoc[coordinate.y*10 + coordinate.x].classList.add('open')
-
+    /*
+    matrixDoc[coordinate.y*row + coordinate.x].innerHTML = `${temp_bomb}`
+    matrixDoc[coordinate.y*row + coordinate.x].classList.add('open')
+    */
     /**************************************** */
 
-    if(!matrix[coordinate.x][coordinate.y].mineNear)
+    //if(!matrix[coordinate.x][coordinate.y].mineNear) если рядом мин нет
 
     /**************************************** */
     // запоминаю в матрицу, координаты ячейки, которая открывалась
-    matrix[coordinate.x][coordinate.y].mineOpen = true
+    //matrix[coordinate.x][coordinate.y].mineOpen = true
     //console.log(matrix)
+    /*
   })
 })
+*/
 
 //let matrixDoc = document.querySelectorAll('.block')
 //console.log(matrixDoc[1].innerHTML = 'Ура')
@@ -271,19 +293,109 @@ document.querySelector('.playboard').addEventListener('contextmenu', function(ev
     event.preventDefault()
     // matrixDoc[1].innerHTML = 'Ура'
     console.log(event.target.getAttribute("data"))
-    let qwer = JSON.parse(event.target.getAttribute("data"))
-    console.log(qwer)
-    if(event.target.matches('.block')) {
+    let coorXY = JSON.parse(event.target.getAttribute("data"))
+    //console.log(coorXY)
+    //console.log(matrix[coorXY.x][coorXY.y])
+    //if(event.target.matches('.block')) {
+    if(event.target.matches('.block') && matrix[coorXY.x][coorXY.y].mineOpen !== true) {
+      // если ячейка нужная и еще не открывалась
+
       //event.target.innerHTML = 'Bomb'
       //console.log('Нашли ячейку')
+      //console.log(matrix[coorXY.x][coorXY.y])
       event.target.classList.toggle('guess')
     }
 
   })
 
-
+/***************************************************** */
 
 /************************************************************************************** */
+/*  Открытие ячейки */
+
+const open = function(event){  // запускается при клике
+  let coorXY = JSON.parse(event.target.getAttribute("data"))
+  let x = coorXY.x
+  let y = coorXY.y
+  console.log(`функция open x=${x}`)
+
+  openNullBlock(x, y)
+}
+
+const openNullBlock = function(x, y){ // координаты будет передавать функция open в которую я вставлю эту
+  let index = y*row + x
+  if(matrix[x][y].mineOpen) return; //если ячейка уже открыта - выходим из функции
+  if(matrix[x][y].mineHere) {
+    alert('Game over')
+  } else { // если мины нет
+      let temp_bomb = ''
+      temp_bomb = matrix[x][y].mineNear
+      //if(temp_bomb === 0) temp_bomb = '';
+      matrix[x][y].mineOpen = true
+      matrixDoc[index].innerHTML = `${temp_bomb}`
+      matrixDoc[index].classList.add('null') // Node коллекция всех блоков (стоят по порядку)
+      scoreCloseBlock = scoreCloseBlock - 1 // считаю, сколько ячеек осталось открыть
+      
+      if(scoreCloseBlock === 0) alert('Победа');
+
+      if(matrix[x][y].mineNear === 0){ // опция открытия пустых ячеек
+        /*
+        let startX = x - 1
+        if(startX < 0) startX = x;
+
+        let finishX = x + 1
+        if(finishX > row) finishX = x;
+
+        let startY = y - 1
+        if(startY < 0) startY = y;
+
+        let finishY = y + 1
+        if(finishY > column) finishY = y;
+
+        for(let i = startX; i <= finishX; i++) { // пробегаемся по всем соседним ячейкам
+          for (let j = startY; j <= finishY; j++) {
+            openNullBlock(i, j)
+          }
+        }
+        */
+      
+        
+          // for (let i = 0; i < matrix.length; i++) {
+            // for (let k = 0; k < matrix[i].length; k++) {
+        
+              if ((x-1) >= 0 && (y-1) >= 0 && matrix[x-1][y-1].mineNear === 0) openNullBlock(x-1, y-1);
+              if ((x-1) >= 0 && (y) >= 0 && matrix[x-1][y].mineNear === 0) openNullBlock(x-1, y);
+              if ((x-1) >= 0 && (y + 1) < matrix[x].length && matrix[x-1][y+1].mineNear === 0) openNullBlock(x-1, y+1);
+              if ((x) >= 0 && (y + 1) < matrix[x].length && matrix[x][y+1].mineNear === 0) openNullBlock(x, y+1);
+              if ((x+1) < matrix.length && (y + 1) < matrix[x].length && matrix[x+1][y+1].mineNear === 0) openNullBlock(x+1, y+1);
+              if ((x+1) < matrix.length && (y) < matrix[x].length && matrix[x+1][y].mineNear === 0) openNullBlock(x+1, y);
+              if ((x+1) < matrix.length && (y-1) >= 0 && matrix[x+1][y-1].mineNear === 0) openNullBlock(x+1, y-1);
+              if ((x) < matrix.length && (y-1) >= 0 && matrix[x][y-1].mineNear === 0) openNullBlock(x, y-1);
+             
+          //  }
+          // }
+        
+
+
+
+
+
+
+      }
+
+  }
+
+}
+
+
+document.querySelector('.playboard').addEventListener('click', function(event) {
+  if(event.target.matches('.block') && !(event.target.matches('.guess'))) {
+    open(event)
+  }
+})
+
+
+/********************************************************* */
 
 /* Добавляю область для ввода текста */
 
