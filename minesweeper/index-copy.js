@@ -15,6 +15,8 @@ let row = 10
 
 let scoreCloseBlock = column*row - mineNumber
 
+const colorNumber = ['one', 'two', 'three', 'foor', 'five', 'six', 'seven', 'eight']
+
 // let matrix = Array(row).fill(Array(column).fill(new mineInfo)) // создаю чистую матрицу
 // console.log(matrix)
 
@@ -164,8 +166,9 @@ function minesweeper(matrix) {
 */
 
 
+let razm = 'block'  // переменная для игр с размером поля
 
-
+if(row === 20) razm = 'block_big'
 
 
 // minePlacement()
@@ -180,7 +183,7 @@ function start(){
 
   document.querySelector('body').innerHTML += `<main class="main"></main>`;
   document.querySelector('.main').innerHTML = `<h1 class="title">Minesweeper</h1>`;
-  document.querySelector('.main').innerHTML += `<div class="wrapper-text"></div>`; // обёртка для ввода текста
+  //document.querySelector('.main').innerHTML += `<div class="wrapper-text"></div>`; // обёртка для ввода текста
   document.querySelector('.main').innerHTML += `<div class="playboard"></div>`;
 
   let init = '';
@@ -205,7 +208,9 @@ function start(){
 
 
     // let block = `<div class="block" data=${mineJSON} "><div>${i+1}</div></div>`;
-    let block = `<div class="block" data=${mineJSON} "><div>${temp_bomb}</div></div>`;
+
+    //let block = `<div class="block" data=${mineJSON} "><div>${temp_bomb}</div></div>`;
+    let block = `<div class=${razm} data=${mineJSON} "><div>${temp_bomb}</div></div>`;
 
     init = init + block;
   }
@@ -326,6 +331,8 @@ const openNullBlock = function(x, y){ // координаты будет пер�
   let index = y*row + x
   if(matrix[x][y].mineOpen) return; //если ячейка уже открыта - выходим из функции
   if(matrix[x][y].mineHere) {
+    // temp_bomb = matrix[coordinate.x][coordinate.y].mineNear
+    // if(matrix[coordinate.x][coordinate.y].mineHere) temp_bomb = '💥';
     alert('Game over')
   } else { // если мины нет
       let temp_bomb = ''
@@ -334,6 +341,10 @@ const openNullBlock = function(x, y){ // координаты будет пер�
       matrix[x][y].mineOpen = true
       matrixDoc[index].innerHTML = `${temp_bomb}`
       matrixDoc[index].classList.add('null') // Node коллекция всех блоков (стоят по порядку)
+      
+      //if(temp_bomb) matrixDoc[index].classList.add('one'); // меняет цвет цифр
+      if(temp_bomb) matrixDoc[index].classList.add(`${colorNumber[Number(temp_bomb)-1]}`); // меняет цвет цифр
+
       scoreCloseBlock = scoreCloseBlock - 1 // считаю, сколько ячеек осталось открыть
       
       if(scoreCloseBlock === 0) alert('Победа');
@@ -341,7 +352,8 @@ const openNullBlock = function(x, y){ // координаты будет пер�
       //if(matrix[x][y].mineNear === 0){ // опция открытия пустых ячеек
         
       
-        if (matrix[x][y].mineNear <= 0) { // опция открытия пустых ячеек
+        //if (matrix[x][y].mineNear <= 0) { // опция открытия пустых ячеек
+        if (matrix[x][y].mineNear == 0) { // опция открытия пустых ячеек
           for (let i = x - 1; i <= x + 1; i++) {
             for (let j = y - 1; j <= y + 1; j++) {
               if (i >= 0 && j >= 0 && i <matrix.length && j < matrix[x].length && (i !== x || j !== y)) {
@@ -426,40 +438,27 @@ document.querySelector('.playboard').addEventListener('click', function(event) {
 
 /********************************************************* */
 
+
+
 /* Добавляю область для ввода текста */
 
+/*
 //let str = 'EEE' опыты со строкой ввода
 let str = '' //опыты со строкой ввода
 
 function text() {
-  //document.querySelector('.wrapper-text').innerHTML += `<textarea class="textarea" autofocus accesskey="s"></textarea>`;
   document.querySelector('.wrapper-text').innerHTML += `<textarea class="textarea" type="text" id="text-input" rows="6" cols="70" autofocus></textarea>`;
-  //document.querySelector('.wrapper-text').innerHTML += `<textarea class="textarea" value="EEE" id="text-input" rows="6" cols="70" autofocus>${str}</textarea>`;
-  //document.querySelector('.wrapper-text').innerHTML += `<textarea class="textarea" id="text-input" rows="6" cols="70" autofocus>${str}</textarea>`;
 }
 
 text()
+*/
 
+/*********************************************** */
 /* Игры с языком */
-
+/*
 let lang = document.getElementById('lang')
 console.log(lang)
 
-// let lang = document.querySelector('.lang')
-// console.log(lang)
-// lang.addEventListener("click", console.log(k));
-
-// function changeLange() {
-//   if (k === 0) {k = 1}
-//     else{
-//         k = 0
-//       }
-//       console.log(k)
-// }
-
-// btn_del.onclick = function clear () {
-//   textarea.value = "";
-// }
 
 function changeLange () {
   if (k === 0) {k = 1}
@@ -468,40 +467,21 @@ function changeLange () {
       }
       console.log(`Переменная к = ${k}`)
 }
+*/
 
-//lang.addEventListener("click", console.log(k));
-
-// if(indexFuncButton === 56){
-
-//   console.log('Как поживает язык')
-//   if (k === 0) {k = 1}else{
-//     k = 0
-//     start()
-//     text()
-//   }
-
-// }
-
-
-
+/***************************************************** */
 /* пробую сделать, чтобы не можно было возвращаться к вводу с виртуальной клавиатуры*/
 
+/*
 let textInput = document.getElementById("text-input"); // это одно и тоже - переделать не успеваю
 let textarea = document.querySelector('textarea'); // это одно и тоже - переделать не успеваю
 
 let currentText = textarea.value;
-
-
-// let cursorStart = textarea.selectionStart;
-// let cursorEnd = textarea.selectionEnd;
-
-//textInput.focus();
-
-//let str = document.querySelector('.textarea').innerHTML
-
+*/
 
 /******  работа клавиатуры *******************************************/
 
+/*
 let flag = false // отлавливает Shift + Alt
 document.onkeydown = (event) => {
 
@@ -512,26 +492,28 @@ document.onkeydown = (event) => {
     flag = false // чтобы сработало только один раз
     console.log('Ура заработало')
   } // отлавливает Shift + Alt
+*/
 
   /* загнал в одну функцию, надо вешать слушатели, но не успеваю */
+  /*
   document.querySelectorAll('.key').forEach(function (element) {
     element.classList.remove('active')
   })
-
- 
+  */
+ /*
   document.querySelector(`.key[data="${event.code}"]`).classList.add('active');
   textInput.focus();  // чтобы сразу вводило в форму
 }
-
+*/
 
 /*******  работа виртуальной клавиатуры    *********************************************************** */
-
+/*
 document.querySelectorAll('.keyboard .key').forEach(function (element) {
   
   element.onclick = function(event){
-
+*/
     /******Ловлю переменную для смены языка***************************************************************************** */
-    
+/*    
     console.log(`Привет что-то ${element.innerHTML}---------------------`)
 
     if(element.innerHTML === 'lang') {
@@ -540,9 +522,9 @@ document.querySelectorAll('.keyboard .key').forEach(function (element) {
       // start()
       // text()
     }
-
+*/
     /************************************************************************************************* */
-
+/*
     document.querySelectorAll('.keyboard .key').forEach(function (element) {
 
       element.classList.remove('active')
@@ -566,13 +548,7 @@ document.querySelectorAll('.keyboard .key').forEach(function (element) {
       console.log(`Индекс= ${codeKeyboard.indexOf(code)}`)
 
       if(indexFuncButton === 13){
-        // console.log(`Началось`)
-
-        // console.log(textarea.value)
-        /*
-        let letter = `${String.fromCharCode(abcKeys[codeKeyboard.indexOf(code)])}`;
-        */
-
+        
         if (cursorStart === 0) cursorStart = 1;
         textarea.value = textarea.value.slice(0, cursorStart-1) + textarea.value.slice(cursorEnd); //работает но только один раз потом курсор убегает
 
@@ -589,14 +565,7 @@ document.querySelectorAll('.keyboard .key').forEach(function (element) {
       }
 
       if(indexFuncButton === 14){
-        // console.log(`И снова Началось`)
-
-        // console.log(textarea.value)
-        /*
-        let letter = `${String.fromCharCode(abcKeys[codeKeyboard.indexOf(code)])}`;
-        */
-
-
+        
         textarea.value = textarea.value.slice(0, cursorStart) + '  ' + textarea.value.slice(cursorEnd); //работает но только один раз потом курсор убегает
 
         //textarea.value = textarea.value.slice(0, cursorStart) + '\t' + textarea.value.slice(cursorEnd);
@@ -606,14 +575,7 @@ document.querySelectorAll('.keyboard .key').forEach(function (element) {
         textInput.focus();
       }
       if(indexFuncButton === 41){
-        // console.log(`И снова Началось`)
-
-        // console.log(textarea.value)
-        /*
-        let letter = `${String.fromCharCode(abcKeys[codeKeyboard.indexOf(code)])}`;
-        */
-
-
+        
         textarea.value = textarea.value.slice(0, cursorStart) + '\n' + textarea.value.slice(cursorEnd); //работает но только один раз потом курсор убегает
 
         textarea.selectionStart = textarea.selectionEnd = cursorEnd + 2 // чтобы курсор не убегал
@@ -621,33 +583,12 @@ document.querySelectorAll('.keyboard .key').forEach(function (element) {
         textInput.focus();
       }
 
-      
-
-
     } else {
 
-    /* формирую массив нужных индексов */
-    // console.log(`Индекс= ${codeKeyboard.indexOf(code)}`)
-    // index.push(codeKeyboard.indexOf(code))
-    // console.log(index)
-
-    /* вводит текст в форму */
-
-   // document.querySelector('.textarea').innerHTML += `${String.fromCharCode(abcKeys[codeKeyboard.indexOf(code)])}`; // работает только до переключения на основную клавиатуру
-   //document.querySelector('.textarea').value += `${String.fromCharCode(abcKeys[codeKeyboard.indexOf(code)])}`; // работает
-   //document.querySelector('.textarea').value += `${String.fromCharCode(abcKeys[codeKeyboard.indexOf(code)])}`;
-   //textarea.value += `${String.fromCharCode(abcKeys[codeKeyboard.indexOf(code)])}`;
-    //textInput.focus();
 
     //let currentText = textarea.value; // пока нигде не использую
     let letter = `${String.fromCharCode(abcKeys[codeKeyboard.indexOf(code)])}`;
-    //textarea.value += letter;
 
-    // let cursorStart = textarea.selectionStart;
-    // let cursorEnd = textarea.selectionEnd;
-
-    // console.log(cursorStart)
-    // console.log(cursorEnd)
 
     //textarea.value = textarea.value.setRangeText(letter, cursorStart, cursorEnd, "end")   //не работает
 
@@ -662,54 +603,7 @@ document.querySelectorAll('.keyboard .key').forEach(function (element) {
   }
 })
 
-
-
-/* Две клавиши, комбинации клавиш */
-
-// let flag = false
-// document.onkeydown = function (event) {
-
-// // codeKeyboard.push(event.code)
-// console.log(event.code)
-// // console.log(codeKeyboard)
-//   // надо формировать event.code
-//   if (event.code == 'AltLeft') flag = true
-//   if (event.code == 'ShiftLeft' || event.code == 'ShiftRight') flag = true
-//   if (event.code == 'KeyN' && flag) {
-//     flag = false // чтобы сработало только один раз
-//     console.log('Ура заработало')}
-
-// }
-
-
-
-/* Две клавиши, комбинации клавиш */
-
-// document.onkeydown = function (event) {
-//   if (event.code == 'AltLeft') {
-//     document.onkeyup = function (event) {
-//       console.log(event)
-//           if (event.code == 'KeyN') {
-//             console.log('New version')
-//           } 
-//           else {
-//             document.onkeydown = null
-//           } 
-//     }
-//   }
-// }
-
-
-
-/* помогает сформировать массив charCode клавиш*/
-
-// let rus = []
-
-// document.onkeypress = function(event){
-//   // console.log(event)
-//   rus.push(event.charCode)
-//   console.log(rus)
-// }
+*/
 
 
 

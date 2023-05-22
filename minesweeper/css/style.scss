@@ -11,6 +11,20 @@ html {
   /*font-size: calc(24px + (16 + 16 * 0.7) * ((100vw - 320px) /  1280);*/
 }
 
+// .header{
+//   // padding: 6rem 0 6rem 0;
+//   padding: 3rem 0 9rem 0;
+
+//   @media screen and (max-width: 1000px) {
+//     padding: 3rem 0 6rem 0;
+//   }
+
+//   &--page {
+//     padding: 3rem 0;
+//     // border: solid red 2px;
+//     background-color: #FFFFFF;
+//   }
+// }
 
 // * {
 //   box-sizing: border-box;
@@ -51,6 +65,20 @@ html {
   //padding: 5px;
   // padding: $space $space 0 0;
   padding: calc(2*$space);
+
+  @media screen and (max-width: 530px) {
+    width: calc(($size*0.9 + $space)*$rows + 2*$space);
+  }
+  @media screen and (max-width: 440px) {
+    width: calc(($size*0.8 + $space)*$rows + 2*$space);
+  }
+  @media screen and (max-width: 390px) {
+    width: calc(($size*0.7 + $space)*$rows + 2*$space);
+  }
+  @media screen and (max-width: 340px) {
+    width: calc(($size*0.6 + $space)*$rows + 2*$space);
+  }
+  
 }
 
 .block {
@@ -61,22 +89,46 @@ html {
   background-color: gray;
   width: $size;
   height: $size;
-  // margin-left: $space;
-  // margin-bottom: $space;
 
-  // width: 35px;
-  // height: 35px;
-  // width: 4rem;
-  // height: 4rem;
+  
+
+  font-weight: bold;
+  border: solid 1px black;
+
+  @media screen and (max-width: 530px) {
+    width: $size*0.9;
+    height: $size*0.9;
+  }
+  @media screen and (max-width: 440px) {
+    width: $size*0.8;
+    height: $size*0.8;
+  }
+  @media screen and (max-width: 390px) {
+    width: $size*0.7;
+    height: $size*0.7;
+  }
+  @media screen and (max-width: 340px) {
+    width: $size*0.6;
+    height: $size*0.6;
+  }
+
+}
+
+/*******************************************************/
+.block_big { // пробую рисовать поля разного размера
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  background-color: gray;
+  width: calc($size/2);
+  height: calc($size/2);
+
+  font-weight: bold;
 
   border: solid 1px black;
-  // padding: 4px 0 0 4px;
-
-  //text-align: center;
-  
-  /* margin: 1px;
-  padding: 1px; */
 }
+/**************************************************/
 
 .open {
   background-color: green;
@@ -84,6 +136,23 @@ html {
 
 .null {
   background-color: yellowgreen;
+}
+
+.one {
+  color: red;
+  //font-weight: bold;
+}
+
+.two {
+  color: blue;
+}
+
+.three {
+  color: yellow;
+}
+
+.eight {
+  color: orange;
 }
 
 // .guess {
