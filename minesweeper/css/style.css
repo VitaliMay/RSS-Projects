@@ -113,18 +113,15 @@ html {
   color: yellow;
 }
 
+.foor {
+  color: green;
+}
+
 .eight {
   color: orange;
 }
 
 .guess::after {
-  /*
-  width: calc($size/2);
-  height: calc($size/2);
-  border-radius: 50%;
-  background-color: aqua;
-  content: "";
-  */
   content: "⛔";
 }
 

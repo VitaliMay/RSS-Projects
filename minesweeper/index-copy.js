@@ -333,7 +333,7 @@ const openNullBlock = function(x, y){ // координаты будет пер�
   if(matrix[x][y].mineHere) {
     // temp_bomb = matrix[coordinate.x][coordinate.y].mineNear
     // if(matrix[coordinate.x][coordinate.y].mineHere) temp_bomb = '💥';
-    alert('Game over')
+    alert('Игра окончена. Попробуйте еще раз')
   } else { // если мины нет
       let temp_bomb = ''
       temp_bomb = matrix[x][y].mineNear
@@ -347,7 +347,7 @@ const openNullBlock = function(x, y){ // координаты будет пер�
 
       scoreCloseBlock = scoreCloseBlock - 1 // считаю, сколько ячеек осталось открыть
       
-      if(scoreCloseBlock === 0) alert('Победа');
+      if(scoreCloseBlock === 0) alert('Ура! Вы нашли все мины. Победа');
 
       //if(matrix[x][y].mineNear === 0){ // опция открытия пустых ячеек
         

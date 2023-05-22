@@ -1,318 +1,310 @@
 
-//let rusKeys = [1105, 49, 50, 51, 52, 53, 54, 55, 56, 57, 48, 45, 61, 1081, 1094, 1091, 1082, 1077, 1085, 1075, 1096, 1097, 1079, 1093, 1098, 1092, 1099, 1074, 1072, 1087, 1088, 1086, 1083, 1076, 1078, 1101, 92, 1103, 1095, 1089, 1084, 1080, 1090, 1100, 1073, 1102, 46]
 
-let abcKeys = [96, 49, 50, 51, 52, 53, 54, 55, 56, 57, 48, 45, 61, '', ' ', 113, 119, 101, 114, 116, 121, 117, 105, 111, 112, 92, 91, 93, '', '', 97, 115, 100, 102, 103, 104, 106, 107, 108, 59, 39, '', '', 122, 120, 99, 118, 98, 110, 109, 44, 46, 47, '', '', '', '', '', ' ', '', '', '', '', '']
-let codeKeyboard = ['Backquote', 'Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'Digit6', 'Digit7', 'Digit8', 'Digit9', 'Digit0', 'Minus', 'Equal', 'Backspace', 'Tab', 'KeyQ', 'KeyW', 'KeyE', 'KeyR', 'KeyT', 'KeyY', 'KeyU', 'KeyI', 'KeyO', 'KeyP', 'Backslash', 'BracketLeft', 'BracketRight', "Delete",'CapsLock', 'KeyA', 'KeyS', 'KeyD', 'KeyF', 'KeyG', 'KeyH', 'KeyJ', 'KeyK', 'KeyL', 'Semicolon', 'Quote', 'Enter', 'ShiftLeft', 'KeyZ', 'KeyX', 'KeyC', 'KeyV', 'KeyB', 'KeyN', 'KeyM', 'Comma', 'Period', 'Slash', 'ArrowUp', 'ShiftRight', 'ControlLeft', 'MetaLeft', 'AltLeft', 'Space', 'AltRight', 'ControlRight', 'ArrowLeft', 'ArrowDown', 'ArrowRight']
-let funcButtonIndexArr = [13, 14, 28, 29, 41, 42, 53, 54, 55, 56, 57, 59, 60, 61, 62, 63]
+let mineNumber = 10  // всего (количество) мин
+let column = 10
+let row = 10
 
+let scoreCloseBlock = column*row - mineNumber
+
+const colorNumber = ['one', 'two', 'three', 'foor', 'five', 'six', 'seven', 'eight']
+
+
+/************************************************************************************************** */
+/************************************************************************************************** */
+
+// const mine = {
+//   x: 0,
+//   y: 0
+// }
+const mine = {
+  x: 0,
+  y: 0,
+  mineHere: false,
+  mineNear: 0,
+  mineOpen: false
+}
+
+//let matrix = Array(row).fill(Array(column).fill((mine))) // создаю чистую матрицу не работает, похоже ссылается сама на себя
+// придется делать циклом
+
+//let matrix = []
+
+/*
+let matrix = new Array(row);
+for (let i = 0; i < row; i++) {
+  matrix[i] = new Array(column);
+  for (let j = 0; j < column; j++) {
+    // надо создавать новый объект для каждой ячейки, т.к. иначе будет ссылка на один и тот же объект и X и Y примут последние значения
+    // поэтому лучше использовать класс
+    matrix[i][j] = {
+      x: i,
+      y: j,
+      mineHere: false,
+      mineNear: 0,
+      mineOpen: false
+    };
+    mine.x = i
+    mine.y = j
+    matrix[i][j] = mine
+  }
+}
+*/
+class MineInfo {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.mineHere = false;
+    this.mineNear = 0;
+    this.mineOpen = false;
+  }
+}
+
+let matrix = new Array(row);
+
+
+/******************************************************* */
+// функция расстановки мин
+
+const minePlacement = function(){
+  /* создаю матрицу игрового поля */
+  matrix = null
+  matrix = new Array(row); 
+  for (let x = 0; x < row; x++) {
+    matrix[x] = new Array(column);
+    for (let y = 0; y < column; y++) {
+      matrix[x][y] = new MineInfo(x, y);
+    }
+  }
+
+  /* генерирую случайную расстановку мин */
+  let countMine = mineNumber
+  while(countMine){
+    let x = Math.floor(Math.random() * row)
+    let y = Math.floor(Math.random() * column)
+    if(matrix[x][y].mineHere === false){
+      matrix[x][y].mineHere = true
+      countMine--
+    }
+  }
+}
+
+/********************************************************* */
+/************** считаю количество мин вокруг ячейки */
+
+const mineAround = function(){
+  for (let i = 0; i < matrix.length; i++) {
+     for (let k = 0; k < matrix[i].length; k++) {
+
+      if ((i-1) >= 0 && (k-1) >= 0 && matrix[i-1][k-1].mineHere === true) matrix[i][k].mineNear = matrix[i][k].mineNear + 1;
+      if ((i-1) >= 0 && (k) >= 0 && matrix[i-1][k].mineHere === true) matrix[i][k].mineNear = matrix[i][k].mineNear + 1;
+      if ((i-1) >= 0 && (k + 1) < matrix[i].length && matrix[i-1][k+1].mineHere === true) matrix[i][k].mineNear = matrix[i][k].mineNear + 1;
+      if ((i) >= 0 && (k + 1) < matrix[i].length && matrix[i][k+1].mineHere === true) matrix[i][k].mineNear = matrix[i][k].mineNear + 1;
+      if ((i+1) < matrix.length && (k + 1) < matrix[i].length && matrix[i+1][k+1].mineHere === true) matrix[i][k].mineNear = matrix[i][k].mineNear + 1;
+      if ((i+1) < matrix.length && (k) < matrix[i].length && matrix[i+1][k].mineHere === true) matrix[i][k].mineNear = matrix[i][k].mineNear + 1;
+      if ((i+1) < matrix.length && (k-1) >= 0 && matrix[i+1][k-1].mineHere === true) matrix[i][k].mineNear = matrix[i][k].mineNear + 1;
+      if ((i) < matrix.length && (k-1) >= 0 && matrix[i][k-1].mineHere === true) matrix[i][k].mineNear = matrix[i][k].mineNear + 1;
+      /* тест */
+      //if() matrix[i][k].mineNear = 88;
+    }
+  }
+}
+
+minePlacement()
+mineAround()
+
+
+let razm = 'block'  // переменная для игр с размером поля
+
+if(row === 20) razm = 'block_big'
+
+// cell unit block item elem (ячейка клетка блок)
+
+/************************************************************************ */
 
 function start(){
-
+  document.querySelector('body').innerHTML = '' // очищаю чтобы работало без перезагрузки
   document.querySelector('body').innerHTML += `<main class="main"></main>`;
-  document.querySelector('.main').innerHTML = `<h1 class="title">Virtual Keyboard</h1>`;
-  document.querySelector('.main').innerHTML += `<div class="wrapper-text"></div>`; // обёртка для ввода текста
-  document.querySelector('.main').innerHTML += `<div class="keyboard"></div>`;
+  document.querySelector('.main').innerHTML = `<h1 class="title">Minesweeper</h1>`;
+  //document.querySelector('.main').innerHTML += `<div class="wrapper-text"></div>`; // обёртка для ввода текста
+  document.querySelector('.main').innerHTML += `<div class="playboard"></div>`;
 
   let init = '';
-  for (let i = 0; i < codeKeyboard.length; i++){
 
-    let addDiv = `<div class="key" data="${codeKeyboard[i]}">` + String.fromCharCode(abcKeys[i]).toUpperCase() +'</div>';
+  for (let i = 0; i < row*column; i++){
 
-    if (i === 13){
-      addDiv = `<div class="key add-key" data="${codeKeyboard[i]}">Backspace</div>`;
-    }
-    if (i === 14){
-      addDiv = `<div class="key" data="${codeKeyboard[i]}">Tab</div>`;
-    }
-    if (i === 25){
-      addDiv = `<div class="key" data="${codeKeyboard[i]}">${String.fromCharCode(abcKeys[i])}</div>`;
-    }
-    if (i === 28){
-      addDiv = `<div class="key" data="${codeKeyboard[i]}">Del</div>`;
-    }
-    if (i === 29){
-      addDiv = `<div class="key capslock-key" data="${codeKeyboard[i]}">Caps Lock</div>`;
-    }
-    if (i === 41){
-      addDiv = `<div class="key enter-key" data="${codeKeyboard[i]}">Enter</div>`;
-    }
-    if (i === 42){
-      addDiv = `<div class="key shift-key" data="${codeKeyboard[i]}">Shift</div>`;
-    }
-    if (i === 53){
-      addDiv = `<div class="key" data="${codeKeyboard[i]}">Up</div>`;
-    }
-    if (i === 54){
-      addDiv = `<div class="key shift-key--small" data="${codeKeyboard[i]}">Shift</div>`;
-    }
+    mine.x = i % row // определяю координату X ячейки
+    mine.y = Math.floor(i/row) //  определяю координату Y ячейки
 
-    /*формирую нижний ряд клавиатуры*/
-    if (i === 55){
-      addDiv = `<div class="key shift-key--small" data="${codeKeyboard[i]}">Ctrl</div>`;
-    }
-    if (i === 56){
-      addDiv = `<div class="key" data="${codeKeyboard[i]}">Win</div>`;
-    }
-    if (i === 57){
-      addDiv = `<div class="key" data="${codeKeyboard[i]}">Alt</div>`;
-    }
-    if (i === 58){
-      addDiv = `<div class="key space-key" data="${codeKeyboard[i]}">Space</div>`;
-    }
-    if (i === 59){
-      addDiv = `<div class="key" data="${codeKeyboard[i]}">Alt</div>`;
-    }
-    if (i === 60){
-      addDiv = `<div class="key shift-key--small" data="${codeKeyboard[i]}">Ctrl</div>`;
-    }
-    if (i === 61){
-      addDiv = `<div class="key shift-key--small" data="${codeKeyboard[i]}">Left</div>`;
-    }
-    if (i === 62){
-      addDiv = `<div class="key" data="${codeKeyboard[i]}">Down</div>`;
-    }
-    if (i === 63){
-      addDiv = `<div class="key shift-key--small" data="${codeKeyboard[i]}">Right</div>`;
-    }
+    let mineJSON = JSON.stringify(mine)  // это уже строка, поэтому кавычек в data НЕ НАДО!!!
 
-    init = init + addDiv;
+    let temp_bomb = ''
+    /* тестовая расстановка бомб */
+    // temp_bomb = matrix[mine.x][mine.y].mineNear
+    // if(matrix[mine.x][mine.y].mineHere) temp_bomb = 88;
+
+    //let block = `<div class="block" data=${mineJSON} "><div>${temp_bomb}</div></div>`;
+    let block = `<div class=${razm} data=${mineJSON} ><div>${temp_bomb}</div></div>`;
+
+    init = init + block;
   }
 
   /*формирую HTML*/
-
-  document.querySelector('.keyboard').innerHTML = init;
-
+  document.querySelector('.playboard').innerHTML = init;
 }
 
 start()
 
-/* Добавляю область для ввода текста */
+/* получаю Node коллекцию блоков */
+let matrixDoc = document.querySelectorAll('.block')
 
-let str = '' //опыты со строкой ввода
 
-function text() {
-  document.querySelector('.wrapper-text').innerHTML += `<textarea class="textarea" type="text" id="text-input" rows="6" cols="70" autofocus></textarea>`;
-}
 
-text()
+/****************************************************** */
 
-/* пробую сделать, чтобы не можно было возвращаться к вводу с виртуальной клавиатуры*/
+/* обработчик правой клавиши */
 
-let textInput = document.getElementById("text-input"); // это одно и тоже - переделать не успеваю
-let textarea = document.querySelector('textarea'); // это одно и тоже - переделать не успеваю
+document.querySelector('.playboard').addEventListener('contextmenu', function(event) {
+    event.preventDefault()
+    // matrixDoc[1].innerHTML = 'Ура'
+    //console.log(event.target.getAttribute("data"))
+    let coorXY = JSON.parse(event.target.getAttribute("data"))
 
-let currentText = textarea.value;
-
-
-
-//let str = document.querySelector('.textarea').innerHTML
-
-
-/******  работа клавиатуры *******************************************/
-
-let flag = false // отлавливает Shift + Alt  реализовать переключение не успеваю
-let flagCapsLock = false
-
-
-document.onkeydown = (event) => {
-
-  // console.log(event) надо было вытащить code ропущенного DEL
-
-  /* Чтобы CapsLock работал и с клавой и с виртуалом вперемешку */
-  if (event.code === 'CapsLock'){
-    if (flagCapsLock === false){ flagCapsLock = true }
-    else { flagCapsLock = false }
-  }
-
-
-  if (event.code == 'ShiftLeft' || event.code == 'ShiftRight') flag = true  // отлавливает Shift + Alt
-  if (event.code == 'AltLeft' && flag || event.code === 'AltRight' && flag){ // отлавливает Shift + Alt
-    flag = false // чтобы сработало только один раз
-    console.log('Ура заработало')
-  } // отлавливает Shift + Alt
-
-  /* загнал в одну функцию, надо вешать слушатели, но не успеваю */
-  document.querySelectorAll('.key').forEach(function (element) {
-    element.classList.remove('active')
-  })
-
-  /*Надо написать что-то персональное для табуляции*/
-  /************************************************ */
-  /************************************************ */
-
-
-  document.querySelector(`.key[data="${event.code}"]`).classList.add('active');
-  textInput.focus();  // чтобы сразу вводило в форму
-}
-
-
-/*******  работа виртуальной клавиатуры    *********************************************************** */
-
-document.querySelectorAll('.keyboard .key').forEach(function (element) {
-
-  element.onclick = function(event){
-
-
-
-    document.querySelectorAll('.keyboard .key').forEach(function (element) {
-
-      element.classList.remove('active')
-    });
-
-    let code = this.getAttribute('data')
-    this.classList.add('active')
-    //console.log(code)
-
-
-    let cursorStart = textarea.selectionStart;
-    let cursorEnd = textarea.selectionEnd;
-
-    // console.log(cursorStart)
-    // console.log(cursorEnd)
-
-    let indexFuncButton = codeKeyboard.indexOf(code)
-
-    /** работа функциональных клавиш */
-
-    if (funcButtonIndexArr.includes(indexFuncButton)){
-      console.log(`Начинаются мучения`)
-      console.log(`Индекс= ${codeKeyboard.indexOf(code)}`)
-
-      if(indexFuncButton === 13){  /* клавиша Backspace */
-
-        //if (cursorStart === 0) cursorStart = cursorEnd = 1;
-        /*if (cursorStart === 0) cursorStart = 1;
-        textarea.value = textarea.value.slice(0, cursorStart-1) + textarea.value.slice(cursorEnd); 
-
-        textarea.selectionStart = textarea.selectionEnd = cursorEnd - 1 // чтобы курсор не убегал
-        if (textarea.selectionStart < 0 || textarea.selectionEnd < 0) textarea.selectionStart = textarea.selectionEnd = 0;
-        textInput.focus();*/
-
-        if (cursorStart === 0){
-          textInput.focus();
-        }
-        if (cursorStart > 0){
-          textarea.value = textarea.value.slice(0, cursorStart-1) + textarea.value.slice(cursorEnd);
-          textarea.selectionStart = textarea.selectionEnd = cursorEnd - 1
-          textInput.focus();
-        }
-      }
-
-      if (indexFuncButton === 28){  // работа клавиши DEL
-        //console.log(`Началось`)
-        textarea.value = textarea.value.slice(0, cursorStart) + textarea.value.slice(cursorEnd+1); 
-        textarea.selectionStart = textarea.selectionEnd = cursorStart// чтобы курсор не убегал
-        textInput.focus();
-      }
-
-      if (indexFuncButton === 14){  // работа клавиши tab
-
-        textarea.value = textarea.value.slice(0, cursorStart) + '  ' + textarea.value.slice(cursorEnd); 
-
-        //textarea.value = textarea.value.slice(0, cursorStart) + '\t' + textarea.value.slice(cursorEnd);
-        textarea.selectionStart = textarea.selectionEnd = cursorEnd + 2 // чтобы курсор не убегал
-        //textarea.selectionStart = textarea.selectionEnd  + '\t' // чтобы курсор не убегал
-
-        textInput.focus();
-      }
-
-      if (indexFuncButton === 41){ // работа клавиши Enter
-
-        textarea.value = textarea.value.slice(0, cursorStart) + '\n' + textarea.value.slice(cursorEnd);
-
-        textarea.selectionStart = textarea.selectionEnd = cursorEnd + 2 // чтобы курсор не убегал
-
-        textInput.focus();
-      }
-      if(indexFuncButton === 42 || indexFuncButton === 54){ // работа Shift
-        flag = true
-      }
-
-      
-      if(indexFuncButton === 29){ // работа CapsLock 
-        if (flagCapsLock === false) {
-          //flagCapsLock = 'Бред'
-          flagCapsLock = true
-          console.log('Почему?')
-          console.log(event)
-          console.log(flagCapsLock)
-        } else{
-          flagCapsLock = false
-          console.log(flagCapsLock)
-        }
-        
-      }
-
-      
-
-    } else {
-
-      /* формирую массив нужных индексов */
-      // console.log(`Индекс= ${codeKeyboard.indexOf(code)}`)
-      // index.push(codeKeyboard.indexOf(code))
-      // console.log(index)
-
-      /* вводит текст в форму */
-
-      // document.querySelector('.textarea').innerHTML += `${String.fromCharCode(abcKeys[codeKeyboard.indexOf(code)])}`; // работает только до переключения на основную клавиатуру
-      //document.querySelector('.textarea').value += `${String.fromCharCode(abcKeys[codeKeyboard.indexOf(code)])}`; // работает
-      //document.querySelector('.textarea').value += `${String.fromCharCode(abcKeys[codeKeyboard.indexOf(code)])}`;
-      //textarea.value += `${String.fromCharCode(abcKeys[codeKeyboard.indexOf(code)])}`;
-      //textInput.focus();
-
-      //let currentText = textarea.value; // пока нигде не использую
-      //let letter = `${String.fromCharCode(abcKeys[codeKeyboard.indexOf(code)])}`; работает
-      //textarea.value += letter;
-
-      // let cursorStart = textarea.selectionStart;
-      // let cursorEnd = textarea.selectionEnd;
-
-      // console.log(cursorStart)
-      // console.log(cursorEnd)
-
-      //textarea.value = textarea.value.setRangeText(letter, cursorStart, cursorEnd, "end")   //не работает
-      if (event.code == 'ShiftLeft' || event.code == 'ShiftRight') flag = true
-      /* вводит текст в форму */
-
-      let letter = `${String.fromCharCode(abcKeys[codeKeyboard.indexOf(code)])}`;
-
-      if (flagCapsLock) letter = letter.toUpperCase(); // пытаюсь заставить работать CapsLock - ура заработал
-
-      //if (flag) letter = letter.toUpperCase(); // игры с shift
-
-      if (flag) { // заработал shift учитывая capslock
-        if (flagCapsLock) {
-          console.log (flag)
-          console.log (flagCapsLock)
-          letter = letter.toLowerCase();}
-        if (!flagCapsLock) letter = letter.toUpperCase(); // игры с shift
-      }
-      flag = false
-
-      
-      textarea.value = textarea.value.slice(0, cursorStart) + letter + textarea.value.slice(cursorEnd);
-
-      textInput.focus();
-      textarea.selectionStart = textarea.selectionEnd = cursorEnd + 1 // чтобы курсор не убегал
-
-
+    if(event.target.matches('.block') && matrix[coorXY.x][coorXY.y].mineOpen !== true) {
+      event.target.classList.toggle('guess')
     }
 
+  })
 
+/***************************************************** */
+/************************************************************************************** */
+/*  Открытие ячейки */
+
+const open = function(event){  // запускается при клике
+  let coorXY = JSON.parse(event.target.getAttribute("data"))
+  let x = coorXY.x
+  let y = coorXY.y
+  console.log(`функция open x=${x}`)
+
+  openNullBlock(x, y)
+}
+
+const openNullBlock = function(x, y){ // координаты будет передавать функция open в которую я вставлю эту
+  //matrixDoc = document.querySelectorAll('.block')
+  let index = y*row + x
+  if(matrix[x][y].mineOpen) return; //если ячейка уже открыта - выходим из функции
+  if(matrix[x][y].mineHere) {
+    temp_bomb = '💥';
+    matrixDoc[index].innerHTML = `${temp_bomb}`
+
+    /* чтобы увидеть взрыв) */
+    setTimeout(() => alert('Игра окончена. Попробуйте еще раз'),0);
+    /* Пока не понял где ошибка и почему не запускается без перезагрузки*/
+    // minePlacement()
+    // mineAround()
+    // start()
+
+  } else { // если мины нет
+      let temp_bomb = ''
+      temp_bomb = matrix[x][y].mineNear
+      if(temp_bomb === 0) temp_bomb = '';
+      matrix[x][y].mineOpen = true
+      matrixDoc[index].innerHTML = `${temp_bomb}`
+      matrixDoc[index].classList.add('null') // Node коллекция всех блоков (стоят по порядку)
+
+      if(temp_bomb) matrixDoc[index].classList.add(`${colorNumber[Number(temp_bomb)-1]}`); // меняет цвет цифр
+
+      scoreCloseBlock = scoreCloseBlock - 1 // считаю, сколько ячеек осталось открыть
+
+      if(scoreCloseBlock === 0) alert('Ура! Вы нашли все мины. Победа');
+
+      //if(matrix[x][y].mineNear === 0){ // опция открытия пустых ячеек
+
+        if (matrix[x][y].mineNear == 0) { // опция открытия пустых ячеек
+          for (let i = x - 1; i <= x + 1; i++) {
+            for (let j = y - 1; j <= y + 1; j++) {
+              if (i >= 0 && j >= 0 && i <matrix.length && j < matrix[x].length && (i !== x || j !== y)) {
+                openNullBlock(i, j);
+              }
+            }
+          }
+        }
+
+  }
+
+}
+
+
+document.querySelector('.playboard').addEventListener('click', function(event) {
+  if(event.target.matches('.block') && !(event.target.matches('.guess'))) {
+    open(event)
   }
 })
 
 
-/* помогает сформировать массив charCode клавиш*/
+/********************************************************* */
 
-let rus = []
-// [1081, 1094, 1091, 1082, 1077, 1085, 1075, 1096, 1097, 1079] // Первый ряд
 
-document.onkeypress = function(event){
-  // console.log(event)
-  rus.push(event.charCode)
-  console.log(rus)
-}
+/* получаю координаты ячейки по клику */
+/*
+document.querySelectorAll('.block').forEach(function(block){
+  block.addEventListener('click', function(){
+    //alert(` x=${block.dataset.x}\n y=${block.dataset.y}`) // работает выводит координаты ячейки 
+    //console.log(typeof block.getAttribute("data"))
+    console.log(JSON.parse(block.getAttribute("data")))
+    let coordinate = JSON.parse(block.getAttribute("data"))
+    // console.log(` x=${coordinate.x}\n y=${coordinate.y}`)
+    // console.log(` x=${coordinate.x}\n y=${coordinate.y}\n mineHere=${coordinate.mineHere}`)
+    // console.log(` x=${coordinate.x}\n y=${coordinate.y}\n mineHere=${coordinate.mineHere}\n mineNear=${coordinate.mineNear}`)
+    console.log(` x=${coordinate.x}\n y=${coordinate.y}\n mineHere=${coordinate.mineHere}\n mineNear=${coordinate.mineNear}\n mineOpen=${coordinate.mineOpen}`)
 
+    /* тестовое открытие бомб */
+    /*
+    let temp_bomb = ''
+    temp_bomb = matrix[coordinate.x][coordinate.y].mineNear
+    if(matrix[coordinate.x][coordinate.y].mineHere) temp_bomb = '💥';
+    */
+
+    // 💥 столкновение взрыв HTML-код	&#128165; CSS-код	\1F4A5
+    // незакрашенный флаг &#9872; (\2690) в CSS
+    // закрашенный флаг &#9873; (\2691) в CSS
+    // шлем с белым крестом &#9937;
+    // закрашенный улыбающийся смайлик &#9787;
+    // православный крест &#9766;
+    // крест ✝
+    // нахмуренный смайлик &#9785;
+
+    // многоугольник	&#10040;	&#x2738;	✸
+
+    //⛔	 	&#9940;	Вход запрещен (кирпич)
+    //⛳	 	&#9971;	Флаг в воронке, местоположение, место встречи, гольф
+
+    // ⛑	&#9937;	\26D1	Шлем с белым крестом
+    // ⚑	&#9873;	\2691	Закрашенный флаг
+    // ⚐	&#9872;	\2690	Незакрашенный флаг
+    // ☹	&#9785;	\2639	Нахмуренный смайлик
+    // ☺	&#9786;	\263A	Улыбающийся смайлик
+    // ☻	&#9787;	\263B	Закрашенный улыбающийся смайлик
+
+    /* Операции с открытой ячейкой */
+    /*
+    matrixDoc[coordinate.y*row + coordinate.x].innerHTML = `${temp_bomb}`
+    matrixDoc[coordinate.y*row + coordinate.x].classList.add('open')
+    */
+    /**************************************** */
+
+    //if(!matrix[coordinate.x][coordinate.y].mineNear) если рядом мин нет
+
+    /**************************************** */
+    // запоминаю в матрицу, координаты ячейки, которая открывалась
+    //matrix[coordinate.x][coordinate.y].mineOpen = true
+    //console.log(matrix)
+    /*
+  })
+})
+*/
+
+//let matrixDoc = document.querySelectorAll('.block')
+//console.log(matrixDoc[1].innerHTML = 'Ура')
+//console.log(document.querySelectorAll('.block')[99].innerHTML = 'Ура')
 
 

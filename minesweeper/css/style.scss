@@ -11,59 +11,24 @@ html {
   /*font-size: calc(24px + (16 + 16 * 0.7) * ((100vw - 320px) /  1280);*/
 }
 
-// .header{
-//   // padding: 6rem 0 6rem 0;
-//   padding: 3rem 0 9rem 0;
-
-//   @media screen and (max-width: 1000px) {
-//     padding: 3rem 0 6rem 0;
-//   }
-
-//   &--page {
-//     padding: 3rem 0;
-//     // border: solid red 2px;
-//     background-color: #FFFFFF;
-//   }
-// }
-
-// * {
-//   box-sizing: border-box;
-//   margin: 0;
-//   padding: 0;
-// }
-
 .title {
   text-align: center;
 }
 
 .playboard {
-  //font-size: 1.6rem;
   display: flex;
   flex-direction: row;
-  //justify-content: center;
   justify-content: space-around;
   align-items: center;
-  //align-items: ;
   flex-wrap: wrap;
-  //gap: 0.5rem;
   gap: $space;
   border: solid $space black;
-  //width: 458px;
-  //width: calc(40px*10 + 5px*12);
-
-  //width: calc(($size + $space)*12 + $space);
-
-  //width: calc(($size + $space)*10 + 10*2*0.8px);
   width: calc(($size + $space)*$rows + 2*$space);
 
   // Почему-то не работает box-sizing: border-box;
 
-  //height: calc(($size + $space)*12 + $space);
-  //width: calc(4rem*11 + 0.5rem*12);
-  //width: 510px;
   margin: 0 auto;
-  //padding: 5px;
-  // padding: $space $space 0 0;
+
   padding: calc(2*$space);
 
   @media screen and (max-width: 530px) {
@@ -78,7 +43,7 @@ html {
   @media screen and (max-width: 340px) {
     width: calc(($size*0.6 + $space)*$rows + 2*$space);
   }
-  
+
 }
 
 .block {
@@ -89,8 +54,6 @@ html {
   background-color: gray;
   width: $size;
   height: $size;
-
-  
 
   font-weight: bold;
   border: solid 1px black;
@@ -151,6 +114,10 @@ html {
   color: yellow;
 }
 
+.foor {
+  color: green;
+}
+
 .eight {
   color: orange;
 }
@@ -160,13 +127,6 @@ html {
 // }
 
 .guess::after {
-  /*
-  width: calc($size/2);
-  height: calc($size/2);
-  border-radius: 50%;
-  background-color: aqua;
-  content: "";
-  */
 
   //content: "⚑"; // флаг из спецсимволов
   content: "⛔"; // знак из спецсимволов
