@@ -3,52 +3,20 @@
 let mineNumber = 10  // всего (количество) мин
 let column = 10
 let row = 10
-
 let scoreCloseBlock = column*row - mineNumber
-
 const colorNumber = ['one', 'two', 'three', 'foor', 'five', 'six', 'seven', 'eight']
+let matrix = new Array(row);
 
+let matrixDoc = []
 
 /************************************************************************************************** */
 /************************************************************************************************** */
 
-// const mine = {
-//   x: 0,
-//   y: 0
-// }
 const mine = {
   x: 0,
-  y: 0,
-  mineHere: false,
-  mineNear: 0,
-  mineOpen: false
+  y: 0
 }
 
-//let matrix = Array(row).fill(Array(column).fill((mine))) // создаю чистую матрицу не работает, похоже ссылается сама на себя
-// придется делать циклом
-
-//let matrix = []
-
-/*
-let matrix = new Array(row);
-for (let i = 0; i < row; i++) {
-  matrix[i] = new Array(column);
-  for (let j = 0; j < column; j++) {
-    // надо создавать новый объект для каждой ячейки, т.к. иначе будет ссылка на один и тот же объект и X и Y примут последние значения
-    // поэтому лучше использовать класс
-    matrix[i][j] = {
-      x: i,
-      y: j,
-      mineHere: false,
-      mineNear: 0,
-      mineOpen: false
-    };
-    mine.x = i
-    mine.y = j
-    matrix[i][j] = mine
-  }
-}
-*/
 class MineInfo {
   constructor(x, y) {
     this.x = x;
@@ -59,15 +27,11 @@ class MineInfo {
   }
 }
 
-let matrix = new Array(row);
 
-
-/******************************************************* */
-// функция расстановки мин
 
 const minePlacement = function(){
-  /* создаю матрицу игрового поля */
   matrix = null
+  console.log(matrix)
   matrix = new Array(row); 
   for (let x = 0; x < row; x++) {
     matrix[x] = new Array(column);
@@ -76,7 +40,6 @@ const minePlacement = function(){
     }
   }
 
-  /* генерирую случайную расстановку мин */
   let countMine = mineNumber
   while(countMine){
     let x = Math.floor(Math.random() * row)
@@ -103,8 +66,7 @@ const mineAround = function(){
       if ((i+1) < matrix.length && (k) < matrix[i].length && matrix[i+1][k].mineHere === true) matrix[i][k].mineNear = matrix[i][k].mineNear + 1;
       if ((i+1) < matrix.length && (k-1) >= 0 && matrix[i+1][k-1].mineHere === true) matrix[i][k].mineNear = matrix[i][k].mineNear + 1;
       if ((i) < matrix.length && (k-1) >= 0 && matrix[i][k-1].mineHere === true) matrix[i][k].mineNear = matrix[i][k].mineNear + 1;
-      /* тест */
-      //if() matrix[i][k].mineNear = 88;
+
     }
   }
 }
@@ -117,15 +79,11 @@ let razm = 'block'  // переменная для игр с размером п
 
 if(row === 20) razm = 'block_big'
 
-// cell unit block item elem (ячейка клетка блок)
-
-/************************************************************************ */
 
 function start(){
   document.querySelector('body').innerHTML = '' // очищаю чтобы работало без перезагрузки
   document.querySelector('body').innerHTML += `<main class="main"></main>`;
   document.querySelector('.main').innerHTML = `<h1 class="title">Minesweeper</h1>`;
-  //document.querySelector('.main').innerHTML += `<div class="wrapper-text"></div>`; // обёртка для ввода текста
   document.querySelector('.main').innerHTML += `<div class="playboard"></div>`;
 
   let init = '';
@@ -138,32 +96,28 @@ function start(){
     let mineJSON = JSON.stringify(mine)  // это уже строка, поэтому кавычек в data НЕ НАДО!!!
 
     let temp_bomb = ''
-    /* тестовая расстановка бомб */
-    // temp_bomb = matrix[mine.x][mine.y].mineNear
-    // if(matrix[mine.x][mine.y].mineHere) temp_bomb = 88;
-
     //let block = `<div class="block" data=${mineJSON} "><div>${temp_bomb}</div></div>`;
     let block = `<div class=${razm} data=${mineJSON} ><div>${temp_bomb}</div></div>`;
 
     init = init + block;
   }
-
-  /*формирую HTML*/
   document.querySelector('.playboard').innerHTML = init;
+
+  /* получаю Node коллекцию блоков */
+  matrixDoc = document.querySelectorAll('.block');
 }
 
+
+/************************************************************* */
+
 start()
-
-/* получаю Node коллекцию блоков */
-let matrixDoc = document.querySelectorAll('.block')
-
 
 
 /****************************************************** */
 
-/* обработчик правой клавиши */
-
-document.querySelector('.playboard').addEventListener('contextmenu', function(event) {
+/* правая клавиша мыши */
+const right = function(){ // 
+  document.querySelector('.playboard').addEventListener('contextmenu', function(event) {
     event.preventDefault()
     // matrixDoc[1].innerHTML = 'Ура'
     //console.log(event.target.getAttribute("data"))
@@ -174,6 +128,23 @@ document.querySelector('.playboard').addEventListener('contextmenu', function(ev
     }
 
   })
+}
+
+right()
+
+/********************************************************************************** */
+/*********Запуск игры без перезагрузки*********************************************** */
+
+const restartGame = function() {
+  minePlacement()
+    mineAround()
+    start()
+    right()
+    left()
+    scoreCloseBlock = column*row - mineNumber
+}
+
+
 
 /***************************************************** */
 /************************************************************************************** */
@@ -191,17 +162,21 @@ const open = function(event){  // запускается при клике
 const openNullBlock = function(x, y){ // координаты будет передавать функция open в которую я вставлю эту
   //matrixDoc = document.querySelectorAll('.block')
   let index = y*row + x
+  //console.log(matrix)
   if(matrix[x][y].mineOpen) return; //если ячейка уже открыта - выходим из функции
   if(matrix[x][y].mineHere) {
     temp_bomb = '💥';
     matrixDoc[index].innerHTML = `${temp_bomb}`
+    
 
     /* чтобы увидеть взрыв) */
-    setTimeout(() => alert('Игра окончена. Попробуйте еще раз'),0);
-    /* Пока не понял где ошибка и почему не запускается без перезагрузки*/
-    // minePlacement()
-    // mineAround()
-    // start()
+
+
+    setTimeout(() => {
+      alert('Игра окончена. Попробуйте еще раз');
+      restartGame(); // стартую новую игру
+    },0);
+
 
   } else { // если мины нет
       let temp_bomb = ''
@@ -215,7 +190,13 @@ const openNullBlock = function(x, y){ // координаты будет пер�
 
       scoreCloseBlock = scoreCloseBlock - 1 // считаю, сколько ячеек осталось открыть
 
-      if(scoreCloseBlock === 0) alert('Ура! Вы нашли все мины. Победа');
+      if(scoreCloseBlock === 0) {
+        //alert('Ура! Вы нашли все мины. Победа');
+        setTimeout(() => {
+          alert('Ура! Вы нашли все мины. Победа');
+          restartGame(); // call restartGame() function to restart the game
+        },0);
+      }
 
       //if(matrix[x][y].mineNear === 0){ // опция открытия пустых ячеек
 
@@ -240,6 +221,13 @@ document.querySelector('.playboard').addEventListener('click', function(event) {
   }
 })
 
+const left = function() {
+  document.querySelector('.playboard').addEventListener('click', function(event) {
+    if(event.target.matches('.block') && !(event.target.matches('.guess'))) {
+      open(event)
+    }
+  })
+}
 
 /********************************************************* */
 
