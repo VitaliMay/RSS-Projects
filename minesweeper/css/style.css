@@ -1,9 +1,50 @@
 @charset "UTF-8";
+button {
+  border: none;
+  outline: none;
+}
+
 html {
   box-sizing: border-box;
   scroll-behavior: smooth;
   /* Меняю размер шрифта, чтобы установить новое значение rem */
   /*font-size: calc(24px + (16 + 16 * 0.7) * ((100vw - 320px) /  1280);*/
+}
+
+.info-block {
+  margin: 0 auto;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  width: 424px;
+}
+@media screen and (max-width: 530px) {
+  .info-block {
+    width: 384px;
+  }
+}
+@media screen and (max-width: 440px) {
+  .info-block {
+    width: 344px;
+  }
+}
+@media screen and (max-width: 390px) {
+  .info-block {
+    width: 304px;
+  }
+}
+@media screen and (max-width: 340px) {
+  .info-block {
+    width: 264px;
+  }
+}
+
+.btn-restart {
+  width: 80px;
+  height: 40px;
+  background-color: aqua;
+  border: red solid 2px;
+  border-radius: 10%;
 }
 
 .title {

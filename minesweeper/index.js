@@ -79,11 +79,18 @@ let razm = 'block'  // переменная для игр с размером п
 
 if(row === 20) razm = 'block_big'
 
+function startInfoBlock() {
+  document.querySelector('body').innerHTML = `<header class="info-block"></header>`;
+  document.querySelector('.info-block').innerHTML = `<button class="btn-restart">Restart Game</button>`;
+  document.querySelector('body').innerHTML += `<main class="main"></main>`;
+
+}
+
+startInfoBlock()
 
 function start(){
-  document.querySelector('body').innerHTML = '' // очищаю чтобы работало без перезагрузки
-  document.querySelector('body').innerHTML += `<main class="main"></main>`;
-  document.querySelector('.main').innerHTML = `<h1 class="title">Minesweeper</h1>`;
+
+  document.querySelector('.main').innerHTML = '' // очищаю чтобы работало без перезагрузки
   document.querySelector('.main').innerHTML += `<div class="playboard"></div>`;
 
   let init = '';
@@ -229,7 +236,16 @@ const left = function() {
   })
 }
 
-/********************************************************* */
+/****** Перезапуск игры  *************************************************** */
+
+
+document.querySelector('.btn-restart').addEventListener('click', function() {
+  //alert("Вы нажали на кнопку");
+  restartGame();
+});
+
+
+/************************************************************** */
 
 
 /* получаю координаты ячейки по клику */
