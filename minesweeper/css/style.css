@@ -16,6 +16,7 @@ html {
   height: 120px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   width: 424px;
 }
 @media screen and (max-width: 530px) {
@@ -40,6 +41,22 @@ html {
 }
 
 .btn-restart {
+  width: 80px;
+  height: 40px;
+  background-color: aqua;
+  border: red solid 2px;
+  border-radius: 10%;
+}
+
+.div-moves {
+  width: 80px;
+  height: 40px;
+  background-color: aqua;
+  border: red solid 2px;
+  border-radius: 10%;
+}
+
+.div-timer {
   width: 80px;
   height: 40px;
   background-color: aqua;

@@ -9,6 +9,12 @@ let matrix = new Array(row);
 
 let matrixDoc = []
 
+let firstClick // переменная для первого клика (чтобы сразу не нарваться на мину)
+let movesCount = 0 // количество кликов
+
+let time = 0 // игры со временем
+let timer
+
 /************************************************************************************************** */
 /************************************************************************************************** */
 
@@ -82,6 +88,8 @@ if(row === 20) razm = 'block_big'
 function startInfoBlock() {
   document.querySelector('body').innerHTML = `<header class="info-block"></header>`;
   document.querySelector('.info-block').innerHTML = `<button class="btn-restart">Restart Game</button>`;
+  document.querySelector('.info-block').innerHTML += `<div class="div-timer"></div>`;
+  document.querySelector('.info-block').innerHTML += `<div class="div-moves"></div>`;
   document.querySelector('body').innerHTML += `<main class="main"></main>`;
 
 }
@@ -112,6 +120,16 @@ function start(){
 
   /* получаю Node коллекцию блоков */
   matrixDoc = document.querySelectorAll('.block');
+
+  firstClick = false // для первого клика (изменяю в open)
+  movesCount = 0 // буду считать количество кликов-ходов
+  document.querySelector('.div-moves').innerHTML = `Количество ходов ${movesCount}`;
+
+  // игры со временем
+  time = 0
+  //let timer
+  document.querySelector('.div-timer').innerHTML = `Время ${time} с`;
+
 }
 
 
@@ -139,6 +157,22 @@ const right = function(){ //
 
 right()
 
+/******************************************************************** */
+/********* Время игры *********************************************************** */
+
+const startTimer = function() {
+  timer = setInterval(function() {
+    time++
+    document.querySelector('.div-timer').innerHTML = `Время ${time} с`;
+  }, 1000)
+}
+
+const stopTimer = function() {
+  clearInterval(timer)
+}
+
+//startTimer()
+
 /********************************************************************************** */
 /*********Запуск игры без перезагрузки*********************************************** */
 
@@ -152,11 +186,50 @@ const restartGame = function() {
 }
 
 
+/***************************************************** */
+/************************************************************************************** */
+/*  Открытие ячейки */
+
+
+const open = function(event){ 
+  let coorXY = JSON.parse(event.target.getAttribute("data"))
+  let x = coorXY.x
+  let y = coorXY.y
+  console.log(`функция open x=${x}`)
+
+  if (!firstClick) { // пробую словить первый клик
+
+    minePlacement()
+    mineAround()
+    firstClick = true
+
+    while(matrix[x][y].mineHere){ // если мина перерисовываю matrix
+      minePlacement()
+      mineAround()
+    }
+    openNullBlock(x, y)
+
+    // запуск таймера при первом клике
+    startTimer()
+
+  } else {
+    openNullBlock(x, y)
+  }
+
+  // увеличение количества ходов при каждом клике
+  movesCount++
+  document.querySelector('.div-moves').innerHTML = `Количество ходов ${movesCount}`;
+
+}
+
+
+
 
 /***************************************************** */
 /************************************************************************************** */
 /*  Открытие ячейки */
 
+/*
 const open = function(event){  // запускается при клике
   let coorXY = JSON.parse(event.target.getAttribute("data"))
   let x = coorXY.x
@@ -165,6 +238,7 @@ const open = function(event){  // запускается при клике
 
   openNullBlock(x, y)
 }
+*/
 
 const openNullBlock = function(x, y){ // координаты будет передавать функция open в которую я вставлю эту
   //matrixDoc = document.querySelectorAll('.block')
@@ -174,10 +248,16 @@ const openNullBlock = function(x, y){ // координаты будет пер�
   if(matrix[x][y].mineHere) {
     temp_bomb = '💥';
     matrixDoc[index].innerHTML = `${temp_bomb}`
-    
+
+    for(let i=0; i < matrixDoc.length; i++){ // чтобы открыть все мины
+      let yBomb = Math.floor(i/row)
+      let xBomb = i % row
+      if((i !== index) && matrix[xBomb][yBomb].mineHere) matrixDoc[i].innerHTML = '💣';
+    }
+
+    stopTimer() // остановить время игры
 
     /* чтобы увидеть взрыв) */
-
 
     setTimeout(() => {
       alert('Игра окончена. Попробуйте еще раз');
@@ -199,6 +279,7 @@ const openNullBlock = function(x, y){ // координаты будет пер�
 
       if(scoreCloseBlock === 0) {
         //alert('Ура! Вы нашли все мины. Победа');
+        stopTimer() // остановить время игры
         setTimeout(() => {
           alert('Ура! Вы нашли все мины. Победа');
           restartGame(); // call restartGame() function to restart the game
@@ -245,49 +326,6 @@ document.querySelector('.btn-restart').addEventListener('click', function() {
 });
 
 
-/************************************************************** */
-/************************************************************** */
-
-let firstMove = true;
-
-// Add event listener to each cell on the game board
-const cells = document.querySelectorAll('.cell');
-cells.forEach(cell => {
-  cell.addEventListener('click', () => {
-    // Check if it's the first move
-    if (firstMove) {
-      // Set the first cell clicked to an empty cell
-      cell.classList.remove('mine');
-      // Randomly distribute the mines on the rest of the board
-      distributeMines(cell);
-      // Set firstMove to false
-      firstMove = false;
-    } else {
-      // Reveal the clicked cell and check for adjacent mines as usual
-      revealCell(cell);
-      checkAdjacentMines(cell);
-    }
-  });
-});
-
-function distributeMines(firstCell) {
-  // Code to randomly distribute mines on the board
-}
-
-function revealCell(cell) {
-  // Code to reveal the clicked cell
-}
-
-function checkAdjacentMines(cell) {
-  // Code to check for adjacent mines and update the cell accordingly
-}
-
-
-
-
-
-
-/************************************************************** */
 /************************************************************** */
 
 
