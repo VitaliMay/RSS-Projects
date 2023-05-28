@@ -2,6 +2,14 @@
 $size: 40px;
 $space: 2px;
 $rows: 10;
+$rows-mid: 15;
+$rows-big: 25;
+
+$field-size: calc(($size + $space)*$rows + 2*$space);
+
+$size-mid: calc(($field-size - 2*$space)/$rows-mid - $space);
+$size-big: calc(($field-size - 2*$space)/$rows-big - $space);
+
 
 button {
   border: none;
@@ -21,7 +29,9 @@ html {
   margin: 0 auto;
   //border: red solid 2px;
   //width: $size*$rows;
-  height: $size*3;
+
+  //height: $size*3;
+  flex-wrap: wrap;
   display: flex;
   //justify-content: center;
   align-items: center;
@@ -94,14 +104,69 @@ html {
   @media screen and (max-width: 440px) {
     width: calc(($size*0.8 + $space)*$rows + 2*$space);
   }
-  @media screen and (max-width: 390px) {
-    width: calc(($size*0.7 + $space)*$rows + 2*$space);
-  }
-  @media screen and (max-width: 340px) {
-    width: calc(($size*0.6 + $space)*$rows + 2*$space);
-  }
+  // @media screen and (max-width: 390px) {
+  //   width: calc(($size*0.7 + $space)*$rows + 2*$space);
+  // }
+  // @media screen and (max-width: 340px) {
+  //   width: calc(($size*0.6 + $space)*$rows + 2*$space);
+  // }
 
 }
+
+/*********************************************/
+.div-select {
+  width: $size*2;
+  height: $size;
+  background-color: aqua;
+  border: red solid 2px;
+  border-radius: 10%;
+
+  display: flex;
+  //flex-direction: column;
+}
+/*
+.form {
+  border: solid blue 1px;
+  //display: flex;
+}
+*/
+.form-wrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 10px;
+}
+.form-input-wrapper {
+  display: flex;
+  gap: 30px;
+}
+/********************************************************/
+
+.div-flag {
+  width: $size*2;
+  height: $size;
+  background-color: aqua;
+  border: red solid 2px;
+  border-radius: 10%;
+
+  display: flex;
+  align-items: center;
+  
+}
+
+.flag-text {
+  //border: red solid 2px;
+  text-align: center;
+}
+
+.flagNumber {
+  //text-align: center;
+  //border: solid red 1px;
+  //padding: 0 5px;
+  padding-right: 10px;
+}
+
+/********************************************************/
 
 .block {
   display: flex;
@@ -123,31 +188,92 @@ html {
     width: $size*0.8;
     height: $size*0.8;
   }
-  @media screen and (max-width: 390px) {
-    width: $size*0.7;
-    height: $size*0.7;
-  }
-  @media screen and (max-width: 340px) {
-    width: $size*0.6;
-    height: $size*0.6;
-  }
+  // @media screen and (max-width: 390px) {
+  //   width: $size*0.7;
+  //   height: $size*0.7;
+  // }
+  // @media screen and (max-width: 340px) {
+  //   width: $size*0.6;
+  //   height: $size*0.6;
+  // }
 
 }
 
 /*******************************************************/
-.block_big { // пробую рисовать поля разного размера
+.block-mid { // пробую рисовать поля разного размера
   display: flex;
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
   background-color: gray;
-  width: calc($size/2);
-  height: calc($size/2);
+  // width: calc(($field-size - 2*$space)/$rows-mid - $space);
+  // height: calc(($field-size - 2*$space)/$rows-mid - $space);
+
+  // $size-mid: calc(($field-size - 2*$space)/$rows-mid - $space);
+  //width: calc(($size + $space)*$rows + 2*$space);
+
+  //height: calc($size/2);
+
+  width: $size-mid;
+  height: $size-mid;
 
   font-weight: bold;
 
   border: solid 1px black;
+
+  @media screen and (max-width: 530px) {
+    width: $size-mid*0.9;
+    height: $size-mid*0.9;
+  }
+  @media screen and (max-width: 440px) {
+    width: $size-mid*0.8;
+    height: $size-mid*0.8;
+  }
+  // @media screen and (max-width: 390px) {
+  //   width: $size-mid*0.7;
+  //   height: $size-mid*0.7;
+  // }
+  // @media screen and (max-width: 340px) {
+  //   width: $size-mid*0.6;
+  //   height: $size-mid*0.6;
+  // }
+
 }
+/**************************************************/
+
+.block-big { // пробую рисовать поля разного размера
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  background-color: gray;
+  
+  width: $size-big;
+  height: $size-big;
+
+  font-weight: bold;
+
+  border: solid 1px black;
+
+  @media screen and (max-width: 530px) {
+    width: $size-big*0.9;
+    height: $size-big*0.9;
+  }
+  @media screen and (max-width: 440px) {
+    width: $size-big*0.8;
+    height: $size-big*0.8;
+  }
+  // @media screen and (max-width: 390px) {
+  //   width: $size-big*0.71;
+  //   height: $size-big*0.71;
+  // }
+  // @media screen and (max-width: 340px) {
+  //   width: $size-big*0.6;
+  //   height: $size-big*0.6;
+  // }
+
+}
+
 /**************************************************/
 
 .open {
@@ -175,6 +301,15 @@ html {
   color: green;
 }
 
+.five {
+  color: aqua;
+}
+.six {
+  color: brown;
+}
+.seven {
+  color: black;
+}
 .eight {
   color: orange;
 }
