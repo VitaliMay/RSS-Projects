@@ -1,0 +1,65 @@
+// @import 'normalize';
+
+@import 'global';
+
+// .header-inner {
+//   background: linear-gradient(180deg, #0C0C0E 0%, #0C0C0E 0.01%, rgba(18, 18, 21, 0.10) 100%);
+// }
+
+.header {
+  background: #0C0C0E; // чтобы фоновый цвет тянулся
+
+}
+
+.header-inner{
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 9rem;
+
+  position: relative; /*для адаптации бургера*/
+}
+
+.logo {
+  color: #FFF;
+  font-family: Forum;
+  font-size: 3rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 5rem; /* 166.667% */
+  letter-spacing: 0.6px;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  column-gap: 4rem;
+  
+}
+
+.menu__list {
+  display: flex;
+  //justify-content: space-between;
+  column-gap: 3rem;
+  //min-height: 5rem;
+
+  color: #FFF;
+  line-height: 5rem;
+
+  &-item {
+    transition: 0.4s;
+  }
+  &-item:hover {
+    color: red;
+    // меню исчезает и появляется ПЛАВНО
+    transition: 0.4s;
+  }
+}
+
+.profile {
+  background-image: url("../assets/svg/icon_profile01.svg");
+  width: 2.8rem;
+  height: 2.8rem;
+  flex-shrink: 0;
+}
