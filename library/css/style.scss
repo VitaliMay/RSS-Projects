@@ -100,15 +100,17 @@
   padding: 22rem 2rem 0 0;
 }
 
-.welcom-block {
-  width: 600px;
-  height: 220px;
-  background-color: black;
-  padding: 3.5rem 4rem;
+.title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
+  //background-color: burlywood;
 }
 
-.title {
+.title_text {
+  
+
   color: #0C0C0E;
   font-family: Forum;
   font-size: 40px;
@@ -132,5 +134,114 @@
   }
 }
 
+.title--welcom-block {
+  width: 600px;
+  height: 220px;
+  background-color: black;
+  padding: 3.5rem 4rem;
+
+}
+
+.title_line {
+  width: 50px;
+  height: 1px;
+  background: #0C0C0E;
+  margin-top: 20px;
+}
+
+/**************************************************/
+.about {
+  background-color: #FFF;
+
+}
+
+.about-inner {
+  display: flex;
+  flex-direction: column;
+  //justify-content: space-between;
+  align-items: center;
+
+  padding: 2rem 0;
+}
+
+.title--about {
+  margin-bottom: 4rem;
+  // margin-bottom: 4.7rem;
+}
+
+.about-inner_text {
+  background-color: lightblue;
+  text-align: center;
+  margin-bottom: 2rem;
+  line-height: 40px;
+}
+
+.slider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  //background-color: bisque;
+}
+
+.slider-inner {
+  display: flex;
+  column-gap: 2.5rem;
+}
+
+.slider-inner_item {
+  width: 45rem;
+  height: 56rem;
+  //background-color: cadetblue;
+  background-size: cover;
+  background-repeat: no-repeat;
 
 
+}
+
+.slider-inner_item--01 {
+  background-image: url(../assets/img/image-01.png);
+}
+
+.slider-inner_item--02 {
+  background-image: url(../assets/img/image-02.png);
+}
+
+.slider-inner_item--03 {
+  background-image: url(../assets/img/image-03.png);
+}
+
+
+.slider-pg {
+
+  display: flex;
+
+  &--position {
+    margin-top: 35px;
+  }
+
+  &_container {
+    width: 26px;
+    height: 26px;
+    //margin: 0 auto;
+    background-color: aquamarine;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+
+    //padding: 50px 0;
+  }
+
+  &_item {
+    width: 16px;
+    height: 16px;
+    background-color: #0C0C0E;
+    border-radius: 50%;
+  }
+
+  &_item--active {
+    background-color: #BB945F;
+  }
+}
