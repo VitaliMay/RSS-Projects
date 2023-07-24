@@ -62,4 +62,75 @@
   width: 2.8rem;
   height: 2.8rem;
   flex-shrink: 0;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
+
+.welcom-img {
+  width: 100%;
+  height: 600px;
+  //border: solid 2px red;
+  //background: url("../assets/img/Welcome-gradient.png"), lightgray 50% / cover no-repeat;
+  
+  // background-image: url("../assets/img/Welcome-gradient.png");
+  // background-size: cover;
+  // background-repeat: no-repeat;
+
+  background: lightgray url("../assets/img/Welcome-gradient.png") 50% / cover no-repeat;
+// В этом примере, lightgray задает цвет фона, url("../assets/img/Welcome-gradient.png") задает путь к изображению фона, 50% устанавливает позиционирование изображения по горизонтали, cover задает размер изображения фона на всю доступную область и no-repeat предотвращает повторение изображения.
+
+
+  position: relative;
+
+  &::before {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: linear-gradient(180deg, #0C0C0E 0%, #0C0C0E 0.01%, rgba(18, 18, 21, 0.10) 100%);
+  }
+  // накладываю на фото эффект (градиент)
+}
+
+.container--welcom {
+  padding: 22rem 2rem 0 0;
+}
+
+.welcom-block {
+  width: 600px;
+  height: 220px;
+  background-color: black;
+  padding: 3.5rem 4rem;
+
+}
+
+.title {
+  color: #0C0C0E;
+  font-family: Forum;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 40px; /* 100% */
+  letter-spacing: 2px;
+  text-transform: capitalize;
+  background-color: aqua;
+  text-align: center;
+
+  &--welcom {
+    color: #FFF;
+    //text-align: center;
+    //font-family: Forum;
+    //font-style: normal;
+    //font-weight: 400;
+    line-height: 50px; /* 125% */
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+}
+
+
+
