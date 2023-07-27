@@ -161,7 +161,7 @@
   //justify-content: space-between;
   align-items: center;
 
-  padding: 2rem 0;
+  padding: 2rem 0 3.5rem 0;
 }
 
 .title--about {
@@ -245,3 +245,274 @@
     background-color: #BB945F;
   }
 }
+
+/******************************************************************/
+
+.favorites {
+  background-color: #FFF;
+}
+
+.favorites-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 0 4rem 0;
+
+  // background-color: red;
+}
+
+.title--favorites {
+  margin-bottom: 4rem;
+}
+
+.favorites-form {
+  width: 100%;
+  background-color: yellow;
+
+  display: flex;
+  flex-direction: column;
+  row-gap: 4rem;
+
+  &--position {
+    margin-bottom: 4rem;
+  }
+}
+
+.favorites-form_title {
+  color: #000;
+  // text-align: center;
+  // font-family: Inter;
+  font-size: 20px;
+  // font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.favorites-form_seasons {
+  display: flex;
+  column-gap: 6rem;
+}
+
+.seasons_option {
+  appearance: none;
+  position: absolute; // чтобы убрать пробел
+
+  
+}
+
+.seasons_title {
+  width: 13rem;
+  padding-left: 2em;
+  position: relative;
+
+  color: #000;
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+
+  background-color: tomato;
+
+}
+
+.seasons_title--last {
+  width: 15rem;
+  padding-left: 3em;
+}
+
+.seasons_radio {
+  position: absolute;
+  bottom: 0;
+  width: 17px;
+  height: 17px;
+
+  margin-left: -2em;
+
+  background-image: url(../assets/svg/input-radio-check.svg);
+  //background-color: tomato;
+
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  transition: 0.4s;
+}
+
+.seasons_option:checked + .seasons_radio {
+  background-image: url(../assets/svg/input-radio-check-on.svg);
+  transition: 0.4s;
+}
+
+.seasons_option:checked ~ .seasons_text{
+  // color: red;
+  transition: 0.4s;
+  font-weight: 700;
+}
+
+.seasons_text {
+  transition: 0.4s;
+}
+
+/*******************************************************/
+
+.favorites-items {
+  display: flex;
+  flex-wrap: wrap;
+
+  column-gap: 22rem;
+  row-gap: 4rem;
+}
+
+
+
+.card {
+  // background-color: #BB945F;
+
+  position: relative;
+
+  width: 590px;
+  height: 555px;
+}
+
+.card__image {
+  // background-color: blueviolet;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  position: absolute;
+
+  width: 200px;
+  height: 300px;
+
+  bottom: 0;
+  right: 0;
+}
+
+.card__image--01 {
+  background-image: url(../assets/img/book-1-01.png);
+}
+
+.card__image--02 {
+  background-image: url(../assets/img/book-1-02.png);
+}
+
+.card__image--03 {
+  background-image: url(../assets/img/book-1-03.png);
+}
+
+.card__image--04 {
+  background-image: url(../assets/img/book-1-04.png);
+}
+
+
+
+.card__block {
+  border: 1px solid #000;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+
+  width: 550px;
+  height: 555px;
+
+  padding: 15px 172px 15px 20px;
+}
+
+.card__block-text {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+.card__block-title {
+  display: flex;
+  flex-direction: column;
+
+  color: #000;
+  font-family: Forum;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 40px;
+  letter-spacing: 2px;
+  text-transform: capitalize;
+}
+
+.card__block-title-line {
+  width: 60px;
+  height: 1px;
+  background: #BB945F;
+}
+
+.card__block-book {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  height: 80px;
+  // background-color: yellow;
+
+  &-name {
+    color: #000;
+    font-family: Inter;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 40px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  &-author {
+    color: #000;
+    font-family: Inter;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 40px;
+    letter-spacing: 2px;
+    text-transform: capitalize;
+  }
+
+}
+
+.card__block-content {
+  // background-color: yellow;
+  height: 320px;
+  overflow: hidden;
+
+  color: #000;
+  font-family: Inter;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 40px; /* 266.667% */
+  letter-spacing: 2px;
+  text-transform: capitalize;
+
+}
+
+.card__block-btn {
+  color: #0C0C0E;
+  text-align: center;
+  font-family: Inter;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: 1px;
+
+  border-radius: 2px;
+  border: 1px solid #0C0C0E;
+  width: 75px;
+  height: 30px;
+
+  &--active {
+    color: #BB945F;
+    border: 1px solid #BB945F;
+  }
+}
+
