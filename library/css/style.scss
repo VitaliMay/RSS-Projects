@@ -361,6 +361,20 @@
 
   column-gap: 22rem;
   row-gap: 4rem;
+
+  &.spring {
+    display: none;
+  }
+
+  &.summer {
+    display: none;
+  }
+
+  &.autumn {
+    display: none;
+  }
+
+
 }
 
 
@@ -388,21 +402,77 @@
   right: 0;
 }
 
-.card__image--01 {
+.card__image--1-01 {
   background-image: url(../assets/img/book-1-01.png);
 }
 
-.card__image--02 {
+.card__image--1-02 {
   background-image: url(../assets/img/book-1-02.png);
 }
 
-.card__image--03 {
+.card__image--1-03 {
   background-image: url(../assets/img/book-1-03.png);
 }
 
-.card__image--04 {
+.card__image--1-04 {
   background-image: url(../assets/img/book-1-04.png);
 }
+
+/*************/
+
+.card__image--2-01 {
+  background-image: url(../assets/img/book-2-01.png);
+}
+
+.card__image--2-02 {
+  background-image: url(../assets/img/book-2-02.png);
+}
+
+.card__image--2-03 {
+  background-image: url(../assets/img/book-2-03.png);
+}
+
+.card__image--2-04 {
+  background-image: url(../assets/img/book-2-04.png);
+}
+
+/*************/
+
+.card__image--3-01 {
+  background-image: url(../assets/img/book-3-01.png);
+}
+
+.card__image--3-02 {
+  background-image: url(../assets/img/book-3-02.png);
+}
+
+.card__image--3-03 {
+  background-image: url(../assets/img/book-3-03.png);
+}
+
+.card__image--3-04 {
+  background-image: url(../assets/img/book-3-04.png);
+}
+
+/*************/
+
+.card__image--4-01 {
+  background-image: url(../assets/img/book-4-01.png);
+}
+
+.card__image--4-02 {
+  background-image: url(../assets/img/book-4-02.png);
+}
+
+.card__image--4-03 {
+  background-image: url(../assets/img/book-4-03.png);
+}
+
+.card__image--4-04 {
+  background-image: url(../assets/img/book-4-04.png);
+}
+
+/*************/
 
 
 
@@ -418,7 +488,8 @@
   width: 550px;
   height: 555px;
 
-  padding: 15px 172px 15px 20px;
+  // padding: 15px 172px 15px 20px;
+  padding: 15px 0px 15px 20px;
 }
 
 .card__block-text {
@@ -455,6 +526,8 @@
   height: 80px;
   // background-color: yellow;
 
+  padding-right: 1rem;
+
   &-name {
     color: #000;
     font-family: Inter;
@@ -483,6 +556,7 @@
   // background-color: yellow;
   height: 320px;
   overflow: hidden;
+  padding-right: 172px;
 
   color: #000;
   font-family: Inter;
@@ -514,5 +588,131 @@
     color: #BB945F;
     border: 1px solid #BB945F;
   }
+}
+
+/************************************************/
+/************************************************/
+
+.coffee-inner_text {
+  color: #000;
+  text-align: center;
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 40px;
+  /* 200% */
+  letter-spacing: 2px;
+
+  padding: 0 10px;
+}
+
+.coffee-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 0 4rem 0;
+
+  // background-color: red;
+
+  row-gap: 4rem;
+}
+
+// .title--coffee-shop {
+//   margin-bottom: 4rem;
+// }
+
+.coffee-menu {
+  display: flex;
+  justify-content: space-between;
+
+
+  width: 100%;
+}
+
+.coffee-menu-block {
+  //background-color: tomato;
+  width: 40%;
+
+  //background-color: tomato;
+
+  display: flex;
+  flex-direction: column;
+  row-gap: 4rem;
+
+  &__title {
+    color: #BB945F;
+    font-family: Forum;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 40px;
+    /* 100% */
+    letter-spacing: 2px;
+    text-transform: capitalize;
+  }
+
+  &__item {
+    display: flex;
+    column-gap: 5.8rem;
+
+    //justify-content: end;
+  }
+
+}
+
+.coffee-menu-item {
+
+  &__name {
+    width: 200px;
+
+    color: #000;
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 40px; /* 200% */
+    letter-spacing: 2px;
+    text-transform: capitalize;
+  }
+
+  &__line {
+    width: 100px;
+    height: 1px;
+    background: #BB945F;
+    align-self: center;
+  }
+
+  &__price {
+    color: #000;
+    font-family: Forum;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 40px; /* 200% */
+    letter-spacing: 2px;
+    text-transform: capitalize;
+  }
+
+  &--desserts {
+    justify-content: end;
+  }
+
+  &__name--desserts {
+    text-align: right;
+    width: 250px;
+  }
+
+
+}
+
+.coffee-menu-block {
+
+  &__title--desserts {
+    text-align: right;
+
+  }
+
+
 }
 
