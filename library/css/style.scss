@@ -35,7 +35,7 @@
   display: flex;
   align-items: center;
   column-gap: 4rem;
-  
+
 }
 
 .menu__list {
@@ -51,9 +51,15 @@
     transition: 0.4s;
   }
   &-item:hover {
-    color: red;
+    color: #BB945F;
+
     // меню исчезает и появляется ПЛАВНО
     transition: 0.4s;
+
+    background: linear-gradient(to left, #f69ec4, #f9dd94 100%);
+    background-position: 0 100%;
+    background-size: 100% 2px;
+    background-repeat: repeat-x;
   }
 }
 
@@ -713,6 +719,90 @@
 
   }
 
-
 }
 
+/*************************************************/
+/*************************************************/
+
+.container--contacts {
+  padding-top: 2rem;
+  padding-bottom: 4rem;
+}
+
+.contacts-inner {
+  display: flex;
+  flex-direction: column;
+
+  row-gap: 4rem;
+}
+
+.contacts-content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.contacts-block {
+
+
+  &__title {
+    color: #000;
+    //text-align: center;
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 40px; /* 200% */
+    letter-spacing: 2px;
+    text-transform: capitalize;
+  }
+
+  &__title--staff {
+    padding-bottom: 2rem;
+  }
+
+  &__phone-list {
+    display: flex;
+    flex-direction: column;
+    row-gap: 2rem;
+  }
+
+  &__content {
+
+    color: #000;
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 40px; /* 200% */
+    letter-spacing: 2px;
+    text-transform: capitalize;
+  }
+
+  &__content--phone {
+
+    transition: 0.4s;
+  }
+
+  &__content--phone:hover {
+    font-weight: 700;
+    color: #BB945F;
+    transition: 0.4s;
+  }
+
+  &__content--maile {
+    font-weight: 700;
+    transition: 0.4s;
+  }
+
+  &__content--maile:hover {
+    font-weight: 400;
+    color: #BB945F;
+    transition: 0.4s;
+  }
+
+  
+
+  &__phone-list {
+    padding: 4rem 0;
+  }
+}
