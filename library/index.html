@@ -5,8 +5,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Library VitaliMay</title>
-	<link href="https://fonts.googleapis.com/css?family=Inter:100,200,300,regular,500,600,700,800,900" rel="stylesheet" />
-	<link href="https://fonts.googleapis.com/css?family=Forum:regular" rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/css?family=Inter:100,200,300,regular,500,600,700,800,900" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Forum:regular" rel="stylesheet">
 	<link rel="stylesheet" href="./css/normalize.css">
   <link rel="stylesheet" href="./css/style.css">
   <link rel="icon" href="./assets/svg/favicon01.ico">
@@ -36,7 +36,7 @@
 									<a href="#contacts" class="menu__list-link">Contacts</a>
 								</li>
 								<li class="menu__list-item">
-									<a href="#" class="menu__list-link">Library&nbsp;Card</a>
+									<a href="#library-cards" class="menu__list-link">Library&nbsp;Card</a>
 								</li>
 							</ul>
 						</nav>
@@ -116,25 +116,25 @@
 							<h3 class="favorites-form_title">Pick favorites of season</h3>
 							<div class="seasons favorites-form_seasons">
 								<label class="seasons_title">
-									<input class="seasons_option" type="radio" name="seasons" checked />
+									<input class="seasons_option" type="radio" name="seasons" checked>
 									<span class="seasons_radio"></span>
 									<span class="seasons_text">Winter</span>
 									<!-- Winter -->
 								</label>
 								<label class="seasons_title">
-									<input class="seasons_option" type="radio" name="seasons" />
+									<input class="seasons_option" type="radio" name="seasons">
 									<span class="seasons_radio"></span>
 									<span class="seasons_text">Spring</span>
 									<!-- Spring -->
 								</label>
 								<label class="seasons_title">
-									<input class="seasons_option" type="radio" name="seasons" />
+									<input class="seasons_option" type="radio" name="seasons">
 									<span class="seasons_radio"></span>
 									<span class="seasons_text">Summer</span>
 									<!-- Summer -->
 								</label>
 								<label class="seasons_title seasons_title--last">
-									<input class="seasons_option" type="radio" name="seasons" />
+									<input class="seasons_option" type="radio" name="seasons">
 									<span class="seasons_radio"></span>
 									<span class="seasons_text">Autumn</span>
 									<!-- Autumn -->
@@ -937,6 +937,65 @@
 
 						</div>
 
+					</div>
+
+				</div>
+
+			</section>
+
+			<section class="library-cards">
+				<div class="container container--library-cards">
+					<div class="library-cards-inner">
+
+						<div class="title title--library-cards">
+							<h2 class="title_text" id="library-cards">
+								Digital&nbsp;Library&nbsp;Cards
+							</h2>
+							<span class="title_line"></span>
+						</div>
+
+						<div class="library-cards-content">
+
+							<div class="cards-block-find">
+								<h3 class="cards-block-find__title">
+									Find your Library card
+								</h3>
+
+								<form action="#" class="cards-block-find__form">
+									<div class="cards-block-find__castom">
+										<fieldset class="cards-block-find__fieldset">
+											<legend class="cards-block-find__legend">Brooklyn Public Library</legend>
+											<input class="cards-block-find__input" type="text" placeholder="Reader's name" oninput="validateInput(this)" pattern="[A-Za-z0-9-]+" title="Only letters, numbers and hyphens can be used" required>
+											<input class="cards-block-find__input" type="text" placeholder="Card number" oninput="validateInput(this)" pattern="[A-Za-z0-9-]+" title="Only letters, numbers and hyphens can be used" required>
+
+										</fieldset>
+									</div>
+
+									<!-- <input class="cards-block-find__input-btn" type="submit" value="Check the card"> -->
+									<button class="cards-block-find__input-btn" type="submit">Check the card</button>
+								</form>
+
+							</div>
+
+							<div class="cards-block-read">
+								<h3 class="cards-block-read__title">
+									Get a reader card
+								</h3>
+								<p class="cards-block-read__text">
+									You will be able to see a reader card after logging into account or you can register a new account
+								</p>
+								<div class="cards-block-read__buttons-container">
+									<button class="card__block-btn">
+										Sign Up
+									</button>
+									<button class="card__block-btn">
+										Log in
+									</button>
+								</div>
+							</div>
+
+						</div>
+
 
 
 
@@ -946,10 +1005,30 @@
 
 			</section>
 
-
-
 		</main>
+
+		<footer class="footer">
+			
+		</footer>
+
 	</div>
+
+	<script>
+		function validateInput(input) {
+			var regex = new RegExp(input.pattern);
+			var value = input.value;
+
+			for (var i = 0; i < value.length; i++) {
+				if (!regex.test(value[i])) {
+					input.setCustomValidity(input.title);
+					return;
+				}
+			}
+
+			input.setCustomValidity("");
+		}
+	</script>
+
 
 
 </body>

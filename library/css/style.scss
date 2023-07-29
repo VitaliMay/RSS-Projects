@@ -590,6 +590,24 @@
   width: 75px;
   height: 30px;
 
+  cursor: pointer;
+  transition: 0.4s;
+
+  &:hover {
+  
+    background-color: #BB945F;
+    border-color: #BB945F;
+    transition: 0.4s;
+  }
+  
+  &:active {
+    
+    background-color: #FFF;
+    color: #BB945F;
+    border-color: #BB945F;
+    transition: 0.4s;
+  }
+
   &--active {
     color: #BB945F;
     border: 1px solid #BB945F;
@@ -804,5 +822,204 @@
 
   &__phone-list {
     padding: 4rem 0;
+  }
+}
+
+/**************************************************/
+/**************************************************/
+
+.container--library-cards {
+  padding-top: 1.6rem;
+  padding-bottom: 4rem;
+}
+
+.library-cards-inner {
+  display: flex;
+  flex-direction: column;
+
+  row-gap: 4rem;
+}
+
+.library-cards-content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cards-block-find {
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+  row-gap: 3rem;
+
+  //display: inline-block;
+  align-items: center;
+
+  &__form {
+    width: 600px;
+    height: 386px;
+    border: 3px solid #BB945F;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+    background: #FFF;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 2rem 2rem 3rem 2rem;
+  }
+
+
+
+  &__title {
+    color: #000;
+    font-family: Inter;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 0.6px;
+
+    text-align: center;
+  }
+
+  &__input {
+    margin-bottom: 2.5rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    padding: 0.8rem 2rem;
+
+    border: none;
+    border-radius: 10px;
+    background: #FFF;
+  }
+}
+
+
+.cards-block-find__castom {
+  // padding: 4rem;
+
+  width: 560px;
+  height: 272px;
+
+  color: #000;
+  font-family: Forum;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 50px; /* 166.667% */
+  letter-spacing: 0.6px;
+  
+  margin-bottom: 2rem;
+}
+
+.cards-block-find__fieldset {
+  display: flex;
+  flex-direction: column;
+  
+  border: none;
+
+  // border-width: 2px; 
+  // border-style: solid; 
+  // border-color: red; 
+
+  //row-gap: 2.5rem;
+  // padding: 0;
+
+  outline: none;
+
+  background-color: #BB945F;
+
+  padding: 0 0 0 0;
+}
+
+.cards-block-find__legend {
+  //background-color: tomato;
+
+  background-color: #BB945F;
+
+  width: 100%;
+
+  padding: 2rem;
+
+  //margin-left: 0;
+}
+
+// .cards-block-find__input {
+//   margin: 2rem;
+// }
+
+.cards-block-find__input-btn {
+  /* Здесь вы можете добавить свои собственные стили для кнопки */
+  background-color: #FFF;
+  
+  
+  border-radius: 2px;
+  border: 1px solid #0C0C0E;
+
+  padding: 1rem 4rem;
+  cursor: pointer;
+
+  color: #0C0C0E;
+  text-align: center;
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: 1px;
+
+  transition: 0.4s;
+}
+
+.cards-block-find__input-btn:hover {
+  
+  background-color: #BB945F;
+  border-color: #BB945F;
+  transition: 0.4s;
+}
+
+.cards-block-find__input-btn:active {
+  
+  background-color: #FFF;
+  color: #BB945F;
+  border-color: #BB945F;
+  transition: 0.4s;
+}
+
+.cards-block-read {
+  display: flex;
+  flex-direction: column;
+  row-gap: 3.5rem;
+
+  width: 456px;
+
+  &__title {
+    color: #000;
+    text-align: right;
+    font-family: Forum;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 0.6px;
+  }
+
+  &__text {
+    color: #000;
+    text-align: right;
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 40px; /* 200% */
+    letter-spacing: 0.4px;
+  }
+
+  &__buttons-container {
+    display: flex;
+    justify-content: end;
+    column-gap: 2rem;
   }
 }
