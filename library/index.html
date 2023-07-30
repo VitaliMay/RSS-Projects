@@ -41,7 +41,7 @@
 							</ul>
 						</nav>
 
-						<div class="profile">
+						<div class="profile" >
 
 						</div>
 					</div>
@@ -52,16 +52,19 @@
 
 		<main class="main">
 			<section class="welcom">
-				<div class="welcom-img">
-					<div class="container container--welcom">
-						<div class="title title--welcom-block">
-							<h2 class="title_text title_text--welcom">
-								Welcome to&nbsp;the&nbsp;Brooklyn Library
-							</h2>
+				<div class="container container--welcom">
+					<div class="welcom-img">
+						<div class="container container--welcom-popup">
+							<div class="title title--welcom-block">
+								<h2 class="title_text title_text--welcom">
+									Welcome to&nbsp;the&nbsp;Brooklyn Library
+								</h2>
+							</div>
 						</div>
+		
 					</div>
-	
 				</div>
+				
 			</section>
 
 			<section class="about">
@@ -175,9 +178,12 @@
 
 									</div>
 
-									<button class="card__block-btn">
-										Buy
-									</button>
+									<form action="#">
+										<button class="card__block-btn">
+											Buy
+										</button>
+									</form>
+									
 								</div>
 
 								<div class="card__image card__image--1-01">
@@ -210,7 +216,7 @@
 
 									</div>
 
-									<button class="card__block-btn">
+									<button class="card__block-btn" onclick="document.location='#'">
 										Buy
 									</button>
 								</div>
@@ -280,7 +286,7 @@
 
 									</div>
 
-									<button class="card__block-btn card__block-btn--active">
+									<button class="card__block-btn card__block-btn--active " disabled>
 										Own
 									</button>
 								</div>
@@ -426,7 +432,7 @@
 
 									</div>
 
-									<button class="card__block-btn card__block-btn--active">
+									<button class="card__block-btn card__block-btn--active" disabled>
 										Own
 									</button>
 								</div>
@@ -742,7 +748,7 @@
 
 
 			<section class="coffee">
-				<div class="container">
+				<div class="container container--coffee">
 					<div class="coffee-inner">
 						<div class="title title--coffee-shop">
 							<h2 class="title_text" id="coffee-shop">
@@ -1008,7 +1014,71 @@
 		</main>
 
 		<footer class="footer">
-			
+			<div class="container container--footer">
+
+				<div class="footer-inner">
+
+					<div class="frame-block">
+						<div class="frame frame__adress">
+							<div class="frame-item">
+								<a target="_blank" href="https://goo.gl/maps/8VnvhEDKHEazJUbE7">
+									<p class="frame-item--active">286 Cadman Plaza, New York, NY 11238, United States</p>
+								</a>
+							</div>
+							<p class="frame-item frame-item--right">Mon - Fri<br>
+								08:00 am - 07:00 pm
+							</p>
+						</div>
+						<div class="frame frame__social">
+						
+							<ul class="frame-item frame-item--social">
+								<li>
+									<a target="_blank" href="https://twitter.com/">
+										<img class="social" src="./assets/svg/07_twitter-alt.svg" alt="tw" height="24" width="24">
+									</a>
+								</li>
+								<li>
+									<a target="_blank" href="https://www.instagram.com/gracie.dog/">
+										<img src="./assets/svg/07_inst.svg" alt="Inst" class="social" height="24" width="24">
+									</a>
+								</li>
+								<li>
+									<a target="_blank" href="https://www.facebook.com/">
+										<img src="./assets/svg/07_fb.svg" alt="fb" class="social" height="24" width="24">
+									</a>
+								</li>
+						
+							</ul>
+						
+							<p class="frame-item frame-item--right">Sat - Sun<br>
+								10:00 am - 06:00 pm
+							</p>
+						</div>
+
+						
+					</div>
+					<div class="frame frame--line"></div>
+
+					<div class="frame frame--year">
+						
+						
+							
+							<p class="frame-item">2023</p>
+							
+							<a class="github" target="_blank" href="https://rs.school/js-stage0/">
+								<p class="frame-item frame-item--center frame-item--active">The&nbsp;Rolling&nbsp;Scopes&nbsp;School</p>
+							</a>
+							<a class="github" target="_blank" href="https://github.com/VitaliMay">
+								<p class="frame-item frame-item--right frame-item--active">Vitali Majewski</p>
+							</a>
+							
+						
+
+					</div>
+
+				</div>
+
+			</div>
 		</footer>
 
 	</div>

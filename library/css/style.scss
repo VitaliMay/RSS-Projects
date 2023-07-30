@@ -6,8 +6,21 @@
 //   background: linear-gradient(180deg, #0C0C0E 0%, #0C0C0E 0.01%, rgba(18, 18, 21, 0.10) 100%);
 // }
 
+body {
+  background: #0C0C0E;
+}
+
+.wrapper {
+  // background-color: green;
+  width: 1440px;
+  margin: 0 auto;
+}
+
 .header {
   background: #0C0C0E; // чтобы фоновый цвет тянулся
+  // background: red; // чтобы фоновый цвет тянулся
+
+  width: 100%;
 
 }
 
@@ -29,12 +42,15 @@
   font-weight: 400;
   line-height: 5rem; /* 166.667% */
   letter-spacing: 0.6px;
+
+  // background-color: #f69ec4;
 }
 
 .menu {
   display: flex;
   align-items: center;
   column-gap: 4rem;
+  // background-color: #f69ec4;
 
 }
 
@@ -69,9 +85,22 @@
   height: 2.8rem;
   flex-shrink: 0;
 
+  transition: 0.3s;
+
   &:hover {
     cursor: pointer;
+    // transform: scale(1.1);
   }
+}
+
+/*******************************************************/
+/*******************************************************/
+
+.container--welcom {
+  padding: 0;
+}
+.container--welcom-popup {
+  padding: 22rem 2rem 0 0;
 }
 
 .welcom-img {
@@ -102,9 +131,7 @@
   // накладываю на фото эффект (градиент)
 }
 
-.container--welcom {
-  padding: 22rem 2rem 0 0;
-}
+
 
 .title {
   display: flex;
@@ -125,7 +152,8 @@
   line-height: 40px; /* 100% */
   letter-spacing: 2px;
   text-transform: capitalize;
-  background-color: aqua;
+  
+  // background-color: aqua;
   text-align: center;
 
   &--welcom {
@@ -156,6 +184,8 @@
 }
 
 /**************************************************/
+/**************************************************/
+
 .about {
   background-color: #FFF;
 
@@ -176,7 +206,7 @@
 }
 
 .about-inner_text {
-  background-color: lightblue;
+
   text-align: center;
   margin-bottom: 2rem;
   line-height: 40px;
@@ -230,7 +260,7 @@
     width: 26px;
     height: 26px;
     //margin: 0 auto;
-    background-color: aquamarine;
+    // background-color: aquamarine;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -253,6 +283,7 @@
 }
 
 /******************************************************************/
+/******************************************************************/
 
 .favorites {
   background-color: #FFF;
@@ -273,7 +304,7 @@
 
 .favorites-form {
   width: 100%;
-  background-color: yellow;
+  // background-color: yellow;
 
   display: flex;
   flex-direction: column;
@@ -318,8 +349,8 @@
   font-weight: 400;
   line-height: normal;
 
-  background-color: tomato;
-
+  // background-color: tomato;
+  cursor: pointer;
 }
 
 .seasons_title--last {
@@ -342,6 +373,10 @@
   background-repeat: no-repeat;
 
   transition: 0.4s;
+
+  /* устанавливаю прозрачный бордер*/
+  box-sizing: content-box;
+  border: rgba(0, 0, 0, 0) 5px solid; 
 }
 
 .seasons_option:checked + .seasons_radio {
@@ -608,14 +643,29 @@
     transition: 0.4s;
   }
 
-  &--active {
+  // &--active {
+  //   color: #BB945F;
+  //   border: 1px solid #BB945F;
+  // }
+
+  &:disabled {
     color: #BB945F;
     border: 1px solid #BB945F;
+
+    pointer-events: none;
   }
 }
 
+// .card__block-btn[disabled] {
+//   pointer-events: none;
+// }
+
 /************************************************/
 /************************************************/
+
+.container--coffee {
+  background-color: #FFF;
+}
 
 .coffee-inner_text {
   color: #000;
@@ -745,6 +795,8 @@
 .container--contacts {
   padding-top: 2rem;
   padding-bottom: 4rem;
+
+  background-color: #FFF;
 }
 
 .contacts-inner {
@@ -831,6 +883,8 @@
 .container--library-cards {
   padding-top: 1.6rem;
   padding-bottom: 4rem;
+
+  background-color: #FFF;
 }
 
 .library-cards-inner {
@@ -951,10 +1005,9 @@
 // }
 
 .cards-block-find__input-btn {
-  /* Здесь вы можете добавить свои собственные стили для кнопки */
+
   background-color: #FFF;
-  
-  
+
   border-radius: 2px;
   border: 1px solid #0C0C0E;
 
@@ -1023,3 +1076,105 @@
     column-gap: 2rem;
   }
 }
+
+/***********************************************/
+/***********************************************/
+
+.container--footer {
+  background-color: #0C0C0E;
+  // background-color: aqua;
+  padding-top: 2rem;
+  padding-bottom: 44px;
+}
+
+.footer-inner {
+  display: flex;
+  flex-direction: column;
+  row-gap: 3rem;
+
+  color: #FFF;
+  font-family: Inter;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 133.333% */
+}
+
+.frame-block {
+  display: flex;
+  flex-direction: column;
+
+  row-gap: 1rem;
+}
+
+.frame {
+  display: flex;
+  justify-content: space-between;
+
+  &-item {
+    width: 230px;
+
+    // background-color: #BB945F;
+  }
+
+  &-item--right {
+    text-align: right;
+  }
+
+  &--line {
+    height: 1px;
+    background-color: #FFF;
+    
+    margin-bottom: 14px;
+  }
+
+  &--year {
+    // color: #FFF;
+    // text-align: center;
+    // font-family: Inter;
+    font-size: 20px;
+    // font-style: normal;
+    // font-weight: 400;
+    // line-height: 20px; /* 100% */
+    letter-spacing: 2px;
+
+   
+  }
+
+  &-item--center {
+    width: 330px;
+    text-align: center;
+  }
+}
+
+
+.frame-item--social {
+  display: flex;
+  align-items: center;
+  column-gap: 15px;
+}
+
+.social {
+  transition: 0.3s;
+  // opacity: 70%;
+}
+
+.social:hover {
+  // transition: 0.3s; 
+  // opacity: 100%;
+  transform: scale(1.5);
+  // filter: invert(55%) sepia(85%) saturate(3801%) hue-rotate(65deg) brightness(94%) contrast(81%);
+}
+
+.frame-item--active {
+  transition: 0.3s;
+
+  &:hover {
+    transform: scale(1.1);
+
+    color: #8E8E8E;
+  }
+}
+
+
+

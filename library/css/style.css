@@ -99,8 +99,18 @@ body {
   padding: 0rem 2rem;
 }
 
+body {
+  background: #0C0C0E;
+}
+
+.wrapper {
+  width: 1440px;
+  margin: 0 auto;
+}
+
 .header {
   background: #0C0C0E;
+  width: 100%;
 }
 
 .header-inner {
@@ -152,9 +162,20 @@ body {
   width: 2.8rem;
   height: 2.8rem;
   flex-shrink: 0;
+  transition: 0.3s;
 }
 .profile:hover {
   cursor: pointer;
+}
+
+/*******************************************************/
+/*******************************************************/
+.container--welcom {
+  padding: 0;
+}
+
+.container--welcom-popup {
+  padding: 22rem 2rem 0 0;
 }
 
 .welcom-img {
@@ -173,10 +194,6 @@ body {
   background: linear-gradient(180deg, #0C0C0E 0%, #0C0C0E 0.01%, rgba(18, 18, 21, 0.1) 100%);
 }
 
-.container--welcom {
-  padding: 22rem 2rem 0 0;
-}
-
 .title {
   display: flex;
   flex-direction: column;
@@ -192,7 +209,6 @@ body {
   line-height: 40px; /* 100% */
   letter-spacing: 2px;
   text-transform: capitalize;
-  background-color: aqua;
   text-align: center;
 }
 .title_text--welcom {
@@ -217,6 +233,7 @@ body {
 }
 
 /**************************************************/
+/**************************************************/
 .about {
   background-color: #FFF;
 }
@@ -233,7 +250,6 @@ body {
 }
 
 .about-inner_text {
-  background-color: lightblue;
   text-align: center;
   margin-bottom: 2rem;
   line-height: 40px;
@@ -279,7 +295,6 @@ body {
 .slider-pg_container {
   width: 26px;
   height: 26px;
-  background-color: aquamarine;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -295,6 +310,7 @@ body {
   background-color: #BB945F;
 }
 
+/******************************************************************/
 /******************************************************************/
 .favorites {
   background-color: #FFF;
@@ -313,7 +329,6 @@ body {
 
 .favorites-form {
   width: 100%;
-  background-color: yellow;
   display: flex;
   flex-direction: column;
   row-gap: 4rem;
@@ -352,7 +367,7 @@ body {
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  background-color: tomato;
+  cursor: pointer;
 }
 
 .seasons_title--last {
@@ -370,6 +385,9 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   transition: 0.4s;
+  /* устанавливаю прозрачный бордер*/
+  box-sizing: content-box;
+  border: rgba(0, 0, 0, 0) 5px solid;
 }
 
 .seasons_option:checked + .seasons_radio {
@@ -593,13 +611,18 @@ body {
   border-color: #BB945F;
   transition: 0.4s;
 }
-.card__block-btn--active {
+.card__block-btn:disabled {
   color: #BB945F;
   border: 1px solid #BB945F;
+  pointer-events: none;
 }
 
 /************************************************/
 /************************************************/
+.container--coffee {
+  background-color: #FFF;
+}
+
 .coffee-inner_text {
   color: #000;
   text-align: center;
@@ -694,6 +717,7 @@ body {
 .container--contacts {
   padding-top: 2rem;
   padding-bottom: 4rem;
+  background-color: #FFF;
 }
 
 .contacts-inner {
@@ -761,6 +785,7 @@ body {
 .container--library-cards {
   padding-top: 1.6rem;
   padding-bottom: 4rem;
+  background-color: #FFF;
 }
 
 .library-cards-inner {
@@ -842,7 +867,6 @@ body {
 }
 
 .cards-block-find__input-btn {
-  /* Здесь вы можете добавить свои собственные стили для кнопки */
   background-color: #FFF;
   border-radius: 2px;
   border: 1px solid #0C0C0E;
@@ -903,4 +927,77 @@ body {
   justify-content: end;
   -moz-column-gap: 2rem;
        column-gap: 2rem;
+}
+
+/***********************************************/
+/***********************************************/
+.container--footer {
+  background-color: #0C0C0E;
+  padding-top: 2rem;
+  padding-bottom: 44px;
+}
+
+.footer-inner {
+  display: flex;
+  flex-direction: column;
+  row-gap: 3rem;
+  color: #FFF;
+  font-family: Inter;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 133.333% */
+}
+
+.frame-block {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+}
+
+.frame {
+  display: flex;
+  justify-content: space-between;
+}
+.frame-item {
+  width: 230px;
+}
+.frame-item--right {
+  text-align: right;
+}
+.frame--line {
+  height: 1px;
+  background-color: #FFF;
+  margin-bottom: 14px;
+}
+.frame--year {
+  font-size: 20px;
+  letter-spacing: 2px;
+}
+.frame-item--center {
+  width: 330px;
+  text-align: center;
+}
+
+.frame-item--social {
+  display: flex;
+  align-items: center;
+  -moz-column-gap: 15px;
+       column-gap: 15px;
+}
+
+.social {
+  transition: 0.3s;
+}
+
+.social:hover {
+  transform: scale(1.5);
+}
+
+.frame-item--active {
+  transition: 0.3s;
+}
+.frame-item--active:hover {
+  transform: scale(1.1);
+  color: #8E8E8E;
 }/*# sourceMappingURL=style.css.map */
