@@ -94,7 +94,7 @@ body {
 }
 
 .container {
-  width: 1440px;
+  width: 100%;
   margin: 0 auto;
   padding: 0rem 2rem;
 }
@@ -104,7 +104,8 @@ body {
 }
 
 .wrapper {
-  width: 1440px;
+  background-color: green;
+  max-width: 1440px;
   margin: 0 auto;
 }
 
@@ -162,6 +163,7 @@ body {
   width: 2.8rem;
   height: 2.8rem;
   flex-shrink: 0;
+  z-index: 22;
   transition: 0.3s;
 }
 .profile:hover {
@@ -265,11 +267,14 @@ body {
   display: flex;
   -moz-column-gap: 2.5rem;
        column-gap: 2.5rem;
+  max-width: 45rem;
+  overflow: hidden;
 }
 
 .slider-inner_item {
   width: 45rem;
   height: 56rem;
+  flex-shrink: 0;
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -408,9 +413,17 @@ body {
 .favorites-items {
   display: flex;
   flex-wrap: wrap;
-  -moz-column-gap: 22rem;
-       column-gap: 22rem;
+  background-color: aqua;
+  justify-content: space-between;
+  -moz-column-gap: 4rem;
+       column-gap: 4rem;
   row-gap: 4rem;
+}
+@media screen and (max-width: 1270px) {
+  .favorites-items {
+    background-color: rgb(0, 255, 17);
+    justify-content: center;
+  }
 }
 .favorites-items.spring {
   display: none;
@@ -648,10 +661,12 @@ body {
   display: flex;
   justify-content: space-between;
   width: 100%;
+  flex-wrap: wrap;
 }
 
 .coffee-menu-block {
-  width: 40%;
+  width: 50rem;
+  background-color: tomato;
   display: flex;
   flex-direction: column;
   row-gap: 4rem;
@@ -729,6 +744,7 @@ body {
 .contacts-content {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .contacts-block__title {
@@ -797,6 +813,13 @@ body {
 .library-cards-content {
   display: flex;
   justify-content: space-between;
+  -moz-column-gap: 4rem;
+       column-gap: 4rem;
+}
+@media screen and (max-width: 1024px) {
+  .library-cards-content {
+    flex-wrap: wrap;
+  }
 }
 
 .cards-block-find {
@@ -900,7 +923,9 @@ body {
   display: flex;
   flex-direction: column;
   row-gap: 3.5rem;
-  width: 456px;
+  max-width: 456px;
+  min-width: 300px;
+  background-color: tomato;
 }
 .cards-block-read__title {
   color: #000;
@@ -1000,4 +1025,135 @@ body {
 .frame-item--active:hover {
   transform: scale(1.1);
   color: #8E8E8E;
+}
+
+/******************************************************/
+/******************************************************/
+body.lock {
+  overflow: hidden;
+  transition: 1s;
+}
+
+body.lock .wrapper {
+  transition: 1s;
+}
+
+/*кнопка мобильного меню*/
+.burger-button {
+  z-index: 22;
+  width: 30px;
+  height: 22px;
+  /* box-sizing: content-box;  */
+  box-sizing: border-box;
+  border: solid 2px white;
+  border-radius: 0px;
+  padding: 0;
+  margin: 0;
+  background-color: inherit;
+  transition: 0.6s all;
+  display: none;
+  /***тест***************************************************/
+  /**********************************************************/
+}
+
+@media screen and (max-width: 1024px) {
+  .burger-button {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+  }
+}
+@media screen and (max-width: 380px) {
+  .burger-button {
+    right: 10px;
+  }
+}
+.burger-button:hover {
+  transition: 0.3s all;
+  transform: scale(1.15);
+  cursor: pointer;
+}
+
+#burger-button.rotade {
+  transform: rotate(-90deg);
+  transition: 0.4s all;
+}
+
+#burger-button.rotade .burger-button__cross--page {
+  background-color: #F1CDB3;
+}
+
+/* рисую кнопку *********************************/
+.burger-button__cross {
+  width: 30px;
+  height: 2px;
+  background-color: #F1CDB3;
+}
+
+/****************************************************************/
+.fon {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  background: rgba(41, 41, 41, 0.6);
+  z-index: -10;
+}
+
+.fon.work {
+  z-index: 10;
+  width: 100vw;
+  height: 100vh;
+}
+
+/*  меню выезджает */
+/**********************************/
+/************************************/
+@media screen and (max-width: 1024px) {
+  .menu__list {
+    position: fixed;
+    right: -32.2rem;
+    top: 0;
+    opacity: 6;
+    transition: 0.7s;
+    z-index: 16;
+    /************************************************/
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #292929;
+    row-gap: 4rem;
+    width: 32rem;
+    min-height: 100vh;
+    font-size: 3.2rem;
+    line-height: 160%;
+  }
+}
+.menu__list.open {
+  right: 0;
+}
+
+.menu__list-item:hover {
+  color: #FAFAFA;
+}
+
+.menu__list-item--active {
+  border-bottom: solid #F1CDB3 3px;
+  color: #FAFAFA;
+}
+
+.menu__list-link--active {
+  cursor: default;
+}
+
+.menu__list-item--active-page {
+  color: #292929;
+  border-bottom: solid #F1CDB3 3px;
+}
+
+@media screen and (max-width: 767.9px) {
+  .menu__list-item--active-page {
+    color: #FAFAFA;
+  }
 }/*# sourceMappingURL=style.css.map */
