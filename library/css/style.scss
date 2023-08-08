@@ -11,7 +11,7 @@ body {
 }
 
 .wrapper {
-  background-color: green;
+  background-color: red;
   // width: 1440px; // было
   max-width: 1440px;
   margin: 0 auto;
@@ -226,10 +226,17 @@ body {
   display: flex;
   column-gap: 2.5rem;
 
-  // max-width: 92.5rem;
-  max-width: 45rem;
-
   overflow: hidden;
+
+  @media screen and (max-width: 1439.8px) {
+    max-width: 92.5rem;
+    // max-width: 45rem;
+  }
+  @media screen and (max-width: 1024px) {
+    // max-width: 92.5rem;
+    max-width: 45rem;
+  }
+
 }
 
 .slider-inner_item {
@@ -276,6 +283,23 @@ body {
     cursor: pointer;
 
     //padding: 50px 0;
+
+    &--04 {
+
+      display: none;
+
+      @media screen and (max-width: 1439.8px) {
+        display: flex;
+      }
+    }
+    &--05 {
+
+      display: none;
+
+      @media screen and (max-width: 1024px) {
+        display: flex;
+      }
+    }
   }
 
   &_item {
@@ -288,6 +312,11 @@ body {
   &_item--active {
     background-color: #BB945F;
   }
+
+  // &_item--04 {
+  //   background-color: aqua;
+  //   display: none;
+  // }
 }
 
 /******************************************************************/
@@ -723,6 +752,7 @@ body {
   width: 100%;
 
   flex-wrap: wrap;
+  row-gap: 4rem;
 }
 
 .coffee-menu-block {
@@ -804,6 +834,11 @@ body {
 
 .coffee-menu-block {
 
+  &--desserts {
+    background-color: bisque;
+    margin-left: auto;
+  }
+
   &__title--desserts {
     text-align: right;
 
@@ -833,6 +868,8 @@ body {
   justify-content: space-between;
 
   flex-wrap: wrap;
+  column-gap: 2rem;
+  row-gap: 10rem;
 }
 
 .contacts-block {
@@ -901,6 +938,15 @@ body {
   }
 }
 
+.contacts-map {
+  margin-left: auto;
+
+  @media screen and (max-width: 800px){
+    margin: 0 auto;
+  }
+
+}
+
 /**************************************************/
 /**************************************************/
 
@@ -923,11 +969,15 @@ body {
   justify-content: space-between;
 
   column-gap: 4rem;
+  row-gap: 2.1rem;
 
   @media screen and (max-width: 1024px){
     flex-wrap: wrap;
   }
-  // flex-wrap: wrap;
+  @media screen and (max-width: 850px){
+    justify-content: center;
+  }
+  
 }
 
 .cards-block-find {
@@ -1073,6 +1123,8 @@ body {
 }
 
 .cards-block-read {
+  margin-left: auto;
+
   display: flex;
   flex-direction: column;
   row-gap: 3.5rem;
@@ -1084,6 +1136,10 @@ body {
 
   background-color: tomato;
 
+  @media screen and (max-width: 850px){
+    margin-left: 0;
+  }
+
   &__title {
     color: #000;
     text-align: right;
@@ -1093,6 +1149,10 @@ body {
     font-weight: 400;
     line-height: normal;
     letter-spacing: 0.6px;
+
+    @media screen and (max-width: 850px){
+      text-align: center;
+    }
   }
 
   &__text {
@@ -1104,12 +1164,20 @@ body {
     font-weight: 400;
     line-height: 40px; /* 200% */
     letter-spacing: 0.4px;
+
+    @media screen and (max-width: 850px){
+      text-align: center;
+    }
   }
 
   &__buttons-container {
     display: flex;
     justify-content: end;
     column-gap: 2rem;
+
+    @media screen and (max-width: 850px){
+      justify-content: center;
+    }
   }
 }
 
