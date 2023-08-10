@@ -117,6 +117,10 @@ body {
 
   // background-color: blue;
   padding: 0rem 2rem;
+
+  @media screen and (max-width: 740px){
+    padding: 0rem 1rem;
+  }
 }
 
 
