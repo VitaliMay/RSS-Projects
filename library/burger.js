@@ -8,10 +8,6 @@ let fon = document.querySelector('.fon')
 /************************************ */
 
 
-
-/************************************ */
-
-
 // document.addEventListener("DOMContentLoaded", function() {
     burgerButton.addEventListener("click", function(event) {
         // console.log('Проверка')
@@ -38,20 +34,6 @@ function closeMenu() {
     burgerButton.classList.remove('rotade');
     body.classList.remove('lock');
     fon.classList.remove('work');
-    //modal.classList.remove(classModalCard);
-    modal.classList.remove(modal.classList.item(1));
-    modal.classList.remove(modal.classList.item(1));
-    /* прописано два раз так как надо удалять два класса*/
-    /* второй класс view понадобился чтобы было удобнее делать медиазапросы */
-
-
-//     modal.classList.remove(modal.addEventListener('click', function(event) {
-//     let clickedClass = event.target.className.slice(-4);
-//     console.log(clickedClass);
-//   }));
-    
-    
-    //modal.addEventListener('click', el => modal.classList.remove(el.target.className.slice(-4)))
 
 }
 
@@ -60,7 +42,7 @@ menuLink.forEach(link => link.addEventListener('click', closeMenu));
 // закрываю при клике мимо меню
 
 fon.addEventListener('click', closeMenu);
-// })
+
 
 
 
