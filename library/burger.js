@@ -28,7 +28,11 @@ let fon = document.querySelector('.fon')
 
 // закрываю после ссылки
 
+
+/*********************************** */
+/*********************************** */
 const menuLink = document.querySelectorAll('.menu__list-item');
+
 function closeMenu() {
     menu.classList.remove('open');
     burgerButton.classList.remove('rotade');
@@ -37,15 +41,22 @@ function closeMenu() {
 
 }
 
+
 menuLink.forEach(link => link.addEventListener('click', closeMenu));
+/************************************************* */
 
 // закрываю при клике мимо меню
 
 fon.addEventListener('click', closeMenu);
+/************************************************************* */
+/************************************************************* */
 
+// menu.addEventListener("click", function(event) {
+//     if (event.target.classList.contains("menu__list-item")) {
+//       closeMenu();
+//     }
+//   });
 
-
-
-
-
+/************************************************** */
+/************************************************** */
 

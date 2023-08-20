@@ -11,7 +11,9 @@
   <link rel="stylesheet" href="./css/style.css">
   <link rel="icon" href="./assets/svg/favicon01.ico">
 	<script defer src="./index.js"></script>
-	<script defer src="./burger.js"></script>
+	<!-- <script defer src="./burger.js"></script> -->
+	<script defer src="./burger-01.js"></script>
+	<!-- <script defer src="./burger-02.js"></script> -->
 </head>
 <body>
 	<div class="wrapper">
@@ -98,6 +100,8 @@
 									<div class="slider-inner_item slider-inner_item--01"></div>
 									<div class="slider-inner_item slider-inner_item--02"></div>
 									<div class="slider-inner_item slider-inner_item--03"></div>
+									<div class="slider-inner_item slider-inner_item--04"></div>
+									<div class="slider-inner_item slider-inner_item--05"></div>
 								</div>
 								<button class="slider-btn">&gt;</button>
 							</div>
@@ -140,29 +144,30 @@
 							<span class="title_line"></span>
 						</div>
 
+
 						<form class="favorites-form favorites-form--position">
 							<h3 class="favorites-form_title">Pick favorites of season</h3>
 							<div class="seasons favorites-form_seasons">
 								<label class="seasons_title">
-									<input class="seasons_option" type="radio" name="seasons" checked>
+									<input class="seasons_option" type="radio" name="seasons" value="winter" checked>
 									<span class="seasons_radio"></span>
 									<span class="seasons_text">Winter</span>
 									<!-- Winter -->
 								</label>
 								<label class="seasons_title">
-									<input class="seasons_option" type="radio" name="seasons">
+									<input class="seasons_option" type="radio" name="seasons" value="spring">
 									<span class="seasons_radio"></span>
 									<span class="seasons_text">Spring</span>
 									<!-- Spring -->
 								</label>
 								<label class="seasons_title">
-									<input class="seasons_option" type="radio" name="seasons">
+									<input class="seasons_option" type="radio" name="seasons" value="summer">
 									<span class="seasons_radio"></span>
 									<span class="seasons_text">Summer</span>
 									<!-- Summer -->
 								</label>
 								<label class="seasons_title seasons_title--last">
-									<input class="seasons_option" type="radio" name="seasons">
+									<input class="seasons_option" type="radio" name="seasons" value="autumn">
 									<span class="seasons_radio"></span>
 									<span class="seasons_text">Autumn</span>
 									<!-- Autumn -->
@@ -170,7 +175,7 @@
 							</div>
 						</form>
 
-						<div class="favorites-items winter">
+						<div class="favorites-items favorites-items--active winter">
 
 							<div class="card">
 								<div class="card__block">
@@ -324,7 +329,7 @@
 
 						</div>
 
-						<div class="favorites-items spring">
+						<div class="favorites-items favorites-items--hidden spring">
 
 							<div class="card">
 								<div class="card__block">
@@ -470,7 +475,7 @@
 
 						</div>
 
-						<div class="favorites-items summer">
+						<div class="favorites-items favorites-items--hidden summer">
 
 							<div class="card">
 								<div class="card__block">
@@ -616,7 +621,7 @@
 
 						</div>
 
-						<div class="favorites-items autumn">
+						<div class="favorites-items favorites-items--hidden autumn">
 
 							<div class="card">
 								<div class="card__block">

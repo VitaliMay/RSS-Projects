@@ -356,6 +356,14 @@ body {
   background-image: url(../assets/img/image-03.png);
 }
 
+.slider-inner_item--04 {
+  background-image: url(../assets/img/image-04.png);
+}
+
+.slider-inner_item--05 {
+  background-image: url(../assets/img/image-05.png);
+}
+
 .slider-pg {
   display: flex;
 }
@@ -425,7 +433,29 @@ body {
   row-gap: 4rem;
 }
 .favorites-form--position {
-  margin-bottom: 4rem;
+  padding-bottom: 4rem;
+}
+@media screen and (max-width: 1276px) {
+  .favorites-form--position {
+    position: sticky;
+    z-index: 10;
+    top: 0;
+  }
+}
+
+@media screen and (max-width: 1276px) {
+  .favorites-form--position-sticky {
+    background: rgba(41, 41, 41, 0.6);
+    transition: 1s;
+  }
+}
+
+.favorites-form--position-sticky > .favorites-form_title {
+  color: white;
+}
+
+.favorites-form--position-sticky > .seasons > .seasons_title {
+  color: white;
 }
 
 .favorites-form_title {
@@ -511,21 +541,29 @@ body {
   justify-content: space-between;
   -moz-column-gap: 4rem;
        column-gap: 4rem;
+  transition: 0.4s;
   row-gap: 4rem;
 }
-@media screen and (max-width: 1270px) {
+.favorites-items--active {
+  opacity: 1;
+  max-height: 100%;
+  position: relative;
+  z-index: auto;
+  overflow: hidden;
+  transition: opacity 4s, max-height 0s;
+}
+.favorites-items--hidden {
+  opacity: 0;
+  max-height: 0;
+  position: relative;
+  z-index: -1;
+  overflow: hidden;
+  transition: opacity 4s, max-height 0s;
+}
+@media screen and (max-width: 1280px) {
   .favorites-items {
     justify-content: center;
   }
-}
-.favorites-items.spring {
-  display: none;
-}
-.favorites-items.summer {
-  display: none;
-}
-.favorites-items.autumn {
-  display: none;
 }
 
 .card {
