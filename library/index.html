@@ -13,6 +13,7 @@
 	<script defer src="./index.js"></script>
 	<!-- <script defer src="./burger.js"></script> -->
 	<script defer src="./burger-01.js"></script>
+	<script defer src="./slider.js"></script>
 	<!-- <script defer src="./burger-02.js"></script> -->
 </head>
 <body>
@@ -95,7 +96,7 @@
 						<div class="slider">
 							<div class="slider-block">
 
-								<button class="slider-btn">&lt;</button>
+								<button class="slider-btn slider-btn--left slider-btn--disabled">&lt;</button>
 								<div class="slider-inner">
 									<div class="slider-inner_item slider-inner_item--01"></div>
 									<div class="slider-inner_item slider-inner_item--02"></div>
@@ -103,7 +104,7 @@
 									<div class="slider-inner_item slider-inner_item--04"></div>
 									<div class="slider-inner_item slider-inner_item--05"></div>
 								</div>
-								<button class="slider-btn">&gt;</button>
+								<button class="slider-btn slider-btn--right">&gt;</button>
 							</div>
 
 							<div class="slider-pg slider-pg--position">
@@ -316,8 +317,12 @@
 
 									</div>
 
-									<button class="card__block-btn card__block-btn--active " disabled>
+									<!-- <button class="card__block-btn card__block-btn--active " disabled>
 										Own
+									</button> -->
+
+									<button class="card__block-btn">
+										Buy
 									</button>
 								</div>
 

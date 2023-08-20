@@ -103,26 +103,26 @@ profile.addEventListener("click", function(event) {
 /*************************************************** */
 /*****Меняю цвет кнопок пагинации при клике*********************** */
 
-const sliderPg = document.querySelector(".slider-pg");
-const sliderPgItems = document.querySelectorAll('.slider-pg_item');
+// const sliderPg = document.querySelector(".slider-pg");
+// const sliderPgItems = document.querySelectorAll('.slider-pg_item');
 
-const sliderPgContainersArr = document.querySelectorAll('.slider-pg_container'); //для получения индекса кнопки
+// const sliderPgContainersArr = document.querySelectorAll('.slider-pg_container'); //для получения индекса кнопки
 
-sliderPg.addEventListener('click', function(event) {
-  const clickedSliderPgContainer = event.target.closest('.slider-pg_container');
+// sliderPg.addEventListener('click', function(event) {
+//   const clickedSliderPgContainer = event.target.closest('.slider-pg_container');
 
-  if (clickedSliderPgContainer) {
-    const clickedSliderPgItem = clickedSliderPgContainer.querySelector('.slider-pg_item');
+//   if (clickedSliderPgContainer) {
+//     const clickedSliderPgItem = clickedSliderPgContainer.querySelector('.slider-pg_item');
 
-    sliderPgItems.forEach(item => {
-      item.classList.remove('slider-pg_item--active');
-    });
+//     sliderPgItems.forEach(item => {
+//       item.classList.remove('slider-pg_item--active');
+//     });
 
-    clickedSliderPgItem.classList.add('slider-pg_item--active');
+//     clickedSliderPgItem.classList.add('slider-pg_item--active');
 
-    console.log(Array.from(sliderPgContainersArr).indexOf(clickedSliderPgContainer)); // получение индекса кнопки
-  }
-});
+//     console.log(Array.from(sliderPgContainersArr).indexOf(clickedSliderPgContainer)); // получение индекса кнопки
+//   }
+// });
 
 
 /*********************************************************** */
@@ -181,21 +181,37 @@ radioButtons.forEach(function(item) {
 // меняю цвет фона для элемента sticky элемента
 // как только элемент скролится до позиции top = 0
 
+// (function(){
+//   const stickyEl = document.querySelector('.favorites-form--position')
+//   // console.log (`sticky = ${stickyEl}`)
+//   // console.log (`stickyClass = ${stickyEl.className.includes('element-from-top')}`)
+//   // console.log(stickyEl.getBoundingClientRect().top)
+
+//   window.addEventListener('scroll', function() {
+//     // console.log(stickyEl.getBoundingClientRect().top)
+//     if (stickyEl.getBoundingClientRect().top <= 0 && stickyEl.getBoundingClientRect().top > -127) {
+//       stickyEl.classList.add('favorites-form--position-sticky')
+//     } else {
+//       stickyEl.classList.remove('favorites-form--position-sticky')
+//     }
+// // }, false);
+//   });
+// })();
+
+/******************************************************** */
+
 (function(){
   const stickyEl = document.querySelector('.favorites-form--position')
-  console.log (`sticky = ${stickyEl}`)
-  console.log (`stickyClass = ${stickyEl.className.includes('element-from-top')}`)
-  console.log(stickyEl.getBoundingClientRect().top)
 
   window.addEventListener('scroll', function() {
-    console.log(stickyEl.getBoundingClientRect().top)
     if (stickyEl.getBoundingClientRect().top <= 0 && stickyEl.getBoundingClientRect().top > -127) {
       stickyEl.classList.add('favorites-form--position-sticky')
     } else {
       stickyEl.classList.remove('favorites-form--position-sticky')
     }
-// }, false);
-  });
+
+  }, { passive: true }); // Добавляем passive: true
+
 })();
 
 
