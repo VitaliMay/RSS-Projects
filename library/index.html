@@ -13,7 +13,8 @@
 	<script defer src="./index.js"></script>
 	<!-- <script defer src="./burger.js"></script> -->
 	<script defer src="./burger-01.js"></script>
-	<script defer src="./slider.js"></script>
+	<!-- <script defer src="./slider.js"></script> -->
+	<script defer src="./slider-00.js"></script>
 	<!-- <script defer src="./burger-02.js"></script> -->
 </head>
 <body>
@@ -51,6 +52,36 @@
 
 						<div class="profile" >
 
+							<div class="modal-profile modal-profile-login modal-profile-login--active">
+
+								<div class="modal-profile-title">
+									<h4 class="modal-profile-title_text">
+										Profile
+									</h4>
+									<span class="modal-profile-title_line"></span>
+								</div>
+								<div class="modal-profile-block-btn">
+									<button class="modal-another_btn modal-another_btn--profile">Log In</button>
+									<button class="modal-another_btn modal-another_btn--profile">Register</button>
+								</div>
+						
+							</div>
+
+							<div class="modal-profile modal-profile-logout">
+
+								<div class="modal-profile-title">
+									<h4 class="modal-profile-title_text">
+										Profile
+									</h4>
+									<span class="modal-profile-title_line"></span>
+								</div>
+								<div class="modal-profile-block-btn">
+									<button class="modal-another_btn modal-another_btn--profile">My profile</button>
+									<button class="modal-another_btn modal-another_btn--profile">Log Out</button>
+								</div>
+						
+							</div>
+
 						</div>
 
 						<button class="burger-button" id="burger-button">
@@ -58,7 +89,7 @@
 							<span class="burger-button__cross burger-button__cross--02"></span>
 							<span class="burger-button__cross burger-button__cross--03"></span>
 						</button>
-						
+
 					</div>
 
 				</div>
@@ -1121,6 +1152,100 @@
 		</footer>
 
 	</div>
+
+	<div class="modal modal-register">
+		<button class="modal-btn-cross">&#10006;</button>
+		<h4 class="modal-title modal-title--position">REGISTER</h4>
+		<div class="modal-content">
+			<form class="modal-form" action="">
+				<label class="modal-label" for="">
+					<!-- <span class="modal-label-span">First name</span> -->
+					<input class="modal-label-input" type="text">
+					<span class="modal-label-span">First name</span>
+				</label>
+				<label class="modal-label" for="">
+					<!-- <span class="modal-label-span">First name</span> -->
+					<input class="modal-label-input" type="text">
+					<span class="modal-label-span">Last name</span>
+				</label>
+				<label class="modal-label" for="">
+					<!-- <span class="modal-label-span">First name</span> -->
+					<input class="modal-label-input" type="text">
+					<span class="modal-label-span">E-mail</span>
+				</label>
+				<label class="modal-label" for="">
+					<!-- <span class="modal-label-span">First name</span> -->
+					<input class="modal-label-input" type="text">
+					<span class="modal-label-span">Password</span>
+				</label>
+				<button class="card__block-btn card__block-btn--position">
+					Sign Up
+				</button>
+			</form>
+			<div class="modal-another">
+				<p class="modal-another_text">Already have an account?</p>
+				<button class="modal-another_btn">Login</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal modal-login">
+		<button class="modal-btn-cross">&#10006;</button>
+		<h4 class="modal-title modal-title--position">Login</h4>
+		<div class="modal-content">
+			<form class="modal-form" action="">
+				<label class="modal-label" for="">
+					<!-- <span class="modal-label-span">First name</span> -->
+					<input class="modal-label-input" type="text">
+					<span class="modal-label-span">E-mail or readers card</span>
+				</label>
+				<label class="modal-label" for="">
+					<!-- <span class="modal-label-span">First name</span> -->
+					<input class="modal-label-input" type="text">
+					<span class="modal-label-span">Password</span>
+				</label>
+
+				<button class="card__block-btn card__block-btn--position">
+					Log In
+				</button>
+			</form>
+			<div class="modal-another">
+				<p class="modal-another_text">Don’t have an account?</p>
+				<button class="modal-another_btn">Register</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- <div class="modal-profile modal-profile-login">
+
+		<div class="modal-profile-title">
+			<h4 class="modal-profile-title_text">
+				Profile
+			</h4>
+			<span class="modal-profile-title_line"></span>
+		</div>
+		<div class="modal-profile-block-btn">
+			<button class="modal-another_btn modal-another_btn--profile">Log In</button>
+			<button class="modal-another_btn modal-another_btn--profile">Register</button>
+		</div>
+
+	</div> -->
+
+	<!-- <div class="modal-profile modal-profile-logout">
+
+		<div class="modal-profile-title">
+			<h4 class="modal-profile-title_text">
+				Profile
+			</h4>
+			<span class="modal-profile-title_line"></span>
+		</div>
+		<div class="modal-profile-block-btn">
+			<button class="modal-another_btn modal-another_btn--profile">My profile</button>
+			<button class="modal-another_btn modal-another_btn--profile">Log Out</button>
+		</div>
+
+	</div> -->
+
 
 	<script>
 		function validateInput(input) {

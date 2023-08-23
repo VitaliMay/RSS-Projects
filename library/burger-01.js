@@ -137,7 +137,7 @@ const seasonArr = document.querySelectorAll('.favorites-items');
 let indexSeason = 0 // индекс сезона выбранного по умолчанию
 // Добавляем обработчик события для каждого элемента
 radioButtons.forEach(function(item) {
-  item.addEventListener('change', function() {
+  item.addEventListener('change', function() {  // обработчик события для радиокнопки
     // let label = this.parentElement; //родительский label не нужен, и так сработает
     let selectedValue = this.value;
     let selectedIndexSeason = Array.from(radioButtons).indexOf(item);
@@ -215,3 +215,38 @@ radioButtons.forEach(function(item) {
 })();
 
 
+/************************************************** */
+/************************************************** */
+/************************************************** */
+/************************************************** */
+
+/*
+
+Отследить начало и конец transform: translate(-47.5rem, 0); и связать это событие с помощью JavaScript.
+
+Чтобы отследить начало и конец анимации, можно использовать события transitionstart и transitionend.
+
+const cardExp01 = document.querySelector('.card-exp01');
+
+cardExp01.addEventListener('transitionstart', () => {
+  // Код, который будет выполнен при начале анимации
+  console.log('Анимация началась');
+});
+
+cardExp01.addEventListener('transitionend', () => {
+  // Код, который будет выполнен после завершения анимации
+  console.log('Анимация завершена');
+});
+
+Чтобы привязать анимацию к событию, можно использовать стандартные события, такие как click, mouseover, scroll и другие, а затем вручную изменить стили элемента.
+
+const cardExp01 = document.querySelector('.card-exp01');
+const triggerButton = document.querySelector('.trigger-button');
+
+triggerButton.addEventListener('click', () => {
+  cardExp01.style.transform = 'translate(-47.5rem, 0)';
+});
+
+Здесь добавляю прослушиватель событий click к кнопке .trigger-button. При нажатии на кнопку, изменяю стиль элемента .card-exp01, применяя transform: translate(-47.5rem, 0). Анимация будет запускаться при клике на кнопку.
+
+*/
