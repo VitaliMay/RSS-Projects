@@ -44,7 +44,7 @@ const fon = document.querySelector('.fon');
 menu.addEventListener('click', function(event) {
 //   if (event.target.matches('.menu__list-link')) { // срабатывает только при клике именно на ссылку
 //   if (event.target.classList.contains('.menu__list-link')) {
-    
+
 
     if (event.target.closest('.menu__list-item')) { // срабатывает при клике на любой дочерний элемент
 
@@ -59,17 +59,22 @@ burgerButton.addEventListener("click", function(event) {
     // body.classList.toggle('lock');
     // fon.classList.toggle('work');
 
-    if (modalProfileLogin.classList.contains("modal-profile-login--active") || modalRegister.classList.contains('modal-register--active')) {
+    if (modalProfileLogin.classList.contains("modal-profile-login--active") || modalRegister.classList.contains('modal-register--active') || modalLogin.classList.contains('modal-login--active')) {
       modalProfileLogin.classList.remove("modal-profile-login--active");
       modalRegister.classList.remove('modal-register--active');
+      modalLogin.classList.remove('modal-login--active');
+
       menu.classList.add("open");
+      body.classList.add('lock');
       burgerButton.classList.add("rotade");
     }
     else if (!menu.classList.contains("open")){
-      menu.classList.add("open");
-      burgerButton.classList.add("rotade");
-      body.classList.add('lock');
       fon.classList.add('work');
+
+      menu.classList.add("open");
+      body.classList.add('lock');
+      burgerButton.classList.add("rotade");
+
     }
     else {
       closeMenu()
@@ -100,6 +105,8 @@ function closeMenu() {
     modalProfileLogin.classList.remove("modal-profile-login--active");
     modalRegister.classList.remove('modal-register--active');
 
+    modalLogin.classList.remove('modal-login--active')
+
 }
 
 /*****Убираю меню при клике на профиль*********************** */
@@ -109,7 +116,7 @@ function closeMenu() {
 const profile = document.querySelector('.profile');
 const modalProfileLogin = document.querySelector('.modal-profile-login');
 const modalRegister = document.querySelector('.modal-register')
-
+const modalLogin = document.querySelector('.modal-login')
 
 
 profile.addEventListener("click", function(event) {
@@ -133,7 +140,7 @@ profile.addEventListener("click", function(event) {
       modalProfileLogin.classList.remove("modal-profile-login--active");
     } 
 
-    if (modalRegister.classList.contains('modal-register--active')) {
+    if (modalRegister.classList.contains('modal-register--active') || modalLogin.classList.contains('modal-login--active')) {
       // modalRegister.classList.remove('modal-register--active');
       closeMenu()
       console.log('Привет')
@@ -161,10 +168,28 @@ registerBtnArr.forEach(function(item) {
   });
 });
 
+
+/************************************* */
+
+// ловлю все кнопки Log in и сразу формирую массив из коллекции NodeList
+
+let loginBtnArr = Array.from(document.querySelectorAll('button[name="log-in"]'))
+
+// навешиваю обработчик события на каждый элемент массива
+loginBtnArr.forEach(function(item) {
+  item.addEventListener('click', function() {
+    closeMenu()
+    modalLogin.classList.add('modal-login--active');
+    
+    fon.classList.add('work');
+  });
+});
+
+/************************************ */
 /************************************ */
 // ловлю все крестики в модалках
 const modalBtnCross = [...document.querySelectorAll('.modal-btn-cross')]
-console.log (`cross = ${modalBtnCross}`)
+// console.log (`cross = ${modalBtnCross}`)
 modalBtnCross.forEach(function(item) {
   item.addEventListener('click',function() {
     closeMenu()

@@ -1959,6 +1959,13 @@ body.lock .wrapper {
   opacity: 0;
 
   transition: visibility 2s, opacity 2s;
+
+  &--active {
+    z-index: 16;
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 2s, opacity 2s;
+  }
 }
 
 /*******************************************************/
