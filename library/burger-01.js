@@ -54,13 +54,42 @@ menu.addEventListener('click', function(event) {
 });
 
 burgerButton.addEventListener("click", function(event) {
-    menu.classList.toggle("open");
-    burgerButton.classList.toggle("rotade");
-    body.classList.toggle('lock');
-    fon.classList.toggle('work');
+    // menu.classList.toggle("open");
+    // burgerButton.classList.toggle("rotade");
+    // body.classList.toggle('lock');
+    // fon.classList.toggle('work');
+
+    if (modalProfileLogin.classList.contains("modal-profile-login--active") || modalRegister.classList.contains('modal-register--active')) {
+      modalProfileLogin.classList.remove("modal-profile-login--active");
+      modalRegister.classList.remove('modal-register--active');
+      menu.classList.add("open");
+      burgerButton.classList.add("rotade");
+    }
+    else if (!menu.classList.contains("open")){
+      menu.classList.add("open");
+      burgerButton.classList.add("rotade");
+      body.classList.add('lock');
+      fon.classList.add('work');
+    }
+    else {
+      closeMenu()
+    }
+
+
 });
 
 fon.addEventListener('click', closeMenu);
+
+// К сожалению, не по ТЗ (а мне так больше нравится)
+// fon.addEventListener('click', function() {
+//   if (!modalRegister.classList.contains("modal-register--active")) {
+//     closeMenu()
+//   }
+//   else {
+//     closeMenu();
+//     fon.classList.add('work');
+//   }
+// });
 
 function closeMenu() {
     menu.classList.remove('open');
@@ -68,17 +97,79 @@ function closeMenu() {
     body.classList.remove('lock');
     fon.classList.remove('work');
 
+    modalProfileLogin.classList.remove("modal-profile-login--active");
+    modalRegister.classList.remove('modal-register--active');
+
 }
 
 /*****Убираю меню при клике на профиль*********************** */
+/***модалка login при клике на профиль */
+
+
 const profile = document.querySelector('.profile');
+const modalProfileLogin = document.querySelector('.modal-profile-login');
+const modalRegister = document.querySelector('.modal-register')
+
+
 
 profile.addEventListener("click", function(event) {
-  closeMenu()
+  // closeMenu() // было
+  // чтобы срабатывало только при клике на картинку
+  if (event.target.classList.contains('profile')){
+
+    // при клике должно убираться только меню
+    // фон если он есть должен оставаться
+    if (menu.classList.contains("open")) {
+      menu.classList.remove('open');
+      burgerButton.classList.remove('rotade');
+      modalProfileLogin.classList.add("modal-profile-login--active");
+    } else if (!modalProfileLogin.classList.contains("modal-profile-login--active")) {
+      body.classList.add('lock');
+      fon.classList.add('work');
+      modalProfileLogin.classList.add("modal-profile-login--active");
+    } else if (modalProfileLogin.classList.contains("modal-profile-login--active")) {
+      body.classList.remove('lock');
+      fon.classList.remove('work');
+      modalProfileLogin.classList.remove("modal-profile-login--active");
+    } 
+
+    if (modalRegister.classList.contains('modal-register--active')) {
+      // modalRegister.classList.remove('modal-register--active');
+      closeMenu()
+      console.log('Привет')
+    }
+
+  }
+
 });
 /**************************** */
 
+// ловлю все кнопки Register и сразу формирую массив из коллекции NodeList
+// чтобы использовать все стандартные методы массива
+// также сформировать массив из коллекции можно с помощью спред-оператора
 
+let registerBtnArr = Array.from(document.querySelectorAll('button[name="register"]'))
+// console.log(`name Register = ${registerBtnArr}`)
+
+// навешиваю обработчик события на каждый элемент массива
+registerBtnArr.forEach(function(item) {
+  item.addEventListener('click', function() {
+    closeMenu()
+    modalRegister.classList.add('modal-register--active');
+    
+    fon.classList.add('work');
+  });
+});
+
+/************************************ */
+// ловлю все крестики в модалках
+const modalBtnCross = [...document.querySelectorAll('.modal-btn-cross')]
+console.log (`cross = ${modalBtnCross}`)
+modalBtnCross.forEach(function(item) {
+  item.addEventListener('click',function() {
+    closeMenu()
+  })
+})
 
 /*************************************************** */
 /***********Рабочий вариант*************************************** */

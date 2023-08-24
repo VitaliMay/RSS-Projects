@@ -1476,6 +1476,12 @@ body.lock .wrapper {
   opacity: 0;
   transition: visibility 2s, opacity 2s;
 }
+.modal-register--active {
+  z-index: 16;
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 2s, opacity 2s;
+}
 
 .modal-btn-cross {
   border-color: rgba(0, 0, 0, 0);
@@ -1622,7 +1628,7 @@ body.lock .wrapper {
 .modal-profile {
   position: absolute;
   top: 40px;
-  right: 40px;
+  right: 0px;
   width: 80px;
   height: 115px;
   display: flex;

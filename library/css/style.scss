@@ -1772,7 +1772,16 @@ body.lock .wrapper {
   opacity: 0;
 
   transition: visibility 2s, opacity 2s;
+
+  &--active {
+    z-index: 16;
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 2s, opacity 2s;
+  }
 }
+
+
 
 .modal-btn-cross {
 
@@ -1971,7 +1980,7 @@ body.lock .wrapper {
   position: absolute;
 
   top: 40px;
-  right: 40px;
+  right: 0px;
   width: 80px;
   height: 115px;
 
