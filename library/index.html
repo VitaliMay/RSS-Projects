@@ -13,6 +13,8 @@
 	<script defer src="./index.js"></script>
 	<!-- <script defer src="./burger.js"></script> -->
 	<script defer src="./burger-01.js"></script>
+	<!-- <script defer src="./slider.js"></script> -->
+	<script defer src="./slider-00.js"></script>
 	<!-- <script defer src="./burger-02.js"></script> -->
 </head>
 <body>
@@ -50,6 +52,37 @@
 
 						<div class="profile" >
 
+							<div class="modal-profile modal-profile-login">
+							<!-- <div class="modal-profile modal-profile-login modal-profile-login__active"> -->
+
+								<div class="modal-profile-title">
+									<h4 class="modal-profile-title_text">
+										Profile
+									</h4>
+									<span class="modal-profile-title_line"></span>
+								</div>
+								<div class="modal-profile-block-btn">
+									<button name="log-in" class="modal-another_btn modal-another_btn--profile">Log In</button>
+									<button name="register" class="modal-another_btn modal-another_btn--profile">Register</button>
+								</div>
+						
+							</div>
+
+							<div class="modal-profile modal-profile-logout">
+
+								<div class="modal-profile-title">
+									<h4 class="modal-profile-title_text">
+										Profile
+									</h4>
+									<span class="modal-profile-title_line"></span>
+								</div>
+								<div class="modal-profile-block-btn">
+									<button class="modal-another_btn modal-another_btn--profile">My profile</button>
+									<button class="modal-another_btn modal-another_btn--profile">Log Out</button>
+								</div>
+						
+							</div>
+
 						</div>
 
 						<button class="burger-button" id="burger-button">
@@ -57,7 +90,7 @@
 							<span class="burger-button__cross burger-button__cross--02"></span>
 							<span class="burger-button__cross burger-button__cross--03"></span>
 						</button>
-						
+
 					</div>
 
 				</div>
@@ -95,7 +128,7 @@
 						<div class="slider">
 							<div class="slider-block">
 
-								<button class="slider-btn">&lt;</button>
+								<button class="slider-btn slider-btn--left slider-btn--disabled">&lt;</button>
 								<div class="slider-inner">
 									<div class="slider-inner_item slider-inner_item--01"></div>
 									<div class="slider-inner_item slider-inner_item--02"></div>
@@ -103,7 +136,7 @@
 									<div class="slider-inner_item slider-inner_item--04"></div>
 									<div class="slider-inner_item slider-inner_item--05"></div>
 								</div>
-								<button class="slider-btn">&gt;</button>
+								<button class="slider-btn slider-btn--right">&gt;</button>
 							</div>
 
 							<div class="slider-pg slider-pg--position">
@@ -208,12 +241,15 @@
 
 									</div>
 
-									<form action="#">
+									<!-- <form action="#">
 										<button class="card__block-btn">
-											Buy
+											Buy (заставляет работать кнопку ссылкой)
 										</button>
-									</form>
-									
+									</form> -->
+									<button class="card__block-btn">
+										Buy
+									</button>
+
 								</div>
 
 								<div class="card__image card__image--1-01">
@@ -246,9 +282,13 @@
 
 									</div>
 
-									<button class="card__block-btn" onclick="document.location='#'">
+									<!-- <button class="card__block-btn" onclick="document.location='#'">
+										Buy (заставляет работать кнопку ссылкой)
+									</button> -->
+									<button class="card__block-btn">
 										Buy
 									</button>
+
 								</div>
 
 								<div class="card__image card__image--1-02">
@@ -316,8 +356,12 @@
 
 									</div>
 
-									<button class="card__block-btn card__block-btn--active " disabled>
+									<!-- <button class="card__block-btn card__block-btn__active " disabled>
 										Own
+									</button> -->
+
+									<button class="card__block-btn">
+										Buy
 									</button>
 								</div>
 
@@ -1025,10 +1069,10 @@
 									You will be able to see a reader card after logging into account or you can register a new account
 								</p>
 								<div class="cards-block-read__buttons-container">
-									<button class="card__block-btn">
+									<button name="register" class="card__block-btn">
 										Sign Up
 									</button>
-									<button class="card__block-btn">
+									<button name="log-in" class="card__block-btn">
 										Log in
 									</button>
 								</div>
@@ -1116,6 +1160,261 @@
 		</footer>
 
 	</div>
+
+	<div class="modal modal-register">
+		<button class="modal-btn-cross">&#10006;</button>
+		<h4 class="modal-title modal-title--position">REGISTER</h4>
+		<div class="modal-content">
+			<form class="modal-form">
+				<label class="modal-label">
+					<input class="modal-label-input" type="text">
+					<span class="modal-label-span">First name</span>
+				</label>
+				<label class="modal-label">
+					<!-- <span class="modal-label-span">First name</span> -->
+					<input class="modal-label-input" type="text">
+					<span class="modal-label-span">Last name</span>
+				</label>
+				<label class="modal-label">
+					<!-- <span class="modal-label-span">First name</span> -->
+					<input class="modal-label-input" type="text">
+					<span class="modal-label-span">E-mail</span>
+				</label>
+				<label class="modal-label">
+					<!-- <span class="modal-label-span">First name</span> -->
+					<input class="modal-label-input" type="text">
+					<span class="modal-label-span">Password</span>
+				</label>
+				<button class="card__block-btn card__block-btn--position">
+					Sign Up
+				</button>
+			</form>
+			<div class="modal-another">
+				<p class="modal-another_text">Already have an account?</p>
+				<button name="log-in" class="modal-another_btn">Login</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal modal-login">
+		<button class="modal-btn-cross">&#10006;</button>
+		<h4 class="modal-title modal-title--position">Login</h4>
+		<div class="modal-content">
+			<form class="modal-form">
+				<label class="modal-label">
+					<!-- <span class="modal-label-span">First name</span> -->
+					<input class="modal-label-input" type="text">
+					<span class="modal-label-span">E-mail or readers card</span>
+				</label>
+				<label class="modal-label">
+					<!-- <span class="modal-label-span">First name</span> -->
+					<input class="modal-label-input" type="text">
+					<span class="modal-label-span">Password</span>
+				</label>
+
+				<button class="card__block-btn card__block-btn--position">
+					Log In
+				</button>
+			</form>
+			<div class="modal-another">
+				<p class="modal-another_text">Don’t have an account?</p>
+				<button name="register" class="modal-another_btn">Register</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal modal-buy-card">
+		<button class="modal-btn-cross modal-btn-cross--modal-buy-card">&#10006;</button>
+		<div class="modal-buy-card_header">
+			<h3 class="modal-buy-card_title">
+				Buy a library card
+			</h3>
+		</div>
+		<div class="modal-buy-card_main">
+			<form class="modal-buy-card_form">
+				<label class="modal-label">
+					<input class="modal-label-input" type="text">
+					<span class="modal-label-span">Bank card number</span>
+				</label>
+
+				
+				<!-- <label class="modal-label">
+					<div class="modal-label-input__div">
+						<input class="modal-label-input modal-label-input__two" type="text">
+						<input class="modal-label-input modal-label-input__two" type="text">
+					</div>
+					<span class="modal-label-span">Expiration code</span>
+				</label> -->
+
+				<div class="modal-label">
+					<div class="modal-label-input--div">
+						<input class="modal-label-input modal-label-input--two" type="text">
+						<input class="modal-label-input modal-label-input--two" type="text">
+					</div>
+					<span class="modal-label-span">Expiration code</span>
+				</div>
+
+
+
+				<label class="modal-label">
+					<input class="modal-label-input modal-label-input--two" type="text">
+					<span class="modal-label-span">CVC</span>
+				</label>
+
+				<label class="modal-label modal-label--position">
+					<input class="modal-label-input" type="text">
+					<span class="modal-label-span">Cardholder name</span>
+				</label>
+
+				<label class="modal-label">
+					<input class="modal-label-input" type="text">
+					<span class="modal-label-span">Postal code</span>
+				</label>
+
+				<label class="modal-label">
+					<input class="modal-label-input" type="text">
+					<span class="modal-label-span">City / Town</span>
+				</label>
+
+				<div class="modal-buy-card_btn-block">
+					<button class="card__block-btn card__block-btn--position">
+						Buy
+					</button>
+					<p class="modal-buy-card_price">
+						$ 25.00
+					</p>
+				</div>
+
+			</form>
+
+			<div class="modal-buy-card_text">
+				<p>
+					If you are live, work, attend school, or pay property taxes in New York State, you can get a $25 digital library card right now using this online form. Visitors to New York State can also use this form to apply for a temporary card.
+
+				</p>
+			</div>
+
+			
+
+		</div>
+	</div>
+
+	<div class="modal-my-profile">
+		<button class="modal-btn-cross modal-btn-cross--modal-my-profile">&#10006;</button>
+		<div class="modal-my-profile_sidebar">
+			<div class="modal-my-profile_avatar">
+				<h5 class="modal-my-profile_avatar-title">
+					jd
+				</h5>
+			</div>
+			<div class="modal-my-profile_name">
+				<p class="modal-my-profile_name-text">
+					John Doe
+				</p>
+			</div>
+
+		</div>
+		<div class="modal-my-profile_main">
+			<h3 class="modal-my-profile_title modal-my-profile_title--position">
+				My profile
+			</h3>
+
+			<ul class="modal-my-profile_statistic modal-my-profile_statistic--position">
+				<li class="modal-my-profile_statistic-item statistic-item">
+					<h6 class="statistic-item_title">
+						visits
+					</h6>
+					<div class="statistic-item_img statistic-item_img--01">
+
+					</div>
+					<div class="statistic-item_info">
+						23
+					</div>
+				</li>
+				<li class="modal-my-profile_statistic-item statistic-item">
+					<h6 class="statistic-item_title">
+						bonuses
+					</h6>
+					<div class="statistic-item_img statistic-item_img--02">
+
+					</div>
+					<div class="statistic-item_info">
+						1240
+					</div>
+				</li>
+				<li class="modal-my-profile_statistic-item statistic-item">
+					<h6 class="statistic-item_title">
+						Books
+					</h6>
+					<div class="statistic-item_img statistic-item_img--03">
+
+					</div>
+					<div class="statistic-item_info">
+						2
+					</div>
+				</li>
+			</ul>
+
+			<div class="modal-my-profile_rented-books">
+				<h6 class="modal-my-profile_rented-books-title">
+					Rented books
+				</h6>
+				<ul class="modal-my-profile_rented-books-list">
+					<li class="modal-my-profile_rented-books-item">
+						The Last Queen, Clive Irving
+					</li>
+					<li class="modal-my-profile_rented-books-item">
+						Dominicana, Angie Cruz
+					</li>
+
+				</ul>
+			</div>
+
+			<div class="modal-my-profile_card-number">
+				<div class="modal-my-profile_card-number-title">
+					Card number
+				</div>
+				<div class="modal-my-profile_card-number-info">
+					F00234030
+				</div>
+				<div class="modal-my-profile_card-number-img">
+
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<!-- <div class="modal-profile modal-profile-login">
+
+		<div class="modal-profile-title">
+			<h4 class="modal-profile-title_text">
+				Profile
+			</h4>
+			<span class="modal-profile-title_line"></span>
+		</div>
+		<div class="modal-profile-block-btn">
+			<button class="modal-another_btn modal-another_btn__profile">Log In</button>
+			<button class="modal-another_btn modal-another_btn__profile">Register</button>
+		</div>
+
+	</div> -->
+
+	<!-- <div class="modal-profile modal-profile-logout">
+
+		<div class="modal-profile-title">
+			<h4 class="modal-profile-title_text">
+				Profile
+			</h4>
+			<span class="modal-profile-title_line"></span>
+		</div>
+		<div class="modal-profile-block-btn">
+			<button class="modal-another_btn modal-another_btn__profile">My profile</button>
+			<button class="modal-another_btn modal-another_btn__profile">Log Out</button>
+		</div>
+
+	</div> -->
+
 
 	<script>
 		function validateInput(input) {
