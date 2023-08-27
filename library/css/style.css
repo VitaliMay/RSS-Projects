@@ -1466,6 +1466,9 @@ body.lock .wrapper {
   transition: visibility 2s, opacity 2s;
 }
 
+/**************************************************/
+/**************************************************/
+/****************************************************/
 .modal-register {
   max-width: 250px;
   width: 100%;
@@ -1494,6 +1497,11 @@ body.lock .wrapper {
 }
 .modal-btn-cross:hover {
   cursor: pointer;
+}
+.modal-btn-cross--modal-buy-card {
+  top: 25px;
+  right: 25px;
+  color: white;
 }
 
 .modal-title {
@@ -1703,4 +1711,317 @@ body.lock .wrapper {
   line-height: 20px; /* 133.333% */
   letter-spacing: normal;
   text-decoration: none;
+}
+
+/****************************************************/
+/****************************************************/
+.modal-buy-card {
+  max-width: 640px;
+  width: 100%;
+  min-height: 540px;
+  padding: 0;
+  background: #FFF;
+  z-index: -2;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 2s, opacity 2s;
+}
+.modal-buy-card--active {
+  z-index: 16;
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 2s, opacity 2s;
+}
+.modal-buy-card_header {
+  background-color: #0C0C0E;
+  width: 100%;
+  min-height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modal-buy-card_title {
+  color: #FFF;
+  text-align: center;
+  font-family: Forum;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 50% */
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+.modal-buy-card_main {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 30px 40px 40px 40px;
+}
+.modal-buy-card_form {
+  max-width: 200px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+.modal-buy-card_text {
+  max-width: 330px;
+  width: 100%;
+  color: #8E8E8E;
+  font-family: Inter;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 133.333% */
+  letter-spacing: 2px;
+}
+.modal-buy-card_btn-block {
+  display: flex;
+  align-items: end;
+  -moz-column-gap: 25px;
+       column-gap: 25px;
+}
+.modal-buy-card_price {
+  color: #0C0C0E;
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px; /* 100% */
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.modal-label--position {
+  margin-top: 10px;
+}
+
+.modal-label-input--div {
+  display: flex;
+  -moz-column-gap: 10px;
+       column-gap: 10px;
+}
+
+.modal-label-input--two {
+  width: 45px;
+}
+
+.modal-label-input--div:focus-within + .modal-label-span {
+  color: red;
+}
+
+/**********************************************************/
+/**********************************************************/
+/**********************************************************/
+.modal-btn-cross--modal-my-profile {
+  top: 25px;
+  right: 23px;
+}
+
+.modal-my-profile {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  max-width: 600px;
+  width: 100%;
+  min-height: 400px;
+  background-color: #FFF;
+  z-index: -2;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 2s, opacity 2s;
+}
+.modal-my-profile--active {
+  z-index: 16;
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 2s, opacity 2s;
+}
+.modal-my-profile_sidebar {
+  max-width: 170px;
+  width: 100%;
+  background-color: #0C0C0E;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 15px;
+}
+.modal-my-profile_avatar {
+  width: 80px;
+  height: 80px;
+  background-color: #FFF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modal-my-profile_avatar-title {
+  color: #BB945F;
+  text-align: center;
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 100% */
+  text-transform: uppercase;
+}
+.modal-my-profile_name {
+  width: 120px;
+  height: 30px;
+  background-color: #FFF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modal-my-profile_name-text {
+  color: #000;
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  text-transform: capitalize;
+}
+.modal-my-profile_main {
+  display: flex;
+  flex-direction: column;
+  padding: 40px 20px;
+}
+.modal-my-profile_title {
+  color: #000;
+  font-family: Forum;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 50% */
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+.modal-my-profile_title--position {
+  margin-bottom: 40px;
+}
+.modal-my-profile_statistic {
+  display: flex;
+  -moz-column-gap: 20px;
+       column-gap: 20px;
+}
+.modal-my-profile_statistic--position {
+  margin-bottom: 20px;
+}
+.modal-my-profile_statistic-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 10px;
+}
+.modal-my-profile_rented-books {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  row-gap: 30px;
+}
+.modal-my-profile_rented-books-title {
+  color: #0C0C0E;
+  text-align: center;
+  font-family: Inter;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 80% */
+}
+.modal-my-profile_rented-books-list {
+  list-style-type: disc;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  color: #000;
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 100% */
+  letter-spacing: 2px;
+  text-transform: capitalize;
+  max-height: 112px;
+  min-height: 92px;
+  overflow-y: auto;
+}
+.modal-my-profile_card-number {
+  display: flex;
+  -moz-column-gap: 15px;
+       column-gap: 15px;
+  align-items: center;
+}
+.modal-my-profile_card-number-title {
+  color: #0C0C0E;
+  text-align: center;
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 100% */
+}
+.modal-my-profile_card-number-info {
+  color: #BB945F;
+  text-align: center;
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  /* 100% */
+}
+.modal-my-profile_card-number-img {
+  width: 13.31px;
+  height: 12px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url("../assets/svg/modal-icon-copy.svg");
+}
+
+ul[class=modal-my-profile_rented-books-list] {
+  list-style-type: disc;
+  padding-left: 30px;
+}
+
+.statistic-item_title {
+  color: #000;
+  text-align: center;
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 100% */
+  letter-spacing: 0.4px;
+  text-transform: capitalize;
+}
+.statistic-item_img {
+  width: 20px;
+  height: 21px;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.statistic-item_img--01 {
+  background-image: url("../assets/svg/modal-union.svg");
+}
+.statistic-item_img--02 {
+  background-image: url("../assets/svg/modal-star.svg");
+}
+.statistic-item_img--03 {
+  background-image: url("../assets/svg/modal-book.svg");
+}
+.statistic-item_info {
+  color: #000;
+  text-align: center;
+  font-family: Inter;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 200% */
+  letter-spacing: 0.2px;
+  text-transform: capitalize;
 }/*# sourceMappingURL=style.css.map */

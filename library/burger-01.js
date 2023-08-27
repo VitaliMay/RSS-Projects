@@ -143,7 +143,7 @@ profile.addEventListener("click", function(event) {
     if (modalRegister.classList.contains('modal-register--active') || modalLogin.classList.contains('modal-login--active')) {
       // modalRegister.classList.remove('modal-register--active');
       closeMenu()
-      console.log('Привет')
+      // console.log('Привет')
     }
 
   }
@@ -185,6 +185,7 @@ loginBtnArr.forEach(function(item) {
   });
 });
 
+
 /************************************ */
 /************************************ */
 // ловлю все крестики в модалках
@@ -195,6 +196,28 @@ modalBtnCross.forEach(function(item) {
     closeMenu()
   })
 })
+
+/************************************************ */
+
+/*********************************************** */
+
+// получаю все кнопки, входящие в карточки
+// открываю модал login при клике на кнопку Buy
+
+const cardBtnArr = [...document.querySelectorAll('.card__block .card__block-btn')];
+
+// console.log(`cardBtnArr.length = ${cardBtnArr.length}`)
+
+cardBtnArr.forEach(function(item) {
+  item.addEventListener('click', function() {
+    closeMenu()
+    modalLogin.classList.add('modal-login--active');
+
+    fon.classList.add('work');
+  });
+});
+
+
 
 /*************************************************** */
 /***********Рабочий вариант*************************************** */
@@ -257,8 +280,8 @@ radioButtons.forEach(function(item) {
     // let label = this.parentElement; //родительский label не нужен, и так сработает
     let selectedValue = this.value;
     let selectedIndexSeason = Array.from(radioButtons).indexOf(item);
-    console.log(selectedIndexSeason);
-    console.log(seasonArr[selectedIndexSeason])
+    // console.log(selectedIndexSeason);
+    // console.log(seasonArr[selectedIndexSeason])
     seasonArr[indexSeason].classList.remove('favorites-items--active')
     seasonArr[indexSeason].classList.add('favorites-items--hidden')
     seasonArr[selectedIndexSeason].classList.remove('favorites-items--hidden')
@@ -366,3 +389,42 @@ triggerButton.addEventListener('click', () => {
 Здесь добавляю прослушиватель событий click к кнопке .trigger-button. При нажатии на кнопку, изменяю стиль элемента .card-exp01, применяя transform: translate(-47.5rem, 0). Анимация будет запускаться при клике на кнопку.
 
 */
+
+/********************************************************** */
+/********************************************************** */
+
+// Вспоминаю как получал координаты минёра используя data атрибуты
+// определяя data как объект
+
+// const mine = {
+//   x: 0,
+//   y: 0
+// }
+
+// document.querySelector('.main').innerHTML = '' // очищаю чтобы работало без перезагрузки
+// document.querySelector('.main').innerHTML += `<div class="playboard"></div>`;
+
+// let init = '';
+
+// mine.x = i % row // определяю координату X ячейки
+// mine.y = Math.floor(i/row) //  определяю координату Y ячейки
+
+// let mineJSON = JSON.stringify(mine)  // это уже строка, поэтому кавычек в data НЕ НАДО!!!
+
+// let block = `<div class=${sizeBlock} data=${mineJSON} ><div>${temp_bomb}</div></div>`;
+// init = init + block;
+// document.querySelector('.playboard').innerHTML = init;
+
+// let coorXY = JSON.parse(event.target.getAttribute("data")
+
+
+/******************************************************************** */
+// Чтобы добавить data атрибут к кнопкам
+// const button = document.querySelector(".card__block-btn");
+// button.dataset.mine = JSON.stringify(mine);
+// Это преобразует объект mine в строку JSON и добавит его как значение атрибута data-mine.
+
+// Таким образом, кнопка будет иметь атрибут data-mine, содержащий значение {"x": 0, "y": 0}.
+
+/*********************************************** */
+

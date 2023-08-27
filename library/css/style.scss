@@ -1740,6 +1740,7 @@ body.lock .wrapper {
 
   padding: 20px 25px;
 
+
   // width: 30rem;
   // height: 30rem;
   // background-color: red;
@@ -1755,6 +1756,14 @@ body.lock .wrapper {
   // transition: visibility 2s, opacity 2s;
   transition: visibility 2s, opacity 2s;
 }
+
+/**************************************************/
+/**************************************************/
+
+
+
+
+/****************************************************/
 
 .modal-register {
   max-width: 250px;
@@ -1797,6 +1806,12 @@ body.lock .wrapper {
 
   &:hover {
     cursor: pointer;
+  }
+
+  &--modal-buy-card {
+    top: 25px;
+    right: 25px;
+    color: white;
   }
 }
 
@@ -1884,6 +1899,8 @@ body.lock .wrapper {
 .modal-label-input:focus + .modal-label-span {
   color: red;
 }
+
+
 
 .card__block-btn--position {
   margin-top: 10px;
@@ -2094,4 +2111,412 @@ body.lock .wrapper {
   // }
 }
 
+/****************************************************/
+/****************************************************/
+
+.modal-buy-card {
+  max-width: 640px;
+  width: 100%;
+
+  min-height: 540px;
+
+  
+  padding: 0;
+
+  background: #FFF;
+  // background-color: tomato;
+
+  // отрабатывает fixed в modal
+  // position: relative;
+
+  z-index: -2;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 2s, opacity 2s;
+
+  // z-index: 16;
+  // visibility: visible;
+  // opacity: 1;
+  // transition: visibility 2s, opacity 2s;
+
+  &--active {
+    z-index: 16;
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 2s, opacity 2s;
+  }
+
+  &_header {
+    // background-color: lightblue;
+    background-color: #0C0C0E;
+    width: 100%;
+    min-height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &_title {
+    color: #FFF;
+    text-align: center;
+    font-family: Forum;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px; /* 50% */
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+  }
+  
+  &_main {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 30px 40px 40px 40px;
+  }
+
+  &_form {
+    max-width: 200px;
+    width: 100%;
+    // background-color: aquamarine;
+
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+  }
+
+  &_text {
+    max-width: 330px;
+    width: 100%;
+
+    color: #8E8E8E;
+    font-family: Inter;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px; /* 133.333% */
+    letter-spacing: 2px;
+  }
+
+  &_btn-block {
+    display: flex;
+    align-items: end;
+    column-gap: 25px;
+  }
+
+  &_price {
+    color: #0C0C0E;
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 20px; /* 100% */
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+}
+
+.modal-label--position {
+  margin-top: 10px;
+}
+
+.modal-label-input--div {
+  display: flex;
+  column-gap: 10px;
+}
+
+.modal-label-input--two {
+  width: 45px;
+}
+
+// увеличение веса селектора не понадобилоьс, так как перенёс код ниже
+// .modal-label-input--div .modal-label-input--two {
+//   width: 45px;
+// }
+
+// не просто фокус, а фокус для элементов, находящихся внутри
+.modal-label-input--div:focus-within + .modal-label-span {
+  color: red;
+}
+
+
+
+/**********************************************************/
+/**********************************************************/
+/**********************************************************/
+.modal-btn-cross--modal-my-profile {
+  top: 25px;
+  right: 23px;
+}
+
+.modal-my-profile {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+
+
+  display: flex;
+  max-width: 600px;
+  width: 100%;
+  min-height: 400px;
+
+  background-color: #FFF;
+  // background-color: tomato;
+
+  z-index: -2;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 2s, opacity 2s;
+
+  // z-index: 16;
+  // visibility: visible;
+  // opacity: 1;
+  // transition: visibility 2s, opacity 2s;
+
+  &--active {
+    z-index: 16;
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 2s, opacity 2s;
+  }
+
+  &_sidebar {
+    max-width: 170px;
+    width: 100%;
+
+    // background-color: lightblue;
+    background-color: #0C0C0E;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    row-gap: 15px;
+  }
+
+  &_avatar {
+    width: 80px;
+    height: 80px;
+
+    background-color: #FFF;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &-title {
+      color: #BB945F;
+      text-align: center;
+      font-family: Inter;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 20px; /* 100% */
+      text-transform: uppercase;
+    }
+
+  }
+
+  &_name {
+    width: 120px;
+    height: 30px;
+
+    background-color: #FFF;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &-text {
+      color: #000;
+      font-family: Inter;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 20px;
+      text-transform: capitalize;
+    }
+  }
+
+  &_main {
+    display: flex;
+    flex-direction: column;
+
+    padding: 40px 20px;
+  }
+
+  &_title {
+    color: #000;
+    // text-align: center;
+    font-family: Forum;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px; /* 50% */
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+
+    // background-color: lightblue;
+
+    &--position {
+      margin-bottom: 40px;
+    }
+  }
+
+  &_statistic {
+    display: flex;
+    column-gap: 20px;
+
+    &--position {
+      margin-bottom: 20px;
+    }
+
+    &-item {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      row-gap: 10px;
+    }
+  }
+
+  &_rented-books {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+
+    row-gap: 30px;
+  }
+
+  &_rented-books-title {
+    color: #0C0C0E;
+    text-align: center;
+    font-family: Inter;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px; /* 80% */
+  }
+  
+  &_rented-books-list {
+    list-style-type: disc; // не сработает
+    padding-left: 20px; // не сработает
+
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+
+    color: #000;
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px; /* 100% */
+    letter-spacing: 2px;
+    text-transform: capitalize;
+
+    // background-color: chartreuse;
+
+    max-height: 112px; // чтобы помещалось 4 строчки
+    // min-height: 82px; // чтобы скрол появлялся после 3 строчки
+    min-height: 92px; // чтобы двух авторов можно было записать на 2 строках каждого без скрола (появлялся после 3 строчки)
+    overflow-y: auto;
+
+
+  }
+
+  &_card-number {
+    display: flex;
+    column-gap: 15px;
+    align-items: center;
+
+    &-title {
+      color: #0C0C0E;
+      text-align: center;
+      font-family: Inter;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 20px; /* 100% */ 
+    }
+
+    &-info {
+      color: #BB945F;
+      text-align: center;
+      font-family: Inter;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 20px;
+          /* 100% */
+    }
+
+    &-img {
+      width: 13.31px;
+      height: 12px;
+
+    
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-image: url("../assets/svg/modal-icon-copy.svg");
+
+    
+    }
+  }
+}
+
+// иначе не сработает из-за сброса стилей
+ul[class="modal-my-profile_rented-books-list"] {
+  list-style-type: disc;
+  padding-left: 30px;
+
+}
+
+.statistic-item {
+  &_title {
+    color: #000;
+    text-align: center;
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px; /* 100% */
+    letter-spacing: 0.4px;
+    text-transform: capitalize;
+  }
+
+  &_img {
+    width: 20px;
+    height: 21px;
+
+    
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    &--01 {
+      background-image: url("../assets/svg/modal-union.svg");
+    }
+    &--02 {
+      background-image: url("../assets/svg/modal-star.svg");
+    }
+    &--03 {
+      background-image: url("../assets/svg/modal-book.svg");
+    }
+  }
+
+  &_info {
+    color: #000;
+    text-align: center;
+    font-family: Inter;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px; /* 200% */
+    letter-spacing: 0.2px;
+    text-transform: capitalize;
+  }
+}
 
