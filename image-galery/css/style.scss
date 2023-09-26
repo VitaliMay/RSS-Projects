@@ -1,0 +1,152 @@
+// @import 'normalize';
+
+@import 'global';
+
+
+/***********************************************/
+/***********************************************/
+
+
+// body {
+//   background: #0C0C0E;
+// }
+
+.wrapper {
+  margin: 0 auto;
+
+  // background-image: url(../assets/img/lemonade.png);
+  background-image: url(../assets/img/Lzy-cover02.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  // backdrop-filter: blur(50px);
+
+  // filter: blur(10px);
+  transition: all 0.7s;
+
+  font-family: 'Roboto';
+  font-size: 12px;
+  font-weight: 700;
+
+  color: rgb(255, 255, 255);
+}
+
+
+.main {
+  width: 100%;
+  height: 100%;
+
+  // накладываю на wrapper заблюренную картинку
+  backdrop-filter: blur(10px);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/**********************************************/
+/**********************************************/
+/****** Сохраняю пропорции блока с картинкой ****************************************/
+
+.cover {
+  width: 100%; /* здесь можно установить любую нужную ширину */
+}
+
+.cover-inner {
+  position: relative;
+  height: 0;
+  border: none;
+}
+
+.cover-content {
+  transition: all 0.7s;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  // background: #eee;
+
+  background-image: url(../assets/img/Lzy-cover02.jpg);
+  // background-position: center;
+  background-position: top;
+  background-size: cover;
+  // background-size: contain;
+  background-repeat: no-repeat;
+
+  border-radius: 5px;
+
+  // border: solid 2px green;
+  box-shadow: 10px 10px 40px -2px rgba(0, 0, 0, 0.25);
+}
+
+.cover-inner--ratio {
+  padding-top: 75%; /* 100% ширины делим на 4 и умножаем на 3 */
+}
+
+
+
+
+/***********************************************/
+/***********************************************************/
+
+.footer {
+  background-color: rgb(80, 80, 80);
+  box-shadow: 10px 10px 40px -2px rgba(0, 0, 0, 0.25);
+
+  font-family: 'Roboto';
+  font-size: 12px;
+  font-weight: 700;
+  color: rgb(255, 255, 255);
+
+  opacity: 0.8;
+}
+
+.footer-container {
+
+  margin: 0 auto;
+  width: 100%;
+  max-width: 600px;
+  // max-width: 1440px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+
+}
+
+.github-visit {  // закоментировано в html
+  margin-left: 10px;
+}
+
+.footer-container__github {
+  display: flex;
+  align-items: center;
+}
+
+.footer-container__github:hover{
+  text-decoration: underline;
+}
+
+.footer-link {
+  transition: 0.3s;
+  opacity: 70%;
+}
+
+.footer-link:hover {
+  transform: scale(1.2);
+  opacity: 100%;
+}
+
+.footer-container__copy {
+  color: rgb(0, 0, 0);
+  margin-left: 25px;
+}
+
+
+
+
+
