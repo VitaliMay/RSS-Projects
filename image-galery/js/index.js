@@ -1,59 +1,28 @@
-const score = `
-Проверка подключения.
-Всё в порядке)
 
-`
+const inputText = document.querySelector('.header-input__text');
+const clearButton = document.querySelector('.header-input__clear');
 
-console.log(score)
+// Отображение крестика, когда в поле ввода есть текст
+inputText.addEventListener('input', () => {
+  clearButton.style.visibility = inputText.value ? 'visible' : 'hidden';
+  clearButton.style.opacity = inputText.value ? '1' : '0';
+});
 
-// подключаю плейлист
-import arrSong from "./playList.js";
+// Очистка поля ввода при нажатии на крестик
+clearButton.addEventListener('click', () => {
+  inputText.value = '';
+  clearButton.style.visibility = 'hidden';
+  clearButton.style.opacity = '0'
+});
 
-
-const wrapper = document.querySelector('.wrapper')
-const playerContainer = document.querySelector('.cover-content')
-
-
-//let currentSong = arrSong[songNum].src
-//audio.src = currentSong;
-
-// audio.addEventListener('loadeddata', function() {
-//   timeDuration.innerHTML = `${timeFromSec(audio.duration)}`;
-//   titleSinger.innerHTML = `${arrSong[songNum].group}`;
-//   titleSong.innerHTML = `${arrSong[songNum].name}`;
-//   wrapper.style.backgroundImage =`url(${arrSong[songNum].cover})`
-//   playerContainer.style.backgroundImage =`url(${arrSong[songNum].cover})`
-
-// });
+// При вводе текста в поле header-input__text, появится крестик справа от него. 
+// Если в поле есть текст, крестик будет отображаться. При клике на крестик текст будет удален.
 
 
+/************************************************* */
 
+// window.onload = function() {
 
-
-//***Для кнопок*************************************
-// Коды HTML
-
-// &#9658;	►	Треугольная стрелка вправо
-// &#9668;	◄	Треугольная стрелка влево
-
-// ‖
-// &#8214;
-// \2016
-// U+2016
-// &Vert;
-// Двойная вертикальная линия
-
-// ⊲
-// &#8882;
-// \22B2
-// U+22B2
-// &vltri;
-// Нормальная подгруппа
-// ⊳
-// &#8883;
-// \22B3
-// U+22B3
-// &vrtri;
-// Содержит как нормальную подгруппу
-
-
+//   здесь помещаем все, что угодно...
+  
+//   };
