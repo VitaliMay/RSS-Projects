@@ -162,19 +162,19 @@ body {
   box-shadow: 10px 10px 40px -2px rgba(0, 0, 0, 0.25);
 }
 
-.cover-content--01 {
+.cover-content--0 {
   background-image: url(../assets/img/Lzy-cover02.jpg);
 }
 
-.cover-content--02 {
+.cover-content--1 {
   background-image: url(../assets/svg/GR_favicon.ico);
 }
 
-.cover-content--03 {
+.cover-content--2 {
   background-image: url(../assets/svg/rs_school_js.svg);
 }
 
-.cover-content--04 {
+.cover-content--3 {
   background-image: url(../assets/svg/search_icon_252091.svg);
 }
 
@@ -197,7 +197,7 @@ body {
 .footer-container {
   margin: 0 auto;
   width: 100%;
-  max-width: 600px;
+  max-width: 1230px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -247,7 +247,7 @@ body {
   display: flex;
   align-items: center;
   width: 100%;
-  max-width: 800px;
+  max-width: 1230px;
   padding-right: 15px;
   margin: 0 auto;
   justify-content: end;
@@ -279,6 +279,7 @@ body {
 }
 
 .header-input__clear {
+  padding: 5px;
   background-color: transparent;
   outline: none;
   visibility: hidden;

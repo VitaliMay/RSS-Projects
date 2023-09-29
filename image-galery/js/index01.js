@@ -1,10 +1,3 @@
-const score = `
-Проверка подключения.
-Всё в порядке)
-
-`
-
-console.log(score)
 
 // подключаю плейлист
 import arrInfo from "./respInfo.js";
@@ -38,7 +31,6 @@ form.addEventListener('submit', (event) => {
   console.log(`Поиск = ${search}`)
   let searchReq = `https://api.unsplash.com/search/photos?query=${search}&per_page=${numImg}&page=${numPage}&orientation=landscape&client_id=${arrInfo[0]}`
   getFoto(searchReq)
-  // console.log(`Сейчас нашли ${search} = ${getFoto(searchReq)}`)
   // input.value = ''
 })
 
@@ -58,8 +50,6 @@ async function getFoto(url) {
     });
     const data = await response.json();
     console.log(data.total)
-    // console.log(data.results[0].urls.full)
-    
     const foto01 = data.results[0].urls.full;
     coverContent.style.backgroundImage =`url(${foto01})`
   }

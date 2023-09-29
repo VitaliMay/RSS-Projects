@@ -26,3 +26,28 @@ clearButton.addEventListener('click', () => {
 //   здесь помещаем все, что угодно...
   
 //   };
+
+/**************************************************** */
+
+const main = document.querySelector('.main')
+
+start()
+
+function start() {
+
+  for (let index = 0; index < 8; index++) {
+
+    main.innerHTML +=
+  `
+<div class="cover">
+  <div class="cover-inner cover-inner--ratio">
+    <div class="cover-content cover-content--${index}">
+
+    </div>
+  </div>
+</div>
+`
+
+  }
+
+}
