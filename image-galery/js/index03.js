@@ -7,12 +7,11 @@ const select = document.querySelector('.header-select');
 let startFoto = false;
 let numPage = 1
 let perPage = 24
-// let lang = select.value
-// let searchDefolt = 'image'
+
 let searchDefolt = 'strange'
 let startUrl = `https://api.unsplash.com/search/photos?query=${searchDefolt}&per_page=${perPage}&page=${numPage}&orientation=landscape&client_id=${accessKey}`
 
-// для проверки наличия фото
+
 let flag = true
 
 const input = document.querySelector('.header-input')
@@ -25,52 +24,62 @@ if (!startFoto) {
 
   start();
 
-  // let arrCoverContent = Array.from(document.querySelectorAll('.cover-content'))
-
+ 
   getFoto(startUrl)
-  // getFoto(startUrl, arrCoverContent)
+  
 }
 else {
   console.log(`startFoto = ${startFoto}`)
 
 }
 
-/*********************************************** */
-/*********************************************** */
 
 
+window.addEventListener('DOMContentLoaded', () => {
+  let spinner = Array.from(document.querySelectorAll('.spinner'))
+  let arrCoverContent = Array.from(document.querySelectorAll('.cover-content'))
 
-/********************************************** */
-/********************************************** */
+
+  for (let i = 0; i < arrCoverContent.length; i++) {
+    arrCoverContent[i].addEventListener('load', () => {
+      spinner[i].style.display = 'none';
+    });
+  }
+
+
+  for (let i = 0; i < arrCoverContent.length; i++) {
+    spinner[i].style.display = 'block';
+  }
+
+});
+
 
 form.addEventListener('submit', (event) => {
-  event.preventDefault(); // чтобы не перегружало страницу
+  event.preventDefault(); 
   let search = input.value
   let lang = select.value
   console.log(`lang = ${lang}`)
   console.log(`Поиск = ${search}`)
   let searchRequest = `https://api.unsplash.com/search/photos?query=${search}&per_page=${perPage}&page=${numPage}&lang=${lang}&client_id=${accessKey}`
-  // let searchRequest = `https://api.unsplash.com/search/photos?query=${search}&per_page=${perPage}&page=${numPage}&lang=${lang}&orientation=landscape&client_id=${accessKey}`
-  // let searchRequest = `https://api.unsplash.com/search/photos?query=${search}&per_page=${perPage}&page=${numPage}&orientation=landscape&client_id=${accessKey}`
+  
   getFoto(searchRequest)
-  // input.value = ''
+  
   inputText.focus();
 })
 
 
-/********************************************* */
 
 const inputText = document.querySelector('.header-input__text');
 const clearButton = document.querySelector('.header-input__clear');
 
-// Отображение крестика, когда в поле ввода есть текст
+
 inputText.addEventListener('input', () => {
   clearButton.style.visibility = inputText.value ? 'visible' : 'hidden';
   clearButton.style.opacity = inputText.value ? '1' : '0';
   inputText.focus();
 });
 
-// Очистка поля ввода при нажатии на крестик
+
 clearButton.addEventListener('click', () => {
   inputText.value = '';
   clearButton.style.visibility = 'hidden';
@@ -78,11 +87,7 @@ clearButton.addEventListener('click', () => {
   inputText.focus();
 });
 
-// При вводе текста в поле header-input__text, появится крестик справа от него. 
-// Если в поле есть текст, крестик будет отображаться. При клике на крестик текст будет удален.
 
-/*********************************************** */
-/*********************************************** */
 
 function start() {
 
@@ -94,6 +99,7 @@ function start() {
     <div class="cover-content">
 
     </div>
+    <div class="spinner"></div>
   </div>
 </div>
 `
@@ -110,13 +116,6 @@ async function getFoto(url, arrCoverContent) {
     });
     const data = await response.json();
     console.log(data)
-
-    // if (data.results.length < perPage) {
-    //   alert('Поиск results неадекватен')
-    //   inputText.focus();
-    // }
-
-    // if (data.total < perPage)
 
 
     if (data.results.length < perPage) {
@@ -160,12 +159,9 @@ async function getFoto(url, arrCoverContent) {
     let arrCoverContent = Array.from(document.querySelectorAll('.cover-content'))
 
     for (let i = 0; i < arrCoverContent.length; i++) {
-      // let fotoUrl = data.results[i].urls.full;
-      let fotoUrl = data.results[i].urls.regular;
+      let fotoUrl = data.results[i].urls.full;
       arrCoverContent[i].style.backgroundImage =`url(${fotoUrl})`
     }
-
-    
 
 
   }

@@ -15,14 +15,35 @@
 <body>
 	<div class="wrapper">
 		<header class="header">
-			<form class="header-form">
+
+			<div class="header-container">
+				<select class="header-select">
+					<option class="option" value="en" selected>Search language English</option>
+					<option class="option" value="ru">Язык поиска Русский</option>
+				</select>
+	
+				<form class="header-form">
+					<div class="header-div">
+						<input class="header-input header-input__text" type="text" placeholder="Search..." autofocus autocomplete="off">
+						<span class="header-input__clear"></span>
+					</div>
+					<!-- Чтобы фокус установился как можно скорее не дожидаясь пока сработает window.onload-->
+					<script>
+						document.querySelector(".header-input__text").focus();
+					</script>
+					<input class="header-input header-input__submit" type="submit" name="input-submit" value="">
+				</form>
+			</div>
+
+
+			<!-- <form class="header-form">
 				<div class="header-div">
 					<input class="header-input header-input__text" type="text" placeholder="Search..." autofocus autocomplete="off">
 					<span class="header-input__clear"></span>
 				</div>
 
 				<input class="header-input header-input__submit" type="submit" name="input-submit" value="">
-			</form>
+			</form> -->
 		</header>
 
 		<main class="main">
