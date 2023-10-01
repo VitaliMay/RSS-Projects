@@ -85,13 +85,13 @@ function start(size=perPage) {
   for (let index = 0; index < size; index++) {
     main.innerHTML +=
   `
-<div class="cover">
+<a class="cover" target="_blank" href="#">
   <div class="cover-inner cover-inner--ratio">
     <div class="cover-content">
 
     </div>
   </div>
-</div>
+</a>
 `
   }
 }
@@ -142,15 +142,19 @@ async function getFoto(url, arrCoverContent) {
 
 
     let arrCoverContent = Array.from(document.querySelectorAll('.cover-content'))
+    let arrCover = Array.from(document.querySelectorAll('.cover'))
 
     for (let i = 0; i < arrCoverContent.length; i++) {
       // let fotoUrl = data.results[i].urls.full;
       // let fotoUrl = data.results[i].urls.regular;
       let fotoUrl = data.results[i].urls.small;
       arrCoverContent[i].style.backgroundImage =`url(${fotoUrl})`
+
+      let fotoUrlFull = data.results[i].urls.full;
+      arrCover[i].href = `${fotoUrlFull}`
     }
 
-    
+
 
 
   }

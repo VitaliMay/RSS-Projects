@@ -35,10 +35,6 @@ else {
 
 }
 
-/*********************************************** */
-/*********************************************** */
-
-
 
 /********************************************** */
 /********************************************** */
@@ -87,7 +83,27 @@ clearButton.addEventListener('click', () => {
 function start() {
 
   for (let index = 0; index < perPage; index++) {
-    main.innerHTML +=
+    mainInner()
+  }
+}
+// function start() {
+
+//   for (let index = 0; index < perPage; index++) {
+//     main.innerHTML +=
+//   `
+// <div class="cover">
+//   <div class="cover-inner cover-inner--ratio">
+//     <div class="cover-content">
+
+//     </div>
+//   </div>
+// </div>
+// `
+//   }
+// }
+
+function mainInner () {
+  main.innerHTML +=
   `
 <div class="cover">
   <div class="cover-inner cover-inner--ratio">
@@ -97,7 +113,6 @@ function start() {
   </div>
 </div>
 `
-  }
 }
 
 
