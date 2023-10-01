@@ -212,6 +212,7 @@
 /*********************************************************/
 .header {
   // backdrop-filter: blur(10px);
+  position: relative;
 
   background-color: rgb(80, 80, 80);
   box-shadow: 10px 10px 40px -2px rgba(0, 0, 0, 0.25);
@@ -222,6 +223,15 @@
   // color: rgb(255, 255, 255);
 
   opacity: 0.8;
+}
+
+.title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+  opacity: 0.1;
 }
 
 .header-container {
