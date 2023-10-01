@@ -77,7 +77,6 @@ const Authentication = `https://api.unsplash.com/photos/?client_id=${accessKey}`
 /****************************************** */
 
 const arrInfo = [
-  // searchRequest,
   accessKey,
   Authentication
 ];

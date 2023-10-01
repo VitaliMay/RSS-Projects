@@ -142,7 +142,7 @@
 
 /*************************************************************/
 
-.cover-inner--ratio {  // устанавливаю пропорции изображения
+.cover-inner--ratio {  // устанавливаю пропорции изображения 3/4
   padding-top: 75%; /* 100% ширины делим на 4 и умножаем на 3 */
 }
 
@@ -232,6 +232,7 @@
   transform: translate(-50%, -50%);
   
   opacity: 0.1;
+  cursor: default;
 }
 
 .header-container {
@@ -281,6 +282,8 @@
   box-sizing: border-box;
 
   background-color: antiquewhite;
+
+  // opacity: 0.6;
 }
 
 .header-div:hover {
@@ -312,7 +315,7 @@
   opacity: 0;
   width: 22px;
   height: 50px;
-  background-image: url(../assets/svg/Delete-80_icon-icons.com_57340.png); /* замените путь на изображение крестика */
+  background-image: url(../assets/svg/Delete-80_icon-icons.com_57340.png); /*изображение крестика */
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;
@@ -328,8 +331,8 @@
 
   width: 32px;
   height: 50px;
-  // background-image: url(../assets/svg/search_icon_252091.svg); 
-  background-image: url(../assets/svg/search_icon_252091.png); 
+  // background-image: url(../assets/svg/search_icon_252091.svg);
+  background-image: url(../assets/svg/search_icon_252091.png);
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;
