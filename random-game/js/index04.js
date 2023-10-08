@@ -1,17 +1,6 @@
-const score = `
-Проверка подключения.
-Всё в порядке)
-
-`
-
-console.log(score)
 
 // подключаю модуль
 import arrInfo from "./respInfo.js";
-
-console.log(arrInfo[0])
-
-
 
 
 /********************************************* */
@@ -20,6 +9,7 @@ const ctx = canvas.getContext('2d');
 
 // const gameScoreHtml = document.querySelector('.color-test')
 const gameScoreHtml = document.querySelector('.title')
+const immunityScoreHtml = document.querySelector('.immunity')
 
 // получаю ширину и высоту canvas
 let canvasWidth = canvas.clientWidth;
@@ -30,6 +20,20 @@ console.log(canvasWidth, canvasHeight)
 // canvas.width = 300
 // canvas.height = 200
 
+/****************************************************** */
+/****************************************************** */
+// Узнаю размер экрана
+
+// let screenWidth = window.innerWidth; // размер внутреннего окна
+// let screenHeight = window.innerHeight;
+
+// let screenWidthOuter = window.outerWidth; // размер внутреннего окна
+// let screenHeightOuter = window.outerHeight;
+
+// console.log("Размер экрана: " + screenWidth + " x " + screenHeight);
+// console.log("Размер экрана: " + screenWidthOuter + " x " + screenHeightOuter);
+
+console.log("Размер экрана: " + screen.width + " x " + screen.height);
 
 
 /*****Рисую поле для игры************************************ */
@@ -43,7 +47,19 @@ let imgSizeX = stepX-2 // надо уменьшить картинку, чтоб
 let imgSizeY = stepY-2 // надо уменьшить картинку, чтобы очистка не цепляла линии разметки
 
 // ставлю размер поля в зависимость от stepX или stepY
-canvasWidth = stepX * Math.round(canvasWidth / stepX)
+
+let screenWidth = screen.width
+let screenHeight = screen.height
+
+if (screenWidth < 880) {
+  canvasWidth = stepX * Math.round(screenWidth*0.9 / stepX)
+}
+else {
+  canvasWidth = stepX * Math.round(canvasWidth / stepX)
+}
+
+// canvasWidth = stepX * Math.round(screenWidth / stepX)
+// canvasWidth = stepX * Math.round(canvasWidth / stepX)
 canvas.width = canvasWidth
 canvasHeight = stepY * Math.round(canvasHeight / stepY)
 canvas.height = canvasHeight
@@ -51,6 +67,7 @@ canvas.height = canvasHeight
 
 /************************************ */
 /************************************ */
+// Функция для рисования нового поля
 
 function startField() {
   ctx.beginPath()
@@ -69,32 +86,15 @@ function startField() {
   ctx.closePath()
 }
 
-// ctx.beginPath()
-// // ctx.strokeStyle = 'whitesmoke'
-// ctx.strokeStyle = 'white'
-
-// for (let i = 0; i <= canvasWidth; i = i + stepX) {
-//   ctx.moveTo(i, 0)
-//   ctx.lineTo(i, canvasHeight)
-// }
-// for (let i = 0; i <= canvasHeight; i = i + stepY) {
-//   ctx.moveTo(0, i)
-//   ctx.lineTo(canvasWidth, i)
-// }
-// ctx.stroke()
-
-// ctx.closePath()
 
 /*********************************************** */
-
-// function playField(stepX, stepY) {  // написать функцию для рисования нового поля
+// Функция очистки поля
 
 function clearField() {
-  ctx.clearRect(0, 0, canvasWidth, canvasHeight); // oчищаю поле, убираю сетку но оставляю стили (фон и т.д.)
-  ctx.closePath() // на всякий случай закрою
+  ctx.clearRect(0, 0, canvasWidth, canvasHeight); 
+    ctx.closePath() 
 }
 
-// clearField()
 
 /******Проверяю пути к фоткам*************************************** */
 
@@ -104,13 +104,6 @@ const snakeImg = new Image();
 // foodImg.src = './assets/img/snakeHead-03-48.png'
 // foodImg.src = './assets/img/snakeHead-02-48.png'
 snakeImg.src = './assets/img/snakeHead-01-48.png'
-// foodImg.width = '30px'
-
-
-// foodImg.src = './assets/img/fly-02-48.png'
-// foodImg.src = './assets/img/fly-01-48.png'
-// foodImg.src = './assets/img/bird-48.png'
-// foodImg.src = './assets/img/frog-48.png'
 
 /*************************************************************** */
 
@@ -130,8 +123,6 @@ console.log(`foodIndex = ${foodIndex}`)
 let food = {
   x: Math.floor((Math.random()*canvasWidth/stepX))*stepX + 1, // 15 (+1 нужен чтобы не цеплять линию разметки)
   y: Math.floor((Math.random()*canvasHeight/stepY))*stepY + 1 // 11
-  // x: Math.floor((Math.random()*canvasWidth/stepX))*stepX , // 15
-  // y: Math.floor((Math.random()*canvasHeight/stepY))*stepY // 11
 }
 
 console.log (`x food = ${food.x / stepX}`)
@@ -148,12 +139,8 @@ console.log (`y center = ${snake[0].y / stepY}`)
 
 
 let gameScore = 0
+let immunityScore = 0
 let gameSpeed = 400
-
-// let prevSnakeX = snake[0].x;
-// let prevSnakeY = snake[0].y;
-
-// let sizeFotoX = stepX - 10  // тестовая переменная
 
 
 /**************************************************************** */
@@ -167,60 +154,119 @@ let gameSpeed = 400
 function drawPicture() {
   clearField()
   startField()
-  // ctx.clearRect(food.x, food.y, imgSizeX, imgSizeY);
   ctx.drawImage(foodImg, food.x, food.y, imgSizeX, imgSizeY);
 
-
   for (let i = 0; i < snake.length; i++) {
-
-    // ctx.clearRect(snake[i].x, snake[i].y, imgSizeX, imgSizeY);
-    // ctx.clearRect(prevSnakeX, prevSnakeY, imgSizeX, imgSizeY);
-
     if (i ===0 ) {ctx.drawImage(snakeImg, (snake[0].x), (snake[0].y), imgSizeX, imgSizeY); }
-
-    else {
-      drawRoundedRectangle(ctx, snake[i].x, snake[i].y, imgSizeX, imgSizeY, 7, '#597059');
-    }
-
-
+    else {drawRoundedRectangle(ctx, snake[i].x, snake[i].y, imgSizeX, imgSizeY, 7, '#597059');}
   }
 
   let snakeHeadX = snake[0].x
   let snakeHeadY = snake[0].y
 
+  // if (direction === 'up') {
+  //   if (snakeHeadY < 0) {
+  //     snakeHeadY = canvasHeight + 1
+  //     gameScore = gameScore - 2
+  //     gameScoreHtml.innerHTML = `${gameScore}`
+  //   }
+  //   else {
+  //     snakeHeadY = snakeHeadY - stepY;
+  //   }
+  // }
+  // if (direction === 'right') {
+  //   if (snakeHeadX > canvasWidth) { 
+  //     snakeHeadX = 0-stepX + 1
+  //     gameScore = gameScore - 2
+  //     gameScoreHtml.innerHTML = `${gameScore}`
+  //   }
+  //   else {
+  //     snakeHeadX = snakeHeadX + stepX;
+  //   }
+  // }
+  // if (direction === 'down') {
+  //   if (snakeHeadY > canvasHeight) { 
+  //     snakeHeadY = 0-stepY + 1
+  //     gameScore = gameScore - 2
+  //     gameScoreHtml.innerHTML = `${gameScore}`
+  //   }
+  //   else {
+  //     snakeHeadY = snakeHeadY + stepY;
+  //   }
+  // }
+  // if (direction === 'left') { 
+  //   if (snakeHeadX < 0) { 
+  //     snakeHeadX = canvasWidth + 1 
+  //     gameScore = gameScore - 2
+  //     gameScoreHtml.innerHTML = `${gameScore}`
+  //   }
+  //   else {
+  //     snakeHeadX = snakeHeadX - stepX;
+  //   } 
+  // }
+  // if (direction === 'stop') {
+  //   snakeHeadX = snakeHeadX 
+  //   snakeHeadY = snakeHeadY
+  // };
+
+
+  if (direction === 'up') {
+    // console.log(checkBorder())
+    snakeHeadY = (snakeHeadY - stepY + canvasHeight) % canvasHeight;
+    // console.log(`snakeHeadY = ${snakeHeadY}`)
+    // console.log(`snake[0].y = ${snake[0].y}`)
+    // console.log(Math.abs(snake[0].y - snakeHeadY) === stepY)
+  }
+  if (direction === 'right') {
+    snakeHeadX = (snakeHeadX + stepX) % canvasWidth;
+  }
+  if (direction === 'down') {
+    snakeHeadY = (snakeHeadY + stepY) % canvasHeight;
+  }
+  if (direction === 'left') { 
+    snakeHeadX = (snakeHeadX - stepX + canvasWidth) % canvasWidth;
+  }
+  if (direction === 'stop') {
+    snakeHeadX = snakeHeadX 
+    snakeHeadY = snakeHeadY
+  };
+
+
+if (checkBorder(snakeHeadX, snakeHeadY)) { // проверка что змейка побывала за пределами поля
+  // gameScore = gameScore - 2
+  immunityScore = immunityScore - 2
+  immunityScoreHtml.innerHTML = `Immunity: ${immunityScore}  Speed: ${gameSpeed}`
+  gameScoreHtml.innerHTML = `${gameScore}`
+}
+
+/****************************************** */
+
   if (snakeHeadX === food.x && snakeHeadY === food.y) {
     gameScore = gameScore + 1
-
     gameScoreHtml.innerHTML = `${gameScore}`
 
-    // Меняю скорость, если змейка съела еду
+    immunityScore = immunityScore + 1
+    // immunityScoreHtml.innerHTML = `Immunity: ${immunityScore}  Speed: ${gameSpeed}`
 
-    if (gameSpeed > 100) {
-      clearInterval(startPicture);  // очищаю текущий интервал startPicture
+    foodIndex = Math.floor(foodArrImg.length * Math.random())
+    foodImg.src = foodArrImg[foodIndex]
+
+    if (gameSpeed > 100) {  
+      clearInterval(startPicture);  
       gameSpeed = gameSpeed - 30; 
-      // console.log (`gameSpeed = ${gameSpeed}`)
       startPicture = setInterval(drawPicture, gameSpeed);
     }
-    console.log (`gameSpeed = ${gameSpeed}`)
 
     food = {
       x: Math.floor((Math.random()*canvasWidth/stepX))*stepX + 1, 
       y: Math.floor((Math.random()*canvasHeight/stepY))*stepY + 1 
     }
+
+    immunityScoreHtml.innerHTML = `Immunity: ${immunityScore}  Speed: ${gameSpeed}`
   }
   else {
     snake.pop()
   }
-
-
-  if (direction === 'up') snakeHeadY = snakeHeadY - stepY;
-  if (direction === 'right') snakeHeadX = snakeHeadX + stepX;
-  if (direction === 'down') snakeHeadY = snakeHeadY + stepY;
-  if (direction === 'left') snakeHeadX = snakeHeadX - stepX;
-  if (direction === 'stop') {
-    snakeHeadX = snakeHeadX 
-    snakeHeadY = snakeHeadY
-  };
 
   let snakeHead = {
     x: snakeHeadX,
@@ -229,21 +275,50 @@ function drawPicture() {
 
   snake.unshift(snakeHead)
 
-  
-  // prevSnakeX = snake[0].x;
-  // prevSnakeY = snake[0].y;
+  // if (immunityScore < 0) {
+  //   // gameScoreHtml.innerHTML = `Game over`
 
-  
-  // const borderRadius = 7;
-  // const color = '#597059';
-  // const color = '#486048';
-  
-  // drawRoundedRectangle(ctx, snake[0].x + stepX, snake[0].y + stepY, imgSizeX, imgSizeY, 7, '#597059');
-  // drawRoundedRectangle(ctx, snake[0].x + stepX, snake[0].y + stepY, imgSizeX, imgSizeY, borderRadius, color);
+  //   immunityScoreHtml.innerHTML = 
+  //   `Immunity: ${immunityScore} Game over`
+  //   clearInterval(startPicture); 
+  // }
+
+  if (immunityScore < 0) {
+    gameScoreHtml.innerHTML = `Total ${gameScore} Game over`
+
+    setTimeout(() => {
+      immunityScoreHtml.innerHTML = `Immunity: ${immunityScore} Be healthy`;
+    }, 3000);
+    
+    immunityScoreHtml.innerHTML = `Immunity: ${immunityScore}`;
+    clearInterval(startPicture);
+  }
+
 }
 
+/*********************************************** */
+/*********************************************** */
 
 
+function checkBorder(snakeHeadX, snakeHeadY) {
+  if (Math.abs(snake[0].y - snakeHeadY) > stepY || Math.abs(snake[0].x - snakeHeadX) > stepX) {
+    return true; // Змейка побывала за пределами поля
+  }
+
+  return false; // Змейка в пределах поля
+}
+
+/*********************************************** */
+/*********************************************** */
+
+function tailSnake(snakeArr) {
+  for (let i = 1; i < snakeArr.length; i++) {
+    if(snakeArr[0].x === snakeArr[i].x && snakeArr[0].y === snakeArr[i].y && direction !== 'stop') {
+      alert(`Зачем есть себя?`)
+    }
+    
+  }
+}
 
 /**************************************************** */
 /**************************************************** */
@@ -323,7 +398,6 @@ const codeArr = [
   'Space'
 ]
 
-/**************************************************************** */
 
 document.addEventListener("keydown", moveSnake)
 
@@ -332,40 +406,84 @@ let prevDirection
 
 function moveSnake(event) {
 
+	if (codeArr.indexOf(event.code) >= 0) event.preventDefault();
+
   if (event.code === codeArr[0] || event.code === codeArr[1] || event.code === codeArr[2] ) {
-    // console.log(`Нажал вверх`)
-    if (prevDirection !== 'down') {
+    if (direction === 'stop') { 
+      direction = 'stop'
+    }
+    else if (prevDirection !== 'down') {
       direction = 'up';
       prevDirection = direction
     }
+
+    console.log(`Нажал вверх`)
+    console.log(`prevDirection = ${prevDirection}`)
+    console.log(`direction = ${direction}`)
+   
   }
   if (event.code === codeArr[3] || event.code === codeArr[4] || event.code === codeArr[5] ) {
-    // console.log(`Нажал вправо`)
-    if (prevDirection !== 'left') {
+   
+    if (direction === 'stop') { 
+      direction = 'stop' 
+    }
+    else if (prevDirection !== 'left') {
       direction = 'right';
       prevDirection = direction
     }
+
+    console.log(`Нажал вправо`)
+    console.log(`prevDirection = ${prevDirection}`)
+    console.log(`direction = ${direction}`)
+    
   }
   if (event.code === codeArr[6] || event.code === codeArr[7] || event.code === codeArr[8] ) {
-    // console.log(`Нажал вниз`)
-    if (prevDirection !== 'up') {
+    
+    if (direction === 'stop') { 
+      direction = 'stop' 
+    }
+    else if (prevDirection !== 'up') {
       direction = 'down';
       prevDirection = direction
     }
+
+    console.log(`Нажал вниз`)
+    console.log(`prevDirection = ${prevDirection}`)
+    console.log(`direction = ${direction}`)
+    
   }
   if (event.code === codeArr[9] || event.code === codeArr[10] || event.code === codeArr[11] ) {
-    // console.log(`Нажал влево`)
-    if (prevDirection !== 'right') {
+    
+    if (direction === 'stop') { 
+      direction = 'stop' 
+    }
+    else if (prevDirection !== 'right') {
       direction = 'left';
       prevDirection = direction
     }
+
+    console.log(`Нажал влево`)
+    console.log(`prevDirection = ${prevDirection}`)
+    console.log(`direction = ${direction}`)
+    
   }
   if (event.code === codeArr[12]) {
-    prevDirection = direction;
-    direction = 'stop';
+    if (direction === 'stop') {
+      direction = prevDirection
+    }
+    else {
+      
+      direction = 'stop';
+    }
+    console.log(`Нажал stop`)
+    console.log(`prevDirection = ${prevDirection}`)
+    console.log(`direction = ${direction}`)
+    
   }
 
-  // console.log(direction)
+  console.log(`****`)
+  console.log(direction)
+  console.log(`  `)
 }
 
 
@@ -392,6 +510,14 @@ function evenOddCenter (canvasWidth, stepX) {
 
 let startPicture = setInterval(drawPicture, gameSpeed) 
 // let startPicture = setInterval(drawPicture, 400) //запускаю drawFood каждые 0.1с
+
+// чтобы сработал setInterval у функции в параметрами
+// функцию надо обернуть в стрелочную функцию
+
+// let startPicture = setInterval(() => drawPicture(ctx), gameSpeed);
+// let clearSnake = setInterval(() => clearFoodPicture(snake[0].x, snake[0].y), 100);
+
+
 
 /************************************ */
 /************************************ */

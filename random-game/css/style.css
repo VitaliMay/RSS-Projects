@@ -186,6 +186,11 @@ body {
   color: rgb(255, 255, 255);
   opacity: 0.8;
 }
+@media screen and (max-width: 767px) {
+  .footer {
+    display: none;
+  }
+}
 
 .footer-container {
   margin: 0 auto;
