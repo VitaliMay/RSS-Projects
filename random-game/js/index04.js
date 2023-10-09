@@ -76,15 +76,127 @@ function startField() {
   for (let i = 0; i <= canvasWidth; i = i + stepX) {
     ctx.moveTo(i, 0)
     ctx.lineTo(i, canvasHeight)
+
+    // Проверяем, является ли текущий ряд центральным рядом по вертикали
+    if (i === centerXbox*stepX) {
+      // ctx.fillStyle = 'red'
+      ctx.fillStyle = '#ddc8ac'
+      // ctx.fillStyle = '#dabd97'
+      // ctx.fillStyle = '#dec8aa'
+      ctx.fillRect(i, lineBox.upY - stepY/2, stepX, lineBox.downY - lineBox.upY + stepY)
+    }
   }
   for (let i = 0; i <= canvasHeight; i = i + stepY) {
     ctx.moveTo(0, i)
     ctx.lineTo(canvasWidth, i)
-  }
-  ctx.stroke()
 
+    // Проверяем, является ли текущий ряд центральным рядом по горизонтали
+    // if (i === centerYbox*stepY) {
+    if (i === lineBox.upY - stepY/2 || i === lineBox.downY - stepY/2) {
+      // ctx.fillStyle = '#dcc2a0'
+      // ctx.fillStyle = 'red'
+      ctx.fillStyle = '#ddc8ac'
+      ctx.fillRect(0, i, canvasWidth, stepY)
+    }
+  }
+
+  ctx.stroke()
+  ctx.closePath()
+
+  
+  // Рисую треугольники
+    // ctx.beginPath()
+    // ctx.fillStyle = 'red'
+    // ctx.moveTo(canvasWidth - stepX, centerYbox * stepY + stepY / 2)
+    // ctx.lineTo(canvasWidth - stepX*3, centerYbox * stepY - stepY / 2)
+    // ctx.lineTo(canvasWidth - stepX*3, centerYbox * stepY + 1.5*stepY)
+    // ctx.fill()
+    // ctx.closePath()
+
+    // ctx.beginPath()
+    // ctx.fillStyle = 'red'
+    // ctx.moveTo(stepX, centerYbox * stepY + stepY / 2)
+    // ctx.lineTo(stepX*3, centerYbox * stepY - stepY / 2)
+    // ctx.lineTo(stepX*3, centerYbox * stepY + 1.5*stepY)
+    // ctx.fill()
+    // ctx.closePath()
+
+    // ctx.beginPath()
+    // ctx.fillStyle = 'red'
+    // ctx.moveTo(centerXbox * stepX + stepX / 2, canvasHeight - stepY)
+    // ctx.lineTo(centerXbox * stepX - stepX / 2, canvasHeight - 3*stepY)
+    // ctx.lineTo(centerXbox * stepX + 3*stepX/2, canvasHeight - 3*stepY)
+    // ctx.fill()
+    // ctx.closePath()
+
+    // ctx.beginPath()
+    // ctx.fillStyle = 'red'
+    // ctx.moveTo(centerXbox * stepX + stepX / 2, stepY)
+    // ctx.lineTo(centerXbox * stepX - stepX / 2, 3*stepY)
+    // ctx.lineTo(centerXbox * stepX + 3*stepX/2, 3*stepY)
+    // ctx.fill()
+    // ctx.closePath()
+
+  drawTriangle(canvasWidth - stepX, centerYbox * stepY + stepY / 2, canvasWidth - stepX*3, centerYbox * stepY - stepY / 2, canvasWidth - stepX*3, centerYbox * stepY + 1.5*stepY)
+
+  drawTriangle(stepX, centerYbox * stepY + stepY / 2, stepX*3, centerYbox * stepY - stepY / 2, stepX*3, centerYbox * stepY + 1.5*stepY)
+
+  drawTriangle(centerXbox * stepX + stepX / 2, canvasHeight - stepY, centerXbox * stepX - stepX / 2, canvasHeight - 3*stepY, centerXbox * stepX + 3*stepX/2, canvasHeight - 3*stepY)
+
+  drawTriangle(centerXbox * stepX + stepX / 2, stepY, centerXbox * stepX - stepX / 2, 3*stepY, centerXbox * stepX + 3*stepX/2, 3*stepY)
+
+  
+  /*****Рисую тестовые линии разметки событий***************************** */
+  // ctx.beginPath()
+  //   ctx.strokeStyle = 'red'
+  //   ctx.moveTo(0, lineBox.upY)
+  //   ctx.lineTo(canvasWidth, lineBox.upY)
+  //   ctx.stroke()
+  // ctx.closePath()
+
+  // ctx.beginPath()
+  //   ctx.strokeStyle = 'red'
+  //   ctx.moveTo(0, lineBox.downY)
+  //   ctx.lineTo(canvasWidth, lineBox.downY)
+  //   ctx.stroke()
+  // ctx.closePath()
+
+  // ctx.beginPath()
+  //   ctx.strokeStyle = 'red'
+  //   ctx.moveTo(lineBox.centerX, lineBox.upY)
+  //   ctx.lineTo(lineBox.centerX, lineBox.downY)
+  //   ctx.stroke()
+  // ctx.closePath()
+
+
+}
+
+/************************************ */
+/************************************ */
+
+// Для избежания дублирования кода рисования треугольников
+
+function drawTriangle(x1, y1, x2, y2, x3, y3) {
+  ctx.beginPath()
+  ctx.fillStyle = '#ddc8ac'
+  // ctx.fillStyle = 'red'
+  ctx.moveTo(x1, y1)
+  ctx.lineTo(x2, y2)
+  ctx.lineTo(x3, y3)
+  ctx.fill()
   ctx.closePath()
 }
+
+// drawTriangle(canvasWidth - stepX, centerYbox * stepY + stepY / 2, canvasWidth - stepX*3, centerYbox * stepY - stepY / 2, canvasWidth - stepX*3, centerYbox * stepY + 1.5*stepY)
+
+// drawTriangle(stepX, centerYbox * stepY + stepY / 2, stepX*3, centerYbox * stepY - stepY / 2, stepX*3, centerYbox * stepY + 1.5*stepY)
+
+// drawTriangle(centerXbox * stepX + stepX / 2, canvasHeight - stepY, centerXbox * stepX - stepX / 2, canvasHeight - 3*stepY, centerXbox * stepX + 3*stepX/2, canvasHeight - 3*stepY)
+
+// drawTriangle(centerXbox * stepX + stepX / 2, stepY, centerXbox * stepX - stepX / 2, 3*stepY, centerXbox * stepX + 3*stepX/2, 3*stepY)
+
+/************************************ */
+/************************************ */
 
 
 /*********************************************** */
@@ -133,6 +245,33 @@ snake[0] = {
   x: evenOddCenter(canvasWidth, stepX) + 1,
   y: evenOddCenter(canvasHeight, stepY) + 1
 }
+
+/**** Запоминаю центр и центральные ячейки******************************* */
+let centerX = snake[0].x
+let centerY = snake[0].y
+
+let centerXbox = Math.floor(centerX / stepX)
+let centerYbox = Math.floor(centerY / stepY)
+
+let lineBox = {
+  upY: lineEvent(canvasHeight, stepY)*stepY + stepY/2,
+  downY: canvasHeight - (lineEvent(canvasHeight, stepY)*stepY) - stepY/2,
+  centerX: evenOddCenter(canvasWidth, stepX) + stepX/2
+}
+
+/************************************** */
+
+function lineEvent (canvasHeight, stepY) {
+  let result
+  return result = Math.round(canvasHeight / 4/stepY)
+  // if (result % 2 !== 0) {return Math.floor((canvasWidth - stepX) / 2)}
+  // else {return (Math.floor(canvasWidth/2) - stepX)}
+}
+
+
+console.log(`Одна четвёртая ${lineEvent(canvasHeight, stepY)}`)
+
+/*********************************** */
 
 console.log (`x center = ${snake[0].x / stepX}`)
 console.log (`y center = ${snake[0].y / stepY}`)
@@ -388,6 +527,11 @@ function tailSnake(snakeArr) {
 
 /******************************************************************* */
 
+// canvas.addEventListener("click", (event) => console.log(event.offsetX))
+
+
+/******************************************************************* */
+
 // document.addEventListener("keydown", (event) => console.log(event.code))
 
 const codeArr = [
@@ -401,6 +545,9 @@ const codeArr = [
 
 document.addEventListener("keydown", moveSnake)
 
+canvas.addEventListener("click", moveSnake)
+// canvas.addEventListener("touchstart", moveSnake);
+canvas.addEventListener("touchstart", moveSnake, { passive: true });
 let direction;
 let prevDirection
 
@@ -408,7 +555,7 @@ function moveSnake(event) {
 
 	if (codeArr.indexOf(event.code) >= 0) event.preventDefault();
 
-  if (event.code === codeArr[0] || event.code === codeArr[1] || event.code === codeArr[2] ) {
+  if (event.code === codeArr[0] || event.code === codeArr[1] || event.code === codeArr[2] || event.offsetY <= lineBox.upY ) {
     if (direction === 'stop') { 
       direction = 'stop'
     }
@@ -422,7 +569,7 @@ function moveSnake(event) {
     console.log(`direction = ${direction}`)
    
   }
-  if (event.code === codeArr[3] || event.code === codeArr[4] || event.code === codeArr[5] ) {
+  if (event.code === codeArr[3] || event.code === codeArr[4] || event.code === codeArr[5] || (event.offsetX >= lineBox.centerX && event.offsetY > lineBox.upY && event.offsetY < lineBox.downY)) {
    
     if (direction === 'stop') { 
       direction = 'stop' 
@@ -437,7 +584,7 @@ function moveSnake(event) {
     console.log(`direction = ${direction}`)
     
   }
-  if (event.code === codeArr[6] || event.code === codeArr[7] || event.code === codeArr[8] ) {
+  if (event.code === codeArr[6] || event.code === codeArr[7] || event.code === codeArr[8] || event.offsetY >= lineBox.downY ) {
     
     if (direction === 'stop') { 
       direction = 'stop' 
@@ -452,7 +599,7 @@ function moveSnake(event) {
     console.log(`direction = ${direction}`)
     
   }
-  if (event.code === codeArr[9] || event.code === codeArr[10] || event.code === codeArr[11] ) {
+  if (event.code === codeArr[9] || event.code === codeArr[10] || event.code === codeArr[11] || (event.offsetX < lineBox.centerX && event.offsetY > lineBox.upY && event.offsetY < lineBox.downY)) {
     
     if (direction === 'stop') { 
       direction = 'stop' 
