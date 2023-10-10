@@ -11,6 +11,36 @@ const ctx = canvas.getContext('2d');
 const gameScoreHtml = document.querySelector('.title')
 const immunityScoreHtml = document.querySelector('.immunity')
 
+
+/**** Музыка ******************************************* */
+/**** Музыка ******************************************* */
+
+const musicBase = document.querySelector('.baseMusic')
+musicBase.pause()
+// Устанавливаю уровень звука (от 0 до 1)
+musicBase.volume = 0.3;
+musicBase.playbackRate = 0.8;
+
+const musicFood = document.querySelector('.foodMusic')
+musicFood.pause()
+musicBase.volume = 0.8; 
+
+const musicBorder = document.querySelector('.borderMusic')
+musicBorder.pause()
+musicBorder.volume = 0.8; 
+
+const musicStop = document.querySelector('.stopMusic')
+musicStop.pause()
+musicStop.volume = 0.8; 
+
+const musicTail = document.querySelector('.tailMusic')
+musicTail.pause()
+musicTail.volume = 0.8; 
+
+/******************************************************** */
+/******************************************************** */
+
+
 // получаю ширину и высоту canvas
 let canvasWidth = canvas.clientWidth;
 let canvasHeight = canvas.clientHeight
@@ -279,7 +309,7 @@ console.log (`y center = ${snake[0].y / stepY}`)
 
 let gameScore = 0
 let immunityScore = 0
-let gameSpeed = 400
+let gameSpeed = 390
 
 
 /**************************************************************** */
@@ -355,23 +385,35 @@ function drawPicture() {
     // console.log(`snakeHeadY = ${snakeHeadY}`)
     // console.log(`snake[0].y = ${snake[0].y}`)
     // console.log(Math.abs(snake[0].y - snakeHeadY) === stepY)
+    musicBase.play()
+  
   }
   if (direction === 'right') {
     snakeHeadX = (snakeHeadX + stepX) % canvasWidth;
+
+    musicBase.play()
   }
   if (direction === 'down') {
     snakeHeadY = (snakeHeadY + stepY) % canvasHeight;
+    musicBase.play()
   }
   if (direction === 'left') { 
     snakeHeadX = (snakeHeadX - stepX + canvasWidth) % canvasWidth;
+    musicBase.play()
   }
   if (direction === 'stop') {
     snakeHeadX = snakeHeadX 
     snakeHeadY = snakeHeadY
+
+    musicBase.pause()
+    // musicStop.play()
+    // musicStop.pause()
   };
 
 
 if (checkBorder(snakeHeadX, snakeHeadY)) { // проверка что змейка побывала за пределами поля
+  musicBorder.play()
+  
   // gameScore = gameScore - 2
   immunityScore = immunityScore - 2
   immunityScoreHtml.innerHTML = `Immunity: ${immunityScore}  Speed: ${gameSpeed}`
@@ -381,7 +423,11 @@ if (checkBorder(snakeHeadX, snakeHeadY)) { // проверка что змейк
 /****************************************** */
 
   if (snakeHeadX === food.x && snakeHeadY === food.y) {
+    musicFood.play()
+    // musicBase.playbackRate = musicBase.playbackRate + 0.05;
+
     gameScore = gameScore + 1
+    // gameScoreHtml.innerHTML = `Music ${musicBase.playbackRate}`
     gameScoreHtml.innerHTML = `${gameScore}`
 
     immunityScore = immunityScore + 1
@@ -390,10 +436,13 @@ if (checkBorder(snakeHeadX, snakeHeadY)) { // проверка что змейк
     foodIndex = Math.floor(foodArrImg.length * Math.random())
     foodImg.src = foodArrImg[foodIndex]
 
-    if (gameSpeed > 100) {  
+    if (gameSpeed > 90) {  
       clearInterval(startPicture);  
       gameSpeed = gameSpeed - 30; 
       startPicture = setInterval(drawPicture, gameSpeed);
+
+      musicBase.playbackRate = musicBase.playbackRate + 0.05; // ускоряю музыку
+      // gameScoreHtml.innerHTML = `Music ${musicBase.playbackRate}`
     }
 
     food = {
@@ -422,7 +471,27 @@ if (checkBorder(snakeHeadX, snakeHeadY)) { // проверка что змейк
   //   clearInterval(startPicture); 
   // }
 
+  if (checkTail(snake, snakeHead)) {
+    musicTail.volume = 0.8;
+    musicTail.play()
+    
+    immunityScoreHtml.innerHTML = `Don\`t eat your tail -5 Immynity`
+    immunityScore = immunityScore - 6
+    setTimeout(() => {
+      immunityScoreHtml.innerHTML = `Immunity: ${immunityScore}  Speed: ${gameSpeed} Don\`t eat your tail -5 Immynity`;
+    }, 3000);
+
+    
+    // gameScore = gameScore + 1
+    // gameScoreHtml.innerHTML = `${gameScore}`
+
+
+  }
+
   if (immunityScore < 0) {
+  // if (immunityScore < 0 || tailSnake(snake, snakeHead)) {
+  // if (immunityScore < 0 || tailSnake(snake, snakeHead) === true) {
+  // if (immunityScore < 0) {
     gameScoreHtml.innerHTML = `Total ${gameScore} Game over`
 
     setTimeout(() => {
@@ -430,7 +499,11 @@ if (checkBorder(snakeHeadX, snakeHeadY)) { // проверка что змейк
     }, 3000);
     
     immunityScoreHtml.innerHTML = `Immunity: ${immunityScore}`;
+
+    musicBase.pause()
     clearInterval(startPicture);
+
+    musicStop.play()
   }
 
 }
@@ -450,14 +523,19 @@ function checkBorder(snakeHeadX, snakeHeadY) {
 /*********************************************** */
 /*********************************************** */
 
-function tailSnake(snakeArr) {
-  for (let i = 1; i < snakeArr.length; i++) {
-    if(snakeArr[0].x === snakeArr[i].x && snakeArr[0].y === snakeArr[i].y && direction !== 'stop') {
-      alert(`Зачем есть себя?`)
-    }
-    
-  }
+
+function checkTail(snakeArr, snakeHead) {
+  return snakeArr.slice(1).some(item => item.x === snakeHead.x && item.y === snakeHead.y && direction !== 'stop')
 }
+
+// function checkTail(snakeArr, snakeHead) {
+//   for (let i = 1; i < snakeArr.length; i++) {
+//     if(snakeHead.x === snakeArr[i].x && snakeHead.y === snakeArr[i].y && direction !== 'stop') {
+//       return true
+//     }
+//   }
+//   return false
+// }
 
 /**************************************************** */
 /**************************************************** */

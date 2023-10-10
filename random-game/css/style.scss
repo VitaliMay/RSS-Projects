@@ -212,17 +212,29 @@
 
   width: 100%;
   min-height: 60px;
+/*******************************/
+  display: flex;
+  justify-content: flex-start;
+  column-gap: 30px;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
 .title {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  // position: absolute;
+  // top: 50%;
+  // left: 50%;
+  // transform: translate(-50%, -50%);
   
+  // opacity: 0.2;
+  // cursor: default;
+
   opacity: 0.2;
-  cursor: default;
+
 }
+
+
+
 
 // .header-container {
 //   display: flex;
