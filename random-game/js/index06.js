@@ -175,26 +175,42 @@ function startField() {
     ctx.lineTo(i, canvasHeight)
 
     // Проверяем, является ли текущий ряд центральным рядом по вертикали
-    if (i === centerXbox*stepX) {
+    if (i === lineBox.upX - stepX/2 || i === lineBox.downX - stepX/2) {
+      // ctx.fillStyle = '#dcc2a0'
       // ctx.fillStyle = 'red'
       ctx.fillStyle = '#ddc8ac'
-      // ctx.fillStyle = '#dabd97'
-      // ctx.fillStyle = '#dec8aa'
-      ctx.fillRect(i, lineBox.upY - stepY/2, stepX, lineBox.downY - lineBox.upY + stepY)
+      ctx.fillRect(i, 0, stepX, canvasHeight)
     }
+    
+    
+    // if (i === centerXbox*stepX) {
+    //   // ctx.fillStyle = 'red'
+    //   ctx.fillStyle = '#ddc8ac'
+    //   // ctx.fillStyle = '#dabd97'
+    //   // ctx.fillStyle = '#dec8aa'
+    //   ctx.fillRect(i, lineBox.upY - stepY/2, stepX, lineBox.downY - lineBox.upY + stepY)
+    // }
   }
   for (let i = 0; i <= canvasHeight; i = i + stepY) {
     ctx.moveTo(0, i)
     ctx.lineTo(canvasWidth, i)
 
-    // Проверяем, является ли текущий ряд центральным рядом по горизонтали
-    // if (i === centerYbox*stepY) {
-    if (i === lineBox.upY - stepY/2 || i === lineBox.downY - stepY/2) {
-      // ctx.fillStyle = '#dcc2a0'
+    if (i === centerYbox*stepX) {
       // ctx.fillStyle = 'red'
       ctx.fillStyle = '#ddc8ac'
-      ctx.fillRect(0, i, canvasWidth, stepY)
+      // ctx.fillStyle = '#dabd97'
+      // ctx.fillStyle = '#dec8aa'
+      ctx.fillRect(lineBox.upX - stepX/2, i, lineBox.downX - lineBox.upX + stepX, stepY )
     }
+
+    // // Проверяем, является ли текущий ряд центральным рядом по горизонтали
+    // // if (i === centerYbox*stepY) {
+    // if (i === lineBox.upY - stepY/2 || i === lineBox.downY - stepY/2) {
+    //   // ctx.fillStyle = '#dcc2a0'
+    //   // ctx.fillStyle = 'red'
+    //   ctx.fillStyle = '#ddc8ac'
+    //   ctx.fillRect(0, i, canvasWidth, stepY)
+    // }
   }
 
   ctx.stroke()
@@ -243,7 +259,30 @@ function startField() {
   drawTriangle(centerXbox * stepX + stepX / 2, stepY, centerXbox * stepX - stepX / 2, 3*stepY, centerXbox * stepX + 3*stepX/2, 3*stepY)
 
   
-  /*****Рисую тестовые линии разметки событий***************************** */
+  /*****Рисую тестовые линии разметки событий (test line)***************************** */
+  // ctx.beginPath()
+  //   ctx.strokeStyle = 'red'
+  //   ctx.moveTo(lineBox.upX, 0)
+  //   ctx.lineTo(lineBox.upX, canvasHeight)
+  //   ctx.stroke()
+  // ctx.closePath()
+
+  // ctx.beginPath()
+  //   ctx.strokeStyle = 'red'
+  //   ctx.moveTo(lineBox.downX, 0)
+  //   ctx.lineTo(lineBox.downX, canvasHeight)
+  //   ctx.stroke()
+  // ctx.closePath()
+
+  // ctx.beginPath()
+  //   ctx.strokeStyle = 'red'
+  //   ctx.moveTo(lineBox.upX, lineBox.centerY)
+  //   ctx.lineTo(lineBox.downX, lineBox.centerY)
+  //   ctx.stroke()
+  // ctx.closePath()
+
+
+/******* Для горизонтального варианта ************************************ */
   // ctx.beginPath()
   //   ctx.strokeStyle = 'red'
   //   ctx.moveTo(0, lineBox.upY)
@@ -408,19 +447,30 @@ let centerXbox = Math.floor(centerX / stepX)
 let centerYbox = Math.floor(centerY / stepY)
 
 let lineBox = {
-  upY: lineEvent(canvasHeight, stepY)*stepY + stepY/2,
-  downY: canvasHeight - (lineEvent(canvasHeight, stepY)*stepY) - stepY/2,
-  centerX: evenOddCenter(canvasWidth, stepX) + stepX/2
+  upX: lineEvent(canvasWidth, stepX)*stepX + stepX/2,
+  downX: canvasWidth - (lineEvent(canvasWidth, stepX)*stepX) - stepX/2,
+  centerY: evenOddCenter(canvasHeight, stepY) + stepY/2
 }
+// let lineBox = {
+//   upY: lineEvent(canvasHeight, stepY)*stepY + stepY/2,
+//   downY: canvasHeight - (lineEvent(canvasHeight, stepY)*stepY) - stepY/2,
+//   centerX: evenOddCenter(canvasWidth, stepX) + stepX/2
+// }
 
 /************************************** */
 
 function lineEvent (canvasHeight, stepY) {
   let result
   return result = Math.round(canvasHeight / 4/stepY)
-  // if (result % 2 !== 0) {return Math.floor((canvasWidth - stepX) / 2)}
-  // else {return (Math.floor(canvasWidth/2) - stepX)}
+  
 }
+
+// function lineEvent (canvasHeight, stepY) {
+//   let result
+//   return result = Math.round(canvasHeight / 4/stepY)
+//   // if (result % 2 !== 0) {return Math.floor((canvasWidth - stepX) / 2)}
+//   // else {return (Math.floor(canvasWidth/2) - stepX)}
+// }
 
 
 console.log(`Одна четвёртая ${lineEvent(canvasHeight, stepY)}`)
@@ -597,7 +647,7 @@ if (checkBorder(snakeHeadX, snakeHeadY)) { // проверка что змейк
   // }
 
   if (checkTail(snake, snakeHead)) {
-    musicTail.volume = 0.8;
+    // musicTail.volume = 0.8;
     musicTail.play()
     
     immunityScoreHtml.innerHTML = `Don\`t eat your tail -5 Immynity`
@@ -764,7 +814,8 @@ function moveSnake(event) {
 
 	if (codeArr.indexOf(event.code) >= 0) event.preventDefault();
 
-  if (event.code === codeArr[0] || event.code === codeArr[1] || event.code === codeArr[2] || event.offsetY <= lineBox.upY ) {
+  if (event.code === codeArr[0] || event.code === codeArr[1] || event.code === codeArr[2] || (event.offsetY <= lineBox.centerY && event.offsetX > lineBox.upX && event.offsetX < lineBox.downX))  {
+  // if (event.code === codeArr[0] || event.code === codeArr[1] || event.code === codeArr[2] || event.offsetY <= lineBox.upY ) {
     if (direction === 'stop') { 
       direction = 'stop'
     }
@@ -778,7 +829,7 @@ function moveSnake(event) {
     console.log(`direction = ${direction}`)
    
   }
-  if (event.code === codeArr[3] || event.code === codeArr[4] || event.code === codeArr[5] || (event.offsetX >= lineBox.centerX && event.offsetY > lineBox.upY && event.offsetY < lineBox.downY)) {
+  if (event.code === codeArr[3] || event.code === codeArr[4] || event.code === codeArr[5] || event.offsetX >= lineBox.downX) {
    
     if (direction === 'stop') { 
       direction = 'stop' 
@@ -793,7 +844,7 @@ function moveSnake(event) {
     console.log(`direction = ${direction}`)
     
   }
-  if (event.code === codeArr[6] || event.code === codeArr[7] || event.code === codeArr[8] || event.offsetY >= lineBox.downY ) {
+  if (event.code === codeArr[6] || event.code === codeArr[7] || event.code === codeArr[8] || (event.offsetY > lineBox.centerY && event.offsetX > lineBox.upX && event.offsetX < lineBox.downX) ) {
     
     if (direction === 'stop') { 
       direction = 'stop' 
@@ -808,7 +859,7 @@ function moveSnake(event) {
     console.log(`direction = ${direction}`)
     
   }
-  if (event.code === codeArr[9] || event.code === codeArr[10] || event.code === codeArr[11] || (event.offsetX < lineBox.centerX && event.offsetY > lineBox.upY && event.offsetY < lineBox.downY)) {
+  if (event.code === codeArr[9] || event.code === codeArr[10] || event.code === codeArr[11] || (event.offsetX <= lineBox.upX)) {
     
     if (direction === 'stop') { 
       direction = 'stop' 
