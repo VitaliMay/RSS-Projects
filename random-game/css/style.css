@@ -257,4 +257,30 @@ body {
 
 .title {
   opacity: 0.2;
+}
+
+.btnSound {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  width: 32px;
+  height: 50px;
+  background-image: url(../assets/svg/Sound03.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+  cursor: pointer;
+  transform: scale(1);
+  transition: all 0.3s;
+}
+.btnSound:hover {
+  transform: scale(1.05);
+  transition: all 0.3s;
+}
+.btnSound:active {
+  transform: scale(0.9);
+  transition: all 0.3s;
+}
+.btnSound--mute {
+  background-image: url(../assets/svg/Sound03-no.png);
 }/*# sourceMappingURL=style.css.map */

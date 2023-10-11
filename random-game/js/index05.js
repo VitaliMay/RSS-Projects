@@ -12,6 +12,8 @@ const start = document.querySelector('.color-test')
 const gameScoreHtml = document.querySelector('.title')
 const immunityScoreHtml = document.querySelector('.immunity')
 
+const btnSound = document.querySelector('.btnSound')
+
 /******** Старт ******************************** */
 /******** Старт ******************************** */
 
@@ -30,7 +32,7 @@ function startNew() {
 
   gameSpeed = 390
 
-  musicBase.volume = 0;
+  // musicBase.volume = 0;
   musicBase.playbackRate = 0.8; // восстанавливаю скорость
   musicBase.currentTime = 0; // начинаю воспроизведение с начала
 
@@ -63,7 +65,7 @@ musicBase.playbackRate = 0.8;
 
 const musicFood = document.querySelector('.foodMusic')
 musicFood.pause()
-musicBase.volume = 0.8; 
+musicFood.volume = 0.8; 
 
 const musicBorder = document.querySelector('.borderMusic')
 musicBorder.pause()
@@ -76,6 +78,29 @@ musicStop.volume = 0.8;
 const musicTail = document.querySelector('.tailMusic')
 musicTail.pause()
 musicTail.volume = 0.8; 
+
+// let flagSound = true  // не хочу проверять наличие класса у btnSound
+
+btnSound.addEventListener('click', soundOnOff)
+
+function soundOnOff() {
+  btnSound.classList.toggle('btnSound--mute')
+
+  if (btnSound.classList.contains('btnSound--mute')) {
+    musicBase.volume = 0;
+    musicFood.volume = 0; 
+    musicBorder.volume = 0; 
+    musicTail.volume = 0;
+    musicStop.volume = 0; 
+  }
+  else {
+    musicBase.volume = 0.3;
+    musicFood.volume = 0.8; 
+    musicFood.volume = 0.8; 
+    musicTail.volume = 0.8; 
+    musicStop.volume = 0.8; 
+  }
+}
 
 /******************************************************** */
 /******************************************************** */
@@ -240,6 +265,63 @@ function startField() {
 
 
 }
+
+
+/******* Создаю класс для работы с Local Storage ***************************** */
+/******* Создаю класс для работы с Local Storage ***************************** */
+
+class MemoryStore {
+  constructor() {
+    this.localKey = 'scoreTable'
+  }
+
+  getScore() {
+    const localScoreTable  = localStorage.getItem(this.localKey)   // узнаю,что хранится в Local Storage
+
+    if (localScoreTable) { // если что-то есть
+      return JSON.parse(localScoreTable)
+    }
+    else {
+      return []
+    }
+  }
+
+  putScore(gameScore) {
+    let memoryLocal = this.getScore()
+    if (memoryLocal) {
+      let memoryLocalLength = memoryLocal.length
+
+      if (memoryLocalLength < 10) {
+        memoryLocal.push(gameScore)
+        memoryLocal = memoryLocal.sort((a, b) => b - a);
+      }
+      else {
+        if (gameScore > memoryLocal[memoryLocalLength-1]) {
+          memoryLocal.pop()
+          memoryLocal.push(gameScore)
+          memoryLocal = memoryLocal.sort((a, b) => b - a);
+        }
+      }
+    }
+
+    localStorage.setItem(this.localKey, JSON.stringify(memoryLocal))
+  }
+}
+// console.log ([] == false)
+const memoryLocalTest = new MemoryStore()
+
+// memoryLocalTest.putScore(25)
+// memoryLocalTest.putScore(13)
+// memoryLocalTest.putScore(17)
+
+
+
+
+// const memoryTest = new MemoryStore()
+
+// const memory = memoryTest.getScore()
+// console.log(memory)
+// console.log(`memory ${memoryTest.getScore()}`)
 
 /************************************ */
 /************************************ */
@@ -530,7 +612,7 @@ if (checkBorder(snakeHeadX, snakeHeadY)) { // проверка что змейк
   }
 
   if (immunityScore < 0) {
-    
+
     gameScoreHtml.innerHTML = `Total ${gameScore} Game over`
 
     setTimeout(() => {
@@ -544,6 +626,8 @@ if (checkBorder(snakeHeadX, snakeHeadY)) { // проверка что змейк
     clearInterval(startPicture);
 
     musicStop.play()
+
+    memoryLocalTest.putScore(gameScore)
   }
 
 }

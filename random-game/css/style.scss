@@ -233,6 +233,42 @@
 
 }
 
+.btnSound {
+  background-color: transparent;
+  outline: none;
+  border: none;
+
+  width: 32px;
+  height: 50px;
+  
+  background-image: url(../assets/svg/Sound03.png);
+  // background-image: url(../assets/svg/Sound01.png);
+
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+  cursor: pointer;
+
+  transform: scale(1);
+  transition: all 0.3s;
+
+  &:hover {
+    transform: scale(1.05);
+    transition: all 0.3s;
+  }
+  &:active {
+    transform: scale(0.9);
+    transition: all 0.3s;
+  }
+
+  &--mute {
+    background-image: url(../assets/svg/Sound03-no.png);
+    // background-image: url(../assets/svg/Sound02.png);
+  }
+}
+
+
+
 
 
 
