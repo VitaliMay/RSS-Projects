@@ -331,31 +331,54 @@ class MemoryStore {
   getScore() {
     const localScoreTable  = localStorage.getItem(this.localKey)   // узнаю,что хранится в Local Storage
 
-    if (localScoreTable) { // если что-то есть
+    if (isObjectEmpty(localScoreTable)) { // если что-то есть
       return JSON.parse(localScoreTable)
     }
     else {
-      return []
+      return {}
     }
   }
 
-  putScore(gameScore) {
+  putScore(gameSpeed, gameScore) {
     let memoryLocal = this.getScore()
-    if (memoryLocal) {
-      let memoryLocalLength = memoryLocal.length
-
-      if (memoryLocalLength < 10) {
-        memoryLocal.push(gameScore)
-        memoryLocal = memoryLocal.sort((a, b) => b - a);
-      }
-      else {
-        if (gameScore > memoryLocal[memoryLocalLength-1]) {
-          memoryLocal.pop()
-          memoryLocal.push(gameScore)
-          memoryLocal = memoryLocal.sort((a, b) => b - a);
+    if (isObjectEmpty(memoryLocal)) {
+      if (gameSpeed in memoryLocal) {
+      // if (memoryLocal.hasOwnProperty(gameSpeed)) {
+        let gameSpeedMemoryLength = memoryLocal[gameSpeed].length
+        if (gameSpeedMemoryLength < 10) {
+          memoryLocal[gameSpeed].push(gameScore)
+          memoryLocal[gameSpeed] = memoryLocal[gameSpeed].sort((a, b) => b - a);
+        }
+        else {
+          if (gameScore > memoryLocal[gameSpeed][gameSpeedMemoryLength-1]) {
+            memoryLocal[gameSpeed].pop()
+            memoryLocal[gameSpeed].push(gameScore)
+            memoryLocal[gameSpeed] = memoryLocal[gameSpeed].sort((a, b) => b - a);
+          }
         }
       }
+      else {
+        memoryLocal[gameSpeed] = [gameScore]
+      }
+    }  
+    else  {
+      memoryLocal[gameSpeed] = [gameScore]
     }
+
+      // let memoryLocalLength = memoryLocal.length
+
+      // if (memoryLocalLength < 10) {
+      //   memoryLocal.push(gameScore)
+      //   memoryLocal = memoryLocal.sort((a, b) => b - a);
+      // }
+      // else {
+      //   if (gameScore > memoryLocal[memoryLocalLength-1]) {
+      //     memoryLocal.pop()
+      //     memoryLocal.push(gameScore)
+      //     memoryLocal = memoryLocal.sort((a, b) => b - a);
+      //   }
+      // }
+    
 
     localStorage.setItem(this.localKey, JSON.stringify(memoryLocal))
   }
@@ -375,6 +398,22 @@ const memoryLocalTest = new MemoryStore()
 // const memory = memoryTest.getScore()
 // console.log(memory)
 // console.log(`memory ${memoryTest.getScore()}`)
+
+/************************************ */
+/************************************ */
+
+function isObjectEmpty(obj) {
+  for (let key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      return true; // Если есть хотя бы один ключ, объект считается не пустым
+    }
+  }
+  return false; // Если нет ни одного ключа, объект считается пустым
+}
+
+// function isObjectEmpty(obj) {
+//   return Object.keys(obj).length === 0;
+// }
 
 /************************************ */
 /************************************ */
@@ -690,7 +729,7 @@ if (checkBorder(snakeHeadX, snakeHeadY)) { // проверка что змейк
 
     musicStop.play()
 
-    memoryLocalTest.putScore(gameScore)
+    memoryLocalTest.putScore(gameSpeedInput, gameScore)
   }
 
 }
@@ -800,13 +839,13 @@ function checkTail(snakeArr, snakeHead) {
 
 /******************************************************************* */
 
-// document.addEventListener("keydown", (event) => console.log(event.code))
+document.addEventListener("keydown", (event) => console.log(event.code))
 
 const codeArr = [
-  'ArrowUp', 'Numpad8', 'Digit8', 
-  'ArrowRight', 'Numpad6', 'Digit6', 
-  'ArrowDown', 'Numpad2', 'Digit2', 
-  'ArrowLeft', 'Numpad4', 'Digit4',
+  'ArrowUp', 'Numpad8', 'Digit8', 'KeyW', 
+  'ArrowRight', 'Numpad6', 'Digit6', 'KeyD', 
+  'ArrowDown', 'Numpad2', 'Digit2', 'KeyS', 
+  'ArrowLeft', 'Numpad4', 'Digit4', 'KeyA',
   'Space'
 ]
 
@@ -823,7 +862,7 @@ function moveSnake(event) {
 
 	if (codeArr.indexOf(event.code) >= 0) event.preventDefault();
 
-  if (event.code === codeArr[0] || event.code === codeArr[1] || event.code === codeArr[2] || (event.offsetY <= lineBox.centerY && event.offsetX > lineBox.upX && event.offsetX < lineBox.downX))  {
+  if (event.code === codeArr[0] || event.code === codeArr[1] || event.code === codeArr[2] || event.code === codeArr[3] || (event.offsetY <= lineBox.centerY && event.offsetX > lineBox.upX && event.offsetX < lineBox.downX))  {
   // if (event.code === codeArr[0] || event.code === codeArr[1] || event.code === codeArr[2] || event.offsetY <= lineBox.upY ) {
     if (direction === 'stop') { 
       direction = 'stop'
@@ -838,7 +877,7 @@ function moveSnake(event) {
     console.log(`direction = ${direction}`)
    
   }
-  if (event.code === codeArr[3] || event.code === codeArr[4] || event.code === codeArr[5] || event.offsetX >= lineBox.downX) {
+  if (event.code === codeArr[4] || event.code === codeArr[5] || event.code === codeArr[6] || event.code === codeArr[7] || event.offsetX >= lineBox.downX) {
    
     if (direction === 'stop') { 
       direction = 'stop' 
@@ -853,7 +892,7 @@ function moveSnake(event) {
     console.log(`direction = ${direction}`)
     
   }
-  if (event.code === codeArr[6] || event.code === codeArr[7] || event.code === codeArr[8] || (event.offsetY > lineBox.centerY && event.offsetX > lineBox.upX && event.offsetX < lineBox.downX) ) {
+  if (event.code === codeArr[8] || event.code === codeArr[9] || event.code === codeArr[10] || event.code === codeArr[11] || (event.offsetY > lineBox.centerY && event.offsetX > lineBox.upX && event.offsetX < lineBox.downX) ) {
     
     if (direction === 'stop') { 
       direction = 'stop' 
@@ -868,7 +907,7 @@ function moveSnake(event) {
     console.log(`direction = ${direction}`)
     
   }
-  if (event.code === codeArr[9] || event.code === codeArr[10] || event.code === codeArr[11] || (event.offsetX <= lineBox.upX)) {
+  if (event.code === codeArr[12] || event.code === codeArr[13] || event.code === codeArr[14] || event.code === codeArr[15] || (event.offsetX <= lineBox.upX)) {
     
     if (direction === 'stop') { 
       direction = 'stop' 
@@ -883,7 +922,7 @@ function moveSnake(event) {
     console.log(`direction = ${direction}`)
     
   }
-  if (event.code === codeArr[12]) {
+  if (event.code === codeArr[16]) {
     if (direction === 'stop') {
       direction = prevDirection
     }
