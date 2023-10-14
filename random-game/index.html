@@ -15,13 +15,35 @@
 <body>
 	<div class="wrapper">
 		<header class="header">
-			<div class="immunity">Immunity: 0</div>
-			<h1 class="title">Random&nbsp;Game</h1>
-			<form action="">
-				<input class="testInput" value="90" type="number"  min="60" max="390" step="30">
-			</form>
-			<button class="btnSound"></button>
-			<!-- <button class="btnSound btnSound--mute"></button> -->
+			<div class="header-container">
+
+				<div class="stat-block">
+					<div class="stat immunity">
+						<div class="stat__text">Immunity:</div>
+						<div class="stat__score--immunity">0</div>
+					</div>
+	
+					<div class="stat currentSpeed">
+						<div class="stat__text">Speed:</div>
+						<div class="stat__score--speed">0 / 360</div>
+					</div>
+					
+				</div>
+	
+				<h1 class="title">Score</h1>
+				<!-- <h1 class="title">Random&nbsp;Game</h1> -->
+				<!-- <form action="">
+					<input class="testInput" value="360" type="number"  min="60" max="390" step="30">
+				</form> -->
+				<button class="btn btn_Sound"></button>
+				<button class="btn btn_Rules"></button>
+				<button class="btn btn_Setting"></button>
+				<!-- <button class="btnSound btnSound--mute"></button> -->
+	
+
+			</div>
+			
+			
 		</header>
 
 		<main class="main">
@@ -39,7 +61,7 @@
 
 			<canvas class="canvas" width="713" height="528"></canvas>
 
-			<div class="color-test">Start New Game</div>
+			<!-- <div class="color-test">Start New Game</div> -->
 		</main>
 
 		<footer class="footer">
@@ -58,6 +80,111 @@
 			</div>
 
 		</footer>
+
+		<div class="fon"></div>
+		<div class="fon--setting"></div>
+		
+		<div class="modal modal-login">
+			<button class="modal-btn-cross">&#10006;</button>
+			<h2 class="modal-title modal-title--position">Game Over</h2>
+			<h2 class="modal-title modal-title--position">Total Score is <span class="totalScore"></span></h2>
+			<h3 class="modal-title modal-title--position">Your best 10 results</h3>
+			<h4 class="modal-title modal-title--position">При максимальной скорости в <span class="maxCurrentSpeed"></span> тараканов в час</h4>
+			<div class="modal-content">
+				<div class="modal-score-line">
+					<div class="modal-score-line__number">01</div>
+					<div class="modal-score-line__results modal-score-line__results-01"></div>
+				</div>
+				<div class="modal-score-line">
+					<div class="modal-score-line__number">02</div>
+					<div class="modal-score-line__results modal-score-line__results-02"></div>
+				</div>
+				<div class="modal-score-line">
+					<div class="modal-score-line__number">03</div>
+					<div class="modal-score-line__results modal-score-line__results-03"></div>
+				</div>
+				<div class="modal-score-line">
+					<div class="modal-score-line__number">04</div>
+					<div class="modal-score-line__results modal-score-line__results-04"></div>
+				</div>
+				<div class="modal-score-line">
+					<div class="modal-score-line__number">05</div>
+					<div class="modal-score-line__results modal-score-line__results-04"></div>
+				</div>
+				<div class="modal-score-line">
+					<div class="modal-score-line__number">06</div>
+					<div class="modal-score-line__results modal-score-line__results-04"></div>
+				</div>
+				<div class="modal-score-line">
+					<div class="modal-score-line__number">07</div>
+					<div class="modal-score-line__results modal-score-line__results-04"></div>
+				</div>
+				<div class="modal-score-line">
+					<div class="modal-score-line__number">08</div>
+					<div class="modal-score-line__results modal-score-line__results-04"></div>
+				</div>
+				<div class="modal-score-line">
+					<div class="modal-score-line__number">09</div>
+					<div class="modal-score-line__results modal-score-line__results-04"></div>
+				</div>
+				<div class="modal-score-line">
+					<div class="modal-score-line__number">10</div>
+					<div class="modal-score-line__results modal-score-line__results-04"></div>
+				</div>
+				
+			</div>
+		</div>
+
+		<div class="modal modal-setting">
+			<button class="modal-btn-cross--setting">&#10006;</button>
+			<h2 class="modal-title modal-title--position">Choose the Max Speed</h2>
+
+			<div class="modal-content modal-content--setting">
+				<form action="">
+					<label class="modal-label">
+						<span>Выбранное значение применится к следущей игре</span>
+						<input class="testInput modal-label-input" value="360" type="number"  min="60" max="390" step="30">
+
+					</label>
+					
+				</form>
+					
+				<!-- <div class="color-test">Применить и Start New Game</div> -->
+				<bottom class="color-test">
+					<p class="color-test--text">Применить</p>
+					<p class="color-test--text">и</p>
+					<p class="color-test--text">Start New Game</p>
+				</bottom>
+			</div>
+			
+			
+			
+		</div>
+
+		<!-- <div class="modal modal-login">
+			<button class="modal-btn-cross">&#10006;</button>
+			<h4 class="modal-title modal-title--position">Login</h4>
+			<div class="modal-content">
+				<form class="modal-form">
+					<label class="modal-label">
+						<input class="modal-label-input" type="text">
+						<span class="modal-label-span">E-mail or readers card</span>
+					</label>
+					<label class="modal-label">
+						<input class="modal-label-input" type="text">
+						<span class="modal-label-span">Password</span>
+					</label>
+		
+					<button class="card__block-btn card__block-btn--position">
+						Log In
+					</button>
+				</form>
+				<div class="modal-another">
+					<p class="modal-another_text">Don’t have an account?</p>
+					<button name="register" class="modal-another_btn">Register</button>
+				</div>
+			</div>
+		</div> -->
 
 	</div>
 	<script type="module" src="./js/index08.js"></script>
