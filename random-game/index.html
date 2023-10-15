@@ -36,6 +36,7 @@
 					<input class="testInput" value="360" type="number"  min="60" max="390" step="30">
 				</form> -->
 				<button class="btn btn_Sound"></button>
+				<button class="btn btn_Stop"></button>
 				<button class="btn btn_Rules"></button>
 				<button class="btn btn_Setting"></button>
 				<!-- <button class="btnSound btnSound--mute"></button> -->
@@ -82,7 +83,7 @@
 		</footer>
 
 		<div class="fon"></div>
-		<div class="fon--setting"></div>
+		<div class="fon--setting work"></div>
 		
 		<div class="modal modal-login">
 			<button class="modal-btn-cross">&#10006;</button>
@@ -159,6 +160,56 @@
 			
 			
 			
+		</div>
+
+		<div class="modal modal-rules modal-rules--active">
+			<!-- <button class="modal-btn-cross">&#10006;</button> -->
+			<button class="modal-btn-cross--setting">&#10006;</button>
+			<h2 class="modal-title modal-title--position">Random-Game Snake</h2>
+			<div class="modal-content">
+				<div class="modal-line">Классическая змейка с легкими признаками мутации</div>
+				<div class="modal-line">Цель игры набрать max количество очков, пока здоровье (immunity) позволяет :) </div>
+				<div class="modal-line">Чем лучше змейка питается, тем быстрее бегает </div>
+				<div class="modal-line">Змейка может зарываться в нору. Это делает 'STOP'. Останавливает движение, но не позволяет менять направление  </div>
+				<div class="modal-line">Максимальную скорость можно установить в Setting </div>
+				<div class="modal-line">Таблица результатов считается по количеству пойманных тараканов отдельно по каждой max скорости </div>
+				<div class="modal-line modal-line--title">Правила игры:</div>
+				<div class="modal-score-line">
+					<div class="modal-score-line__number">+1 балл</div>
+					<div class="modal-score-line__results modal-score-line__results-01">За каждого пойманного таракана (пусть он даже выглядит как птичка или лягушка)</div>
+				</div>
+				<div class="modal-score-line">
+					<div class="modal-score-line__number">-2 балла</div>
+					<div class="modal-score-line__results modal-score-line__results-01">За выход за пределы поля</div>
+				</div>
+				<div class="modal-score-line">
+					<div class="modal-score-line__number">-6 баллов</div>
+					<div class="modal-score-line__results modal-score-line__results-01">За попытку самоубийства (не кусай себя за хвост)</div>
+				</div>
+				
+				<div class="modal-line modal-line--title">Управление:</div>
+				<div class="modal-score-line">
+					<div class="modal-score-line__number">'STOP'</div>
+					<div class="modal-score-line__results modal-score-line__results-01">Пробел, ставит и снимает. После снятия, змейка будет двигаться в ранее выбранном направлении</div>
+				</div>
+				<div class="modal-score-line">
+					<div class="modal-score-line__number">'UP'</div>
+					<div class="modal-score-line__results modal-score-line__results-01">Стрелка вверх, цифра 8, клавиша W, клик или тач в соответствующей области игрового поля</div>
+				</div>
+				<div class="modal-score-line">
+					<div class="modal-score-line__number">'RIGHT'</div>
+					<div class="modal-score-line__results modal-score-line__results-01">Стрелка вправо, цифра 6, клавиша D, клик или тач в соответствующей области игрового поля</div>
+				</div>
+				<div class="modal-score-line">
+					<div class="modal-score-line__number">'DOWN'</div>
+					<div class="modal-score-line__results modal-score-line__results-01">Стрелка вниз, цифра 2, клавиша S, клик или тач в соответствующей области игрового поля</div>
+				</div>
+				<div class="modal-score-line">
+					<div class="modal-score-line__number">'LEFT'</div>
+					<div class="modal-score-line__results modal-score-line__results-01">Стрелка влево, цифра 4, клавиша A, клик или тач в соответствующей области игрового поля</div>
+				</div>
+				
+			</div>
 		</div>
 
 		<!-- <div class="modal modal-login">

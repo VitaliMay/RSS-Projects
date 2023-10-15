@@ -14,7 +14,9 @@ const immunityScoreHtml = document.querySelector('.stat__score--immunity')
 const speedScoreHtml = document.querySelector('.stat__score--speed')
 
 const btnSound = document.querySelector('.btn_Sound')
+const btnRules = document.querySelector('.btn_Rules')
 const btnSetting = document.querySelector('.btn_Setting')
+const btnStop = document.querySelector('.btn_Stop')
 
 const testInput = document.querySelector('.testInput')
 
@@ -68,15 +70,34 @@ modalBtnCross.forEach(function(item) {
 
 // у настроек не должна запускаться новая игра
 const modalSetting = document.querySelector('.modal-setting')
-const modalBtnCrossSetting = document.querySelector('.modal-btn-cross--setting')
+const modalRules = document.querySelector('.modal-rules')
+
 const fonSetting = document.querySelector('.fon--setting')
 
-modalBtnCrossSetting.addEventListener('click', closeMenuSetting)
+// const modalBtnCrossSetting = document.querySelector('.modal-btn-cross--setting')
+const modalBtnCrossSetting = [...document.querySelectorAll('.modal-btn-cross--setting')]
+// console.log (`cross = ${modalBtnCross}`)
+modalBtnCrossSetting.forEach(function(item) {
+  item.addEventListener('click',function() {
+    closeMenuSetting()
+
+  })
+})
+
+
+// modalBtnCrossSetting.addEventListener('click', closeMenuSetting)
+// btnSetting.addEventListener('click', testOpenModalSetting)
+
 btnSetting.addEventListener('click', function () {
   direction = 'stop'
   testOpenModalSetting()
 })
-// btnSetting.addEventListener('click', testOpenModalSetting)
+
+btnRules.addEventListener('click', function () {
+  direction = 'stop'
+  openModalRules()
+})
+
 fonSetting.addEventListener('click', closeMenuSetting);
 
 function closeMenuSetting() {
@@ -89,6 +110,7 @@ function closeMenuSetting() {
   // modalRegister.classList.remove('modal-register--active');
 
   modalSetting.classList.remove('modal-setting--active')
+  modalRules.classList.remove('modal-rules--active')
 
 }
 
@@ -109,6 +131,13 @@ function testOpenModalSetting() {
   //   body.classList.remove('lock');
   //   flagSetting = false
   // }
+}
+
+function openModalRules() {
+  modalRules.classList.add('modal-rules--active')
+  body.classList.add('lock');
+  fonSetting.classList.add('work');
+  
 }
 
 const modalScoreNumber = Array.from(document.querySelectorAll('.modal-score-line__number'))
@@ -285,6 +314,8 @@ let screenHeight = screen.height
 
 if (screenWidth < 880) {
   canvasWidth = stepX * Math.round(screenWidth*0.9 / stepX)
+  
+  canvasHeight = stepY * Math.round(screenHeight*0.7 / stepY)
 }
 else {
   canvasWidth = stepX * Math.round(canvasWidth / stepX)
@@ -448,7 +479,7 @@ function startField() {
 
 class MemoryStore {
   constructor() {
-    this.localKey = 'scoreTable'
+    this.localKey = 'VitaliMay_Snake_scoreTable'
   }
 
   getScore() {
@@ -1018,7 +1049,31 @@ function checkTail(snakeArr, snakeHead) {
 
 /******************************************************************* */
 
-document.addEventListener("keydown", (event) => console.log(event.code))
+// document.addEventListener("keydown", (event) => console.log(event.code))
+// btnStop.addEventListener("click", (event) => console.log(event.target.classList.contains('btn_Stop')))
+// btnStop.addEventListener("click", moveSnake)
+
+btnStop.addEventListener("click", stopSnake);
+
+function stopSnake() {
+  if (direction === 'stop' && prevDirection == undefined) {
+    direction = null
+
+    gameScoreHtml.innerHTML = `${gameScore}`
+    console.log('Первый раз')
+  }
+  else if (direction === 'stop') { 
+    direction = prevDirection
+
+  }
+
+  else {
+
+    direction = 'stop';
+  }
+}
+
+/**************************************** */
 
 const codeArr = [
   'ArrowUp', 'Numpad8', 'Digit8', 'KeyW', 
@@ -1105,6 +1160,7 @@ function moveSnake(event) {
     console.log(`direction = ${direction}`)
     
   }
+  // if (event.code === codeArr[16] || event.target.classList.contains('btn_Stop')) {
   if (event.code === codeArr[16]) {
     if (direction === 'stop' && prevDirection == undefined) {
       direction = null
@@ -1344,3 +1400,22 @@ function drawRoundedRectangle(ctx, x, y, width, height, borderRadius, color) {
 // Содержит как нормальную подгруппу
 
 
+/************************************************* */
+/************************************************* */
+/* Убираю возможность нажать на цифры */
+// document.addEventListener("keydown", (event) => console.log(event.code))
+
+document.addEventListener("keydown", numPreventDefolt)
+
+let arrNumPreventDefolt = [
+  'Digit1', 'Numpad1',
+  'Digit3', 'Numpad3',
+  'Digit5', 'Numpad5',
+  'Digit7', 'Numpad7',
+  'Digit9', 'Numpad9',
+  'Digit0', 'Numpad0',
+]
+
+function numPreventDefolt(event) {
+	if (arrNumPreventDefolt.indexOf(event.code) >= 0) event.preventDefault()
+}

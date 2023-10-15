@@ -383,6 +383,16 @@
 
 }
 
+.btn_Stop {
+
+  background-image: url(../assets/svg/Stop02-48.png);
+  &:active {
+    background-image: url(../assets/svg/Stop01_act-48.png);
+  }
+  
+
+}
+
 .btn_Rules {
 
   background-image: url(../assets/svg/Rules08-48+.png);
@@ -632,6 +642,55 @@
     transition: all 0.7s;
     // transition: visibility 2s, opacity 2s;
   }
+}
+.modal-rules {
+  max-width: 250px;
+  width: 100%;
+  max-height: 400px;
+
+  overflow-y: scroll;
+
+  // background: #FFF;
+  background: antiquewhite;
+  color: brown;
+
+  // z-index: 16;
+  // visibility: visible;
+  // opacity: 1;
+
+  z-index: -2;
+  visibility: hidden;
+  opacity: 0;
+
+  transition: all 0.7s;
+  // transition: visibility 2s, opacity 2s;
+
+  &--active {
+    z-index: 16;
+    visibility: visible;
+    opacity: 1;
+    transition: all 0.7s;
+    // transition: visibility 2s, opacity 2s;
+  }
+}
+
+.modal-line--title {
+  color: #000;
+  text-align: center;
+  font-family: Forum;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  /* 100% */
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+
+.totalScore {
+  color: brown;
+  font-weight: 700;
+  font-size: 30px;
 }
 
 
