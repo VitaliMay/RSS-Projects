@@ -10,14 +10,171 @@ const ctx = canvas.getContext('2d');
 const start = document.querySelector('.color-test')
 
 const gameScoreHtml = document.querySelector('.title')
-const immunityScoreHtml = document.querySelector('.immunity')
+const immunityScoreHtml = document.querySelector('.stat__score--immunity')
+const speedScoreHtml = document.querySelector('.stat__score--speed')
 
-const btnSound = document.querySelector('.btnSound')
+const btnSound = document.querySelector('.btn_Sound')
+const btnRules = document.querySelector('.btn_Rules')
+const btnSetting = document.querySelector('.btn_Setting')
+const btnStop = document.querySelector('.btn_Stop')
+
+const testInput = document.querySelector('.testInput')
+
+// console.log(testInput.value)
+
+
+/**************************************************** */
+const body = document.querySelector('body');
+const fon = document.querySelector('.fon');
+const modalLogin = document.querySelector('.modal-login')
+
+
+fon.addEventListener('click', closeMenu);
+
+function closeMenu() {
+  // menu.classList.remove('open');
+  // burgerButton.classList.remove('rotade');
+  body.classList.remove('lock');
+  fon.classList.remove('work');
+
+  // modalProfileLogin.classList.remove("modal-profile-login--active");
+  // modalRegister.classList.remove('modal-register--active');
+
+  modalLogin.classList.remove('modal-login--active')
+
+  startNew()
+
+}
+
+
+function testOpenModal() {
+  modalLogin.classList.add('modal-login--active')
+  body.classList.add('lock');
+  fon.classList.add('work');
+  // console.log('Кнопка настройки')
+}
+
+// ловлю все крестики в модалках
+const modalBtnCross = [...document.querySelectorAll('.modal-btn-cross')]
+// console.log (`cross = ${modalBtnCross}`)
+modalBtnCross.forEach(function(item) {
+  item.addEventListener('click',function() {
+    closeMenu()
+
+    startNew()
+  })
+})
+
+// let flagSetting = false
+
+
+// у настроек не должна запускаться новая игра
+const modalSetting = document.querySelector('.modal-setting')
+const modalRules = document.querySelector('.modal-rules')
+
+const fonSetting = document.querySelector('.fon--setting')
+
+// const modalBtnCrossSetting = document.querySelector('.modal-btn-cross--setting')
+const modalBtnCrossSetting = [...document.querySelectorAll('.modal-btn-cross--setting')]
+// console.log (`cross = ${modalBtnCross}`)
+modalBtnCrossSetting.forEach(function(item) {
+  item.addEventListener('click',function() {
+    closeMenuSetting()
+
+  })
+})
+
+
+// modalBtnCrossSetting.addEventListener('click', closeMenuSetting)
+// btnSetting.addEventListener('click', testOpenModalSetting)
+
+btnSetting.addEventListener('click', function () {
+  direction = 'stop'
+  testOpenModalSetting()
+})
+
+btnRules.addEventListener('click', function () {
+  direction = 'stop'
+  openModalRules()
+})
+
+fonSetting.addEventListener('click', closeMenuSetting);
+
+function closeMenuSetting() {
+  // menu.classList.remove('open');
+  // burgerButton.classList.remove('rotade');
+  body.classList.remove('lock');
+  fonSetting.classList.remove('work');
+
+  // modalProfileLogin.classList.remove("modal-profile-login--active");
+  // modalRegister.classList.remove('modal-register--active');
+
+  modalSetting.classList.remove('modal-setting--active')
+  modalRules.classList.remove('modal-rules--active')
+
+}
+
+function testOpenModalSetting() {
+  modalSetting.classList.add('modal-setting--active')
+  body.classList.add('lock');
+  fonSetting.classList.add('work');
+  // console.log('Кнопка настройки')
+  // let flagSetting = true
+
+  // if (!flagSetting) {
+  //   modalSetting.classList.add('modal-setting--active')
+  //   body.classList.add('lock');
+  //   flagSetting = true
+  // }
+  // else {
+  //   modalSetting.classList.remove('modal-setting--active')
+  //   body.classList.remove('lock');
+  //   flagSetting = false
+  // }
+}
+
+function openModalRules() {
+  modalRules.classList.add('modal-rules--active')
+  body.classList.add('lock');
+  fonSetting.classList.add('work');
+  
+}
+
+const modalScoreNumber = Array.from(document.querySelectorAll('.modal-score-line__number'))
+const modalScoreResult = Array.from(document.querySelectorAll('.modal-score-line__results'))
+const modalMaxCurrentSpeed = document.querySelector('.maxCurrentSpeed')
+
+const modalTotalScore = document.querySelector('.totalScore')
+
+
+
+// console.log( modalScoreNumber[0])
+
+
+
+/*********************************************** */
+
+let gameScore = 0
+let immunityScore = 0
+let gameSpeed = 390
+
+if (testInput.value > 390) testInput.value = 390;
+if (testInput.value < 60) testInput.value = 60;
+
+let gameSpeedInput = 450 - testInput.value
+// let gameSpeedInput = testInput.value
+
+speedScoreHtml.innerHTML = `${60} / ${450 - gameSpeedInput}`
 
 /******** Старт ******************************** */
 /******** Старт ******************************** */
 
-start.addEventListener('click', startNew)
+start.addEventListener('click', function () {
+  closeMenuSetting()
+  startNew()
+
+})
+// start.addEventListener('click', startNew)
 
 function startNew() {
 
@@ -25,16 +182,23 @@ function startNew() {
   prevDirection = null
 
   gameScore = 0
-  gameScoreHtml.innerHTML = `Random&nbsp;Game`
+  gameScoreHtml.innerHTML = `Score`
 
   immunityScore = 0
-  immunityScoreHtml.innerHTML = `Immunity: 0`
+  immunityScoreHtml.innerHTML = `0`
 
   gameSpeed = 390
+  if (testInput.value > 390) testInput.value = 390;
+  if (testInput.value < 60) testInput.value = 60;
+  gameSpeedInput = 450 - testInput.value
+
+  speedScoreHtml.innerHTML = `${60} / ${450 - gameSpeedInput}`
+  // gameSpeedInput = testInput.value
 
   // musicBase.volume = 0;
   musicBase.playbackRate = 0.8; // восстанавливаю скорость
   musicBase.currentTime = 0; // начинаю воспроизведение с начала
+  musicBase.pause()
 
   food = {
     x: Math.floor((Math.random()*canvasWidth/stepX))*stepX + 1, // 15 (+1 нужен чтобы не цеплять линию разметки)
@@ -86,9 +250,9 @@ btnSound.addEventListener("touchstart", soundOnOff, { passive: true });
 btnSound.addEventListener("touchend", soundOnOff, { passive: true });
 
 function soundOnOff() {
-  btnSound.classList.toggle('btnSound--mute')
+  btnSound.classList.toggle('btn_Sound--mute')
 
-  if (btnSound.classList.contains('btnSound--mute')) {
+  if (btnSound.classList.contains('btn_Sound--mute')) {
     musicBase.volume = 0;
     musicFood.volume = 0; 
     musicBorder.volume = 0; 
@@ -98,7 +262,7 @@ function soundOnOff() {
   else {
     musicBase.volume = 0.3;
     musicFood.volume = 0.8; 
-    musicFood.volume = 0.8; 
+    musicBorder.volume = 0.8; 
     musicTail.volume = 0.8; 
     musicStop.volume = 0.8; 
   }
@@ -112,7 +276,7 @@ function soundOnOff() {
 let canvasWidth = canvas.clientWidth;
 let canvasHeight = canvas.clientHeight
 
-console.log(canvasWidth, canvasHeight)
+// console.log(canvasWidth, canvasHeight)
 
 // canvas.width = 300
 // canvas.height = 200
@@ -130,14 +294,14 @@ console.log(canvasWidth, canvasHeight)
 // console.log("Размер экрана: " + screenWidth + " x " + screenHeight);
 // console.log("Размер экрана: " + screenWidthOuter + " x " + screenHeightOuter);
 
-console.log("Размер экрана: " + screen.width + " x " + screen.height);
+// console.log("Размер экрана: " + screen.width + " x " + screen.height);
 
 
 /*****Рисую поле для игры************************************ */
 /************************************************************ */
 
-const stepX = 31;
-const stepY = 31;
+let stepX = 31;
+let stepY = 31;
 const step = 31 // пока рисую квадраты, потенциально буду менять размер при адаптации
 
 let imgSizeX = stepX-2 // надо уменьшить картинку, чтобы очистка не цепляла линии разметки
@@ -148,8 +312,25 @@ let imgSizeY = stepY-2 // надо уменьшить картинку, чтоб
 let screenWidth = screen.width
 let screenHeight = screen.height
 
-if (screenWidth < 880) {
+
+if (screenWidth < 700){
+  // let windowHeight = window.innerHeight;
+  stepX = 26
+  stepY = 26
+  imgSizeX = stepX-2 // надо уменьшить картинку, чтобы очистка не цепляла линии разметки
+  imgSizeY = stepY-2 
+
+  let windowHeight = screenHeight;
+  let headerHeight = document.querySelector('.header').clientHeight
   canvasWidth = stepX * Math.round(screenWidth*0.9 / stepX)
+  canvasHeight = stepY * Math.round((windowHeight - headerHeight)*0.8 / stepY)
+  // console.log(`Привет ${canvasHeight}`)
+  // console.log(`Привет header ${headerHeight}`)
+}
+else if (screenWidth < 880) {
+  canvasWidth = stepX * Math.round(screenWidth*0.9 / stepX)
+  
+  canvasHeight = stepY * Math.round(screenHeight*0.7 / stepY)
 }
 else {
   canvasWidth = stepX * Math.round(canvasWidth / stepX)
@@ -175,26 +356,42 @@ function startField() {
     ctx.lineTo(i, canvasHeight)
 
     // Проверяем, является ли текущий ряд центральным рядом по вертикали
-    if (i === centerXbox*stepX) {
+    if (i === lineBox.upX - stepX/2 || i === lineBox.downX - stepX/2) {
+      // ctx.fillStyle = '#dcc2a0'
       // ctx.fillStyle = 'red'
       ctx.fillStyle = '#ddc8ac'
-      // ctx.fillStyle = '#dabd97'
-      // ctx.fillStyle = '#dec8aa'
-      ctx.fillRect(i, lineBox.upY - stepY/2, stepX, lineBox.downY - lineBox.upY + stepY)
+      ctx.fillRect(i, 0, stepX, canvasHeight)
     }
+    
+    
+    // if (i === centerXbox*stepX) {
+    //   // ctx.fillStyle = 'red'
+    //   ctx.fillStyle = '#ddc8ac'
+    //   // ctx.fillStyle = '#dabd97'
+    //   // ctx.fillStyle = '#dec8aa'
+    //   ctx.fillRect(i, lineBox.upY - stepY/2, stepX, lineBox.downY - lineBox.upY + stepY)
+    // }
   }
   for (let i = 0; i <= canvasHeight; i = i + stepY) {
     ctx.moveTo(0, i)
     ctx.lineTo(canvasWidth, i)
 
-    // Проверяем, является ли текущий ряд центральным рядом по горизонтали
-    // if (i === centerYbox*stepY) {
-    if (i === lineBox.upY - stepY/2 || i === lineBox.downY - stepY/2) {
-      // ctx.fillStyle = '#dcc2a0'
+    if (i === centerYbox*stepX) {
       // ctx.fillStyle = 'red'
       ctx.fillStyle = '#ddc8ac'
-      ctx.fillRect(0, i, canvasWidth, stepY)
+      // ctx.fillStyle = '#dabd97'
+      // ctx.fillStyle = '#dec8aa'
+      ctx.fillRect(lineBox.upX - stepX/2, i, lineBox.downX - lineBox.upX + stepX, stepY )
     }
+
+    // // Проверяем, является ли текущий ряд центральным рядом по горизонтали
+    // // if (i === centerYbox*stepY) {
+    // if (i === lineBox.upY - stepY/2 || i === lineBox.downY - stepY/2) {
+    //   // ctx.fillStyle = '#dcc2a0'
+    //   // ctx.fillStyle = 'red'
+    //   ctx.fillStyle = '#ddc8ac'
+    //   ctx.fillRect(0, i, canvasWidth, stepY)
+    // }
   }
 
   ctx.stroke()
@@ -243,7 +440,30 @@ function startField() {
   drawTriangle(centerXbox * stepX + stepX / 2, stepY, centerXbox * stepX - stepX / 2, 3*stepY, centerXbox * stepX + 3*stepX/2, 3*stepY)
 
   
-  /*****Рисую тестовые линии разметки событий***************************** */
+  /*****Рисую тестовые линии разметки событий (test line)***************************** */
+  // ctx.beginPath()
+  //   ctx.strokeStyle = 'red'
+  //   ctx.moveTo(lineBox.upX, 0)
+  //   ctx.lineTo(lineBox.upX, canvasHeight)
+  //   ctx.stroke()
+  // ctx.closePath()
+
+  // ctx.beginPath()
+  //   ctx.strokeStyle = 'red'
+  //   ctx.moveTo(lineBox.downX, 0)
+  //   ctx.lineTo(lineBox.downX, canvasHeight)
+  //   ctx.stroke()
+  // ctx.closePath()
+
+  // ctx.beginPath()
+  //   ctx.strokeStyle = 'red'
+  //   ctx.moveTo(lineBox.upX, lineBox.centerY)
+  //   ctx.lineTo(lineBox.downX, lineBox.centerY)
+  //   ctx.stroke()
+  // ctx.closePath()
+
+
+/******* Для горизонтального варианта ************************************ */
   // ctx.beginPath()
   //   ctx.strokeStyle = 'red'
   //   ctx.moveTo(0, lineBox.upY)
@@ -274,37 +494,60 @@ function startField() {
 
 class MemoryStore {
   constructor() {
-    this.localKey = 'scoreTable'
+    this.localKey = 'VitaliMay_Snake_scoreTable'
   }
 
   getScore() {
     const localScoreTable  = localStorage.getItem(this.localKey)   // узнаю,что хранится в Local Storage
 
-    if (localScoreTable) { // если что-то есть
+    if (isObjectEmpty(localScoreTable)) { // если что-то есть
       return JSON.parse(localScoreTable)
     }
     else {
-      return []
+      return {}
     }
   }
 
-  putScore(gameScore) {
+  putScore(gameSpeed, gameScore) {
     let memoryLocal = this.getScore()
-    if (memoryLocal) {
-      let memoryLocalLength = memoryLocal.length
-
-      if (memoryLocalLength < 10) {
-        memoryLocal.push(gameScore)
-        memoryLocal = memoryLocal.sort((a, b) => b - a);
-      }
-      else {
-        if (gameScore > memoryLocal[memoryLocalLength-1]) {
-          memoryLocal.pop()
-          memoryLocal.push(gameScore)
-          memoryLocal = memoryLocal.sort((a, b) => b - a);
+    if (isObjectEmpty(memoryLocal)) {
+      if (gameSpeed in memoryLocal) {
+      // if (memoryLocal.hasOwnProperty(gameSpeed)) {
+        let gameSpeedMemoryLength = memoryLocal[gameSpeed].length
+        if (gameSpeedMemoryLength < 10) {
+          memoryLocal[gameSpeed].push(gameScore)
+          memoryLocal[gameSpeed] = memoryLocal[gameSpeed].sort((a, b) => b - a);
+        }
+        else {
+          if (gameScore > memoryLocal[gameSpeed][gameSpeedMemoryLength-1]) {
+            memoryLocal[gameSpeed].pop()
+            memoryLocal[gameSpeed].push(gameScore)
+            memoryLocal[gameSpeed] = memoryLocal[gameSpeed].sort((a, b) => b - a);
+          }
         }
       }
+      else {
+        memoryLocal[gameSpeed] = [gameScore]
+      }
+    }  
+    else  {
+      memoryLocal[gameSpeed] = [gameScore]
     }
+
+      // let memoryLocalLength = memoryLocal.length
+
+      // if (memoryLocalLength < 10) {
+      //   memoryLocal.push(gameScore)
+      //   memoryLocal = memoryLocal.sort((a, b) => b - a);
+      // }
+      // else {
+      //   if (gameScore > memoryLocal[memoryLocalLength-1]) {
+      //     memoryLocal.pop()
+      //     memoryLocal.push(gameScore)
+      //     memoryLocal = memoryLocal.sort((a, b) => b - a);
+      //   }
+      // }
+    
 
     localStorage.setItem(this.localKey, JSON.stringify(memoryLocal))
   }
@@ -324,6 +567,22 @@ const memoryLocalTest = new MemoryStore()
 // const memory = memoryTest.getScore()
 // console.log(memory)
 // console.log(`memory ${memoryTest.getScore()}`)
+
+/************************************ */
+/************************************ */
+
+function isObjectEmpty(obj) {
+  for (let key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      return true; // Если есть хотя бы один ключ, объект считается не пустым
+    }
+  }
+  return false; // Если нет ни одного ключа, объект считается пустым
+}
+
+// function isObjectEmpty(obj) {
+//   return Object.keys(obj).length === 0;
+// }
 
 /************************************ */
 /************************************ */
@@ -384,15 +643,15 @@ let foodImg = new Image();
 let foodIndex = Math.floor(foodArrImg.length * Math.random())
 foodImg.src = foodArrImg[foodIndex]
 
-console.log(`foodIndex = ${foodIndex}`)
+// console.log(`foodIndex = ${foodIndex}`)
 
 let food = {
   x: Math.floor((Math.random()*canvasWidth/stepX))*stepX + 1, // 15 (+1 нужен чтобы не цеплять линию разметки)
   y: Math.floor((Math.random()*canvasHeight/stepY))*stepY + 1 // 11
 }
 
-console.log (`x food = ${food.x / stepX}`)
-console.log (`y food = ${food.y / stepY}`)
+// console.log (`x food = ${food.x / stepX}`)
+// console.log (`y food = ${food.y / stepY}`)
 
 let snake = []
 snake[0] = {
@@ -408,32 +667,41 @@ let centerXbox = Math.floor(centerX / stepX)
 let centerYbox = Math.floor(centerY / stepY)
 
 let lineBox = {
-  upY: lineEvent(canvasHeight, stepY)*stepY + stepY/2,
-  downY: canvasHeight - (lineEvent(canvasHeight, stepY)*stepY) - stepY/2,
-  centerX: evenOddCenter(canvasWidth, stepX) + stepX/2
+  upX: lineEvent(canvasWidth, stepX)*stepX + stepX/2,
+  downX: canvasWidth - (lineEvent(canvasWidth, stepX)*stepX) - stepX/2,
+  centerY: evenOddCenter(canvasHeight, stepY) + stepY/2
 }
+// let lineBox = {
+//   upY: lineEvent(canvasHeight, stepY)*stepY + stepY/2,
+//   downY: canvasHeight - (lineEvent(canvasHeight, stepY)*stepY) - stepY/2,
+//   centerX: evenOddCenter(canvasWidth, stepX) + stepX/2
+// }
 
 /************************************** */
 
 function lineEvent (canvasHeight, stepY) {
   let result
   return result = Math.round(canvasHeight / 4/stepY)
-  // if (result % 2 !== 0) {return Math.floor((canvasWidth - stepX) / 2)}
-  // else {return (Math.floor(canvasWidth/2) - stepX)}
+  
 }
 
+// function lineEvent (canvasHeight, stepY) {
+//   let result
+//   return result = Math.round(canvasHeight / 4/stepY)
+//   // if (result % 2 !== 0) {return Math.floor((canvasWidth - stepX) / 2)}
+//   // else {return (Math.floor(canvasWidth/2) - stepX)}
+// }
 
-console.log(`Одна четвёртая ${lineEvent(canvasHeight, stepY)}`)
+
+// console.log(`Одна четвёртая ${lineEvent(canvasHeight, stepY)}`)
 
 /*********************************** */
 
-console.log (`x center = ${snake[0].x / stepX}`)
-console.log (`y center = ${snake[0].y / stepY}`)
+// console.log (`x center = ${snake[0].x / stepX}`)
+// console.log (`y center = ${snake[0].y / stepY}`)
 
 
-let gameScore = 0
-let immunityScore = 0
-let gameSpeed = 390
+
 
 
 /**************************************************************** */
@@ -510,20 +778,28 @@ function drawPicture() {
     // console.log(`snake[0].y = ${snake[0].y}`)
     // console.log(Math.abs(snake[0].y - snakeHeadY) === stepY)
     musicBase.play()
+
+    gameScoreHtml.innerHTML = `${gameScore}`
   
   }
   if (direction === 'right') {
     snakeHeadX = (snakeHeadX + stepX) % canvasWidth;
 
     musicBase.play()
+
+    gameScoreHtml.innerHTML = `${gameScore}`
   }
   if (direction === 'down') {
     snakeHeadY = (snakeHeadY + stepY) % canvasHeight;
     musicBase.play()
+
+    gameScoreHtml.innerHTML = `${gameScore}`
   }
   if (direction === 'left') { 
     snakeHeadX = (snakeHeadX - stepX + canvasWidth) % canvasWidth;
     musicBase.play()
+
+    gameScoreHtml.innerHTML = `${gameScore}`
   }
   if (direction === 'stop') {
     snakeHeadX = snakeHeadX 
@@ -532,17 +808,19 @@ function drawPicture() {
     musicBase.pause()
     // musicStop.play()
     // musicStop.pause()
+
+    gameScoreHtml.innerHTML = `STOP`
   };
 
 
-if (checkBorder(snakeHeadX, snakeHeadY)) { // проверка что змейка побывала за пределами поля
-  musicBorder.play()
+  if (checkBorder(snakeHeadX, snakeHeadY)) { // проверка что змейка побывала за пределами поля
+    musicBorder.play()
   
-  // gameScore = gameScore - 2
-  immunityScore = immunityScore - 2
-  immunityScoreHtml.innerHTML = `Immunity: ${immunityScore}  Speed: ${gameSpeed}`
-  gameScoreHtml.innerHTML = `${gameScore}`
-}
+    // gameScore = gameScore - 2
+    immunityScore = immunityScore - 2
+    immunityScoreHtml.innerHTML = `${immunityScore}`
+    gameScoreHtml.innerHTML = `${gameScore}`
+  }
 
 /****************************************** */
 
@@ -560,7 +838,8 @@ if (checkBorder(snakeHeadX, snakeHeadY)) { // проверка что змейк
     foodIndex = Math.floor(foodArrImg.length * Math.random())
     foodImg.src = foodArrImg[foodIndex]
 
-    if (gameSpeed > testInput.value) {  
+    if (gameSpeed > gameSpeedInput) {  
+    // if (gameSpeed > testInput.value) {  
     // if (gameSpeed > 90) {  
       clearInterval(startPicture);  
       gameSpeed = gameSpeed - 30; 
@@ -575,7 +854,8 @@ if (checkBorder(snakeHeadX, snakeHeadY)) { // проверка что змейк
       y: Math.floor((Math.random()*canvasHeight/stepY))*stepY + 1 
     }
 
-    immunityScoreHtml.innerHTML = `Immunity: ${immunityScore}  Speed: ${gameSpeed}`
+    immunityScoreHtml.innerHTML = `${immunityScore}`
+    speedScoreHtml.innerHTML = `${450-gameSpeed} / ${450 - gameSpeedInput}`
   }
   else {
     snake.pop()
@@ -597,14 +877,17 @@ if (checkBorder(snakeHeadX, snakeHeadY)) { // проверка что змейк
   // }
 
   if (checkTail(snake, snakeHead)) {
-    musicTail.volume = 0.8;
+    // musicTail.volume = 0.8;
     musicTail.play()
     
-    immunityScoreHtml.innerHTML = `Don\`t eat your tail -5 Immynity`
+    // immunityScoreHtml.innerHTML = `Don\`t eat your tail -5 Immynity`
     immunityScore = immunityScore - 6
-    setTimeout(() => {
-      immunityScoreHtml.innerHTML = `Immunity: ${immunityScore}  Speed: ${gameSpeed} Don\`t eat your tail -5 Immynity`;
-    }, 3000);
+    immunityScoreHtml.innerHTML = `${immunityScore}`
+    // speedScoreHtml.innerHTML = `${450-gameSpeed} / ${450 - gameSpeedInput}`
+
+    // setTimeout(() => {
+    //   immunityScoreHtml.innerHTML = `Immunity: ${immunityScore}  Speed: ${gameSpeed} Don\`t eat your tail -5 Immynity`;
+    // }, 3000);
 
     
     // gameScore = gameScore + 1
@@ -615,29 +898,69 @@ if (checkBorder(snakeHeadX, snakeHeadY)) { // проверка что змейк
 
   if (immunityScore < 0) {
 
-    gameScoreHtml.innerHTML = `Total ${gameScore} Game over`
+    // gameScoreHtml.innerHTML = `Total ${gameScore} Game over`
 
-    setTimeout(() => {
-      immunityScoreHtml.innerHTML = `Immunity: ${immunityScore} Be healthy`;
-    }, 3000);
     
-    immunityScoreHtml.innerHTML = `Immunity: ${immunityScore}`;
 
+    // setTimeout(() => {
+    //   immunityScoreHtml.innerHTML = `Immunity: ${immunityScore} Be healthy`;
+    // }, 3000);
+    
+    // immunityScoreHtml.innerHTML = `Immunity: ${immunityScore}`;
+
+    // immunityScoreHtml.innerHTML = `${immunityScore}`
+    // speedScoreHtml.innerHTML = `${450-gameSpeed} / ${450 - gameSpeedInput}`
+    
     musicBase.pause()
 
     clearInterval(startPicture);
 
     musicStop.play()
 
-    memoryLocalTest.putScore(gameScore)
+    closeMenuSetting()
+
+    memoryLocalTest.putScore(450-gameSpeedInput, gameScore)
+
+    modalScoreLocal(gameSpeedInput)
+
+    testOpenModal()
   }
 
 }
 
 /*********************************************** */
-const testInput = document.querySelector('.testInput')
+/*********************************************** */
 
-console.log(testInput.value)
+function modalScoreLocal(gameSpeedInput) {
+  let gameKeySpeedInput = 450-gameSpeedInput
+  let modalScoreText = memoryLocalTest.getScore()
+  let modalScoreTextArr = modalScoreText[gameKeySpeedInput]
+
+  // console.log(modalScoreTextArr)
+
+  modalMaxCurrentSpeed.innerHTML = gameKeySpeedInput
+  modalTotalScore.innerHTML = `${gameScore}`
+
+  // сначала нужно очистить предыдущую модалку
+  for (let i = 0; i < modalScoreNumber.length; i++) {
+    modalScoreNumber[i].innerHTML = `${(i+1).toString().padStart(2, '0')}`
+    modalScoreResult[i].innerHTML = ``
+    // modalMaxCurrentSpeed.innerHTML = gameKeySpeedInput
+  }
+
+  for (let i = 0; i < modalScoreTextArr.length; i++) {
+    modalScoreNumber[i].innerHTML = `${(i+1).toString().padStart(2, '0')} Место`
+    modalScoreResult[i].innerHTML = `набрано очков ${modalScoreTextArr[i]}`
+    // modalMaxCurrentSpeed.innerHTML = gameKeySpeedInput
+  }
+  // for (let key of modalScoreTextArr) {
+  //   modalScoreNumber[key].innerHTML = `45 Место`
+  //   modalScoreResult[key].innerHTML = `набрано очков ${modalScoreTextArr[key]}`
+  //   modalMaxCurrentSpeed.innerHTML = gameKeySpeedInput
+  // }
+}
+
+// modalScoreLocal(gameSpeedInput)
 
 /*********************************************** */
 /*********************************************** */
@@ -742,12 +1065,36 @@ function checkTail(snakeArr, snakeHead) {
 /******************************************************************* */
 
 // document.addEventListener("keydown", (event) => console.log(event.code))
+// btnStop.addEventListener("click", (event) => console.log(event.target.classList.contains('btn_Stop')))
+// btnStop.addEventListener("click", moveSnake)
+
+btnStop.addEventListener("click", stopSnake);
+
+function stopSnake() {
+  if (direction === 'stop' && prevDirection == undefined) {
+    direction = null
+
+    gameScoreHtml.innerHTML = `${gameScore}`
+    // console.log('Первый раз')
+  }
+  else if (direction === 'stop') { 
+    direction = prevDirection
+
+  }
+
+  else {
+
+    direction = 'stop';
+  }
+}
+
+/**************************************** */
 
 const codeArr = [
-  'ArrowUp', 'Numpad8', 'Digit8', 
-  'ArrowRight', 'Numpad6', 'Digit6', 
-  'ArrowDown', 'Numpad2', 'Digit2', 
-  'ArrowLeft', 'Numpad4', 'Digit4',
+  'ArrowUp', 'Numpad8', 'Digit8', 'KeyW', 
+  'ArrowRight', 'Numpad6', 'Digit6', 'KeyD', 
+  'ArrowDown', 'Numpad2', 'Digit2', 'KeyS', 
+  'ArrowLeft', 'Numpad4', 'Digit4', 'KeyA',
   'Space'
 ]
 
@@ -759,12 +1106,17 @@ canvas.addEventListener("click", moveSnake)
 canvas.addEventListener("touchstart", moveSnake, { passive: true });
 let direction;
 let prevDirection
+let changeDirection = false;
 
 function moveSnake(event) {
 
+  if (changeDirection) return;
+  changeDirection = true;
+
 	if (codeArr.indexOf(event.code) >= 0) event.preventDefault();
 
-  if (event.code === codeArr[0] || event.code === codeArr[1] || event.code === codeArr[2] || event.offsetY <= lineBox.upY ) {
+  if (event.code === codeArr[0] || event.code === codeArr[1] || event.code === codeArr[2] || event.code === codeArr[3] || (event.offsetY <= lineBox.centerY && event.offsetX > lineBox.upX && event.offsetX < lineBox.downX))  {
+  // if (event.code === codeArr[0] || event.code === codeArr[1] || event.code === codeArr[2] || event.offsetY <= lineBox.upY ) {
     if (direction === 'stop') { 
       direction = 'stop'
     }
@@ -773,12 +1125,12 @@ function moveSnake(event) {
       prevDirection = direction
     }
 
-    console.log(`Нажал вверх`)
-    console.log(`prevDirection = ${prevDirection}`)
-    console.log(`direction = ${direction}`)
+    // console.log(`Нажал вверх`)
+    // console.log(`prevDirection = ${prevDirection}`)
+    // console.log(`direction = ${direction}`)
    
   }
-  if (event.code === codeArr[3] || event.code === codeArr[4] || event.code === codeArr[5] || (event.offsetX >= lineBox.centerX && event.offsetY > lineBox.upY && event.offsetY < lineBox.downY)) {
+  if (event.code === codeArr[4] || event.code === codeArr[5] || event.code === codeArr[6] || event.code === codeArr[7] || event.offsetX >= lineBox.downX) {
    
     if (direction === 'stop') { 
       direction = 'stop' 
@@ -788,12 +1140,12 @@ function moveSnake(event) {
       prevDirection = direction
     }
 
-    console.log(`Нажал вправо`)
-    console.log(`prevDirection = ${prevDirection}`)
-    console.log(`direction = ${direction}`)
+    // console.log(`Нажал вправо`)
+    // console.log(`prevDirection = ${prevDirection}`)
+    // console.log(`direction = ${direction}`)
     
   }
-  if (event.code === codeArr[6] || event.code === codeArr[7] || event.code === codeArr[8] || event.offsetY >= lineBox.downY ) {
+  if (event.code === codeArr[8] || event.code === codeArr[9] || event.code === codeArr[10] || event.code === codeArr[11] || (event.offsetY > lineBox.centerY && event.offsetX > lineBox.upX && event.offsetX < lineBox.downX) ) {
     
     if (direction === 'stop') { 
       direction = 'stop' 
@@ -803,12 +1155,12 @@ function moveSnake(event) {
       prevDirection = direction
     }
 
-    console.log(`Нажал вниз`)
-    console.log(`prevDirection = ${prevDirection}`)
-    console.log(`direction = ${direction}`)
+    // console.log(`Нажал вниз`)
+    // console.log(`prevDirection = ${prevDirection}`)
+    // console.log(`direction = ${direction}`)
     
   }
-  if (event.code === codeArr[9] || event.code === codeArr[10] || event.code === codeArr[11] || (event.offsetX < lineBox.centerX && event.offsetY > lineBox.upY && event.offsetY < lineBox.downY)) {
+  if (event.code === codeArr[12] || event.code === codeArr[13] || event.code === codeArr[14] || event.code === codeArr[15] || (event.offsetX <= lineBox.upX)) {
     
     if (direction === 'stop') { 
       direction = 'stop' 
@@ -818,35 +1170,50 @@ function moveSnake(event) {
       prevDirection = direction
     }
 
-    console.log(`Нажал влево`)
-    console.log(`prevDirection = ${prevDirection}`)
-    console.log(`direction = ${direction}`)
+    // console.log(`Нажал влево`)
+    // console.log(`prevDirection = ${prevDirection}`)
+    // console.log(`direction = ${direction}`)
     
   }
-  if (event.code === codeArr[12]) {
-    if (direction === 'stop') {
-      direction = prevDirection
+  // if (event.code === codeArr[16] || event.target.classList.contains('btn_Stop')) {
+  if (event.code === codeArr[16]) {
+    if (direction === 'stop' && prevDirection == undefined) {
+      direction = null
+
+      gameScoreHtml.innerHTML = `${gameScore}`
+      // console.log('Первый раз')
     }
+    else if (direction === 'stop') { // ловлю нажатие в самом начале игры
+      direction = prevDirection
+      // gameScoreHtml.innerHTML = `${gameScore}`
+      // console.log('Второй раз')
+    }
+    // if (direction === 'stop') {
+    //   direction = prevDirection
+    // }
     else {
       
       direction = 'stop';
     }
-    console.log(`Нажал stop`)
-    console.log(`prevDirection = ${prevDirection}`)
-    console.log(`direction = ${direction}`)
+    // console.log(`Нажал stop`)
+    // console.log(`prevDirection = ${prevDirection}`)
+    // console.log(`direction = ${direction}`)
     
   }
 
   /********************************* */
   if (immunityScore < 0) {
-    direction = null
-    prevDirection = null
+    direction = null;
+    prevDirection = null;
+    changeDirection = false;
   }
   /********************************** */
 
-  console.log(`****`)
-  console.log(direction)
-  console.log(`  `)
+  changeDirection = false;
+  
+  // console.log(`****`)
+  // console.log(direction)
+  // console.log(`  `)
 }
 
 
@@ -1048,3 +1415,41 @@ function drawRoundedRectangle(ctx, x, y, width, height, borderRadius, color) {
 // Содержит как нормальную подгруппу
 
 
+/************************************************* */
+/************************************************* */
+/* Убираю возможность нажать на цифры */
+// document.addEventListener("keydown", (event) => console.log(event.code))
+
+document.addEventListener("keydown", numPreventDefolt)
+
+let arrNumPreventDefolt = [
+  'Digit1', 'Numpad1',
+  'Digit3', 'Numpad3',
+  'Digit5', 'Numpad5',
+  'Digit7', 'Numpad7',
+  'Digit9', 'Numpad9',
+  'Digit0', 'Numpad0',
+]
+
+function numPreventDefolt(event) {
+	if (arrNumPreventDefolt.indexOf(event.code) >= 0) event.preventDefault()
+}
+
+
+/************************************* */
+/************************************* */
+
+const score = `
+Привет!
+Требования ТЗ вроде как выполнены.
+В коде, конечно, полно мусора и дублирования выше крыши.
+И модули надо подключать...
+Но, зато, адаптацию почти победил). На компе для проверки адаптации надо перегружать страницу.
+И на мобилках должно работать, правда, на Safari без музыки.
+Мелкие баги имеются и, думаю, ты их найдешь :)
+И я что-то из них устранял, а потом вернул, т.к. змейка становилась более тупой ))
+
+В общем и целом, думаю, на max балл я наработал)
+
+`
+console.log(score)
