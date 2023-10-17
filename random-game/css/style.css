@@ -353,6 +353,17 @@ body {
   background-image: url(../assets/svg/Rules09-48.png);
 }
 
+.btn_Cup {
+  background-image: url(../assets/svg/Cup04-48.png);
+}
+.btn_Cup:active {
+  background-image: url(../assets/svg/Cup02-48.png);
+}
+
+.modal-title--noCup-active {
+  display: none;
+}
+
 /********************************************/
 .modal {
   position: fixed;

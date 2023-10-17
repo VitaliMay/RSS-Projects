@@ -59,13 +59,22 @@ const modalBtnCross = [...document.querySelectorAll('.modal-btn-cross')]
 // console.log (`cross = ${modalBtnCross}`)
 modalBtnCross.forEach(function(item) {
   item.addEventListener('click',function() {
-    closeMenu()
-
-    startNew()
+    // console.log(`flag cross start = ${flagCup}`)
+    // closeMenu()
+    // closeMenuSetting()
+    if (!flagCup) {
+      startNew()
+    }
+    fon.classList.remove('work');
+    closeMenuSetting()
+    // console.log(`flag cross finish= ${flagCup}`)
   })
 })
 
 // let flagSetting = false
+
+let flagCup = false;
+
 
 
 // у настроек не должна запускаться новая игра
@@ -112,6 +121,8 @@ function closeMenuSetting() {
   modalSetting.classList.remove('modal-setting--active')
   modalRules.classList.remove('modal-rules--active')
 
+  modalLogin.classList.remove('modal-login--active')
+  flagCup = false
 }
 
 function testOpenModalSetting() {
@@ -921,12 +932,36 @@ function drawPicture() {
 
     memoryLocalTest.putScore(450-gameSpeedInput, gameScore)
 
+    modalNoCup.forEach( item => item.classList.remove('modal-title--noCup-active'))
+
     modalScoreLocal(gameSpeedInput)
 
     testOpenModal()
   }
 
 }
+
+/************************************************* */
+
+const btnCup = document.querySelector('.btn_Cup')
+const modalNoCup = document.querySelectorAll('.modal-title--noCup')
+
+btnCup.addEventListener('click', () => {
+  flagCup = true;
+  modalNoCup.forEach( item => item.classList.add('modal-title--noCup-active'))
+
+  modalLogin.classList.add('modal-login--active')
+  body.classList.add('lock');
+  fonSetting.classList.add('work');
+  // let checkSpeedForCup = memoryLocalTest.getScore()
+  // console.log(checkSpeedForCup)
+  
+  direction = 'stop'
+  modalScoreLocal(gameSpeedInput)
+  // testOpenModal()
+  // console.log(`flag btn = ${flagCup}`)
+})
+
 
 /*********************************************** */
 /*********************************************** */
@@ -936,7 +971,7 @@ function modalScoreLocal(gameSpeedInput) {
   let modalScoreText = memoryLocalTest.getScore()
   let modalScoreTextArr = modalScoreText[gameKeySpeedInput]
 
-  // console.log(modalScoreTextArr)
+  // console.log(`Массив из локал ${modalScoreTextArr}`)
 
   modalMaxCurrentSpeed.innerHTML = gameKeySpeedInput
   modalTotalScore.innerHTML = `${gameScore}`
@@ -948,11 +983,14 @@ function modalScoreLocal(gameSpeedInput) {
     // modalMaxCurrentSpeed.innerHTML = gameKeySpeedInput
   }
 
-  for (let i = 0; i < modalScoreTextArr.length; i++) {
-    modalScoreNumber[i].innerHTML = `${(i+1).toString().padStart(2, '0')} Место`
-    modalScoreResult[i].innerHTML = `набрано очков ${modalScoreTextArr[i]}`
-    // modalMaxCurrentSpeed.innerHTML = gameKeySpeedInput
+  if (modalScoreTextArr) {
+    for (let i = 0; i < modalScoreTextArr.length; i++) {
+      modalScoreNumber[i].innerHTML = `${(i+1).toString().padStart(2, '0')} Место`
+      modalScoreResult[i].innerHTML = `набрано очков ${modalScoreTextArr[i]}`
+      // modalMaxCurrentSpeed.innerHTML = gameKeySpeedInput
+    }
   }
+  
   // for (let key of modalScoreTextArr) {
   //   modalScoreNumber[key].innerHTML = `45 Место`
   //   modalScoreResult[key].innerHTML = `набрано очков ${modalScoreTextArr[key]}`

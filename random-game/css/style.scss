@@ -410,6 +410,22 @@
   // color: #8a8a8a;
 }
 
+.btn_Cup {
+
+  background-image: url(../assets/svg/Cup04-48.png);
+  &:active {
+    background-image: url(../assets/svg/Cup02-48.png);
+  }
+}
+
+.modal-title--noCup-active {
+  // height: 0;
+  display: none;
+}
+// .modal-title--noCup {
+//   // height: 0;
+//   display: flex;
+// }
 
 // .btnSound {
 //   background-color: transparent;
