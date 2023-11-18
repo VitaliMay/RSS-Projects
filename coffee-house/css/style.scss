@@ -7,84 +7,242 @@
 /***********************************************/
 
 
-// body {
-//   background: #0C0C0E;
+body {
+  background:  #E1D4C9;
+}
+
+// .wrapper {
+//   margin: 0 auto;
+
+//   // background-image: url(../assets/img/lemonade.png);
+//   background-image: url(../assets/img/Lzy-cover02.jpg);
+//   background-size: cover;
+//   background-repeat: no-repeat;
+
+//   // backdrop-filter: blur(50px);
+
+//   // filter: blur(10px);
+//   transition: all 0.7s;
+
+//   font-family: 'Roboto';
+//   font-size: 12px;
+//   font-weight: 700;
+
+//   color: rgb(255, 255, 255);
 // }
 
-.wrapper {
-  margin: 0 auto;
-
-  // background-image: url(../assets/img/lemonade.png);
-  background-image: url(../assets/img/Lzy-cover02.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
-
-  // backdrop-filter: blur(50px);
-
-  // filter: blur(10px);
-  transition: all 0.7s;
-
-  font-family: 'Roboto';
-  font-size: 12px;
-  font-weight: 700;
-
-  color: rgb(255, 255, 255);
-}
 
 
-.main {
-  width: 100%;
-  height: 100%;
+// .main {
+//   width: 100%;
+//   height: 100%;
 
-  // накладываю на wrapper заблюренную картинку
-  backdrop-filter: blur(10px);
+//   // накладываю на wrapper заблюренную картинку
+//   backdrop-filter: blur(10px);
+
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
+// }
+
+
+/**********************************************/
+/**********************************************/
+// .container--header {
+//   display: flex;
+//   justify-content: center;
+//   flex-direction: column;
+//   align-items: center;
+// }
+
+.header-inner{
 
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  min-height: 100px;
+  column-gap: 4rem;
+  background-color: #f69ec4;
+
+  position: relative; /*для адаптации бургера*/
+  // flex-wrap: wrap;
+
+  @media screen and (max-width: 850px){
+    flex-wrap: wrap;
+  }
+
 }
+
+.logo {
+  background-image: url(../assets/img/logo.png);
+  background-size: contain;
+  // background-size: cover;
+  background-repeat: no-repeat;
+  // width: 100%;
+  width: 100px;
+  height: 60px;
+  flex-shrink: 0;
+  border: solid red 2px;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  column-gap: 4rem;
+  width: 100%;
+  max-width: 893px;
+  // min-width: 760px;
+  background-color: tomato;
+  justify-content: center;
+
+  @media screen and (max-width: 850px){
+    flex-shrink: 0;
+    // min-width: auto;
+  }
+  // flex-shrink: 0;
+}
+
+.menu__list-link {
+  background-color: #f9dd94;
+}
+
+.menu__list {
+  display: flex;
+  // justify-content: space-between;
+  column-gap: 4rem;
+  //min-height: 5rem;
+
+  // color: #FFF;
+  line-height: 5rem;
+
+  &-item {
+    transition: 0.4s;
+  }
+  &-item:hover {
+    color: #BB945F;
+
+    // меню исчезает и появляется ПЛАВНО
+    transition: 0.4s;
+
+    background: linear-gradient(to left, #f69ec4, #f9dd94 100%);
+    background-position: 0 100%;
+    background-size: 100% 2px;
+    background-repeat: repeat-x;
+  }
+}
+
+.coffee-menu {
+  margin-left: auto;
+  display: flex;
+  column-gap: 8px;
+  justify-content: space-between;
+  width: 72px;
+  height: 24px;
+
+  background-color: antiquewhite;
+
+  &__img {
+    background-image: url(../assets/svg/coffee-cup.svg);
+    // background-size: contain;
+    background-size: cover;
+    background-repeat: no-repeat;
+  // width: 100%;
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/************/
+.header-hero {
+  width: 100%;
+  height: 644px;
+  border-radius: 40px;
+  // height: auto; // 644px
+
+  // width: 1360px;
+  // background-size: cover;
+  // background-repeat: no-repeat;
+  position: relative;
+
+  overflow: hidden;
+
+  display: flex;
+  // justify-content: center;
+  // align-items: center;
+
+  // padding: 100px 100px 100px 0;
+
+  &__video {
+    max-width: 1360px;
+    // max-height: 644px;
+    object-fit: cover;
+    object-position: top left;
+    // object-fit: contain;
+
+    position: absolute;
+  }
+
+  &__offer {
+    z-index: 2;
+    color: #E1D4C9;
+    font-size: 72px;
+    // font-family: 'Inter';
+    // font-style: normal;
+    // font-weight: 600;
+    line-height: 105%;
+    width: 100%;
+    max-width: 730px;
+    padding: 100px;
+
+    & span {
+      color: #B0907A;
+      font-style: italic;
+    }
+  }
+}
+
 
 
 /**********************************************/
 /**********************************************/
 /****** Сохраняю пропорции блока с картинкой ****************************************/
 
-.cover {
-  width: 100%; /* здесь можно установить любую нужную ширину */
-}
+// .cover {
+//   width: 100%; /* здесь можно установить любую нужную ширину */
+// }
 
-.cover-inner {
-  position: relative;
-  height: 0;
-  border: none;
-}
+// .cover-inner {
+//   position: relative;
+//   height: 0;
+//   border: none;
+// }
 
-.cover-content {
-  transition: all 0.7s;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  // background: #eee;
+// .cover-content {
+//   transition: all 0.7s;
+//   position: absolute;
+//   top: 0;
+//   right: 0;
+//   bottom: 0;
+//   left: 0;
+//   // background: #eee;
 
-  background-image: url(../assets/img/Lzy-cover02.jpg);
-  // background-position: center;
-  background-position: top;
-  background-size: cover;
-  // background-size: contain;
-  background-repeat: no-repeat;
+//   background-image: url(../assets/img/Lzy-cover02.jpg);
+//   // background-position: center;
+//   background-position: top;
+//   background-size: cover;
+//   // background-size: contain;
+//   background-repeat: no-repeat;
 
-  border-radius: 5px;
+//   border-radius: 5px;
 
-  // border: solid 2px green;
-  box-shadow: 10px 10px 40px -2px rgba(0, 0, 0, 0.25);
-}
+//   // border: solid 2px green;
+//   box-shadow: 10px 10px 40px -2px rgba(0, 0, 0, 0.25);
+// }
 
-.cover-inner--ratio {
-  padding-top: 75%; /* 100% ширины делим на 4 и умножаем на 3 */
-}
+// .cover-inner--ratio {
+//   padding-top: 75%; /* 100% ширины делим на 4 и умножаем на 3 */
+// }
 
 
 
@@ -157,33 +315,33 @@
 
 /*********************************************************/
 /*********************************************************/
-.header {
-  // backdrop-filter: blur(10px);
-  position: relative;
+// .header {
+//   // backdrop-filter: blur(10px);
+//   position: relative;
 
-  background-color: rgb(80, 80, 80);
-  box-shadow: 10px 10px 40px -2px rgba(0, 0, 0, 0.25);
+//   background-color: rgb(80, 80, 80);
+//   box-shadow: 10px 10px 40px -2px rgba(0, 0, 0, 0.25);
 
-  font-family: 'Roboto';
-  font-size: 20px;
-  // font-weight: 700;
-  // color: rgb(255, 255, 255);
+//   font-family: 'Roboto';
+//   font-size: 20px;
+//   // font-weight: 700;
+//   // color: rgb(255, 255, 255);
 
-  opacity: 0.8;
+//   opacity: 0.8;
 
-  width: 100%;
-  min-height: 60px;
-}
+//   width: 100%;
+//   min-height: 60px;
+// }
 
-.title {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+// .title {
+//   position: absolute;
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
   
-  opacity: 0.2;
-  cursor: default;
-}
+//   opacity: 0.2;
+//   cursor: default;
+// }
 
 // .header-container {
 //   display: flex;

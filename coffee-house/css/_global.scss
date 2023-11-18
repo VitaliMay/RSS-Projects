@@ -52,29 +52,29 @@ button {
   appearance: none; /* Removes platform-specific styling */
   color: inherit;
   
-  // border: solid 2px blue; /*чтобы увидеть кнопку*/
+  border: solid 2px blue; /*чтобы увидеть кнопку*/
 }
 
 /***************************************************************/
 /***************************************************************/
 
-@font-face {
-  font-family: 'Roboto';
-  src: url("../assets/fonts/Roboto-Regular.ttf");
-  font-weight: 400;
-}
+// @font-face {
+//   font-family: 'Roboto';
+//   src: url("../assets/fonts/Roboto-Regular.ttf");
+//   font-weight: 400;
+// }
 
-@font-face {
-  font-family: 'Roboto';
-  src: url("../assets/fonts/Roboto-Bold.ttf");
-  font-weight: 700;
-}
+// @font-face {
+//   font-family: 'Roboto';
+//   src: url("../assets/fonts/Roboto-Bold.ttf");
+//   font-weight: 700;
+// }
 
-@font-face {
-  font-family: 'Roboto';
-  src: url("../assets/fonts/Roboto-Italic.ttf");
-  font-weight: 500;
-}
+// @font-face {
+//   font-family: 'Roboto';
+//   src: url("../assets/fonts/Roboto-Italic.ttf");
+//   font-weight: 500;
+// }
 
 /***************************************************************/
 /***************************************************************/
@@ -114,6 +114,30 @@ body {
 	//min-height: 100%;
 	min-height: 100vh;
 
+  font-family: 'Inter';
+  color: #403F3D;
+  font-style: normal;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+
+  // background-color: green;
+
+}
+
+.container{
+  width: 100%;
+  max-width: 1440px;
+  // width: 1440px; // было
+
+  margin: 0 auto;
+
+  background-color: blue;
+  padding: 0rem 4rem;
+
+  @media screen and (max-width: 740px){
+    padding: 0rem 1rem;
+  }
 }
 
 /* чтобы прижать футер к низу страницы*/
