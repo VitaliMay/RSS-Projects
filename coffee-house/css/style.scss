@@ -33,19 +33,46 @@ body {
 
 
 
-// .main {
-//   width: 100%;
-//   height: 100%;
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 100px;
+}
 
-//   // накладываю на wrapper заблюренную картинку
-//   backdrop-filter: blur(10px);
+.section {
+  // border: solid red 2px;
+  width: 100%;
+}
 
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: center;
-//   align-items: center;
-// }
+.title {
+  color:#403F3D;
 
+  // Desktop/Heading/heading-2
+  font-family: Inter;
+  font-size: 60px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 125%; /* 75px */
+
+  &--accent {
+    color: #B0907A;
+
+    // Desktop/Heading/heading-2.accent
+    font-style: italic;
+  }
+}
+
+.title-3 {
+  color:#403F3D;
+  text-align: center;
+
+  // Desktop/Heading/heading-3
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 125%; /* 30px */
+}
 
 /**********************************************/
 /**********************************************/
@@ -105,6 +132,32 @@ body {
 
 .menu__list-link {
   background-color: #f9dd94;
+  cursor: pointer;
+
+  position: relative;
+
+  &::before {
+    content: '';
+    // bottom: 0;
+    // right: 0;
+    position: absolute;
+    width: 0%;
+    // height: 2px;
+    // background-color: #ffffff;
+    background-color: red;
+    transition: 0.4s;
+  }
+
+  // подчеркивание из центра
+  &::before {
+    bottom: -4px;
+    width: 100%;
+    height: 2px;
+    transform: scaleX(0);
+  }
+  &:hover:before {
+    transform: scaleX(1);
+  }
 }
 
 .menu__list {
@@ -119,17 +172,19 @@ body {
   &-item {
     transition: 0.4s;
   }
-  &-item:hover {
-    color: #BB945F;
 
-    // меню исчезает и появляется ПЛАВНО
-    transition: 0.4s;
+  // подчеркивание сверху вниз
+  // &-item:hover {
+  //   color: #BB945F;
 
-    background: linear-gradient(to left, #f69ec4, #f9dd94 100%);
-    background-position: 0 100%;
-    background-size: 100% 2px;
-    background-repeat: repeat-x;
-  }
+  //   // меню исчезает и появляется ПЛАВНО
+  //   transition: 0.4s;
+
+  //   background: linear-gradient(to left, #f69ec4, #f9dd94 100%);
+  //   background-position: 0 100%;
+  //   background-size: 100% 2px;
+  //   background-repeat: repeat-x;
+  // }
 }
 
 .coffee-menu {
@@ -137,7 +192,7 @@ body {
   display: flex;
   column-gap: 8px;
   justify-content: space-between;
-  width: 72px;
+  // width: 72px;
   height: 24px;
 
   background-color: antiquewhite;
@@ -154,6 +209,8 @@ body {
 }
 
 /************/
+
+
 .header-hero {
   width: 100%;
   height: 644px;
@@ -186,23 +243,185 @@ body {
   &__offer {
     z-index: 2;
     color: #E1D4C9;
-    font-size: 72px;
+    // font-size: 72px;
     // font-family: 'Inter';
     // font-style: normal;
     // font-weight: 600;
-    line-height: 105%;
+    // line-height: 105%;
     width: 100%;
     max-width: 730px;
     padding: 100px;
 
-    & span {
+    display: flex;
+    flex-direction: column;
+    // justify-content: space-between;
+    justify-content: center;
+    row-gap: 40px;
+
+    // background-color: green;
+
+    &-title {
+      font-size: 72px;
+      line-height: 105%;
+    }
+
+    &-title span {
       color: #B0907A;
       font-style: italic;
+    }
+
+    &-text {
+      font-weight: 400;
     }
   }
 }
 
+.header-hero__offer-button {
+  width: 200px;
+  padding: 20px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
+  border-radius: 100px;
+  background-color:#E1D4C9;
+  border: solid 2px #E1D4C9;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+}
+
+.coffee-menu--hero {
+  margin: 0;
+  color: #403F3D;
+  background-color: inherit;
+
+}
+
+// выезд картинки
+.coffee-menu__img--hero {
+  opacity: 0;
+  visibility: hidden;
+  width: 0;
+  // height: 0;
+  transition: 0.4s;
+}
+
+.header-hero__offer-button:hover .coffee-menu__img--hero {
+  opacity: 1;
+  visibility: visible;
+  width: 20px;
+  // height: 20px;
+  transition: 0.4s;
+}
+
+/********* section Favorites Coffee *****************************************************/
+/****************************************************************************************/
+
+.title--favorites {
+  text-align: center;
+}
+
+.favorites-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 40px;
+}
+
+/******************************/
+
+.slider {
+  border: solid greenyellow 2px;
+  width: 100%;
+}
+
+.slider-block {
+  // background-color: #8E8E8E;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 2rem;
+}
+
+
+.slider-inner {
+  display: flex;
+  column-gap: 10px;
+
+  overflow: hidden;
+
+  max-width: 480px;
+}
+
+.slider-inner_item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 20px;
+  background-color: blueviolet;
+
+  &__img {
+    width: 480px;
+    height: 480px;
+    flex-shrink: 0; // чтобы картинка не сжималась
+    // background-color: cadetblue;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    &--01 {
+      background-image: url(../assets/img/coffee-slider-1.png);
+    }
+    &--02 {
+      background-image: url(../assets/img/coffee-slider-2.png);
+    }
+    &--03 {
+      background-image: url(../assets/img/coffee-slider-3.png);
+    }
+  }
+
+  &__description {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 16px;
+
+    text-align: center;
+    font-weight: 400;
+  }
+}
+
+
+/***************************************/
+
+.slider-btn {
+  display: flex;
+  width: 60px;
+  height: 60px;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 100px;
+  border: 1px solid #665F55;
+
+  &__arrow {
+    width: 24px;
+    height: 24px;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    &--left {
+      background-image: url(../assets/svg/arrow-left.svg);
+    }
+
+    &--right {
+      background-image: url(../assets/svg/arrow-right.svg);
+    }
+  }
+}
 
 /**********************************************/
 /**********************************************/
