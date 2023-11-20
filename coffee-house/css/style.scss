@@ -38,6 +38,7 @@ body {
   flex-direction: column;
   align-items: center;
   row-gap: 100px;
+  margin-bottom: 100px;
 }
 
 .section {
@@ -593,9 +594,6 @@ body {
   }
 }
 
-
-
-
 /*****************/
 
 .mobile-img {
@@ -607,7 +605,119 @@ body {
   background-image: url(../assets/img/mobile-screens.png);
 }
 
+/************************************************************************************/
+/************************************************************************************/
 
+.footer-inner {
+  display: flex;
+  padding: 100px;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 40px;
+  background-color:  #665F55;
+
+}
+
+.footer-content {
+  width: 530px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  row-gap: 40px;
+}
+
+.footer__btn-container {
+  display: flex;
+  column-gap: 12px;
+}
+
+.footer-contacts {
+  padding-bottom: 5px; // Не нужен но подгоняю для ПП
+  width: 100%;
+  max-width: 530px;
+  color:#E1D4C9;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  row-gap: 40px;
+  // flex: 1 0 0;
+
+  &_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 18px; // надо 16 но подгоняю для ПП
+  }
+
+  &__item {
+    display: flex;
+    column-gap: 8px;
+  }
+
+  &__item-img {
+    width: 20px;
+    height: 20px;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%;
+
+    &--01 {
+      background-image: url(../assets/svg/icon_pin-alt.svg);
+    }
+    &--02 {
+      background-image: url(../assets/svg/icon_phone.svg);
+    }
+    &--03 {
+      background-image: url(../assets/svg/icon_clock.svg);
+    }
+  }
+}
+
+.title-3--footer-contacts {
+  color:#E1D4C9;
+  text-align: left;
+}
+
+
+/********************************************************/
+
+.social-btn {
+  display: flex;
+  width: 60px;
+  height: 60px;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 100px;
+  border: 1px solid #C1B6AD;
+
+  &__icon {
+    width: 24px;
+    height: 24px;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    &--01 {
+      background-image: url(../assets/svg/icon-twitter.svg);
+    }
+
+    &--02 {
+      background-image: url(../assets/svg/icon-instagram.svg);
+    }
+
+    &--03 {
+      background-image: url(../assets/svg/icon-facebook.svg);
+    }
+  }
+}
+
+/************************************************************************************/
+/************************************************************************************/
 
 /**********************************************/
 /****** Сохраняю пропорции блока с картинкой ****************************************/
@@ -654,68 +764,68 @@ body {
 /***********************************************/
 /***********************************************************/
 
-.footer {
-  background-color: rgb(80, 80, 80);
-  box-shadow: 10px 10px 40px -2px rgba(0, 0, 0, 0.25);
+// .footer {
+//   background-color: rgb(80, 80, 80);
+//   box-shadow: 10px 10px 40px -2px rgba(0, 0, 0, 0.25);
 
-  font-family: 'Roboto';
-  font-size: 12px;
-  font-weight: 700;
-  color: rgb(255, 255, 255);
+//   font-family: 'Roboto';
+//   font-size: 12px;
+//   font-weight: 700;
+//   color: rgb(255, 255, 255);
 
-  opacity: 0.8;
-}
+//   opacity: 0.8;
+// }
 
-.footer-container {
+// .footer-container {
 
-  margin: 0 auto;
-  width: 100%;
-  max-width: 600px;
-  // max-width: 1440px;
+//   margin: 0 auto;
+//   width: 100%;
+//   max-width: 600px;
+//   // max-width: 1440px;
 
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px;
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+//   padding: 15px;
 
-}
+// }
 
-.github-visit {  // закоментировано в html
-  margin-left: 10px;
-}
+// .github-visit {  // закоментировано в html
+//   margin-left: 10px;
+// }
 
-.footer-container__github {
-  display: flex;
-  align-items: center;
-}
+// .footer-container__github {
+//   display: flex;
+//   align-items: center;
+// }
 
-.footer-container__github:hover{
-  text-decoration: underline;
-}
+// .footer-container__github:hover{
+//   text-decoration: underline;
+// }
 
-.footer-link {
-  // transition: 0.3s;
-  opacity: 70%;
+// .footer-link {
+//   // transition: 0.3s;
+//   opacity: 70%;
 
-  transform: scale(1);
+//   transform: scale(1);
 
-  transition: all 0.4s;
+//   transition: all 0.4s;
   
-    &:hover {
-      transform: scale(1.2);
-      transition: all 0.4s;
-      opacity: 100%;
-    }
-    &:active {
-      transform: scale(0.9);
-      transition: all 0.4s;
-    }
-}
+//     &:hover {
+//       transform: scale(1.2);
+//       transition: all 0.4s;
+//       opacity: 100%;
+//     }
+//     &:active {
+//       transform: scale(0.9);
+//       transition: all 0.4s;
+//     }
+// }
 
-.footer-container__copy {
-  color: rgb(0, 0, 0);
-  margin-left: 25px;
-}
+// .footer-container__copy {
+//   color: rgb(0, 0, 0);
+//   margin-left: 25px;
+// }
 
 /*********************************************************/
 /*********************************************************/
