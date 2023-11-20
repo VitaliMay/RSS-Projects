@@ -274,6 +274,8 @@ body {
 .header-hero__offer-title {
   font-size: 72px;
   line-height: 105%;
+  font-style: normal;
+  font-weight: 600;
 }
 .header-hero__offer-title span {
   color: #B0907A;
@@ -487,6 +489,78 @@ body {
 }
 .about-block_item__img--04 {
   background-image: url(../assets/img/about-4.png);
+}
+
+/********* section Mobile App *****************************************************/
+/****************************************************************************************/
+.mobile-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  row-gap: 100px;
+}
+
+.mobile-content {
+  width: 100%;
+  max-width: 630px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  row-gap: 40px;
+}
+.mobile-content__text {
+  font-weight: 400;
+}
+.mobile-content__btn-container {
+  display: flex;
+  -moz-column-gap: 20px;
+       column-gap: 20px;
+}
+
+/******************/
+.btn-link {
+  padding: 12px 20px;
+  width: 200px;
+  display: flex;
+  align-items: center;
+  -moz-column-gap: 8px;
+       column-gap: 8px;
+  border-radius: 100px;
+  border: 1px solid #665F55;
+}
+
+.btn-link__icon {
+  width: 36px;
+  height: 36px;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.btn-link__icon--01 {
+  background-image: url(../assets/svg/icon-Apple.svg);
+}
+.btn-link__icon--02 {
+  background-image: url(../assets/svg/icon-Google.svg);
+}
+
+.btn-link__content {
+  display: flex;
+  flex-direction: column-reverse;
+}
+.btn-link__content--text {
+  color: #403F3D;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 140%; /* 14px */
+}
+
+/*****************/
+.mobile-img {
+  width: 630px;
+  height: 630px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url(../assets/img/mobile-screens.png);
 }
 
 /**********************************************/

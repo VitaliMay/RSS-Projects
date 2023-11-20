@@ -263,6 +263,8 @@ body {
     &-title {
       font-size: 72px;
       line-height: 105%;
+      font-style: normal;
+      font-weight: 600;
     }
 
     &-title span {
@@ -479,7 +481,6 @@ body {
   width: 660px;
   height: 590px;
   border-radius: 20px;
-  // position: relative;
   overflow: hidden;
   display: flex;
   justify-content: center;
@@ -490,10 +491,6 @@ body {
   }
 
   &__img {
-    // position: absolute;
-    // transform: translate(-50%, -50%);
-    // top: -10%;
-    // top: -50px;
     width: 660px;
     height: 660px;
     transform: scale(1.1);
@@ -521,6 +518,96 @@ body {
     }
   }
 }
+
+
+/********* section Mobile App *****************************************************/
+/****************************************************************************************/
+
+.mobile-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  row-gap: 100px;
+}
+
+.mobile-content {
+  width: 100%;
+  max-width: 630px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  row-gap: 40px;
+
+  &__text {
+    font-weight: 400;
+  }
+
+  &__btn-container {
+    display: flex;
+    column-gap: 20px;
+  }
+}
+
+/******************/
+
+.btn-link {
+  padding: 12px 20px;
+  width: 200px;
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+
+  border-radius: 100px;
+  border: 1px solid #665F55;
+}
+
+.btn-link__icon {
+  width: 36px;
+  height: 36px;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  &--01 {
+    background-image: url(../assets/svg/icon-Apple.svg);
+  }
+  &--02 {
+    background-image: url(../assets/svg/icon-Google.svg);
+  }
+}
+
+.btn-link__content {
+  display: flex;
+  flex-direction: column-reverse;
+
+  &--text {
+    color: #403F3D;
+    // text-align: center;
+    // font-feature-settings: 'clig' off, 'liga' off;
+    // font-family: Inter;
+    font-size: 10px;
+    // font-style: normal;
+    font-weight: 600;
+    line-height: 140%; /* 14px */
+  }
+}
+
+
+
+
+/*****************/
+
+.mobile-img {
+  width: 630px;
+  height: 630px;
+  // background-size: contain;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url(../assets/img/mobile-screens.png);
+}
+
+
 
 /**********************************************/
 /****** Сохраняю пропорции блока с картинкой ****************************************/
