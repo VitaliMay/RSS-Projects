@@ -1,0 +1,18 @@
+.logo--active {
+  cursor: pointer;
+}
+.logo--active:active {
+  transform: scale(0.9);
+  transition: all 0.4s;
+}
+
+.menu__list-link--disabled {
+  cursor: default;
+}
+.menu__list-link--disabled::before {
+  transform: scaleX(1);
+}
+.menu__list-link--disabled:active {
+  transform: scale(1);
+  transition: all 0.4s;
+}/*# sourceMappingURL=style-menu.css.map */
