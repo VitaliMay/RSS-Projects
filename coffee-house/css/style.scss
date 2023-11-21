@@ -91,7 +91,7 @@ body {
   align-items: center;
   min-height: 100px;
   column-gap: 4rem;
-  background-color: #f69ec4;
+  // background-color: #f69ec4;
 
   position: relative; /*для адаптации бургера*/
   // flex-wrap: wrap;
@@ -103,7 +103,13 @@ body {
 }
 
 .logo {
-  background-image: url(../assets/img/logo.png);
+  display: flex;
+  cursor: default;
+}
+
+.logo-img {
+  background-image: url(../assets/svg/logo.svg);
+  // background-image: url(../assets/img/logo.png);
   background-size: contain;
   // background-size: cover;
   background-repeat: no-repeat;
@@ -111,7 +117,7 @@ body {
   width: 100px;
   height: 60px;
   flex-shrink: 0;
-  border: solid red 2px;
+  // border: solid red 2px;
 }
 
 .menu {
@@ -121,7 +127,7 @@ body {
   width: 100%;
   max-width: 893px;
   // min-width: 760px;
-  background-color: tomato;
+  // background-color: tomato;
   justify-content: center;
 
   @media screen and (max-width: 850px){
@@ -132,8 +138,9 @@ body {
 }
 
 .menu__list-link {
-  background-color: #f9dd94;
+  // background-color: #f9dd94;
   cursor: pointer;
+  transition: 0.4s;
 
   position: relative;
 
@@ -144,20 +151,33 @@ body {
     position: absolute;
     width: 0%;
     // height: 2px;
-    // background-color: #ffffff;
-    background-color: red;
+    background-color: #403F3D;
+    // background-color: red;
     transition: 0.4s;
   }
 
   // подчеркивание из центра
   &::before {
-    bottom: -4px;
+    bottom: -6px;
     width: 100%;
     height: 2px;
     transform: scaleX(0);
   }
   &:hover:before {
     transform: scaleX(1);
+  }
+
+  &--position::before { // для ПП в меню
+    bottom: -4px;
+    // transform: scaleX(1);
+  }
+  &--color::before {  // для футера
+    background-color: #E1D4C9;
+  }
+
+  &:active {
+    transform: scale(0.9);
+    transition: all 0.4s;
   }
 }
 
@@ -172,6 +192,11 @@ body {
 
   &-item {
     transition: 0.4s;
+
+    &:active {
+      transform: scale(0.9);
+      transition: all 0.4s;
+    }
   }
 
   // подчеркивание сверху вниз
@@ -196,7 +221,7 @@ body {
   // width: 72px;
   height: 24px;
 
-  background-color: antiquewhite;
+  // background-color: antiquewhite;
 
   &__img {
     background-image: url(../assets/svg/coffee-cup.svg);
@@ -290,8 +315,15 @@ body {
   background-color:#E1D4C9;
   border: solid 2px #E1D4C9;
 
+  transition: all 0.4s;
+
   &:hover {
     cursor: pointer;
+  }
+
+  &:active {
+    transform: scale(0.9);
+    transition: all 0.4s;
   }
 
 }
@@ -365,7 +397,7 @@ body {
   flex-direction: column;
   align-items: center;
   row-gap: 20px;
-  background-color: blueviolet;
+  // background-color: blueviolet;
 
   &__img {
     width: 480px;
@@ -409,6 +441,21 @@ body {
 
   border-radius: 100px;
   border: 1px solid #665F55;
+  transition: all 0.6s;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #665F55;
+    transition: all 0.6s;
+  }
+  &:hover .slider-btn__arrow--right {
+    background-image: url(../assets/svg/arrow-right_hover.svg);
+    transition: all 0.6s;
+  }
+  &:hover .slider-btn__arrow--left {
+    background-image: url(../assets/svg/arrow-left_hover.svg);
+    transition: all 0.6s;
+  }
 
   &__arrow {
     width: 24px;
@@ -423,6 +470,11 @@ body {
     &--right {
       background-image: url(../assets/svg/arrow-right.svg);
     }
+  }
+
+  &:active {
+    transform: scale(0.9);
+    transition: all 0.4s;
   }
 }
 
@@ -549,6 +601,7 @@ body {
     display: flex;
     column-gap: 20px;
   }
+
 }
 
 /******************/
@@ -562,6 +615,28 @@ body {
 
   border-radius: 100px;
   border: 1px solid #665F55;
+  transition: all 0.6s;
+
+  &:hover {
+    background-color: #665F55;
+    color: #E1D4C9;
+    transition: all 0.6s;
+
+  }
+
+  &:active {
+    transform: scale(0.9);
+    transition: all 0.4s;
+  }
+
+  &:hover .btn-link__icon--01 {
+    background-image: url(../assets/svg/icon-Apple_hover.svg);
+    transition: all 0.6s;
+  }
+  &:hover .btn-link__icon--02 {
+    background-image: url(../assets/svg/icon-Google_hover.svg);
+    transition: all 0.6s;
+  }
 }
 
 .btn-link__icon {
@@ -572,9 +647,11 @@ body {
 
   &--01 {
     background-image: url(../assets/svg/icon-Apple.svg);
+    transition: all 0.6s;
   }
   &--02 {
     background-image: url(../assets/svg/icon-Google.svg);
+    transition: all 0.6s;
   }
 }
 
@@ -583,7 +660,7 @@ body {
   flex-direction: column-reverse;
 
   &--text {
-    color: #403F3D;
+    // color: #403F3D;
     // text-align: center;
     // font-feature-settings: 'clig' off, 'liga' off;
     // font-family: Inter;
@@ -610,12 +687,14 @@ body {
 
 .footer-inner {
   display: flex;
-  padding: 100px;
+  padding: 98px 100px;
   justify-content: space-between;
   align-items: center;
   border-radius: 40px;
   background-color:  #665F55;
 
+  flex-wrap: wrap;
+  row-gap: 100px;
 }
 
 .footer-content {
@@ -632,26 +711,26 @@ body {
 }
 
 .footer-contacts {
-  padding-bottom: 5px; // Не нужен но подгоняю для ПП
   width: 100%;
   max-width: 530px;
   color:#E1D4C9;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  row-gap: 40px;
-  // flex: 1 0 0;
+  row-gap: 38px; // надо 40 но подгоняю для ПП
 
   &_container {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    row-gap: 18px; // надо 16 но подгоняю для ПП
+    row-gap: 20px; // надо 16 но подгоняю для ПП (4px макет даёт для подчеркивания)
   }
 
   &__item {
     display: flex;
     column-gap: 8px;
+    width: max-content;  // ограничивает контейнер размером контента
+    // background-color: antiquewhite;
   }
 
   &__item-img {
@@ -696,6 +775,32 @@ body {
   border-radius: 100px;
   border: 1px solid #C1B6AD;
 
+  transition: all 0.6s;
+
+  &:hover {
+    background-color: #E1D4C9;
+    border: 1px solid #E1D4C9;
+    transition: all 0.6s;
+  }
+
+  &:active {
+    transform: scale(0.9);
+    transition: all 0.4s;
+  }
+
+  &:hover .social-btn__icon--01{
+    background-image: url(../assets/svg/icon-twitter_hover.svg);
+    transition: all 0.6s;
+  }
+  &:hover .social-btn__icon--02{
+    background-image: url(../assets/svg/icon-instagram_hover.svg);
+    transition: all 0.6s;
+  }
+  &:hover .social-btn__icon--03{
+    background-image: url(../assets/svg/icon-facebook_hover.svg);
+    transition: all 0.6s;
+  }
+
   &__icon {
     width: 24px;
     height: 24px;
@@ -704,14 +809,17 @@ body {
 
     &--01 {
       background-image: url(../assets/svg/icon-twitter.svg);
+      transition: all 0.6s;
     }
 
     &--02 {
       background-image: url(../assets/svg/icon-instagram.svg);
+      transition: all 0.6s;
     }
 
     &--03 {
       background-image: url(../assets/svg/icon-facebook.svg);
+      transition: all 0.6s;
     }
   }
 }
