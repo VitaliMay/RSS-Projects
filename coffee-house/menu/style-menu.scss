@@ -93,17 +93,32 @@
   }
 }
 
-.tab-item:hover {
-  background-color: #665F55;
-  color: #E1D4C9;
-  border: 1px solid #665F55;
-  transition: all 0.6s;
+@media (hover: hover) {
 
-  & .tab-item_img {
-    background-color: #E1D4C9;
+  .tab-item:hover {
+    background-color: #665F55;
+    color: #E1D4C9;
+    border: 1px solid #665F55;
     transition: all 0.6s;
+
+    & .tab-item_img {
+      background-color: #E1D4C9;
+      transition: all 0.6s;
+    }
   }
 }
+
+// .tab-item:hover {
+//   background-color: #665F55;
+//   color: #E1D4C9;
+//   border: 1px solid #665F55;
+//   transition: all 0.6s;
+
+//   & .tab-item_img {
+//     background-color: #E1D4C9;
+//     transition: all 0.6s;
+//   }
+// }
 
 .tab-item--active {
   cursor: default;
@@ -156,11 +171,18 @@
   }
 }
 
-.card:hover .card-img__item{
-  transform: scale(1);
-  transition: ease-out 0.6s;
-  // transition: all 0.6s;
+@media (hover: hover) {
+  .card:hover .card-img__item{
+    transform: scale(1);
+    transition: ease-out 0.6s;
+  }
 }
+
+// .card:hover .card-img__item{
+//   transform: scale(1);
+//   transition: ease-out 0.6s;
+//   // transition: all 0.6s;
+// }
 
 .card-img {
   width: 310px;

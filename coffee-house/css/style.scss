@@ -176,9 +176,15 @@ body {
     height: 2px;
     transform: scaleX(0);
   }
-  &:hover:before {
-    transform: scaleX(1);
+
+  @media (hover: hover) {
+    &:hover:before {
+      transform: scaleX(1);
+    }
   }
+  // &:hover:before {
+  //   transform: scaleX(1);
+  // }
 
   &--position::before { // для ПП в меню
     bottom: -4px;
@@ -335,9 +341,15 @@ body {
 
   transition: all 0.4s;
 
-  &:hover {
-    cursor: pointer;
+  @media (hover: hover) {
+    &:hover {
+      cursor: pointer;
+    }
   }
+
+  // &:hover {
+  //   cursor: pointer;
+  // }
 
   &:active {
     transform: scale(0.9);
@@ -364,19 +376,29 @@ body {
   margin-left: 0px;
 }
 
-.header-hero__offer-button:hover .coffee-menu__img--hero {
-  width: 20px;
-  // height: 20px;
-  transition: 0.4s;
-  // transition: width 0.4s, opacity 2s;
-  opacity: 1;
-  visibility: visible;
-  margin-left: 8px;
-
-  // transition-duration: 0.3s, 0.3s, 0.3s;
-	// transition-property: width, visibility, opacity;
-	// transition-delay: 0s, 0.3s, 0.3s;
+@media (hover: hover) {
+  .header-hero__offer-button:hover .coffee-menu__img--hero {
+    width: 20px;
+    transition: 0.4s;
+    opacity: 1;
+    visibility: visible;
+    margin-left: 8px;
+  }
 }
+
+// .header-hero__offer-button:hover .coffee-menu__img--hero {
+//   width: 20px;
+//   // height: 20px;
+//   transition: 0.4s;
+//   // transition: width 0.4s, opacity 2s;
+//   opacity: 1;
+//   visibility: visible;
+//   margin-left: 8px;
+
+//   // transition-duration: 0.3s, 0.3s, 0.3s;
+// 	// transition-property: width, visibility, opacity;
+// 	// transition-delay: 0s, 0.3s, 0.3s;
+// }
 
 /********* section Favorites Coffee *****************************************************/
 /****************************************************************************************/
@@ -470,17 +492,22 @@ body {
   transition: all 0.6s;
   cursor: pointer;
 
-  &:hover {
-    background-color: #665F55;
-    transition: all 0.6s;
-  }
-  &:hover .slider-btn__arrow--right {
-    background-image: url(../assets/svg/arrow-right_hover.svg);
-    transition: all 0.6s;
-  }
-  &:hover .slider-btn__arrow--left {
-    background-image: url(../assets/svg/arrow-left_hover.svg);
-    transition: all 0.6s;
+  @media (hover: hover) {
+    &:hover {
+      background-color: #665F55;
+      transition: all 0.6s;
+    }
+
+    &:hover .slider-btn__arrow--right {
+      background-image: url(../assets/svg/arrow-right_hover.svg);
+      transition: all 0.6s;
+    }
+
+    &:hover .slider-btn__arrow--left {
+      background-image: url(../assets/svg/arrow-left_hover.svg);
+      transition: all 0.6s;
+    }
+
   }
 
   &__arrow {
@@ -505,6 +532,57 @@ body {
 }
 
 /**********************************************/
+/***************************************/
+
+// .slider-btn {
+//   display: flex;
+//   width: 60px;
+//   height: 60px;
+//   justify-content: center;
+//   align-items: center;
+
+//   border-radius: 100px;
+//   border: 1px solid #665F55;
+//   transition: all 0.6s;
+//   cursor: pointer;
+
+//   &:hover {
+//     background-color: #665F55;
+//     transition: all 0.6s;
+//   }
+
+//   &:hover .slider-btn__arrow--right {
+//     background-image: url(../assets/svg/arrow-right_hover.svg);
+//     transition: all 0.6s;
+//   }
+//   &:hover .slider-btn__arrow--left {
+//     background-image: url(../assets/svg/arrow-left_hover.svg);
+//     transition: all 0.6s;
+//   }
+
+//   &__arrow {
+//     width: 24px;
+//     height: 24px;
+//     background-size: cover;
+//     background-repeat: no-repeat;
+
+//     &--left {
+//       background-image: url(../assets/svg/arrow-left.svg);
+//     }
+
+//     &--right {
+//       background-image: url(../assets/svg/arrow-right.svg);
+//     }
+//   }
+
+//   &:active {
+//     transform: scale(0.9);
+//     transition: all 0.4s;
+//   }
+// }
+
+/**********************************************/
+/*********************************************/
 
 .slider-pg {
   // background-color: aqua;
@@ -578,10 +656,16 @@ body {
     background-repeat: no-repeat;
     transition: all 0.6s;
 
-    &:hover {
-      transform: scale(1);
-      transition: all 0.6s;
+    @media (hover: hover) {
+      &:hover {
+        transform: scale(1);
+        transition: all 0.6s;
+      }
     }
+    // &:hover {
+    //   transform: scale(1);
+    //   transition: all 0.6s;
+    // }
 
     &--01 {
       background-image: url(../assets/img/about-1.png);
@@ -643,10 +727,22 @@ body {
   border: 1px solid #665F55;
   transition: all 0.6s;
 
-  &:hover {
-    background-color: #665F55;
-    color: #E1D4C9;
-    transition: all 0.6s;
+  @media (hover: hover) {
+
+    &:hover {
+      background-color: #665F55;
+      color: #E1D4C9;
+      transition: all 0.6s;
+    }
+
+    &:hover .btn-link__icon--01 {
+      background-image: url(../assets/svg/icon-Apple_hover.svg);
+      transition: all 0.6s;
+    }
+    &:hover .btn-link__icon--02 {
+      background-image: url(../assets/svg/icon-Google_hover.svg);
+      transition: all 0.6s;
+    }
 
   }
 
@@ -655,14 +751,20 @@ body {
     transition: all 0.4s;
   }
 
-  &:hover .btn-link__icon--01 {
-    background-image: url(../assets/svg/icon-Apple_hover.svg);
-    transition: all 0.6s;
-  }
-  &:hover .btn-link__icon--02 {
-    background-image: url(../assets/svg/icon-Google_hover.svg);
-    transition: all 0.6s;
-  }
+  // &:hover {
+  //   background-color: #665F55;
+  //   color: #E1D4C9;
+  //   transition: all 0.6s;
+  // }
+
+  // &:hover .btn-link__icon--01 {
+  //   background-image: url(../assets/svg/icon-Apple_hover.svg);
+  //   transition: all 0.6s;
+  // }
+  // &:hover .btn-link__icon--02 {
+  //   background-image: url(../assets/svg/icon-Google_hover.svg);
+  //   transition: all 0.6s;
+  // }
 }
 
 .btn-link__icon {
@@ -803,30 +905,53 @@ body {
   border-radius: 100px;
   border: 1px solid #C1B6AD;
 
+  // box-sizing: border-box;
+
   transition: all 0.6s;
 
-  &:hover {
-    background-color: #E1D4C9;
-    border: 1px solid #E1D4C9;
-    transition: all 0.6s;
+  @media (hover: hover) {
+    &:hover {
+      background-color: #E1D4C9;
+      border: 1px solid #E1D4C9;
+      transition: all 0.6s;
+    }
+
+    &:hover .social-btn__icon--01{
+      background-image: url(../assets/svg/icon-twitter_hover.svg);
+      transition: all 0.6s;
+    }
+    &:hover .social-btn__icon--02{
+      background-image: url(../assets/svg/icon-instagram_hover.svg);
+      transition: all 0.6s;
+    }
+    &:hover .social-btn__icon--03{
+      background-image: url(../assets/svg/icon-facebook_hover.svg);
+      transition: all 0.6s;
+    }
   }
+
+  // &:hover {
+  //   background-color: #E1D4C9;
+  //   border: 1px solid #E1D4C9;
+  //   transition: all 0.6s;
+  // }
+
+  // &:hover .social-btn__icon--01{
+  //   background-image: url(../assets/svg/icon-twitter_hover.svg);
+  //   transition: all 0.6s;
+  // }
+  // &:hover .social-btn__icon--02{
+  //   background-image: url(../assets/svg/icon-instagram_hover.svg);
+  //   transition: all 0.6s;
+  // }
+  // &:hover .social-btn__icon--03{
+  //   background-image: url(../assets/svg/icon-facebook_hover.svg);
+  //   transition: all 0.6s;
+  // }  
 
   &:active {
     transform: scale(0.9);
     transition: all 0.4s;
-  }
-
-  &:hover .social-btn__icon--01{
-    background-image: url(../assets/svg/icon-twitter_hover.svg);
-    transition: all 0.6s;
-  }
-  &:hover .social-btn__icon--02{
-    background-image: url(../assets/svg/icon-instagram_hover.svg);
-    transition: all 0.6s;
-  }
-  &:hover .social-btn__icon--03{
-    background-image: url(../assets/svg/icon-facebook_hover.svg);
-    transition: all 0.6s;
   }
 
   &__icon {
