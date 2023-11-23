@@ -282,6 +282,7 @@ body {
   -o-object-position: top left;
      object-position: top left;
   position: absolute;
+  align-self: center;
 }
 .header-hero__offer {
   z-index: 2;
@@ -343,10 +344,10 @@ body {
 }
 
 .header-hero__offer-button:hover .coffee-menu__img--hero {
-  opacity: 1;
-  visibility: visible;
   width: 20px;
   transition: 0.4s;
+  opacity: 1;
+  visibility: visible;
   margin-left: 8px;
 }
 

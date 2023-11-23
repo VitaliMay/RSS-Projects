@@ -265,6 +265,7 @@ body {
   overflow: hidden;
 
   display: flex;
+
   // justify-content: center;
   // align-items: center;
 
@@ -278,6 +279,8 @@ body {
     // object-fit: contain;
 
     position: absolute;
+
+    align-self: center;  // надо центрировать картинку
   }
 
   &__offer {
@@ -357,16 +360,22 @@ body {
   width: 0;
   // height: 0;
   transition: 0.4s;
+  // transition: width 0.4s;
   margin-left: 0px;
 }
 
 .header-hero__offer-button:hover .coffee-menu__img--hero {
-  opacity: 1;
-  visibility: visible;
   width: 20px;
   // height: 20px;
   transition: 0.4s;
+  // transition: width 0.4s, opacity 2s;
+  opacity: 1;
+  visibility: visible;
   margin-left: 8px;
+
+  // transition-duration: 0.3s, 0.3s, 0.3s;
+	// transition-property: width, visibility, opacity;
+	// transition-delay: 0s, 0.3s, 0.3s;
 }
 
 /********* section Favorites Coffee *****************************************************/
