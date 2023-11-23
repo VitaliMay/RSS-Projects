@@ -56,6 +56,10 @@ body {
   font-weight: 600;
   line-height: 125%; /* 75px */
 
+  &--color {
+    color:#E1D4C9;
+  }
+
   &--accent {
     color: #B0907A;
 
@@ -66,14 +70,23 @@ body {
 
 .title-3 {
   color:#403F3D;
-  text-align: center;
+  // text-align: center;
 
   // Desktop/Heading/heading-3
   font-size: 24px;
   font-style: normal;
   font-weight: 600;
   line-height: 125%; /* 30px */
+
+  &--color {
+    color:#E1D4C9;
+  }
+
+  // &--left {
+  //   text-align: left;
+  // }
 }
+
 
 /**********************************************/
 /**********************************************/
@@ -216,7 +229,7 @@ body {
 .coffee-menu {
   margin-left: auto;
   display: flex;
-  column-gap: 8px;
+  // column-gap: 8px;
   justify-content: space-between;
   // width: 72px;
   height: 24px;
@@ -231,6 +244,7 @@ body {
   // width: 100%;
     width: 20px;
     height: 20px;
+    margin-left: 8px;
   }
 }
 
@@ -314,6 +328,7 @@ body {
   border-radius: 100px;
   background-color:#E1D4C9;
   border: solid 2px #E1D4C9;
+  box-sizing: border-box;
 
   transition: all 0.4s;
 
@@ -342,6 +357,7 @@ body {
   width: 0;
   // height: 0;
   transition: 0.4s;
+  margin-left: 0px;
 }
 
 .header-hero__offer-button:hover .coffee-menu__img--hero {
@@ -350,6 +366,7 @@ body {
   width: 20px;
   // height: 20px;
   transition: 0.4s;
+  margin-left: 8px;
 }
 
 /********* section Favorites Coffee *****************************************************/
@@ -693,6 +710,8 @@ body {
   border-radius: 40px;
   background-color:  #665F55;
 
+  color: #E1D4C9;
+
   flex-wrap: wrap;
   row-gap: 100px;
 }
@@ -713,7 +732,7 @@ body {
 .footer-contacts {
   width: 100%;
   max-width: 530px;
-  color:#E1D4C9;
+  // color:#E1D4C9;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -757,10 +776,10 @@ body {
   }
 }
 
-.title-3--footer-contacts {
-  color:#E1D4C9;
-  text-align: left;
-}
+// .title-3--footer-contacts {
+//   color:#E1D4C9;
+//   // text-align: left;
+// }
 
 
 /********************************************************/

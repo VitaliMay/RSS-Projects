@@ -57,6 +57,10 @@ button {
 /***************************************************************/
 /***************************************************************/
 /***************************************************************/
+* {
+  box-sizing: border-box;
+}
+
 html {
   box-sizing: border-box;
   scroll-behavior: smooth;
@@ -136,6 +140,9 @@ body {
   font-weight: 600;
   line-height: 125%; /* 75px */
 }
+.title--color {
+  color: #E1D4C9;
+}
 .title--accent {
   color: #B0907A;
   font-style: italic;
@@ -143,11 +150,13 @@ body {
 
 .title-3 {
   color: #403F3D;
-  text-align: center;
   font-size: 24px;
   font-style: normal;
   font-weight: 600;
   line-height: 125%; /* 30px */
+}
+.title-3--color {
+  color: #E1D4C9;
 }
 
 /**********************************************/
@@ -245,8 +254,6 @@ body {
 .coffee-menu {
   margin-left: auto;
   display: flex;
-  -moz-column-gap: 8px;
-       column-gap: 8px;
   justify-content: space-between;
   height: 24px;
 }
@@ -256,6 +263,7 @@ body {
   background-repeat: no-repeat;
   width: 20px;
   height: 20px;
+  margin-left: 8px;
 }
 
 /************/
@@ -309,6 +317,7 @@ body {
   border-radius: 100px;
   background-color: #E1D4C9;
   border: solid 2px #E1D4C9;
+  box-sizing: border-box;
   transition: all 0.4s;
 }
 .header-hero__offer-button:hover {
@@ -330,6 +339,7 @@ body {
   visibility: hidden;
   width: 0;
   transition: 0.4s;
+  margin-left: 0px;
 }
 
 .header-hero__offer-button:hover .coffee-menu__img--hero {
@@ -337,6 +347,7 @@ body {
   visibility: visible;
   width: 20px;
   transition: 0.4s;
+  margin-left: 8px;
 }
 
 /********* section Favorites Coffee *****************************************************/
@@ -628,6 +639,7 @@ body {
   align-items: center;
   border-radius: 40px;
   background-color: #665F55;
+  color: #E1D4C9;
   flex-wrap: wrap;
   row-gap: 100px;
 }
@@ -649,7 +661,6 @@ body {
 .footer-contacts {
   width: 100%;
   max-width: 530px;
-  color: #E1D4C9;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -687,11 +698,6 @@ body {
 }
 .footer-contacts__item-img--03 {
   background-image: url(../assets/svg/icon_clock.svg);
-}
-
-.title-3--footer-contacts {
-  color: #E1D4C9;
-  text-align: left;
 }
 
 /********************************************************/
