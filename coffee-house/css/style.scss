@@ -118,6 +118,9 @@ body {
 .logo {
   display: flex;
   cursor: default;
+
+  position: relative;
+  z-index: 22;
 }
 
 .logo-img {
@@ -218,6 +221,10 @@ body {
     }
   }
 
+  &-link--position {
+    margin-left: auto;
+  }
+
   // подчеркивание сверху вниз
   // &-item:hover {
   //   color: #BB945F;
@@ -233,7 +240,7 @@ body {
 }
 
 .coffee-menu {
-  margin-left: auto;
+  // margin-left: auto;
   display: flex;
   // column-gap: 8px;
   justify-content: space-between;
@@ -254,11 +261,223 @@ body {
   }
 }
 
-/************/
+/********************************************************************/
+
+// @media screen and (max-width: 1024px) {
+//   .menu__list {
+//     position: fixed;
+//     right: -33.2rem;
+//     top: 0;
+//     opacity: 6;
+//     transition: 0.7s;
+//     z-index: 16;
+//     /************************************************/
+//     flex-direction: column;
+
+//     align-items: center;
+//     // background-color: #292929;
+//     // background-color: red;
+
+//     // background-color: #000; // так тоже верно
+//     background-color: #0C0C0E;
+
+//     // justify-content: space-around;
+//     // justify-content: center;
+//     row-gap: 3rem;
+//     width: 33.2rem;
+//     min-height: 57rem;
+
+//     // padding-top: 200px;
+//   }
+// }
+
+
+// .menu__list.open {
+//   right: 0;
+//   // top: 50px;
+//   // padding-top: 100px;
+
+//   & .menu__list-item:first-child { //обращаюсь к первому menu__list-link
+//     margin-top: 100px;
+//     // background-color: red;
+//   }
+// }
+
+
+/*******************************************************************/
+
+/*кнопка мобильного меню*/
+.burger-button {
+  z-index: 22;
+  width: 44px;
+  height: 44px;
+  border-radius: 100px;
+  border: 1px solid #665F55;
+
+  justify-content: center;
+  align-items: center;
+
+  flex-shrink: 0;
+  position: relative;
+  display: none;
+
+  @media screen and (max-width: 768.9px) {
+    display: flex;
+  }
+}
+
+/**************************************************************/
+// display: none;
+//   @media (hover: none) {
+//   // @media (hover: hover) and (hover: none) {
+//   display: none;
+//   }
+//   @media screen and (max-width: 1024px) {
+//     display: flex;
+//   }
+/****************************************************************/
+/* рисую кнопку *********************************/
+
+.burger-button__cross {
+  width: 18px;
+  height: 2px;
+  background-color: #403F3D;
+  border-radius: 1.5px;
+  transition: 0.4s all;
+}
+
+.burger-button__cross--01 {
+  position: absolute;
+  transform: translateY(-4px);
+  // transform: translateY(0px) rotate(-45deg);
+  transition: 0.4s all;
+}
+.burger-button__cross--02 {
+  position: absolute;
+  transform: translateY(4px);
+  // transform: translateY(0px) rotate(45deg);
+  transition: 0.4s all;
+}
+
+@media screen and (max-width: 768.9px) {
+  .menu {
+    position: fixed;
+    // right: 0;
+    right: -100vw;
+    top: 0;
+    opacity: 6;
+    transition: 0.7s;
+    z-index: 16;
+    /************************************************/
+    flex-direction: column;
+
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 125%; /* 40px */
+
+    display: flex;
+    width: 100%;
+    max-width: 769px;
+    // width: 768px;
+    height: 100vh;
+
+    // overflow: hidden;
+    // height: 1024px;
+    padding-top: 20px;
+    flex-direction: column;
+    justify-content: flex-start;
+    // justify-content: center;
+    align-items: center;
+    row-gap: 100px;
+    background-color:  #E1D4C9;
+
+    padding-top: 160px;
+  }
+
+  .menu__list {
+    flex-direction: column;
+    align-items: center;
+    row-gap: 60px;
+    line-height: normal;
+  }
+
+  .menu__list-link--position {
+    margin-left: 0;
+  }
+
+  .coffee-menu__img--burger {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+
+
+// @media screen and (max-width: 1024px) {
+//   .burger-button {
+//     display: flex;
+//     justify-content: space-between;
+//     flex-direction: column;
+//   }
+// }
+// @media screen and (max-width: 380px) {
+//   .burger-button {
+//     right: 10px;
+//   }
+// }
+// .burger-button:hover {
+//   transition: 0.3s all;
+//   transform: scale(1.15);
+//   cursor: pointer;
+// }
+
+// #burger-button.rotade {
+//   transform: rotate(-90deg);
+//   transition: 0.4s all;
+//   position: relative;
+
+//   // width: 32px;
+//   // height: 32px;
+// }
+// #burger-button.rotade .burger-button__cross--02 {
+//   background-color: #F1CDB3;
+//   opacity: 0;
+
+// }
+
+
+
+// #burger-button.rotade .burger-button__cross--01 {
+//   // background-color: red;
+//   // background-color: white;
+//   // opacity: 0;
+//   transform: translateY(8px) rotate(-45deg);
+//   // transform: translateY(8px);
+
+//   transition: 0.4s all;
+// }
+
+// #burger-button.rotade .burger-button__cross--03 {
+//   // background-color: green;
+//   // background-color: white;
+//   // opacity: 0;
+//   transform: translateY(-9px) rotate(45deg);
+//   // transform: translateY(-8.5px);
+
+//   transition: 0.4s all;
+// }
+
+
+
+
+/********************************************************************/
+/********************************************************************/
 
 
 .header-hero {
   width: 100%;
+  max-width: 1360px;
   height: 644px;
   border-radius: 40px;
   // height: auto; // 644px
@@ -272,21 +491,27 @@ body {
 
   display: flex;
 
-  // justify-content: center;
+  justify-content: center;
   // align-items: center;
 
   // padding: 100px 100px 100px 0;
 
   &__video {
+    // width: 100%;
     max-width: 1360px;
     // max-height: 644px;
     object-fit: cover;
     object-position: top left;
-    // object-fit: contain;
 
     position: absolute;
 
+    // transform: scale(0.9);
+
     align-self: center;  // надо центрировать картинку
+
+    @media screen and (max-width: 768.9px) { 
+      max-width: 1250px;  // подгоняю для ПП
+    }
   }
 
   &__offer {
@@ -301,13 +526,17 @@ body {
     max-width: 730px;
     padding: 100px;
 
+    @media screen and (max-width: 768.9px) { 
+      padding: 100px 60px;  // подгоняю для ПП
+    }
+
     display: flex;
     flex-direction: column;
     // justify-content: space-between;
     justify-content: center;
     row-gap: 40px;
 
-    // background-color: green;
+    margin-right: auto;
 
     &-title {
       font-size: 72px;
@@ -329,7 +558,7 @@ body {
 
 .header-hero__offer-button {
   width: 200px;
-  padding: 20px 0;
+  padding: 18px 0; // надо 20 но для ПП лучше 18
   display: flex;
   justify-content: center;
   align-items: center;
@@ -338,6 +567,7 @@ body {
   background-color:#E1D4C9;
   border: solid 2px #E1D4C9;
   box-sizing: border-box;
+  // border: none;
 
   transition: all 0.4s;
 
@@ -374,6 +604,17 @@ body {
   transition: 0.4s;
   // transition: width 0.4s;
   margin-left: 0px;
+}
+
+// для устройств без hover (т.е всех с тач-мобильных) открываю чашку
+@media (hover: none) {
+  .coffee-menu__img--hero {
+    opacity: 1;
+    visibility: visible;
+    width: 20px;
+    transition: 0.4s;
+    margin-left: 8px;
+  }
 }
 
 @media (hover: hover) {
@@ -632,6 +873,12 @@ body {
   max-width: 1360px;
   max-height: 1060px;
   overflow: hidden;
+
+  @media (max-width: 1439.9px) {
+    flex-direction: row;
+    justify-content: center;
+    max-height: 1220px;
+  }
 }
 
 .about-block_item {
@@ -643,8 +890,19 @@ body {
   justify-content: center;
   align-items: center;
 
+  @media (max-width: 1439.9px) {
+    order: 1;
+  }
+  @media screen and (max-width: 768.9px) {
+    width: 688px;
+  }
+
   &--size {
     height: 430px;
+
+    @media (max-width: 1439.9px) {
+      order: 2;
+    }
   }
 
   &__img {
@@ -689,6 +947,11 @@ body {
 .mobile-inner {
   display: flex;
   justify-content: space-between;
+
+  @media screen and (max-width: 768.9px) { 
+    justify-content: center;  // подгоняю для ПП
+  }
+
   align-items: center;
   flex-wrap: wrap;
   row-gap: 100px;
@@ -697,6 +960,10 @@ body {
 .mobile-content {
   width: 100%;
   max-width: 630px;
+
+  @media screen and (max-width: 768.9px) { 
+    max-width: 688px;  // подгоняю для ПП
+  }
 
   display: flex;
   flex-direction: column;
@@ -805,6 +1072,11 @@ body {
   width: 630px;
   height: 630px;
   // background-size: contain;
+
+  // @media screen and (max-width: 768.9px) { 
+  //   align-self: center;  // подгоняю для ПП
+  // }
+
   background-size: cover;
   background-repeat: no-repeat;
   background-image: url(../assets/img/mobile-screens.png);
@@ -816,9 +1088,16 @@ body {
 .footer-inner {
   display: flex;
   padding: 98px 100px;
+  margin-bottom: 40px;
+
+  @media screen and (max-width: 768.9px) { 
+    padding: 98px 60px;
+  }
+
   justify-content: space-between;
   align-items: center;
   border-radius: 40px;
+  // box-sizing: border-box;
   background-color:  #665F55;
 
   color: #E1D4C9;
