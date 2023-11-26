@@ -116,6 +116,11 @@
   flex-wrap: wrap;
   overflow: hidden;
 }
+@media screen and (max-width: 768.9px) {
+  .card-container {
+    max-height: 1052px;
+  }
+}
 
 .card {
   width: 310px;

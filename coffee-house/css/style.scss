@@ -316,13 +316,39 @@ body {
 
   justify-content: center;
   align-items: center;
-
+  transition: all 0.4s;
   flex-shrink: 0;
   position: relative;
   display: none;
 
   @media screen and (max-width: 768.9px) {
     display: flex;
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: #665F55;
+      transition: 0.4s all;
+      cursor: pointer;
+    }
+    &:hover .burger-button__cross {
+      background-color: #E1D4C9;
+      transition: 0.6s all;
+    }
+  }
+
+  &:active {
+    transform: scale(0.9);
+    transition: all 0.4s;
+
+    & .burger-button__cross--01 {
+      transform: translateY(0px) rotate(-45deg);
+      transition: 0.4s all;
+    }
+    & .burger-button__cross--02 {
+      transform: translateY(0px) rotate(45deg);
+      transition: 0.4s all;
+    }
   }
 }
 
@@ -344,6 +370,7 @@ body {
   background-color: #403F3D;
   border-radius: 1.5px;
   transition: 0.4s all;
+
 }
 
 .burger-button__cross--01 {
@@ -511,6 +538,7 @@ body {
 
     @media screen and (max-width: 768.9px) { 
       max-width: 1250px;  // подгоняю для ПП
+      // height: 350px;
     }
   }
 
@@ -733,6 +761,15 @@ body {
   transition: all 0.6s;
   cursor: pointer;
 
+  &--menu {
+    border: 1px solid #665F55;
+    display: none;
+
+    @media screen and (max-width: 768.9px) {
+      display: flex;
+    }
+  }
+
   @media (hover: hover) {
     &:hover {
       background-color: #665F55;
@@ -746,6 +783,11 @@ body {
 
     &:hover .slider-btn__arrow--left {
       background-image: url(../assets/svg/arrow-left_hover.svg);
+      transition: all 0.6s;
+    }
+
+    &:hover .slider-btn__arrow--refresh {
+      background-image: url(../assets/svg/icon-refresh_hover.svg);
       transition: all 0.6s;
     }
 
@@ -763,6 +805,11 @@ body {
 
     &--right {
       background-image: url(../assets/svg/arrow-right.svg);
+    }
+
+    &--refresh {
+      background-image: url(../assets/svg/icon-refresh.svg);
+      transition: all 0.6s;
     }
   }
 
@@ -1087,11 +1134,13 @@ body {
 
 .footer-inner {
   display: flex;
-  padding: 98px 100px;
+  padding: 100px 100px;
   margin-bottom: 40px;
+  margin-top: -3px; // для ПП
 
   @media screen and (max-width: 768.9px) { 
-    padding: 98px 60px;
+    margin-top: -4px; // для ПП
+    padding: 102px 60px;
   }
 
   justify-content: space-between;
@@ -1184,6 +1233,14 @@ body {
   border-radius: 100px;
   border: 1px solid #C1B6AD;
 
+  // &--menu {
+  //   border: 1px solid #665F55;
+  //   display: none;
+
+  //   @media screen and (max-width: 768.9px) {
+  //     display: flex;
+  //   }
+  // }
   // box-sizing: border-box;
 
   transition: all 0.6s;
@@ -1253,6 +1310,11 @@ body {
       background-image: url(../assets/svg/icon-facebook.svg);
       transition: all 0.6s;
     }
+
+    // &--refresh {
+    //   background-image: url(../assets/svg/icon-refresh.svg);
+    //   transition: all 0.6s;
+    // }
   }
 }
 

@@ -10,6 +10,7 @@
 
 .menu__list-link--disabled {
   cursor: default;
+  // pointer-events: none; // не нужен так как не ссылка a div
 
   &::before {
     transform: scaleX(1);
@@ -149,6 +150,10 @@
   flex-wrap: wrap;
 
   overflow: hidden;
+
+  @media screen and (max-width: 768.9px) { 
+    max-height: 1052px;
+  }
 }
 
 .card {
