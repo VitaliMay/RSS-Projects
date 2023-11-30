@@ -99,6 +99,11 @@ body {
   margin: 0 auto;
   padding: 0rem 4rem;
 }
+@media screen and (max-width: 740px) {
+  .container {
+    padding: 0px 16px;
+  }
+}
 
 /* чтобы прижать футер к низу страницы*/
 .main {
@@ -134,6 +139,12 @@ body {
   font-style: normal;
   font-weight: 600;
   line-height: 125%; /* 75px */
+}
+@media screen and (max-width: 600px) {
+  .title {
+    font-size: 32px;
+    line-height: 125%; /* 40px */
+  }
 }
 .title--color {
   color: #E1D4C9;
@@ -387,6 +398,11 @@ body {
   display: flex;
   justify-content: center;
 }
+@media screen and (max-width: 768.9px) {
+  .header-hero {
+    height: auto;
+  }
+}
 .header-hero__video {
   max-width: 1360px;
   -o-object-fit: cover;
@@ -399,6 +415,11 @@ body {
 @media screen and (max-width: 768.9px) {
   .header-hero__video {
     max-width: 1250px;
+  }
+}
+@media screen and (max-width: 600px) {
+  .header-hero__video {
+    max-width: 1070px;
   }
 }
 .header-hero__offer {
@@ -418,11 +439,22 @@ body {
     padding: 100px 60px;
   }
 }
+@media screen and (max-width: 600px) {
+  .header-hero__offer {
+    padding: 60px 16px;
+  }
+}
 .header-hero__offer-title {
   font-size: 72px;
   line-height: 105%;
   font-style: normal;
   font-weight: 600;
+}
+@media screen and (max-width: 700px) {
+  .header-hero__offer-title {
+    font-size: 42px;
+    line-height: 115%;
+  }
 }
 .header-hero__offer-title span {
   color: #B0907A;
@@ -512,6 +544,13 @@ body {
   -moz-column-gap: 2rem;
        column-gap: 2rem;
 }
+@media screen and (max-width: 700px) {
+  .slider-block {
+    flex-wrap: wrap;
+    -moz-column-gap: 200px;
+         column-gap: 200px;
+  }
+}
 
 .slider-inner {
   display: flex;
@@ -519,6 +558,16 @@ body {
        column-gap: 10px;
   overflow: hidden;
   max-width: 480px;
+}
+@media screen and (max-width: 700px) {
+  .slider-inner {
+    margin: 0 auto;
+  }
+}
+@media screen and (max-width: 600px) {
+  .slider-inner {
+    max-width: 348px;
+  }
 }
 
 .slider-inner_item {
@@ -530,9 +579,14 @@ body {
 .slider-inner_item__img {
   width: 480px;
   height: 480px;
-  flex-shrink: 0;
   background-size: cover;
   background-repeat: no-repeat;
+}
+@media screen and (max-width: 600px) {
+  .slider-inner_item__img {
+    width: 348px;
+    height: 348px;
+  }
 }
 .slider-inner_item__img--01 {
   background-image: url(../assets/img/coffee-slider-1.png);
@@ -563,6 +617,21 @@ body {
   border: 1px solid #665F55;
   transition: all 0.6s;
   cursor: pointer;
+}
+@media screen and (max-width: 400px) {
+  .slider-btn {
+    display: none;
+  }
+}
+@media screen and (max-width: 700px) {
+  .slider-btn--order-01 {
+    order: 1;
+  }
+}
+@media screen and (max-width: 700px) {
+  .slider-btn--order-02 {
+    order: 2;
+  }
 }
 .slider-btn--menu {
   border: 1px solid #665F55;
@@ -668,7 +737,8 @@ body {
 }
 
 .about-block_item {
-  width: 660px;
+  width: 100%;
+  max-width: 660px;
   height: 590px;
   border-radius: 20px;
   overflow: hidden;
@@ -683,7 +753,7 @@ body {
 }
 @media screen and (max-width: 768.9px) {
   .about-block_item {
-    width: 688px;
+    max-width: 688px;
   }
 }
 .about-block_item--size {
@@ -701,6 +771,7 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   transition: all 0.6s;
+  background-position: center;
 }
 @media (hover: hover) {
   .about-block_item__img:hover {
@@ -735,6 +806,11 @@ body {
     justify-content: center;
   }
 }
+@media screen and (max-width: 500px) {
+  .mobile-inner {
+    row-gap: 40px;
+  }
+}
 
 .mobile-content {
   width: 100%;
@@ -756,6 +832,8 @@ body {
   display: flex;
   -moz-column-gap: 20px;
        column-gap: 20px;
+  row-gap: 20px;
+  flex-wrap: wrap;
 }
 
 /******************/
@@ -766,6 +844,7 @@ body {
   align-items: center;
   -moz-column-gap: 8px;
        column-gap: 8px;
+  flex-shrink: 0;
   border-radius: 100px;
   border: 1px solid #665F55;
   transition: all 0.6s;
@@ -817,8 +896,6 @@ body {
 
 /*****************/
 .mobile-img {
-  width: 630px;
-  height: 630px;
   background-size: cover;
   background-repeat: no-repeat;
   background-image: url(../assets/img/mobile-screens.png);
@@ -843,6 +920,13 @@ body {
   .footer-inner {
     margin-top: -4px;
     padding: 102px 60px;
+  }
+}
+@media screen and (max-width: 450px) {
+  .footer-inner {
+    padding: 60px 16px 66px 16px;
+    row-gap: 40px;
+    margin-top: 1px;
   }
 }
 
@@ -959,6 +1043,29 @@ body {
 /************************************************************************************/
 /**********************************************/
 /****** Сохраняю пропорции блока с картинкой ****************************************/
+.cover {
+  width: 100%; /* здесь можно установить любую нужную ширину */
+  max-width: 630px;
+}
+
+.cover-inner {
+  position: relative;
+  height: 0;
+  border: none;
+}
+
+.cover-content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.cover-inner--ratio {
+  padding-top: 100%;
+}
+
 /***********************************************/
 /***********************************************************/
 /*********************************************************/

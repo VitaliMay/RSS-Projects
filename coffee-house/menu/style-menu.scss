@@ -43,6 +43,10 @@
 .tab-container {
   display: flex;
   column-gap: 16px;
+
+  @media screen and (max-width: 450px) { 
+    column-gap: 8px;
+  }
 }
 
 .tab-item {
@@ -153,6 +157,9 @@
 
   @media screen and (max-width: 768.9px) { 
     max-height: 1052px;
+  }
+  @media screen and (max-width: 690.9px) { 
+    max-height: 2144px;
   }
 }
 

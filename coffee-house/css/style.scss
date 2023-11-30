@@ -56,6 +56,11 @@ body {
   font-weight: 600;
   line-height: 125%; /* 75px */
 
+  @media screen and (max-width: 600px) {
+    font-size: 32px;
+    line-height: 125%; /* 40px */
+  }
+
   &--color {
     color:#E1D4C9;
   }
@@ -522,6 +527,11 @@ body {
   // align-items: center;
 
   // padding: 100px 100px 100px 0;
+  @media screen and (max-width: 768.9px) { 
+    // max-width: 1250px;  // подгоняю для ПП
+    // height: 350px;
+    height: auto;
+  }
 
   &__video {
     // width: 100%;
@@ -529,6 +539,7 @@ body {
     // max-height: 644px;
     object-fit: cover;
     object-position: top left;
+    // object-position: center;
 
     position: absolute;
 
@@ -538,6 +549,10 @@ body {
 
     @media screen and (max-width: 768.9px) { 
       max-width: 1250px;  // подгоняю для ПП
+      // height: 350px;
+    }
+    @media screen and (max-width: 600px) { 
+      max-width: 1070px;  // подгоняю для ПП
       // height: 350px;
     }
   }
@@ -557,6 +572,9 @@ body {
     @media screen and (max-width: 768.9px) { 
       padding: 100px 60px;  // подгоняю для ПП
     }
+    @media screen and (max-width: 600px) { 
+      padding: 60px 16px;  // подгоняю для ПП
+    }
 
     display: flex;
     flex-direction: column;
@@ -571,6 +589,11 @@ body {
       line-height: 105%;
       font-style: normal;
       font-weight: 600;
+
+      @media screen and (max-width: 700px) { 
+        font-size: 42px;
+        line-height: 115%;  // подгоняю для ПП
+      }
     }
 
     &-title span {
@@ -697,6 +720,11 @@ body {
   justify-content: space-between;
   align-items: center;
   column-gap: 2rem;
+
+  @media screen and (max-width: 700px) {
+    flex-wrap: wrap;
+    column-gap: 200px;
+  }
 }
 
 
@@ -707,6 +735,14 @@ body {
   overflow: hidden;
 
   max-width: 480px;
+  // background-color: blueviolet;
+
+  @media screen and (max-width: 700px) {
+    margin: 0 auto;
+  }
+  @media screen and (max-width: 600px) {
+    max-width: 348px;
+  }
 }
 
 .slider-inner_item {
@@ -714,12 +750,17 @@ body {
   flex-direction: column;
   align-items: center;
   row-gap: 20px;
-  // background-color: blueviolet;
+  // background-color: cadetblue;
 
   &__img {
     width: 480px;
     height: 480px;
-    flex-shrink: 0; // чтобы картинка не сжималась
+    @media screen and (max-width: 600px) {
+      width: 348px;
+      height: 348px;
+    }
+
+    // flex-shrink: 0; // чтобы картинка не сжималась
     // background-color: cadetblue;
     background-size: cover;
     background-repeat: no-repeat;
@@ -760,6 +801,21 @@ body {
   border: 1px solid #665F55;
   transition: all 0.6s;
   cursor: pointer;
+
+  @media screen and (max-width: 400px) {
+    display: none;
+  }
+
+  &--order-01 {
+    @media screen and (max-width: 700px) {
+      order: 1;
+    }
+  }
+  &--order-02{
+    @media screen and (max-width: 700px) {
+      order: 2;
+    }
+  }
 
   &--menu {
     border: 1px solid #665F55;
@@ -925,11 +981,14 @@ body {
     flex-direction: row;
     justify-content: center;
     max-height: 1220px;
+
   }
 }
 
 .about-block_item {
-  width: 660px;
+  width: 100%;
+  max-width: 660px;
+  // width: 660px;
   height: 590px;
   border-radius: 20px;
   overflow: hidden;
@@ -941,7 +1000,8 @@ body {
     order: 1;
   }
   @media screen and (max-width: 768.9px) {
-    width: 688px;
+    max-width: 688px;
+    // width: 688px;
   }
 
   &--size {
@@ -960,6 +1020,7 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     transition: all 0.6s;
+    background-position: center; 
 
     @media (hover: hover) {
       &:hover {
@@ -1002,6 +1063,10 @@ body {
   align-items: center;
   flex-wrap: wrap;
   row-gap: 100px;
+
+  @media screen and (max-width: 500px) { 
+    row-gap: 40px;
+  }
 }
 
 .mobile-content {
@@ -1024,6 +1089,8 @@ body {
   &__btn-container {
     display: flex;
     column-gap: 20px;
+    row-gap: 20px;
+    flex-wrap: wrap;
   }
 
 }
@@ -1036,6 +1103,7 @@ body {
   display: flex;
   align-items: center;
   column-gap: 8px;
+  flex-shrink: 0;
 
   border-radius: 100px;
   border: 1px solid #665F55;
@@ -1116,9 +1184,8 @@ body {
 /*****************/
 
 .mobile-img {
-  width: 630px;
-  height: 630px;
-  // background-size: contain;
+  // width: 630px;
+  // height: 630px;
 
   // @media screen and (max-width: 768.9px) { 
   //   align-self: center;  // подгоняю для ПП
@@ -1141,6 +1208,13 @@ body {
   @media screen and (max-width: 768.9px) { 
     margin-top: -4px; // для ПП
     padding: 102px 60px;
+  }
+
+  @media screen and (max-width: 450px) { 
+    padding: 60px 16px 66px 16px; // для ПП
+    row-gap: 40px;
+
+    margin-top: 1px;
   }
 
   justify-content: space-between;
@@ -1324,41 +1398,36 @@ body {
 /**********************************************/
 /****** Сохраняю пропорции блока с картинкой ****************************************/
 
-// .cover {
-//   width: 100%; /* здесь можно установить любую нужную ширину */
-// }
+.cover {
+  width: 100%; /* здесь можно установить любую нужную ширину */
+  max-width: 630px;
+}
 
-// .cover-inner {
-//   position: relative;
-//   height: 0;
-//   border: none;
-// }
+.cover-inner {
+  position: relative;
+  height: 0;
+  border: none;
+}
 
-// .cover-content {
-//   transition: all 0.7s;
-//   position: absolute;
-//   top: 0;
-//   right: 0;
-//   bottom: 0;
-//   left: 0;
-//   // background: #eee;
+.cover-content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 
 //   background-image: url(../assets/img/Lzy-cover02.jpg);
 //   // background-position: center;
 //   background-position: top;
 //   background-size: cover;
-//   // background-size: contain;
 //   background-repeat: no-repeat;
 
-//   border-radius: 5px;
+}
 
-//   // border: solid 2px green;
-//   box-shadow: 10px 10px 40px -2px rgba(0, 0, 0, 0.25);
-// }
-
-// .cover-inner--ratio {
+.cover-inner--ratio {
 //   padding-top: 75%; /* 100% ширины делим на 4 и умножаем на 3 */
-// }
+  padding-top: 100%; // чтобы был квадрат
+}
 
 
 
