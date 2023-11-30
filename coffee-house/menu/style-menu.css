@@ -37,6 +37,12 @@
   -moz-column-gap: 16px;
        column-gap: 16px;
 }
+@media screen and (max-width: 450px) {
+  .tab-container {
+    -moz-column-gap: 8px;
+         column-gap: 8px;
+  }
+}
 
 .tab-item {
   cursor: pointer;
@@ -119,6 +125,11 @@
 @media screen and (max-width: 768.9px) {
   .card-container {
     max-height: 1052px;
+  }
+}
+@media screen and (max-width: 690.9px) {
+  .card-container {
+    max-height: 2144px;
   }
 }
 
