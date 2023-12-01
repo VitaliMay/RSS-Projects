@@ -11,6 +11,105 @@ body {
   background:  #E1D4C9;
 }
 
+// body.lock {
+//   overflow: hidden;
+//   transition: 1s;
+// }
+
+/*****************************************/
+/*****************************************/
+
+body.lock {
+  // position: fixed;
+  width: 100%;
+  overflow: hidden;
+  // overflow-y: scroll; /* Добавить полосу прокрутки для всей страницы */
+}
+
+// для скрола, чтобы просмотреть меню если не влазит в экран
+.menu {
+  position: relative;
+  z-index: 9999;
+  // overflow-y: scroll;
+  max-height: 100vh; // Ограничить высоту .menu до высоты окна просмотра иначе скрола не будет
+}
+.menu.open {
+  overflow-y: auto;
+  @media screen and (max-width: 768.9px) {
+    overflow-y: scroll;
+  }
+}
+
+.fon {
+  position: fixed;
+  top: 0;
+  // left: 0;
+  right: 0;
+  width: 0;
+  // height: 0;
+  height: 100vh;
+  background: rgba(41, 41, 41, 0.6);
+  z-index: -10;
+
+  transition: 0.7s;
+}
+
+.fon.work {
+  z-index: 10;
+  width: 100vw;
+  height: 100vh;
+
+  transition: 0.7s;
+}
+
+// .logo, .burger-button {
+//   position: fixed; /* Зафиксировать logo и burger-button */
+//   /* Дополнительные стили */
+// }
+
+
+/***********************/
+/***********************/
+
+// body.lock {
+//   position: fixed;
+//   width: 100%;
+// }
+
+// .menu {
+//   position: relative; /* чтобы сохранить нормальное позиционирование вашего .menu */
+//   z-index: 9999; /* установить высокий z-index, чтобы .menu  был отображен поверх другого контента */
+//   overflow-y: scroll; /* добавить полосу прокрутки для .menu, если содержимое превышает размеры */
+// }
+/**************************/
+/**************************/
+
+// .container--header.lock {
+//   overflow: hidden;  // лишнее
+//   position: fixed;
+//   width: 100%;
+//   overflow-y: scroll;
+//   z-index: 6;
+//   transition: 1s;
+// }
+// .header-inner.lock {
+//   overflow: hidden;  // лишнее
+//   position: fixed;
+//   width: 100%;
+//   overflow-y: scroll;
+//   z-index: 6;
+// }
+// body.lock {
+//   // overflow: hidden;  // лишнее
+//   position: fixed;
+//   width: 100%;
+//   overflow-y: scroll;
+// }
+
+// body.lock .wrapper {
+//   transition: 1s;
+// }
+
 // .wrapper {
 //   margin: 0 auto;
 
@@ -95,12 +194,11 @@ body {
 
 /**********************************************/
 /**********************************************/
-// .container--header {
-//   display: flex;
-//   justify-content: center;
-//   flex-direction: column;
-//   align-items: center;
-// }
+.container--header { // работает при повороте экрана
+  position: relative;
+  z-index: 40;
+  background-color:  #E1D4C9;
+}
 
 .header-inner{
 
@@ -158,6 +256,124 @@ body {
   // flex-shrink: 0;
 }
 
+.menu__list {
+  display: flex;
+  // justify-content: space-between;
+  column-gap: 4rem;
+  //min-height: 5rem;
+
+  // color: #FFF;
+  line-height: 5rem;
+
+  &-item {
+    transition: 0.4s;
+
+    &:active {
+      transform: scale(0.9);
+      transition: all 0.4s;
+    }
+  }
+
+  &-link--position {
+    margin-left: auto;
+  }
+
+}
+
+.coffee-menu {
+  // margin-left: auto;
+  display: flex;
+  // column-gap: 8px;
+  justify-content: space-between;
+  // width: 72px;
+  height: 24px;
+
+  @media screen and (max-width: 768.9px) {
+    height: auto;
+  }
+
+  // background-color: antiquewhite;
+
+  &__img {
+    background-image: url(../assets/svg/coffee-cup.svg);
+    // background-size: contain;
+    background-size: cover;
+    background-repeat: no-repeat;
+  // width: 100%;
+    width: 20px;
+    height: 20px;
+    margin-left: 8px;
+  }
+}
+
+/*********Прячу меню и стилизую для таблеток и мобиле********************/
+
+@media screen and (max-width: 768.9px) {
+  .menu {
+    position: fixed;
+    // right: 0;
+    right: -105vw;
+    top: 0;
+    opacity: 6;
+    transition: 0.7s;
+    z-index: 16;
+    /************************************************/
+    flex-direction: column;
+
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 125%; /* 40px */
+
+    display: flex;
+    width: 100%;
+    max-width: 769px;
+    // width: 768px;
+    height: 100vh;
+
+    // overflow: hidden;
+    // height: 1024px;
+    padding-top: 20px;
+    flex-direction: column;
+    justify-content: flex-start;
+    // justify-content: center;
+    align-items: center;
+    row-gap: 100px;
+    background-color:  #E1D4C9;
+
+    padding-top: 160px;
+  }
+
+  .menu__list {
+    flex-direction: column;
+    align-items: center;
+    row-gap: 60px;
+    line-height: normal;
+  }
+
+  .menu__list-link--position {
+    margin-left: 0;
+
+    margin-bottom: 80px;
+  }
+
+  .coffee-menu__img--burger {
+    width: 40px;
+    height: 40px;
+    margin-left: 16px;
+  }
+}
+
+/*****************************/
+
+// Открываю меню
+
+.menu.open {
+  right: 0;
+}
+
+/****************************/
+
 .menu__list-link {
   // background-color: #f9dd94;
   cursor: pointer;
@@ -197,6 +413,10 @@ body {
   &--position::before { // для ПП в меню
     bottom: -4px;
     // transform: scaleX(1);
+
+    @media screen and (max-width: 768.9px) {
+      bottom: -7px;
+    }
   }
   &--color::before {  // для футера
     background-color: #E1D4C9;
@@ -208,63 +428,9 @@ body {
   }
 }
 
-.menu__list {
-  display: flex;
-  // justify-content: space-between;
-  column-gap: 4rem;
-  //min-height: 5rem;
 
-  // color: #FFF;
-  line-height: 5rem;
 
-  &-item {
-    transition: 0.4s;
 
-    &:active {
-      transform: scale(0.9);
-      transition: all 0.4s;
-    }
-  }
-
-  &-link--position {
-    margin-left: auto;
-  }
-
-  // подчеркивание сверху вниз
-  // &-item:hover {
-  //   color: #BB945F;
-
-  //   // меню исчезает и появляется ПЛАВНО
-  //   transition: 0.4s;
-
-  //   background: linear-gradient(to left, #f69ec4, #f9dd94 100%);
-  //   background-position: 0 100%;
-  //   background-size: 100% 2px;
-  //   background-repeat: repeat-x;
-  // }
-}
-
-.coffee-menu {
-  // margin-left: auto;
-  display: flex;
-  // column-gap: 8px;
-  justify-content: space-between;
-  // width: 72px;
-  height: 24px;
-
-  // background-color: antiquewhite;
-
-  &__img {
-    background-image: url(../assets/svg/coffee-cup.svg);
-    // background-size: contain;
-    background-size: cover;
-    background-repeat: no-repeat;
-  // width: 100%;
-    width: 20px;
-    height: 20px;
-    margin-left: 8px;
-  }
-}
 
 /********************************************************************/
 
@@ -293,18 +459,6 @@ body {
 //     min-height: 57rem;
 
 //     // padding-top: 200px;
-//   }
-// }
-
-
-// .menu__list.open {
-//   right: 0;
-//   // top: 50px;
-//   // padding-top: 100px;
-
-//   & .menu__list-item:first-child { //обращаюсь к первому menu__list-link
-//     margin-top: 100px;
-//     // background-color: red;
 //   }
 // }
 
@@ -357,16 +511,6 @@ body {
   }
 }
 
-/**************************************************************/
-// display: none;
-//   @media (hover: none) {
-//   // @media (hover: hover) and (hover: none) {
-//   display: none;
-//   }
-//   @media screen and (max-width: 1024px) {
-//     display: flex;
-//   }
-/****************************************************************/
 /* рисую кнопку *********************************/
 
 .burger-button__cross {
@@ -391,58 +535,49 @@ body {
   transition: 0.4s all;
 }
 
-@media screen and (max-width: 768.9px) {
-  .menu {
-    position: fixed;
-    // right: 0;
-    right: -100vw;
-    top: 0;
-    opacity: 6;
-    transition: 0.7s;
-    z-index: 16;
-    /************************************************/
-    flex-direction: column;
+/******заставляю кнопку работать при клике********************************/
 
-    font-size: 32px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 125%; /* 40px */
-
-    display: flex;
-    width: 100%;
-    max-width: 769px;
-    // width: 768px;
-    height: 100vh;
-
-    // overflow: hidden;
-    // height: 1024px;
-    padding-top: 20px;
-    flex-direction: column;
-    justify-content: flex-start;
-    // justify-content: center;
-    align-items: center;
-    row-gap: 100px;
-    background-color:  #E1D4C9;
-
-    padding-top: 160px;
+.burger-button.rotade {
+  & .burger-button__cross--01 {
+    transform: translateY(0px) rotate(-45deg);
+    transition: 0.4s all;
   }
-
-  .menu__list {
-    flex-direction: column;
-    align-items: center;
-    row-gap: 60px;
-    line-height: normal;
-  }
-
-  .menu__list-link--position {
-    margin-left: 0;
-  }
-
-  .coffee-menu__img--burger {
-    width: 40px;
-    height: 40px;
+  & .burger-button__cross--02 {
+    transform: translateY(0px) rotate(45deg);
+    transition: 0.4s all;
   }
 }
+
+// .burger-button.rotade .burger-button__cross--01 {
+//   transform: translateY(8px) rotate(-45deg);
+//   // transform: translateY(8px);
+
+//   transition: 0.4s all;
+// }
+
+// .burger-button.rotade .burger-button__cross--03 {
+//   // background-color: green;
+//   // background-color: white;
+//   // opacity: 0;
+//   transform: translateY(-9px) rotate(45deg);
+//   // transform: translateY(-8.5px);
+
+//   transition: 0.4s all;
+// }
+
+/**************************************************************/
+// display: none;
+//   @media (hover: none) {
+//   // @media (hover: hover) and (hover: none) {
+//   display: none;
+//   }
+//   @media screen and (max-width: 1024px) {
+//     display: flex;
+//   }
+/****************************************************************/
+
+
+
 
 
 
