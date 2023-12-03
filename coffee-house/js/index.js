@@ -14,9 +14,80 @@ const score = `
 console.log(score)
 
 // подключаю модуль
-import arrInfo from "./respInfo.js";
+// import arrInfo from "./respInfo.js";
+// console.log(arrInfo[0])
 
-console.log(arrInfo[0])
+import data from "./products.js";
+
+// const category = ['coffee', 'tea', 'dessert'];
+
+let category = 'coffee'
+
+// data.map((item) => { if (item.category === 'coffee') console.log(item.name)})
+// data.map((item) => { if (item.category === 'tea') console.log(item.name)})
+// data.map((item) => { if (item.category === 'dessert') console.log(item.name)})
+// data.map((item) => { if (item.category === category[1]) console.log(item.name)})
+// console.log(data[0])
+
+const cardContainer = document.querySelector('.menu-offer__card-container')
+const elementsDataCategory = [...document.querySelectorAll('[data-category]')];
+// console.log(elementsDataCategory)
+elementsDataCategory.forEach(element => {
+  element.addEventListener('click', function() {
+    // console.log('Был кликнут элемент:', element);
+    // console.log('Значение data-category:', element.getAttribute('data-category'));
+    category = element.getAttribute('data-category')
+    // console.log(category)
+    cardContainer.innerHTML = '';
+    let out = '';
+
+    // let outNew = 
+    // `
+    // <div class="card">
+		// 	<div class="card-img">
+		// 		<div class="card-img__item card-img__item--01"></div>
+		// 	</div>
+		// 	<div class="card-content">
+		// 			<h3 class="card-content__title title-3">\`${item.name}\`</h3>
+		// 			<p class="card-content__text">Fragrant black coffee with Jameson Irish whiskey and whipped milk</p>
+		// 			<p class="card-content__price title-3">$7.00</p>
+		// 	</div>
+		// </div>
+
+    // `
+    data.map((item) => { if (item.category === category) 
+      {out += 
+        `
+    <div class="card">
+			<div class="card-img">
+				<div class="card-img__item" style="background-image: url('${item.imageUrl}')"></div>
+			</div>
+			<div class="card-content">
+					<h3 class="card-content__title title-3">${item.name}</h3>
+					<p class="card-content__text">${item.description}</p>
+					<p class="card-content__price title-3">$${item.price}</p>
+			</div>
+		</div>
+
+    `
+      }});
+
+      // arrCoverContent[i].style.backgroundImage =`url(${fotoUrl})`
+
+
+    // data.map((item) => { if (item.category === category) out += item.name + '\n'});
+    // data.map((item) => { if (item.category === category) console.log(item.name)});
+    cardContainer.innerHTML = out;
+
+    elementsDataCategory.forEach(el => {
+      if (el === element) {
+        el.classList.add('tab-item--active');
+      } else {
+        el.classList.remove('tab-item--active');
+      }
+    });
+  });
+});
 
 
 /******************************************************** */
