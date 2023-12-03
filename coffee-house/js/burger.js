@@ -3,6 +3,8 @@ const menu = document.querySelector('.menu');
 const body = document.querySelector('body');
 const burgerButton = document.querySelector('.burger-button');
 const fon = document.querySelector('.fon');
+const modal = document.querySelector('.modal')
+const containerHeader = document.querySelector('.container--header')
 
 
 
@@ -34,6 +36,7 @@ function openMenu() {
   burgerButton.classList.add('rotade');
   body.classList.add('lock');
   fon.classList.add('work');
+  containerHeader.classList.add('container--header-active')
 }
 
 function closeMenu() {
@@ -41,7 +44,20 @@ function closeMenu() {
     burgerButton.classList.remove('rotade');
     body.classList.remove('lock');
     fon.classList.remove('work');
+    containerHeader.classList.remove('container--header-active')
 }
+
+/******************************************* */
+function modalFind() {
+  if (modal.classList.contains('modal--active')) {
+    console.log('Привет модалка')
+    closeMenu();
+    fon.classList.add('work');
+
+  }
+}
+
+modalFind()
 
 /************************************************ */
 /************************************************ */

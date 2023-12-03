@@ -129,12 +129,12 @@ body.lock {
 
 .menu {
   position: relative;
-  z-index: 9999;
   max-height: 100vh;
 }
 
 .menu.open {
   overflow-y: auto;
+  z-index: 20;
 }
 @media screen and (max-width: 768.9px) {
   .menu.open {
@@ -213,8 +213,10 @@ body.lock {
 /**********************************************/
 .container--header {
   position: relative;
-  z-index: 40;
   background-color: #E1D4C9;
+}
+.container--header-active {
+  z-index: 40;
 }
 
 .header-inner {
@@ -228,7 +230,8 @@ body.lock {
 }
 @media screen and (max-width: 850px) {
   .header-inner {
-    flex-wrap: wrap;
+    -moz-column-gap: 2rem;
+         column-gap: 2rem;
   }
 }
 
@@ -236,7 +239,7 @@ body.lock {
   display: flex;
   cursor: default;
   position: relative;
-  z-index: 22;
+  z-index: 30;
 }
 
 .logo-img {
@@ -260,6 +263,7 @@ body.lock {
 @media screen and (max-width: 850px) {
   .menu {
     flex-shrink: 0;
+    width: auto;
   }
 }
 
@@ -268,6 +272,12 @@ body.lock {
   -moz-column-gap: 4rem;
        column-gap: 4rem;
   line-height: 5rem;
+}
+@media screen and (max-width: 850px) {
+  .menu__list {
+    -moz-column-gap: 3rem;
+         column-gap: 3rem;
+  }
 }
 .menu__list-item {
   transition: 0.4s;
@@ -391,7 +401,7 @@ body.lock {
 /*******************************************************************/
 /*кнопка мобильного меню*/
 .burger-button {
-  z-index: 22;
+  z-index: 30;
   width: 44px;
   height: 44px;
   border-radius: 100px;
@@ -811,6 +821,13 @@ body.lock {
   .about-block_img {
     flex-direction: row;
     justify-content: center;
+    max-height: 2440px;
+  }
+}
+@media (max-width: 768.9px) {
+  .about-block_img {
+    flex-direction: row;
+    justify-content: center;
     max-height: 1220px;
   }
 }
@@ -880,7 +897,7 @@ body.lock {
   flex-wrap: wrap;
   row-gap: 100px;
 }
-@media screen and (max-width: 768.9px) {
+@media screen and (max-width: 1360px) {
   .mobile-inner {
     justify-content: center;
   }
@@ -1146,6 +1163,118 @@ body.lock {
 }
 
 /***********************************************/
-/***********************************************************/
+/***********************************************/
+/***********************************************/
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -2;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 2s, opacity 2s;
+  width: 100%;
+  max-width: 800px;
+  padding: 16px;
+  border-radius: 40px;
+  background-color: #E1D4C9;
+  display: flex;
+  -moz-column-gap: 20px;
+       column-gap: 20px;
+}
+.modal--active {
+  z-index: 20;
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 2s, opacity 2s;
+}
+@media screen and (max-width: 850px) {
+  .modal {
+    max-width: calc(100vw - 80px);
+  }
+}
+
+.modal-img {
+  width: 310px;
+  height: 310px;
+  border-radius: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background-color: cadetblue;
+  flex-shrink: 0;
+}
+.modal-img__item {
+  width: 310px;
+  height: 310px;
+  transform: scale(1.1);
+  transition: all 0.6s;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.modal-img__item--01 {
+  background-image: url(../assets/img/coffee-1.png);
+}
+
+.modal-info {
+  width: 100%;
+  max-width: 460px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
+  font-weight: 400;
+}
+
+.modal-option {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+}
+.modal-option__text {
+  font-weight: 400;
+}
+
+.modal-total {
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-alert {
+  padding: 12px 0;
+  border-top: 1px solid #C1B6AD;
+  display: flex;
+  -moz-column-gap: 8px;
+       column-gap: 8px;
+  font-size: 10px;
+  line-height: 140%; /* 14px */
+}
+.modal-alert__img {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url(../assets/svg/icon-Info.svg);
+}
+
+.modal-btn-close {
+  width: 100%;
+  padding: 10px 0;
+  text-align: center;
+  border: 1px solid #665F55;
+  border-radius: 100px;
+}
+
+/***********************************************/
+/***********************************************/
+/***********************************************/
 /*********************************************************/
 /*********************************************************//*# sourceMappingURL=style.css.map */
