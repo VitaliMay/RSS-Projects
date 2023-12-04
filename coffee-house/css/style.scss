@@ -966,12 +966,37 @@ body.lock {
     }
   }
 
-  &--menu {
+  &--menu-refresh {
     border: 1px solid #665F55;
-    display: none;
+    // display: none;
+    display: flex;
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+    z-index: -5;
+
+    &.close {
+      // display: none;
+      // position: relative;
+      position: absolute;
+      overflow: hidden;
+      visibility: hidden;
+      opacity: 0;
+      z-index: -5;
+      // height: 0;
+      transition: all 0.6s;
+    }
 
     @media screen and (max-width: 768.9px) {
       display: flex;
+      position: static;
+
+      visibility: visible;
+      overflow: hidden;
+      opacity: 1;
+      z-index: 1;
+      // height: 60px;
+      transition: all 0.6s;
     }
   }
 

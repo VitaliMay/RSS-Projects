@@ -722,13 +722,31 @@ body.lock {
     order: 2;
   }
 }
-.slider-btn--menu {
+.slider-btn--menu-refresh {
   border: 1px solid #665F55;
-  display: none;
+  display: flex;
+  position: absolute;
+  visibility: hidden;
+  opacity: 0;
+  z-index: -5;
+}
+.slider-btn--menu-refresh.close {
+  position: absolute;
+  overflow: hidden;
+  visibility: hidden;
+  opacity: 0;
+  z-index: -5;
+  transition: all 0.6s;
 }
 @media screen and (max-width: 768.9px) {
-  .slider-btn--menu {
+  .slider-btn--menu-refresh {
     display: flex;
+    position: static;
+    visibility: visible;
+    overflow: hidden;
+    opacity: 1;
+    z-index: 1;
+    transition: all 0.6s;
   }
 }
 @media (hover: hover) {

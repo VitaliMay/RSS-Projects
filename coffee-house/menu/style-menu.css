@@ -105,6 +105,7 @@
   color: #E1D4C9;
   border: 1px solid #665F55;
   transition: all 0.6s;
+  pointer-events: none;
 }
 .tab-item--active .tab-item_img {
   background-color: #E1D4C9;
@@ -132,6 +133,10 @@
   .card-container {
     max-height: 2144px;
   }
+}
+
+.card-container.open {
+  max-height: 100%;
 }
 
 .card {
