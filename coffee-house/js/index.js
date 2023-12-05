@@ -24,10 +24,80 @@ const elementsDataCategory = [...document.querySelectorAll('[data-category]')];
 
 const loadMore = document.querySelector('.slider-btn--menu-refresh');
 
+const modal = document.querySelector('.modal');
+const modalTitle = modal.querySelector('.modal-content__title');
+const modalImg = modal.querySelector('.modal-img__item');
+// const modalTitle = document.querySelector('.modal-content__title');
+// const modalImg = document.querySelector('.modal-img__item');
+const modalText = modal.querySelector('.modal-content__text');
+
+const modalBtnArray = [...modal.querySelectorAll('.tab-item')];
+const modalBtnText = [...modal.querySelectorAll('.tab-item_text')];
+// console.log(modalBtnText);
+const modalTotalPrice = modal.querySelector('.modal-total__price');
+const modalCloseBtn = modal.querySelector('.modal-btn-close');
+
+
+
 // загрузка карточек кофе
 let category = 'coffee'
 createCard(category);
 
+/******Ловлю карточки************************* */
+let cardArray = [...document.querySelectorAll('.card')];
+console.log(cardArray);
+
+cardArray.forEach(item => {
+  item.addEventListener('click', function() {
+    const titleContent = item.querySelector('.card-content__title').textContent;
+    console.log(titleContent)
+    // console.log('Data index', data.map(el => el.name.indexOf(titleContent)))
+    const index = data.findIndex(item => item.name === titleContent);
+    console.log(`index = ${index}`)
+
+    modalTitle.innerHTML = data[index].name;
+    modalText.innerHTML = data[index].description;
+    modalImg.style.backgroundImage = `url(${data[index].imageUrl})`
+
+    modalBtnText[0].innerHTML = data[index].sizes.s.size;
+    modalBtnText[1].innerHTML = data[index].sizes.m.size;
+    modalBtnText[2].innerHTML = data[index].sizes.l.size;
+    modalBtnText[3].innerHTML = data[index].additives[0].name;
+    modalBtnText[4].innerHTML = data[index].additives[1].name;
+    modalBtnText[5].innerHTML = data[index].additives[0].name;
+    // modalBtnText[5].innerHTML = data[index].additives[0]["name"];
+    // modalBtnText[5].innerHTML = data[index].additives[2]["add-price"];
+    modalTotalPrice.textContent = `$${data[index].price}`;
+
+
+
+    // modalBtnText[4].innerHTML = data[index].additives.name.size;
+    // data[0].additives[0].name
+
+    // style="background-image: url('${item.imageUrl}
+    // arrCoverContent[i].style.backgroundImage =`url(${fotoUrl})`
+
+    // modal.classList.add('modal--active');
+
+    // fon.classList.add('work');
+    modalOpen()
+  })
+})
+
+/************************************* */
+
+modalBtnArray.forEach(btn => {
+  btn.addEventListener('click', function() {
+    console.log(btn)
+    // console.log(data[index].)
+  })
+
+})
+/*********************************** */
+
+modalCloseBtn.addEventListener('click', closeMenu)
+
+/********************************** */
 
 elementsDataCategory.forEach(element => {
   element.addEventListener('click', function() {
@@ -47,10 +117,38 @@ elementsDataCategory.forEach(element => {
     if (category === 'tea') {
       loadMore.classList.add('close')
     };
+/*********Ловлю карточки******************************* */
+    cardArray = [...document.querySelectorAll('.card')]
+    console.log(cardArray);
 
+    cardArray.forEach(item => {
+      item.addEventListener('click', function() {
+        const titleContent = item.querySelector('.card-content__title').textContent;
+        console.log(titleContent)
+        // console.log('Data index', data.map(el => el.name.indexOf(titleContent)))
+        const index = data.findIndex(item => item.name === titleContent);
+        console.log(`index = ${index}`)
 
+        fon.classList.add('work');
+      })
+    })
+/**************************************** */
   });
 });
+
+// console.log(data[1].name)
+
+
+/**************************************************** */
+
+cardArray.forEach(item => {
+  item.addEventListener('click', function() {
+    const titleContent = item.querySelector('.card-content__title').textContent;
+    console.log(titleContent)
+
+    fon.classList.add('work');
+  })
+})
 
 /**************************************************** */
 

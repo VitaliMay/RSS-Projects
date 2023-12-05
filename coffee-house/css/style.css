@@ -642,9 +642,6 @@ body.lock {
 }
 
 .slider-inner {
-  display: flex;
-  -moz-column-gap: 10px;
-       column-gap: 10px;
   overflow: hidden;
   max-width: 480px;
 }
@@ -657,6 +654,12 @@ body.lock {
   .slider-inner {
     max-width: 348px;
   }
+}
+
+.slider-strip {
+  display: flex;
+  -moz-column-gap: 10px;
+       column-gap: 10px;
 }
 
 .slider-inner_item {

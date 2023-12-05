@@ -45,19 +45,27 @@ function closeMenu() {
     body.classList.remove('lock');
     fon.classList.remove('work');
     containerHeader.classList.remove('container--header-active')
+
+    modal.classList.remove('modal--active');
 }
 
 /******************************************* */
-function modalFind() {
-  if (modal.classList.contains('modal--active')) {
-    console.log('Привет модалка')
-    closeMenu();
-    fon.classList.add('work');
+// function modalFind() {
+//   if (modal.classList.contains('modal--active')) {
+//     console.log('Привет модалка')
+//     closeMenu();
+//     fon.classList.add('work');
 
-  }
+//   }
+// }
+
+// modalFind()
+
+function modalOpen() {
+  closeMenu();
+  fon.classList.add('work');
+  modal.classList.add('modal--active');
 }
-
-modalFind()
 
 /************************************************ */
 /************************************************ */
