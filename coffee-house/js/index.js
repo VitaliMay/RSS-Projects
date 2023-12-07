@@ -161,6 +161,10 @@ let cardArray = [...document.querySelectorAll('.card')];
 cardContainer.addEventListener('click', handleCardClick)
 
 function handleCardClick (event) {
+  console.log(event.target)
+  // console.log(event.target.closest('.card'))
+  // console.log(event.target.parentElement.closest('.card'))
+  // const card = event.target.closest('.card') || event.target.parentElement.closest('.card');
   const card = event.target.closest('.card');
   if (card) {
     const titleContent = card.querySelector('.card-content__title').textContent;
@@ -172,6 +176,15 @@ function handleCardClick (event) {
     priceSize = 0
     modalContent(index)
     modalOpen()
+
+    // // Добавляем класс "clicked" к родительскому контейнеру
+    // card.parentNode.classList.add('clicked');
+
+    // // Удаляем класс "clicked" при отмене активации элемента
+    // card.addEventListener('mouseleave', () => {
+    //   card.parentNode.classList.remove('clicked');
+    // });
+
   }
 }
 
@@ -189,8 +202,6 @@ function modalContent (index) {
 
   priceBase = Number(data[index].price);
   priceTotal = priceBase;
-  // priceAdditives = 0;
-  // priceSize = 0
   modalTotalPrice.textContent = `$${priceTotal.toFixed(2)}`;
 
 }
@@ -206,13 +217,11 @@ function handleModalButtonClick (event) {
   const titleContent = modalTitle.textContent;
   const index = data.findIndex(item => item.name === titleContent);
   // console.log(`Index ${titleContent} = ${index} `)
-  // priceAdditives = 0;
-  // priceSize = 0
 
-  console.log(`In размер = ${priceSize}`);
-  console.log(`In добавки = ${priceAdditives}`);
-  console.log(`In база = ${priceBase}`);
-  console.log(`In Итого = ${priceTotal}`);
+  // console.log(`In размер = ${priceSize}`);
+  // console.log(`In добавки = ${priceAdditives}`);
+  // console.log(`In база = ${priceBase}`);
+  // console.log(`In Итого = ${priceTotal}`);
 
   if (btnSize) {
     // console.log(`Привет Size`)
@@ -229,10 +238,10 @@ function handleModalButtonClick (event) {
   priceTotal = priceBase + priceSize + priceAdditives;
   modalTotalPrice.textContent = `$${priceTotal.toFixed(2)}`;
 
-  console.log(`Out размер = ${priceSize}`);
-  console.log(`Out добавки = ${priceAdditives}`);
-  console.log(`Out база = ${priceBase}`);
-  console.log(`Out Итого = ${priceTotal}`);
+  // console.log(`Out размер = ${priceSize}`);
+  // console.log(`Out добавки = ${priceAdditives}`);
+  // console.log(`Out база = ${priceBase}`);
+  // console.log(`Out Итого = ${priceTotal}`);
 }
 
 function logicSizes (btnSize, index) {
@@ -565,20 +574,20 @@ elementsDataCategory.forEach(element => {
       loadMore.classList.add('close')
     };
 /*********Ловлю карточки******************************* */
-    cardArray = [...document.querySelectorAll('.card')]
-    console.log(cardArray);
+    // cardArray = [...document.querySelectorAll('.card')]
+    // console.log(cardArray);
 
-    cardArray.forEach(item => {
-      item.addEventListener('click', function() {
-        const titleContent = item.querySelector('.card-content__title').textContent;
-        console.log(titleContent)
-        // console.log('Data index', data.map(el => el.name.indexOf(titleContent)))
-        const index = data.findIndex(item => item.name === titleContent);
-        console.log(`index = ${index}`)
+    // cardArray.forEach(item => {
+    //   item.addEventListener('click', function() {
+    //     const titleContent = item.querySelector('.card-content__title').textContent;
+    //     console.log(titleContent)
+    //     // console.log('Data index', data.map(el => el.name.indexOf(titleContent)))
+    //     const index = data.findIndex(item => item.name === titleContent);
+    //     console.log(`index = ${index}`)
 
-        fon.classList.add('work');
-      })
-    })
+    //     fon.classList.add('work');
+    //   })
+    // })
 /**************************************** */
   });
 });
@@ -586,14 +595,14 @@ elementsDataCategory.forEach(element => {
 
 /**************************************************** */
 
-cardArray.forEach(item => {
-  item.addEventListener('click', function() {
-    const titleContent = item.querySelector('.card-content__title').textContent;
-    console.log(titleContent)
+// cardArray.forEach(item => {
+//   item.addEventListener('click', function() {
+//     const titleContent = item.querySelector('.card-content__title').textContent;
+//     console.log(titleContent)
 
-    fon.classList.add('work');
-  })
-})
+//     fon.classList.add('work');
+//   })
+// })
 
 /**************************************************** */
 

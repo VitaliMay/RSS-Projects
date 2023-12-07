@@ -77,6 +77,7 @@ function modalOpen() {
   closeMenu();
   fon.classList.add('work');
   modal.classList.add('modal--active');
+  body.classList.add('lock');
 }
 
 /************************************************ */
