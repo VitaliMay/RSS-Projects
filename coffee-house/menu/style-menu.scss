@@ -148,6 +148,12 @@
 
 .tab-item--modal {
   pointer-events: auto;
+  cursor: pointer;
+
+  &:active {
+    transform: scale(0.9);
+    transition: all 0.4s;
+  }
 }
 
 .card-container {

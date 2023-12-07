@@ -257,14 +257,18 @@ body.lock {
   -moz-column-gap: 4rem;
        column-gap: 4rem;
   width: 100%;
-  max-width: 893px;
-  justify-content: center;
+  justify-content: space-between;
+  flex-grow: 1;
 }
 @media screen and (max-width: 850px) {
   .menu {
     flex-shrink: 0;
     width: auto;
   }
+}
+
+.menu-nav {
+  margin: 0 auto;
 }
 
 .menu__list {
@@ -285,9 +289,6 @@ body.lock {
 .menu__list-item:active {
   transform: scale(0.9);
   transition: all 0.4s;
-}
-.menu__list-link--position {
-  margin-left: auto;
 }
 
 .coffee-menu {

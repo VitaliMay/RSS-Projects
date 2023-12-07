@@ -6,7 +6,7 @@ const fon = document.querySelector('.fon');
 const modal = document.querySelector('.modal')
 const containerHeader = document.querySelector('.container--header')
 
-
+const modalBtnArray = [...modal.querySelectorAll('.tab-item')];
 
 // делегирование событий
 // Вместо назначения обработчика кликов на каждый элемент меню
@@ -47,7 +47,19 @@ function closeMenu() {
     containerHeader.classList.remove('container--header-active')
 
     modal.classList.remove('modal--active');
+    modalBtnArray.forEach(item => {
+      item.classList.remove('tab-item--active');
+      // item.removeEventListener('click', handleAdditiveClick);
+    });
+    modalBtnArray[0].classList.add('tab-item--active');
+
+    priceAdditives = 0;
+    priceSize = 0;
+    priceTotal = 0;
+    priceBase = 0;
 }
+
+
 
 /******************************************* */
 // function modalFind() {
@@ -93,4 +105,7 @@ function modalOpen() {
 //     /* другие стили для бургер-меню */
 //   }
 // }
+
+// import { myVariable } from './index.js';
+// console.log(myVariable); // Выведет "Hello!"
 

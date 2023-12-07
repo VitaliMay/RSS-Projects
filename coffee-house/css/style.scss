@@ -254,10 +254,10 @@ body.lock {
   align-items: center;
   column-gap: 4rem;
   width: 100%;
-  max-width: 893px;
-  // min-width: 760px;
-  // background-color: tomato;
-  justify-content: center;
+  // max-width: 893px;
+  // justify-content: center;
+  justify-content: space-between;
+  flex-grow: 1;
 
   @media screen and (max-width: 850px){
     flex-shrink: 0;
@@ -265,6 +265,10 @@ body.lock {
     // min-width: auto;
   }
   // flex-shrink: 0;
+}
+
+.menu-nav {
+  margin: 0 auto;
 }
 
 .menu__list {
@@ -288,9 +292,9 @@ body.lock {
     }
   }
 
-  &-link--position {
-    margin-left: auto;
-  }
+  // &-link--position {
+  //   margin-left: auto;
+  // }
 
 }
 
