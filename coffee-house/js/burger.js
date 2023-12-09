@@ -3,10 +3,19 @@ const menu = document.querySelector('.menu');
 const body = document.querySelector('body');
 const burgerButton = document.querySelector('.burger-button');
 const fon = document.querySelector('.fon');
-const modal = document.querySelector('.modal')
+
 const containerHeader = document.querySelector('.container--header')
 
-const modalBtnArray = [...modal.querySelectorAll('.tab-item')];
+// const modal = document.querySelector('.modal')
+// const modalBtnArray = [...modal.querySelectorAll('.tab-item')];
+
+// function modalOpen() {
+//   closeMenu();
+//   fon.classList.add('work');
+//   modal.classList.add('modal--active');
+//   body.classList.add('lock');
+// }
+
 
 // делегирование событий
 // Вместо назначения обработчика кликов на каждый элемент меню
@@ -46,17 +55,17 @@ function closeMenu() {
     fon.classList.remove('work');
     containerHeader.classList.remove('container--header-active')
 
-    modal.classList.remove('modal--active');
-    modalBtnArray.forEach(item => {
-      item.classList.remove('tab-item--active');
-      // item.removeEventListener('click', handleAdditiveClick);
-    });
-    modalBtnArray[0].classList.add('tab-item--active');
+    // modal.classList.remove('modal--active');
+    // modalBtnArray.forEach(item => {
+    //   item.classList.remove('tab-item--active');
+    // });
+    // modalBtnArray[0].classList.add('tab-item--active');
 
-    priceAdditives = 0;
-    priceSize = 0;
-    priceTotal = 0;
-    priceBase = 0;
+    // priceAdditives = 0;
+    // priceSize = 0;
+    // priceTotal = 0;
+    // priceBase = 0;
+    // modalClose()
 }
 
 
@@ -73,12 +82,7 @@ function closeMenu() {
 
 // modalFind()
 
-function modalOpen() {
-  closeMenu();
-  fon.classList.add('work');
-  modal.classList.add('modal--active');
-  body.classList.add('lock');
-}
+
 
 /************************************************ */
 /************************************************ */
@@ -110,3 +114,7 @@ function modalOpen() {
 // import { myVariable } from './index.js';
 // console.log(myVariable); // Выведет "Hello!"
 
+
+// export { closeMenu };
+// export { fon };
+// export { body };

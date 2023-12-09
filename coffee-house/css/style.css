@@ -644,6 +644,7 @@ body.lock {
 
 .slider-inner {
   overflow: hidden;
+  box-sizing: border-box;
   max-width: 480px;
 }
 @media screen and (max-width: 700px) {
@@ -659,10 +660,30 @@ body.lock {
 
 .slider-strip {
   display: flex;
-  -moz-column-gap: 10px;
-       column-gap: 10px;
+  transition: all 1s;
+  animation-duration: 6s;
+  animation-iteration-count: infinite;
+  animation-direction: normal;
 }
 
+.slider-strip:hover {
+  animation-play-state: paused;
+}
+
+@keyframes sliderAnime {
+  from {
+    transform: translateX(0px);
+  }
+  33% {
+    transform: translateX(-490px);
+  }
+  66% {
+    transform: translateX(-980px);
+  }
+  to {
+    transform: translateX(0px);
+  }
+}
 .slider-inner_item {
   display: flex;
   flex-direction: column;
@@ -1205,12 +1226,6 @@ body.lock {
   -moz-column-gap: 20px;
        column-gap: 20px;
 }
-.modal--active {
-  z-index: 40;
-  visibility: visible;
-  opacity: 1;
-  transition: visibility 2s, opacity 2s;
-}
 @media screen and (max-width: 850px) {
   .modal {
     max-width: calc(100vw - 80px);
@@ -1225,6 +1240,14 @@ body.lock {
   .modal {
     max-width: calc(100vw - 38px);
   }
+}
+.modal--active {
+  z-index: 40;
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 2s, opacity 2s;
+  overflow-y: auto;
+  max-height: 95vh;
 }
 
 .modal-img {
@@ -1307,6 +1330,7 @@ body.lock {
   text-align: center;
   border: 1px solid #665F55;
   border-radius: 100px;
+  box-sizing: border-box;
 }
 
 /***********************************************/

@@ -15,6 +15,19 @@ console.log(score)
 
 // подключаю модуль
 import data from "./products.js";
+// import { closeMenu } from "./burger.js";
+// import { fon } from './burger.js';
+// import { body } from './burger.js';
+
+const body = document.querySelector('body');
+const fon = document.querySelector('.fon');
+
+fon.addEventListener('click', modalClose);
+
+// function closeFon () {
+  // closeMenu();
+  // modalClose()
+// }
 
 // const category = ['coffee', 'tea', 'dessert'];
 
@@ -25,7 +38,7 @@ const elementsDataCategory = [...document.querySelectorAll('[data-category]')];
 const loadMore = document.querySelector('.slider-btn--menu-refresh');
 
 const modal = document.querySelector('.modal');
-
+const modalBtnArray = [...modal.querySelectorAll('.tab-item')];
 
 const modalTitle = modal.querySelector('.modal-content__title');
 const modalImg = modal.querySelector('.modal-img__item');
@@ -36,7 +49,7 @@ const modalBtnArrayAdditives = [...modal.querySelectorAll('[data-additives]')];
 
 const modalBtnText = [...modal.querySelectorAll('.tab-item_text')];
 const modalTotalPrice = modal.querySelector('.modal-total__price');
-const modalCloseBtn = modal.querySelector('.modal-btn-close');
+// const modalCloseBtn = modal.querySelector('.modal-btn-close');
 
 let priceTotal = 0;
 let priceBase = 0;
@@ -188,6 +201,31 @@ function handleCardClick (event) {
   }
 }
 
+function modalOpen() {
+  closeMenu();
+  fon.classList.add('work');
+  modal.classList.add('modal--active');
+  body.classList.add('lock');
+}
+
+function modalClose() {
+  // closeMenu();
+  fon.classList.remove('work');
+  modal.classList.remove('modal--active');
+  body.classList.remove('lock');
+
+  
+  modalBtnArray.forEach(item => {
+    item.classList.remove('tab-item--active');
+  });
+  modalBtnArray[0].classList.add('tab-item--active');
+
+  priceAdditives = 0;
+  priceSize = 0;
+  priceTotal = 0;
+  priceBase = 0;
+}
+
 function modalContent (index) {
   modalTitle.innerHTML = data[index].name;
   modalText.innerHTML = data[index].description;
@@ -232,7 +270,8 @@ function handleModalButtonClick (event) {
     logicAdditives (btnAdditiv, index)
   }
   if (btnClose) {
-    closeMenu()
+    // closeMenu()
+    modalClose()
   }
 
   priceTotal = priceBase + priceSize + priceAdditives;
