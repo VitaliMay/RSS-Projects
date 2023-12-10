@@ -52,7 +52,7 @@ body.lock {
   background: rgba(41, 41, 41, 0.6);
   z-index: -10;
 
-  transition: 0.7s;
+  // transition: all 0.3s;  // Почему то моргает
 }
 
 .fon.work {
@@ -938,30 +938,62 @@ body.lock {
   // }
 
   // animation-name: sliderAnime;
-  animation-duration: 6s;
-  animation-iteration-count: infinite;
-  animation-direction: normal;
+  // animation-duration: 12s;
+  // animation-iteration-count: infinite;
+  // animation-direction: normal;
+
   // animation-direction: alternate;
   // animation-direction: alternate-reverse;
   // animation-timing-function: linear;
+  // animation-timing-function: steps(1, end);
+}
+
+.sliderAnimeClass {
+  animation-name: sliderAnime;
+  animation-duration: 12s;
+  animation-iteration-count: infinite;
+  animation-direction: normal;
 }
 
 .slider-strip:hover {
   animation-play-state: paused;
+  //  animation: none;
 }
+
+.stopAnimation {
+  animation: none;
+  // animation-play-state: paused;
+}
+.pauseAnimation {
+  animation-play-state: paused;
+}
+
+/******************************/
+// 3 раза стоим
+// 3 раза едем
+
 
 @keyframes sliderAnime {
   from {
     transform: translateX(0px);
   }
+  30% {
+    transform: translateX(0px);
+  }
   33% {
-    transform: translateX(-490px);
+    transform: translateX(-100%);
+  }
+  63% {
+    transform: translateX(-100%);
   }
   66% {
-    transform: translateX(-980px);
+    transform: translateX(-200%);
+  }
+  96% {
+    transform: translateX(-200%);
   }
   to {
-    transform: translateX(0px);
+    transform: translateX(0%);
   }
 }
 
@@ -983,6 +1015,7 @@ body.lock {
   flex-direction: column;
   align-items: center;
   row-gap: 20px;
+  cursor: default; // чтобы не менялся на тексте
   // background-color: cadetblue;
 
   &__img {
@@ -1188,11 +1221,15 @@ body.lock {
 
 .slider-pg {
   // background-color: aqua;
-  width: 100%;
+  // width: 100%;
   // height: 10px;
   display: flex;
   justify-content: center;
   column-gap: 12px;
+
+  // position: relative;
+  border-radius: 100px;
+  overflow: hidden;
 
   &__container {
     width: 40px;
@@ -1200,6 +1237,7 @@ body.lock {
     background-color: #C1B6AD;
     border-radius: 100px;
     // display: flex;
+    // overflow: hidden;
   }
 
   &__item {
@@ -1210,10 +1248,61 @@ body.lock {
     border-radius: 100px;
 
     &--active {
-      width: 100%;
+      height: 4px;
+
+      // position: absolute;
+      // left: 0px;
+
+      animation-name: sliderPgAnime;
+      animation-duration: 4s;
+      animation-iteration-count: infinite;
+      animation-direction: normal;
+      animation-timing-function: linear;
+
     }
   }
 }
+
+// .slider-strip:hover .slider-pg__item--active {
+//   animation-play-state: paused;
+// }
+
+
+@keyframes sliderPgAnime {
+  from {
+    width: 0px;
+    left: 0px;
+  }
+  to {
+    width: 40px;
+  }
+}
+// @keyframes sliderPgAnime {
+//   from {
+//     width: 0px;
+//   }
+//   30% {
+//     width: 40px;
+//   }
+//   33% {
+//     left: 52px;
+//     width: 0px;
+//   }
+//   63% {
+//     width: 40px;
+//   }
+//   66% {
+//     left: 104px;
+//     width: 0px;
+//   }
+//   96% {
+//     width: 40px;
+//   }
+//   to {
+//     width: 0px;
+//     left: 0px;
+//   }
+// }
 
 /********* section Favorites Coffee *****************************************************/
 /****************************************************************************************/

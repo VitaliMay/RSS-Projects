@@ -150,7 +150,6 @@ body.lock {
   height: 100vh;
   background: rgba(41, 41, 41, 0.6);
   z-index: -10;
-  transition: 0.7s;
 }
 
 .fon.work {
@@ -661,7 +660,11 @@ body.lock {
 .slider-strip {
   display: flex;
   transition: all 1s;
-  animation-duration: 6s;
+}
+
+.sliderAnimeClass {
+  animation-name: sliderAnime;
+  animation-duration: 12s;
   animation-iteration-count: infinite;
   animation-direction: normal;
 }
@@ -670,18 +673,36 @@ body.lock {
   animation-play-state: paused;
 }
 
+.stopAnimation {
+  animation: none;
+}
+
+.pauseAnimation {
+  animation-play-state: paused;
+}
+
+/******************************/
 @keyframes sliderAnime {
   from {
     transform: translateX(0px);
   }
+  30% {
+    transform: translateX(0px);
+  }
   33% {
-    transform: translateX(-490px);
+    transform: translateX(-100%);
+  }
+  63% {
+    transform: translateX(-100%);
   }
   66% {
-    transform: translateX(-980px);
+    transform: translateX(-200%);
+  }
+  96% {
+    transform: translateX(-200%);
   }
   to {
-    transform: translateX(0px);
+    transform: translateX(0%);
   }
 }
 .slider-inner_item {
@@ -689,6 +710,7 @@ body.lock {
   flex-direction: column;
   align-items: center;
   row-gap: 20px;
+  cursor: default;
 }
 .slider-inner_item__img {
   width: 480px;
@@ -818,11 +840,12 @@ body.lock {
 /**********************************************/
 /*********************************************/
 .slider-pg {
-  width: 100%;
   display: flex;
   justify-content: center;
   -moz-column-gap: 12px;
        column-gap: 12px;
+  border-radius: 100px;
+  overflow: hidden;
 }
 .slider-pg__container {
   width: 40px;
@@ -838,9 +861,23 @@ body.lock {
   border-radius: 100px;
 }
 .slider-pg__item--active {
-  width: 100%;
+  height: 4px;
+  animation-name: sliderPgAnime;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  animation-direction: normal;
+  animation-timing-function: linear;
 }
 
+@keyframes sliderPgAnime {
+  from {
+    width: 0px;
+    left: 0px;
+  }
+  to {
+    width: 40px;
+  }
+}
 /********* section Favorites Coffee *****************************************************/
 /****************************************************************************************/
 .about-inner {
