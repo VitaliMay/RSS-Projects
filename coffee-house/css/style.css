@@ -669,18 +669,6 @@ body.lock {
   animation-direction: normal;
 }
 
-.slider-strip:hover {
-  animation-play-state: paused;
-}
-
-.stopAnimation {
-  animation: none;
-}
-
-.pauseAnimation {
-  animation-play-state: paused;
-}
-
 /******************************/
 @keyframes sliderAnime {
   from {
@@ -864,11 +852,27 @@ body.lock {
   height: 4px;
   animation-name: sliderPgAnime;
   animation-duration: 4s;
-  animation-iteration-count: infinite;
   animation-direction: normal;
   animation-timing-function: linear;
 }
 
+.slider-inner:hover {
+  background-color: antiquewhite;
+}
+
+.stopAnimation {
+  animation: none;
+}
+
+.pauseAnimation {
+  animation-play-state: paused;
+}
+
+.runningAnimation {
+  animation-play-state: running;
+}
+
+/******  Работает *****/
 @keyframes sliderPgAnime {
   from {
     width: 0px;

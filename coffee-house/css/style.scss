@@ -964,18 +964,12 @@ body.lock {
   animation-direction: normal;
 }
 
-.slider-strip:hover {
-  animation-play-state: paused;
-  //  animation: none;
-}
+// .slider-strip:hover {
+//   animation-play-state: paused;
+//   //  animation: none;
+// }
 
-.stopAnimation {
-  animation: none;
-  // animation-play-state: paused;
-}
-.pauseAnimation {
-  animation-play-state: paused;
-}
+
 
 /******************************/
 // 3 раза стоим
@@ -1264,13 +1258,49 @@ body.lock {
 
       animation-name: sliderPgAnime;
       animation-duration: 4s;
-      animation-iteration-count: infinite;
+      // animation-iteration-count: infinite;
       animation-direction: normal;
       animation-timing-function: linear;
 
     }
   }
 }
+
+.slider-inner:hover {
+  background-color: antiquewhite;
+}
+
+.stopAnimation {
+  animation: none;
+}
+.pauseAnimation {
+  animation-play-state: paused;
+}
+.runningAnimation {
+  animation-play-state: running;
+}
+
+/******  Работает *****/
+// .slider:hover + .slider-pg .slider-pg__item--active {
+//   background-color: antiquewhite;
+//   animation-play-state: paused;
+// }
+
+
+// .slider-inner:hover {
+//   background-color: antiquewhite;
+// }
+
+// .slider-inner:hover + .slider-pg .slider-pg__item--active {
+// // .slider-inner:hover ~ .slider-pg .slider-pg__item--active {
+//   animation-play-state: paused;
+//   background-color: aqua;
+// }
+
+// .slider-pg__item--active:hover {
+//   animation-play-state: paused;
+//   background-color: aqua;
+// }
 
 // .slider-strip:hover .slider-pg__item--active {
 //   animation-play-state: paused;
