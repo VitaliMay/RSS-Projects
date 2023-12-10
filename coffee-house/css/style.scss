@@ -946,7 +946,16 @@ body.lock {
   // animation-direction: alternate-reverse;
   // animation-timing-function: linear;
   // animation-timing-function: steps(1, end);
+
+  // animation-name: fakeAnime;
+  // animation-duration: 4s;
 }
+
+// @keyframes fakeAnime {
+//   from{}
+//   to{}
+// }
+
 
 .sliderAnimeClass {
   animation-name: sliderAnime;

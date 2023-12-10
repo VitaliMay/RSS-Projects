@@ -14,6 +14,47 @@ startSliderInterval(); // Запуск интервала при загрузк�
 
 // console.log(`sliderWidth = ${sliderWidth}`)
 
+/************************************************ */
+/************************************************ */
+
+sliderScreen.addEventListener('touchstart', hangleTouchStart, false)
+sliderScreen.addEventListener('touchmove', hangleTouchMove, false)
+
+function hangleTouchStart (event) {
+  // console.log(event)
+  const touchStart = event.touches[0];
+  // console.log(touchStart)
+  xStart = touchStart.clientX
+  // console.log(xStart)
+
+}
+function hangleTouchMove (event) {
+  if (!xStart) { return };
+  let xMove = event.touches[0].clientX
+  // console.log(xMove)
+  swipe = xMove - xStart
+
+  if (swipe > 0) {
+    stopSliderInterval();
+    sliderGoLeft();
+    startSliderInterval();
+  }
+  if (swipe < 0) {
+    stopSliderInterval();
+    sliderGoRight();
+    // sliderStrip.classList.remove('stopAnimation');
+    sliderPgAnime(slideNumber)
+
+    startSliderInterval();
+  }
+  xStart = null; // начальная переменная для перетаскивания
+  swipe = null;
+}
+
+let xStart = null; // начальная переменная для перетаскивания
+let swipe = null; // для определения направления движения
+
+
 /***************************************************** */
 /***************************************************** */
 /****   Пробую разобраться с анимацией              *********************************************** */
@@ -79,6 +120,9 @@ function hangleSlider (event) {
   
   }
 }
+
+
+
 
 function sliderGoRight () {
 
@@ -196,9 +240,9 @@ function stopSliderInterval() {
 /************************************* */
 /***  Пробую разобраться с адаптацией слайдера ************************************************* */
 /** отслеживаю ширину экрана ********* */
-function resizeScreen () {
-
-}
+// function resizeScreen () {
+//   // решил ловить ширину картинки
+// }
 
 // let screenWidth = window.innerWidth; // узнаю ширину экрана
 // console.log(`Начальный Размер экрана = ${screenWidth}`)
