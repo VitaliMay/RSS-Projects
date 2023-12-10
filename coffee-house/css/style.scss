@@ -52,11 +52,12 @@ body.lock {
   background: rgba(41, 41, 41, 0.6);
   z-index: -10;
 
-  transition: 0.7s;
+  // transition: all 0.3s;  // Почему то моргает
 }
 
 .fon.work {
-  z-index: 10;
+  z-index: 35; // чтобы перекрыть лого и бургер буттон
+  // z-index: 10;
   width: 100vw;
   height: 100vh;
 
@@ -253,10 +254,10 @@ body.lock {
   align-items: center;
   column-gap: 4rem;
   width: 100%;
-  max-width: 893px;
-  // min-width: 760px;
-  // background-color: tomato;
-  justify-content: center;
+  // max-width: 893px;
+  // justify-content: center;
+  justify-content: space-between;
+  flex-grow: 1;
 
   @media screen and (max-width: 850px){
     flex-shrink: 0;
@@ -264,6 +265,10 @@ body.lock {
     // min-width: auto;
   }
   // flex-shrink: 0;
+}
+
+.menu-nav {
+  margin: 0 auto;
 }
 
 .menu__list {
@@ -287,9 +292,9 @@ body.lock {
     }
   }
 
-  &-link--position {
-    margin-left: auto;
-  }
+  // &-link--position {
+  //   margin-left: auto;
+  // }
 
 }
 
@@ -875,12 +880,29 @@ body.lock {
   }
 }
 
+// .slider-inner {
+//   display: flex;
+//   column-gap: 10px;
+
+//   overflow: hidden;
+
+//   max-width: 480px;
+//   // background-color: blueviolet;
+
+//   @media screen and (max-width: 700px) {
+//     margin: 0 auto;
+//   }
+//   @media screen and (max-width: 600px) {
+//     max-width: 348px;
+//   }
+// }
 
 .slider-inner {
-  display: flex;
-  column-gap: 10px;
 
   overflow: hidden;
+  // border: solid red 2px;
+  box-sizing: border-box;
+  // position: relative;
 
   max-width: 480px;
   // background-color: blueviolet;
@@ -893,11 +915,110 @@ body.lock {
   }
 }
 
+.slider-strip {
+// .slider-inner {
+  display: flex;
+  // column-gap: 10px;
+
+  transition: all 1s;
+
+  // transform: translateX(0px);
+  // transform: translateX(-490px); // 480 + 10gap
+  // transform: translateX(-980px);
+
+  // overflow: hidden;
+
+  // max-width: 480px;
+
+  // @media screen and (max-width: 700px) {
+  //   margin: 0 auto;
+  // }
+  // @media screen and (max-width: 600px) {
+  //   max-width: 348px;
+  // }
+
+  // animation-name: sliderAnime;
+  // animation-duration: 12s;
+  // animation-iteration-count: infinite;
+  // animation-direction: normal;
+
+  // animation-direction: alternate;
+  // animation-direction: alternate-reverse;
+  // animation-timing-function: linear;
+  // animation-timing-function: steps(1, end);
+
+  // animation-name: fakeAnime;
+  // animation-duration: 4s;
+}
+
+// @keyframes fakeAnime {
+//   from{}
+//   to{}
+// }
+
+
+.sliderAnimeClass {
+  animation-name: sliderAnime;
+  animation-duration: 12s;
+  animation-iteration-count: infinite;
+  animation-direction: normal;
+}
+
+// .slider-strip:hover {
+//   animation-play-state: paused;
+//   //  animation: none;
+// }
+
+
+
+/******************************/
+// 3 раза стоим
+// 3 раза едем
+
+
+@keyframes sliderAnime {
+  from {
+    transform: translateX(0px);
+  }
+  30% {
+    transform: translateX(0px);
+  }
+  33% {
+    transform: translateX(-100%);
+  }
+  63% {
+    transform: translateX(-100%);
+  }
+  66% {
+    transform: translateX(-200%);
+  }
+  96% {
+    transform: translateX(-200%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+
+// .slider-strip:nth-child(1) {
+//   animation-delay: 0s; /* Первый кадр начинается сразу */
+// }
+
+// .slider-strip:nth-child(2) {
+//   animation-delay: 2s; /* Второй кадр начинается через 2 секунды */
+// }
+
+// .slider-strip:nth-child(3) {
+//   animation-delay: 4s; /* Третий кадр начинается через 4 секунды */
+// }
+
+
 .slider-inner_item {
   display: flex;
   flex-direction: column;
   align-items: center;
   row-gap: 20px;
+  cursor: default; // чтобы не менялся на тексте
   // background-color: cadetblue;
 
   &__img {
@@ -965,12 +1086,37 @@ body.lock {
     }
   }
 
-  &--menu {
+  &--menu-refresh {
     border: 1px solid #665F55;
-    display: none;
+    // display: none;
+    display: flex;
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+    z-index: -5;
+
+    &.close {
+      // display: none;
+      // position: relative;
+      position: absolute;
+      overflow: hidden;
+      visibility: hidden;
+      opacity: 0;
+      z-index: -5;
+      // height: 0;
+      transition: all 0.6s;
+    }
 
     @media screen and (max-width: 768.9px) {
       display: flex;
+      position: static;
+
+      visibility: visible;
+      overflow: hidden;
+      opacity: 1;
+      z-index: 1;
+      // height: 60px;
+      transition: all 0.6s;
     }
   }
 
@@ -1078,11 +1224,15 @@ body.lock {
 
 .slider-pg {
   // background-color: aqua;
-  width: 100%;
+  // width: 100%;
   // height: 10px;
   display: flex;
   justify-content: center;
   column-gap: 12px;
+
+  // position: relative;
+  border-radius: 100px;
+  overflow: hidden;
 
   &__container {
     width: 40px;
@@ -1090,6 +1240,7 @@ body.lock {
     background-color: #C1B6AD;
     border-radius: 100px;
     // display: flex;
+    // overflow: hidden;
   }
 
   &__item {
@@ -1100,10 +1251,97 @@ body.lock {
     border-radius: 100px;
 
     &--active {
-      width: 100%;
+      height: 4px;
+
+      // position: absolute;
+      // left: 0px;
+
+      animation-name: sliderPgAnime;
+      animation-duration: 4s;
+      // animation-iteration-count: infinite;
+      animation-direction: normal;
+      animation-timing-function: linear;
+
     }
   }
 }
+
+.slider-inner:hover {
+  background-color: antiquewhite;
+}
+
+.stopAnimation {
+  animation: none;
+}
+.pauseAnimation {
+  animation-play-state: paused;
+}
+.runningAnimation {
+  animation-play-state: running;
+}
+
+/******  Работает *****/
+// .slider:hover + .slider-pg .slider-pg__item--active {
+//   background-color: antiquewhite;
+//   animation-play-state: paused;
+// }
+
+
+// .slider-inner:hover {
+//   background-color: antiquewhite;
+// }
+
+// .slider-inner:hover + .slider-pg .slider-pg__item--active {
+// // .slider-inner:hover ~ .slider-pg .slider-pg__item--active {
+//   animation-play-state: paused;
+//   background-color: aqua;
+// }
+
+// .slider-pg__item--active:hover {
+//   animation-play-state: paused;
+//   background-color: aqua;
+// }
+
+// .slider-strip:hover .slider-pg__item--active {
+//   animation-play-state: paused;
+// }
+
+
+@keyframes sliderPgAnime {
+  from {
+    width: 0px;
+    left: 0px;
+  }
+  to {
+    width: 40px;
+  }
+}
+// @keyframes sliderPgAnime {
+//   from {
+//     width: 0px;
+//   }
+//   30% {
+//     width: 40px;
+//   }
+//   33% {
+//     left: 52px;
+//     width: 0px;
+//   }
+//   63% {
+//     width: 40px;
+//   }
+//   66% {
+//     left: 104px;
+//     width: 0px;
+//   }
+//   96% {
+//     width: 40px;
+//   }
+//   to {
+//     width: 0px;
+//     left: 0px;
+//   }
+// }
 
 /********* section Favorites Coffee *****************************************************/
 /****************************************************************************************/
@@ -1624,14 +1862,9 @@ body.lock {
   z-index: -2;
   visibility: hidden;
   opacity: 0;
-  transition: visibility 2s, opacity 2s;
+  transition: visibility 0.4s, opacity 0.4s;
 
-  &--active {
-    z-index: 20;
-    visibility: visible;
-    opacity: 1;
-    transition: visibility 2s, opacity 2s;
-  }
+  
 
   // visibility: visible;
   // z-index: 20;
@@ -1644,12 +1877,28 @@ body.lock {
   @media screen and (max-width: 850px) { 
     max-width: calc(100vw - 80px);
   }
+  @media screen and (max-width: 710px) { 
+    max-width: 492px;
+  }
+  @media screen and (max-width: 560px) { 
+    max-width: calc(100vw - 38px);
+  }
 
   padding: 16px;
   border-radius: 40px;
   background-color: #E1D4C9;
   display: flex;
   column-gap: 20px;
+
+  &--active {
+    z-index: 40; // чтобы перекрыть лого и бургер-баттон
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 2s, opacity 2s;
+
+    overflow-y: auto;  // чтобы был скролл если не влазит
+    max-height: 95vh;  // чтобы был скролл если не влазит
+  }
 
 }
 
@@ -1666,11 +1915,15 @@ body.lock {
 
   flex-shrink: 0;
 
+  @media screen and (max-width: 710px) { 
+    display: none;
+  }
+
   &__item {
     width: 310px;
     height: 310px;
     transform: scale(1.1);
-    transition: all 0.6s;
+    // transition: all 0.6s;
 
     background-size: cover;
     background-repeat: no-repeat;
@@ -1752,8 +2005,20 @@ body.lock {
   text-align: center;
   border: 1px solid #665F55;
   border-radius: 100px;
-  
+
+  box-sizing: border-box;
 }
+
+// .modal-el-scroll {
+//   // height: 1px;
+//   // background-color: inherit;
+//   display: none;
+
+//   @media screen and (max-height: 670px) { 
+//     display: block;
+//     color: #E1D4C9;
+//   }
+// }
 
 /***********************************************/
 /***********************************************/

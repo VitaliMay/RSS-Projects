@@ -71,19 +71,19 @@
 							Behind each of our cups hides an <span class="title--accent">amazing surprise</span>
 						</h1>
 						<div class="menu-offer__tabs tab-container">
-							<button type="button" class="tab-item tab-item--active">
+							<button type="button" data-category="coffee" class="tab-item tab-item--active">
 								<span class="tab-item_img">
 									<span class="tab-item_img__el tab-item_img__el--01"></span>
 								</span>
 								<span class="tab-item_text">Coffee</span>
 							</button>
-							<button type="button" class="tab-item">
+							<button type="button" data-category="tea" class="tab-item">
 								<span class="tab-item_img">
 									<span class="tab-item_img__el tab-item_img__el--02"></span>
 								</span>
 								<span class="tab-item_text">Tea</span>
 							</button>
-							<button type="button" class="tab-item">
+							<button type="button" data-category="dessert" class="tab-item">
 								<span class="tab-item_img">
 									<span class="tab-item_img__el tab-item_img__el--03"></span>
 								</span>
@@ -92,7 +92,7 @@
 						</div>
 						<div class="menu-offer__card-container card-container card-container--active">
 
-							<div class="card">
+							<!-- <div class="card">
 								<div class="card-img">
 									<div class="card-img__item card-img__item--01"></div>
 								</div>
@@ -171,10 +171,10 @@
 									<p class="card-content__text">Fragrant black coffee with cognac and whipped cream</p>
 									<p class="card-content__price title-3">$6.50</p>
 								</div>
-							</div>
+							</div> -->
 						</div>
 
-						<button type="button" class="slider-btn slider-btn--menu">
+						<button type="button" class="slider-btn slider-btn--menu-refresh">
 							<span class="slider-btn__arrow slider-btn__arrow--refresh"></span>
 						</button>
 
@@ -228,8 +228,9 @@
 
 		<div class="modal">
 
-			<div class="modal-img modal-img">
-				<div class="modal-img__item modal-img__item--01"></div>
+			<div class="modal-img">
+				<div class="modal-img__item"></div>
+				<!-- <div class="modal-img__item modal-img__item--01"></div> -->
 			</div>
 
 			<div class="modal-info">
@@ -241,19 +242,20 @@
 				<div class="modal-option">
 					<p class="modal-option__text">Size</p>
 					<div class="menu-offer__tabs tab-container tab-container--modal">
-						<button type="button" class="tab-item tab-item--active tab-item--modal">
+						<button type="button" data-sizes="s" class="tab-item tab-item--active">
+						<!-- <button type="button" data-sizes="s" class="tab-item tab-item--active tab-item--modal"> -->
 							<span class="tab-item_img">
 								<span class="sss">S</span>
 							</span>
 							<span class="tab-item_text">200 ml</span>
 						</button>
-						<button type="button" class="tab-item">
+						<button type="button" data-sizes="m" class="tab-item">
 							<span class="tab-item_img">
 								<span class="sss">M</span>
 							</span>
 							<span class="tab-item_text">300 ml</span>
 						</button>
-						<button type="button" class="tab-item">
+						<button type="button" data-sizes="l" class="tab-item">
 							<span class="tab-item_img">
 								<span class="sss">L</span>
 							</span>
@@ -265,19 +267,19 @@
 				<div class="modal-option">
 					<p class="modal-option__text">Additives</p>
 					<div class="menu-offer__tabs tab-container tab-container--modal">
-						<button type="button" class="tab-item tab-item--modal">
+						<button type="button" data-additives="additives" class="tab-item tab-item--modal">
 							<span class="tab-item_img">
 								<span class="sss">1</span>
 							</span>
 							<span class="tab-item_text">Sugar</span>
 						</button>
-						<button type="button" class="tab-item">
+						<button type="button" data-additives="additives" class="tab-item tab-item--modal">
 							<span class="tab-item_img">
 								<span class="sss">2</span>
 							</span>
 							<span class="tab-item_text">Cinnamon</span>
 						</button>
-						<button type="button" class="tab-item">
+						<button type="button" data-additives="additives" class="tab-item tab-item--modal">
 							<span class="tab-item_img">
 								<span class="sss">3</span>
 							</span>
@@ -297,11 +299,11 @@
 				</div>
 
 				<button class="modal-btn-close" type="button">Close</button>
-
+				<!-- <div class="modal-el-scroll">.</div> -->
 			</div>
 		</div>
 	</div>
 
-	<script type="module" src="./js/index.js"></script>
+	<script type="module" src="../js/index.js"></script>
 </body>
 </html>

@@ -3,9 +3,18 @@ const menu = document.querySelector('.menu');
 const body = document.querySelector('body');
 const burgerButton = document.querySelector('.burger-button');
 const fon = document.querySelector('.fon');
-const modal = document.querySelector('.modal')
+
 const containerHeader = document.querySelector('.container--header')
 
+// const modal = document.querySelector('.modal')
+// const modalBtnArray = [...modal.querySelectorAll('.tab-item')];
+
+// function modalOpen() {
+//   closeMenu();
+//   fon.classList.add('work');
+//   modal.classList.add('modal--active');
+//   body.classList.add('lock');
+// }
 
 
 // делегирование событий
@@ -45,19 +54,35 @@ function closeMenu() {
     body.classList.remove('lock');
     fon.classList.remove('work');
     containerHeader.classList.remove('container--header-active')
+
+    // modal.classList.remove('modal--active');
+    // modalBtnArray.forEach(item => {
+    //   item.classList.remove('tab-item--active');
+    // });
+    // modalBtnArray[0].classList.add('tab-item--active');
+
+    // priceAdditives = 0;
+    // priceSize = 0;
+    // priceTotal = 0;
+    // priceBase = 0;
+    // modalClose()
 }
+
+
 
 /******************************************* */
-function modalFind() {
-  if (modal.classList.contains('modal--active')) {
-    console.log('Привет модалка')
-    closeMenu();
-    fon.classList.add('work');
+// function modalFind() {
+//   if (modal.classList.contains('modal--active')) {
+//     console.log('Привет модалка')
+//     closeMenu();
+//     fon.classList.add('work');
 
-  }
-}
+//   }
+// }
 
-modalFind()
+// modalFind()
+
+
 
 /************************************************ */
 /************************************************ */
@@ -86,3 +111,10 @@ modalFind()
 //   }
 // }
 
+// import { myVariable } from './index.js';
+// console.log(myVariable); // Выведет "Hello!"
+
+
+// export { closeMenu };
+// export { fon };
+// export { body };
