@@ -4,7 +4,7 @@ const sliderScreen = slider.querySelector('.slider-inner');
 const sliderStrip = slider.querySelector('.slider-strip');
 const sliderPgArr = [...document.querySelectorAll('.slider-pg__item')];
 
-console.log(`Привет новая версия`)
+// console.log(`Привет новая версия`)
 
 let slideNumber = 0; // порядковый номер слайда
 let sliderWidth = sliderScreen.clientWidth; // узнаю ширину слайда
@@ -19,6 +19,8 @@ let sliderInterval; // переменная для обозначения инт
 
 sliderScreen.addEventListener('touchstart', hangleTouchStart, false)
 sliderScreen.addEventListener('touchmove', hangleTouchMove, false)
+sliderScreen.addEventListener('touchend', hangleTouchEnd, false)
+sliderScreen.addEventListener('touchcancel', hangleTouchEnd, false)
 
 function hangleTouchStart (event) {
   // console.log(event)
@@ -27,6 +29,7 @@ function hangleTouchStart (event) {
   xStart = touchStart.clientX
   // console.log(xStart)
 
+  sliderPgArr.forEach(item => item.classList.add('pauseAnimation'));
 }
 function hangleTouchMove (event) {
   if (!xStart) { return };
@@ -55,6 +58,13 @@ function hangleTouchMove (event) {
 let xStart = null; // начальная переменная для перетаскивания
 let swipe = null; // для определения направления движения
 
+function hangleTouchEnd () {
+  // console.log(event)
+  // console.log(touchStart)
+  // console.log(xStart)
+
+  sliderPgArr.forEach(item => item.classList.remove('pauseAnimation'));
+}
 
 
 /******************************************************** */
@@ -164,15 +174,15 @@ sliderPgArr.forEach((item) => {
 // });
 
 
-sliderStrip.addEventListener('pointerdown', () => {
-  sliderPgArr.forEach(item => item.classList.add('pauseAnimation'));
+// sliderStrip.addEventListener('pointerdown', () => {
+//   sliderPgArr.forEach(item => item.classList.add('pauseAnimation'));
 
-  // sliderPgItemActive.classList.add('pauseAnimation');
-});
+//   // sliderPgItemActive.classList.add('pauseAnimation');
+// });
 
-sliderStrip.addEventListener('pointerup', () => {
-  sliderPgArr.forEach(item => item.classList.remove('pauseAnimation'));
-});
+// sliderStrip.addEventListener('pointerup', () => {
+//   sliderPgArr.forEach(item => item.classList.remove('pauseAnimation'));
+// });
 
 
 
