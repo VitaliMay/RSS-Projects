@@ -864,15 +864,22 @@ body.lock {
 .slider {
   // border: solid greenyellow 2px;
   width: 100%;
+
+  display: flex; // изменил для week-3
+  justify-content: space-between; // изменил для week-3
+  align-items: center; // изменил для week-3
 }
 
 .slider-block {
   // background-color: #8E8E8E;
-  width: 100%;
+  flex-grow: 1; // изменил для week-3
+  // width: 100%;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column; // изменил для week-3
+  // justify-content: space-between;
   align-items: center;
-  column-gap: 2rem;
+  // column-gap: 2rem;
+  row-gap: 40px; // изменил для week-3
 
   @media screen and (max-width: 700px) {
     flex-wrap: wrap;
@@ -1071,19 +1078,22 @@ body.lock {
   transition: all 0.6s;
   cursor: pointer;
 
-  @media screen and (max-width: 400px) {
+  @media screen and (max-width: 670px) { // изменил для week-3
+  // @media screen and (max-width: 400px) {
     display: none;
   }
 
   &--order-01 {
-    @media screen and (max-width: 700px) {
-      order: 1;
-    }
+    margin-bottom: 40px; // изменил для week-3
+    // @media screen and (max-width: 700px) {
+    //   // order: 1;
+    // }
   }
   &--order-02{
-    @media screen and (max-width: 700px) {
-      order: 2;
-    }
+    margin-bottom: 40px; // изменил для week-3
+    // @media screen and (max-width: 700px) {
+    //   // order: 2;
+    // }
   }
 
   &--menu-refresh {
@@ -1266,8 +1276,15 @@ body.lock {
   }
 }
 
-.slider-inner:hover {
-  background-color: antiquewhite;
+
+@media (hover: hover) {
+  // .slider-inner:hover {
+  //   background-color: antiquewhite;
+  // }
+
+  .slider-inner:hover + .slider-pg .slider-pg__item--active {
+    animation-play-state: paused;
+  }
 }
 
 .stopAnimation {
@@ -1287,14 +1304,9 @@ body.lock {
 // }
 
 
-// .slider-inner:hover {
-//   background-color: antiquewhite;
-// }
 
 // .slider-inner:hover + .slider-pg .slider-pg__item--active {
-// // .slider-inner:hover ~ .slider-pg .slider-pg__item--active {
 //   animation-play-state: paused;
-//   background-color: aqua;
 // }
 
 // .slider-pg__item--active:hover {

@@ -111,24 +111,28 @@ sliderPgArr.forEach((item) => {
 /****   Пробую разобраться с остановкой              *********************************************** */
 
 
-sliderStrip.addEventListener('mouseover', () => {
-// sliderScreen.addEventListener('mouseover', () => {
-  // const sliderPgItemActive = document.querySelector('.slider-pg__item--active');
-  sliderPgArr.forEach(item => item.classList.add('pauseAnimation'));
-  // sliderPgItemActive.classList.add('pauseAnimation');
+/****  эффект ховер (изменил html)            ********************************** */
+
+// sliderStrip.addEventListener('mouseover', () => {
+// // sliderScreen.addEventListener('mouseover', () => {
+//   // const sliderPgItemActive = document.querySelector('.slider-pg__item--active');
+//   sliderPgArr.forEach(item => item.classList.add('pauseAnimation'));
+//   // sliderPgItemActive.classList.add('pauseAnimation');
   
-});
+// });
 
-sliderStrip.addEventListener('mouseout', () => {
-// sliderScreen.addEventListener('mouseout', () => {
-  // const sliderPgItemActive = document.querySelector('.slider-pg__item--active');
+// sliderStrip.addEventListener('mouseout', () => {
+// // sliderScreen.addEventListener('mouseout', () => {
+//   // const sliderPgItemActive = document.querySelector('.slider-pg__item--active');
   
-  sliderPgArr.forEach(item => item.classList.remove('pauseAnimation'));
+//   sliderPgArr.forEach(item => item.classList.remove('pauseAnimation'));
 
-  // .runningAnimation
+//   // .runningAnimation
 
-  // sliderPgItemActive.classList.remove('pauseAnimation'); // удалите класс, когда указатель мыши покидает .slider-strip
-});
+//   // sliderPgItemActive.classList.remove('pauseAnimation'); // удалите класс, когда указатель мыши покидает .slider-strip
+// });
+
+/****************************************************** */
 
 // sliderStrip.addEventListener('touchstart', () => {
 // // sliderScreen.addEventListener('touchstart', () => {
