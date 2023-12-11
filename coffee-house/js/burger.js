@@ -6,17 +6,6 @@ const fon = document.querySelector('.fon');
 
 const containerHeader = document.querySelector('.container--header')
 
-// const modal = document.querySelector('.modal')
-// const modalBtnArray = [...modal.querySelectorAll('.tab-item')];
-
-// function modalOpen() {
-//   closeMenu();
-//   fon.classList.add('work');
-//   modal.classList.add('modal--active');
-//   body.classList.add('lock');
-// }
-
-
 // делегирование событий
 // Вместо назначения обработчика кликов на каждый элемент меню
 
@@ -54,67 +43,5 @@ function closeMenu() {
     body.classList.remove('lock');
     fon.classList.remove('work');
     containerHeader.classList.remove('container--header-active')
-
-    // modal.classList.remove('modal--active');
-    // modalBtnArray.forEach(item => {
-    //   item.classList.remove('tab-item--active');
-    // });
-    // modalBtnArray[0].classList.add('tab-item--active');
-
-    // priceAdditives = 0;
-    // priceSize = 0;
-    // priceTotal = 0;
-    // priceBase = 0;
-    // modalClose()
 }
 
-
-
-/******************************************* */
-// function modalFind() {
-//   if (modal.classList.contains('modal--active')) {
-//     console.log('Привет модалка')
-//     closeMenu();
-//     fon.classList.add('work');
-
-//   }
-// }
-
-// modalFind()
-
-
-
-/************************************************ */
-/************************************************ */
-
-// Для сохранения стилей бургер-меню при изменении ориентации экрана. Медиа-запросы для ориентации устройства:
-
-// /* Стили для вертикальной ориентации экрана и шириной от 420px до 800px */
-// @media (min-width: 421px) and (max-width: 800px) and (orientation: portrait) {
-//   .burger-menu {
-//     /* ваши стили для выезжающего бургер-меню */
-//   }
-// }
-
-// /* Стили для горизонтальной ориентации экрана и шириной от 420px до 800px */
-// @media (min-width: 421px) and (max-width: 800px) and (orientation: landscape) {
-//   .burger-menu {
-//     /* ваши стили для выезжающего бургер-меню */
-//   }
-// }
-
-// /* Стили для других размеров экранов и ориентаций */
-// /* Например, для экранов шириной от 800px до 1200px */
-// @media (min-width: 801px) and (max-width: 1200px) {
-//   .burger-menu {
-//     /* другие стили для бургер-меню */
-//   }
-// }
-
-// import { myVariable } from './index.js';
-// console.log(myVariable); // Выведет "Hello!"
-
-
-// export { closeMenu };
-// export { fon };
-// export { body };

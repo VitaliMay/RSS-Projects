@@ -868,6 +868,15 @@ body.lock {
   display: flex; // изменил для week-3
   justify-content: space-between; // изменил для week-3
   align-items: center; // изменил для week-3
+
+  @media screen and (max-width: 670px) { // изменил для week-3
+    // flex-direction: column;
+
+    flex-wrap: wrap;
+    column-gap: 300px;
+
+    // justify-content: center;
+  }
 }
 
 .slider-block {
@@ -1078,7 +1087,7 @@ body.lock {
   transition: all 0.6s;
   cursor: pointer;
 
-  @media screen and (max-width: 670px) { // изменил для week-3
+  @media screen and (max-width: 470px) { // изменил для week-3
   // @media screen and (max-width: 400px) {
     display: none;
   }
@@ -1088,12 +1097,20 @@ body.lock {
     // @media screen and (max-width: 700px) {
     //   // order: 1;
     // }
+    @media screen and (max-width: 670px) { // изменил для week-3
+      order: 1;
+      margin-bottom: 0px;
+    }
   }
   &--order-02{
     margin-bottom: 40px; // изменил для week-3
     // @media screen and (max-width: 700px) {
     //   // order: 2;
     // }
+    @media screen and (max-width: 670px) { // изменил для week-3
+      order: 2;
+      margin-bottom: 0px;
+    }
   }
 
   &--menu-refresh {
