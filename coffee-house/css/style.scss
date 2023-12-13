@@ -687,6 +687,7 @@ body.lock {
   }
 
   &__video {
+    pointer-events: none;
     // width: 100%;
     max-width: 1360px;
     // max-height: 644px;
