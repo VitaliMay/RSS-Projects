@@ -493,6 +493,7 @@ body.lock {
   }
 }
 .header-hero__video {
+  pointer-events: none;
   max-width: 1360px;
   -o-object-fit: cover;
      object-fit: cover;

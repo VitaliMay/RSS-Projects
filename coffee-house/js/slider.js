@@ -17,7 +17,13 @@ sliderScreen.addEventListener('touchmove', hangleTouchMove, { passive: true })
 sliderScreen.addEventListener('touchend', hangleTouchEnd, false)
 sliderScreen.addEventListener('touchcancel', hangleTouchEnd, false)
 
+// чтобы не появлялось контекстное меню при длительном таче
+sliderScreen.addEventListener('contextmenu', function (event) {
+  event.preventDefault();
+});
+
 function hangleTouchStart (event) {
+  // event.preventDefault()
   const touchStart = event.touches[0];
   xStart = touchStart.clientX
   sliderPgArr.forEach(item => item.classList.add('pauseAnimation'));
