@@ -28,17 +28,14 @@ let funcButtonIndexArr = [13, 14, 28, 29, 41, 42, 53, 54, 55, 56, 57, 59, 60, 61
 // позиция пробела 57 он и так работает 
 //let index = [13, 14, 28, 40, 41, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62]
 
-console.log(abcKeys.length)
-console.log(codeKeyboard.length)
-
-
 
 function start(){
 
   document.querySelector('body').innerHTML += `<main class="main"></main>`;
   document.querySelector('.main').innerHTML = `<h1 class="title">Hangman game</h1>`;
 
-  document.querySelector('.main').innerHTML = `<div class="hangImg"></div>`;
+  document.querySelector('.main').innerHTML += `<div class="hangImg"></div>`;
+  document.querySelector('.main').innerHTML += `<div class="hangWord"></div>`;
 
   document.querySelector('.main').innerHTML += `<div class="wrapper-text"></div>`; // обёртка для ввода текста
   document.querySelector('.main').innerHTML += `<div class="keyboard"></div>`;
@@ -68,6 +65,19 @@ function start(){
   //   console.log(i)
   // }
 
+  const randomRiddleIndex = Math.floor(Math.random() * data.length)
+  console.log(randomRiddleIndex)
+  const { riddle, answer } = data[randomRiddleIndex];
+  console.log(riddle)
+  console.log(answer)
+
+  const hangWordWrapper = document.querySelector('.hangWord');
+  for (let i = 0; i < answer.length; i += 1) {
+    const div = document.createElement('div');
+    div.classList.add(`hangWord__letter`);
+    div.innerText = answer[i];
+    hangWordWrapper.appendChild(div);
+  }
   /************************************************************************** */
 
   let init = '';
@@ -250,10 +260,10 @@ document.querySelectorAll('.keyboard .key').forEach(function (element) {
 
     /******Ловлю переменную для смены языка***************************************************************************** */
     
-    console.log(`Привет что-то ${element.innerHTML}---------------------`)
+    // console.log(`Привет что-то ${element.innerHTML}---------------------`)
 
     if(element.innerHTML === 'lang') {
-      console.log(`Тест на язык-----------------------------------------`)
+      // console.log(`Тест на язык-----------------------------------------`)
       changeLange ()  // пока только меняет переменную 'k' при нажатии на 'lang'
       // start()
       // text()

@@ -3,6 +3,12 @@
   box-sizing: border-box;
 }
 
+.main {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
 .title {
   text-align: center;
 }
@@ -98,6 +104,16 @@
   height: 70px;
   background-size: contain;
   background-repeat: no-repeat;
+  z-index: -2;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 2s, opacity 2s;
+}
+.hangImgMen__item--active {
+  z-index: 16;
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 2s, opacity 2s;
 }
 .hangImgMen__item_1 {
   transform: translate(33%, 4%);
@@ -131,4 +147,17 @@
   to {
     transform: translate(124%, 47%) rotateY(360deg);
   }
+}
+.hangWord {
+  display: flex;
+  -moz-column-gap: 5px;
+       column-gap: 5px;
+}
+.hangWord__letter {
+  width: 20px;
+  height: 20px;
+  border-bottom: solid black 2px;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 17px;
 }/*# sourceMappingURL=style.css.map */
