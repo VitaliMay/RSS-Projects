@@ -16,6 +16,8 @@
   
   margin: 0 auto;
   padding: 5px;
+
+
 }
 
 .key {
@@ -24,6 +26,8 @@
   border: solid 1px black;
   margin: 3px;
   padding: 3px;
+
+  // text-transform: uppercase;
 }
 
 .add-key {
@@ -96,6 +100,53 @@
   // filter: blur(10px);
   transition: all 0.7s;
 
+  // &__item {
+  //   position: absolute;
+    
+  //   width: 70px;
+  //   height: 70px;
+  //   // background-color: cadetblue;
+  //   background-size: contain;
+  //   background-repeat: no-repeat;
+
+  //   &_1 {
+  //     transform: translate(244%, 150%);
+  //     // transform: translate(172px, 104px);
+  //     background-image: url(../assets/svg/hangItem1.svg);
+  //   }
+  //   &_2 {
+  //     transform: translate(285%, 253%);
+  //     background-image: url(../assets/svg/hangItem2.svg);
+  //   }
+  //   &_3 {
+  //     transform: translate(203%, 259%);
+  //     background-image: url(../assets/svg/hangItem3.svg);
+  //   }
+  //   &_4 {
+  //     transform: translate(303%, 259%);
+  //     background-image: url(../assets/svg/hangItem4.svg);
+  //   }
+  //   &_5 {
+  //     transform: translate(203%, 353%);
+  //     background-image: url(../assets/svg/hangItem5.svg);
+  //   }
+  //   &_6 {
+  //     transform: translate(303%, 353%);
+  //     background-image: url(../assets/svg/hangItem6.svg);
+  //   }
+  // }
+
+}
+
+.hangImgMen {
+  position: absolute;
+  width: 40%;
+  height: 55%;
+  // background-color: aquamarine;
+  // transform: translate(124%, 47%);
+
+  animation: rotateHangman 5s linear infinite;
+
   &__item {
     position: absolute;
     
@@ -106,32 +157,38 @@
     background-repeat: no-repeat;
 
     &_1 {
-      transform: translate(244%, 150%);
+      transform: translate(33%, 4%);
       // transform: translate(172px, 104px);
       background-image: url(../assets/svg/hangItem1.svg);
     }
     &_2 {
-      transform: translate(285%, 253%);
+      transform: translate(75%, 107%);
       background-image: url(../assets/svg/hangItem2.svg);
     }
     &_3 {
-      transform: translate(203%, 259%);
+      transform: translate(3%, 108%);
       background-image: url(../assets/svg/hangItem3.svg);
     }
     &_4 {
-      transform: translate(303%, 259%);
+      transform: translate(85%, 108%);
       background-image: url(../assets/svg/hangItem4.svg);
     }
     &_5 {
-      transform: translate(203%, 353%);
+      transform: translate(3%, 202%);
       background-image: url(../assets/svg/hangItem5.svg);
     }
     &_6 {
-      transform: translate(303%, 353%);
+      transform: translate(85%, 202%);
       background-image: url(../assets/svg/hangItem6.svg);
     }
   }
-
 }
 
-
+@keyframes rotateHangman {
+  from {
+    transform:  translate(124%, 47%) rotateY(0deg);
+  }
+  to {
+    transform:  translate(124%, 47%) rotateY(360deg);
+  }
+}

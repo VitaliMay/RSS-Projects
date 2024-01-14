@@ -85,34 +85,50 @@
   background-repeat: no-repeat;
   transition: all 0.7s;
 }
-.hangImg__item {
+
+.hangImgMen {
+  position: absolute;
+  width: 40%;
+  height: 55%;
+  animation: rotateHangman 5s linear infinite;
+}
+.hangImgMen__item {
   position: absolute;
   width: 70px;
   height: 70px;
   background-size: contain;
   background-repeat: no-repeat;
 }
-.hangImg__item_1 {
-  transform: translate(244%, 150%);
+.hangImgMen__item_1 {
+  transform: translate(33%, 4%);
   background-image: url(../assets/svg/hangItem1.svg);
 }
-.hangImg__item_2 {
-  transform: translate(285%, 253%);
+.hangImgMen__item_2 {
+  transform: translate(75%, 107%);
   background-image: url(../assets/svg/hangItem2.svg);
 }
-.hangImg__item_3 {
-  transform: translate(203%, 259%);
+.hangImgMen__item_3 {
+  transform: translate(3%, 108%);
   background-image: url(../assets/svg/hangItem3.svg);
 }
-.hangImg__item_4 {
-  transform: translate(303%, 259%);
+.hangImgMen__item_4 {
+  transform: translate(85%, 108%);
   background-image: url(../assets/svg/hangItem4.svg);
 }
-.hangImg__item_5 {
-  transform: translate(203%, 353%);
+.hangImgMen__item_5 {
+  transform: translate(3%, 202%);
   background-image: url(../assets/svg/hangItem5.svg);
 }
-.hangImg__item_6 {
-  transform: translate(303%, 353%);
+.hangImgMen__item_6 {
+  transform: translate(85%, 202%);
   background-image: url(../assets/svg/hangItem6.svg);
+}
+
+@keyframes rotateHangman {
+  from {
+    transform: translate(124%, 47%) rotateY(0deg);
+  }
+  to {
+    transform: translate(124%, 47%) rotateY(360deg);
+  }
 }/*# sourceMappingURL=style.css.map */
