@@ -65,19 +65,22 @@ function start(){
   //   console.log(i)
   // }
 
-  const randomRiddleIndex = Math.floor(Math.random() * data.length)
-  console.log(randomRiddleIndex)
-  const { riddle, answer } = data[randomRiddleIndex];
-  console.log(riddle)
-  console.log(answer)
+  // const memoryLocalTest = new MemoryStore();
+  // const randomRiddleIndex = Math.floor(Math.random() * memoryLocalTest.getScore().length)
+  // // const randomRiddleIndex = Math.floor(Math.random() * data.length)
+  // console.log(randomRiddleIndex)
+  // const { riddle, answer } = memoryLocalTest.getScore()[randomRiddleIndex];
+  // // const { riddle, answer } = data[randomRiddleIndex];
+  // console.log(riddle)
+  // console.log(answer)
 
-  const hangWordWrapper = document.querySelector('.hangWord');
-  for (let i = 0; i < answer.length; i += 1) {
-    const div = document.createElement('div');
-    div.classList.add(`hangWord__letter`);
-    div.innerText = answer[i];
-    hangWordWrapper.appendChild(div);
-  }
+  // const hangWordWrapper = document.querySelector('.hangWord');
+  // for (let i = 0; i < answer.length; i += 1) {
+  //   const div = document.createElement('div');
+  //   div.classList.add(`hangWord__letter`);
+  //   div.innerText = answer[i];
+  //   hangWordWrapper.appendChild(div);
+  // }
   /************************************************************************** */
 
   let init = '';
@@ -440,4 +443,73 @@ document.querySelectorAll('.keyboard .key').forEach(function (element) {
 // }
 
 
+/******* Создаю класс для работы с Local Storage ***************************** */
+/******* Создаю класс для работы с Local Storage ***************************** */
 
+
+
+class MemoryStore {
+  constructor() {
+    this.localKey = 'VitaliMay_game_Hangman';
+  }
+
+  getScore() {
+    const localData = localStorage.getItem(this.localKey);
+    if (localData) {
+      return JSON.parse(localData);
+    } else {
+      return data;
+    }
+  }
+
+  updateScore(newData) {
+    if (newData.length === 0) {
+      localStorage.setItem(this.localKey, JSON.stringify(data));
+
+    // Проверка на то, что показаны все вопросы из data
+      if (JSON.stringify(this.getScore()) === JSON.stringify(data)) {
+        setTimeout(function() {
+          alert('Сейчас будет задан последний вопрос и вопросы начнут повторяться, идем на новый круг');
+        }, 0);
+      }
+    
+    } else {
+      localStorage.setItem(this.localKey, JSON.stringify(newData));
+    }
+  }
+
+  deleteScore(index) {
+    let memoryLocal = this.getScore();
+    memoryLocal.splice(index, 1); // Удалить элемент по указанному индексу
+    this.updateScore(memoryLocal);
+  }
+}
+
+
+  const memoryLocalTest = new MemoryStore();
+  // if (memoryLocalTest.getScore().length === 0) {
+  //   alert('Закончились вопросы, что пойти на новый круг очисти local storage')
+  //   // console.log('Закончились вопросы, что пойти на новый круг очисти local storage')
+  // }
+  const randomRiddleIndex = Math.floor(Math.random() * memoryLocalTest.getScore().length)
+  // const randomRiddleIndex = Math.floor(Math.random() * data.length)
+  console.log(randomRiddleIndex)
+  const { riddle, answer } = memoryLocalTest.getScore()[randomRiddleIndex];
+  // const { riddle, answer } = data[randomRiddleIndex];
+  console.log(riddle)
+  console.log(answer)
+
+  const hangWordWrapper = document.querySelector('.hangWord');
+  for (let i = 0; i < answer.length; i += 1) {
+    const div = document.createElement('div');
+    div.classList.add(`hangWord__letter`);
+    div.innerText = answer[i];
+    hangWordWrapper.appendChild(div);
+  }
+
+
+
+// const memoryLocalTest = new MemoryStore();
+// console.log(memoryLocalTest.getScore()[0])
+const indexToRemove = 0; // Пример индекса, который нужно удалить
+memoryLocalTest.deleteScore(randomRiddleIndex);
