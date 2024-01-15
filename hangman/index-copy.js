@@ -1,9 +1,22 @@
 
+const note = `
+Привет. Сорри, за кривую, мягко говоря незаконченную работу.
+Пятый день с температурой больше 38. Всё в тумане(
+Если будет возможность, проверь, плиз в последний день кросс-чека.
+Может приду в себя - соберу, приведу в порядок разрозненные детали.
+А так, клавиатура работает, висельник крутится,  
+загадки задаются из local storage не повторяются, 
+но ходят по кругу когда заканчиваются
+(alert предупредит, специально сделал для удобства тестирования).
+В общем, спасибо за понимание. Удачи и здоровья
+
+`
+console.log(note)
 /**************************************************************** */
   /**************************************************************** */
   // подключаю модуль
   // import data from "./products";
-  console.log(data)
+  // console.log(data)
   /**************************************************************** */
   /**************************************************************** */
 
@@ -35,6 +48,7 @@ function start(){
   document.querySelector('.main').innerHTML = `<h1 class="title">Hangman game</h1>`;
 
   document.querySelector('.main').innerHTML += `<div class="hangImg"></div>`;
+  document.querySelector('.main').innerHTML += `<div class="hangRiddle"></div>`;
   document.querySelector('.main').innerHTML += `<div class="hangWord"></div>`;
 
   document.querySelector('.main').innerHTML += `<div class="wrapper-text"></div>`; // обёртка для ввода текста
@@ -174,7 +188,7 @@ text()
 /* Игры с языком */
 
 let lang = document.getElementById('lang')
-console.log(lang)
+// console.log(lang)
 
 // let lang = document.querySelector('.lang')
 // console.log(lang)
@@ -197,7 +211,7 @@ function changeLange () {
     else{
         k = 0
       }
-      console.log(`Переменная к = ${k}`)
+      // console.log(`Переменная к = ${k}`)
 }
 
 //lang.addEventListener("click", console.log(k));
@@ -241,7 +255,7 @@ document.onkeydown = (event) => {
   if (event.code == 'ShiftLeft' || event.code == 'ShiftRight') flag = true  // отлавливает Shift + Alt
   if (event.code == 'AltLeft' && flag || event.code === 'AltRight' && flag){ // отлавливает Shift + Alt
     flag = false // чтобы сработало только один раз
-    console.log('Ура заработало')
+    // console.log('Ура заработало')
   } // отлавливает Shift + Alt
 
   /* загнал в одну функцию, надо вешать слушатели, но не успеваю */
@@ -281,7 +295,7 @@ document.querySelectorAll('.keyboard .key').forEach(function (element) {
 
     let code = this.getAttribute('data')
     this.classList.add('active')
-    console.log(code)
+    // console.log(code)
 
 
     let cursorStart = textarea.selectionStart;
@@ -293,8 +307,8 @@ document.querySelectorAll('.keyboard .key').forEach(function (element) {
     let indexFuncButton = codeKeyboard.indexOf(code)
 
     if (funcButtonIndexArr.includes(indexFuncButton)){
-      console.log(`Начинаются мучения`)
-      console.log(`Индекс= ${codeKeyboard.indexOf(code)}`)
+      // console.log(`Начинаются мучения`)
+      // console.log(`Индекс= ${codeKeyboard.indexOf(code)}`)
 
       if(indexFuncButton === 13){
         // console.log(`Началось`)
@@ -493,11 +507,14 @@ class MemoryStore {
   // }
   const randomRiddleIndex = Math.floor(Math.random() * memoryLocalTest.getScore().length)
   // const randomRiddleIndex = Math.floor(Math.random() * data.length)
-  console.log(randomRiddleIndex)
+  // console.log(randomRiddleIndex)
   const { riddle, answer } = memoryLocalTest.getScore()[randomRiddleIndex];
   // const { riddle, answer } = data[randomRiddleIndex];
-  console.log(riddle)
-  console.log(answer)
+  // console.log(riddle)
+  // console.log(answer)
+
+  const hangRiddleWrapper = document.querySelector('.hangRiddle');
+  hangRiddleWrapper.innerText = riddle;
 
   const hangWordWrapper = document.querySelector('.hangWord');
   for (let i = 0; i < answer.length; i += 1) {

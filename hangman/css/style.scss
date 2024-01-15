@@ -162,10 +162,10 @@
     background-size: contain;
     background-repeat: no-repeat;
 
-    z-index: -2;
-    visibility: hidden;
-    opacity: 0;
-    transition: visibility 2s, opacity 2s;
+    // z-index: -2;
+    // visibility: hidden;
+    // opacity: 0;
+    // transition: visibility 2s, opacity 2s;
 
     &--active {
       z-index: 16;
@@ -221,6 +221,11 @@
   }
 }
 
+.hangRiddle {
+  width: 350px;
+  height: 60px;
+  background-color: antiquewhite;
+}
 
 .hangWord {
   display: flex;
