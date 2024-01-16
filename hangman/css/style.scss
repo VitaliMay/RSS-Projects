@@ -7,6 +7,8 @@
   display: flex;
   flex-direction: column;
   row-gap: 20px;
+  // justify-content: center;
+  align-items: center;
 }
 
 .title {
@@ -16,9 +18,12 @@
 .keyboard {
   display: flex;
   flex-direction: row;
+  justify-content: center;
   flex-wrap: wrap;
   border: solid 2px black;
-  width: 855px;
+  // width: 855px;
+  width: 100%;
+  max-width: 600px;
   
   margin: 0 auto;
   padding: 5px;
@@ -33,7 +38,7 @@
   margin: 3px;
   padding: 3px;
 
-  // text-transform: uppercase;
+  text-transform: uppercase;
 }
 
 .add-key {
@@ -74,7 +79,9 @@
   border: solid red 2px;
   padding: 5px;
   margin: 0 auto 10px;
-  width: 855px;
+  // width: 855px;
+  width: 100%;
+  max-width: 855px;
   display: flex;
   justify-content: flex-start;
 }
@@ -222,7 +229,10 @@
 }
 
 .hangRiddle {
-  width: 350px;
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+  // width: 350px;
   height: 60px;
   background-color: antiquewhite;
 }
