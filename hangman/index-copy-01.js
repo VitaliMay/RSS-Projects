@@ -10,6 +10,10 @@ const note = `
 (alert предупредит, специально сделал для удобства тестирования).
 В общем, спасибо за понимание. Удачи и здоровья
 
+Немного доделал. Не реагирует на язык. Добавил подобие адаптива.
+Textarea оставил чтобы показать как работает клавиатура. Не реагирует
+на повторное нажатие. Обидно, конечно, заваливать таск. 
+Там делов то на пару часов ясного сознания. Но всё бывает(
 `
 console.log(note)
 /**************************************************************** */
@@ -136,14 +140,22 @@ let flag = false // отлавливает Shift + Alt
 //   textInput.focus();  // чтобы сразу вводило в форму
 // }
 
+let letterHang = '';
+const keyboard = document.querySelectorAll('.key');
+
 document.addEventListener('keydown', function(event) {
-  if (codeKeyboard.includes(event.code)) {
+  const keyElement = document.querySelector(`.key[data="${event.code}"]`);
+  if (codeKeyboard.includes(event.code) && !keyElement.classList.contains('active')) {
     event.preventDefault(); // чтобы не вводило две буквы
-    document.querySelectorAll('.key').forEach(function (element) {
-      element.classList.remove('active')
-    })
-    document.querySelector(`.key[data="${event.code}"]`).classList.add('active');
+    // keyboard.forEach(function (element) {
+    // // document.querySelectorAll('.key').forEach(function (element) {
+    //   element.classList.remove('active')
+    // })
+    keyElement.classList.add('active');
+    // document.querySelector(`.key[data="${event.code}"]`).classList.add('active');
     const englishKey = engLayout[event.code];
+    letterHang = englishKey;
+
     textInput.focus();  // чтобы сразу вводило в форму
 
     textInput.value += englishKey;
@@ -152,21 +164,29 @@ document.addEventListener('keydown', function(event) {
     console.log('Нажата буквенная клавиша: ' + event.key);
     console.log('Нажата клавиша: ' + event.code);
     console.log('Нажата клавиша Английская: ' + englishKey);
-  } else {alert('ОШИБКА ВВОДА, такой Eng буквы нет')}
+    console.log('Выбрана буква Английская: ' + letterHang);
+  } 
+  // } else {alert('ОШИБКА ВВОДА, такой Eng буквы нет')}
 });
 
+
+// function checkLetter() {
+
+// }
 /*******  работа виртуальной клавиатуры    *********************************************************** */
 
 // document.querySelectorAll('.keyboard .key').forEach(function (element) {
+
+
 document.querySelectorAll('.key').forEach(function (element) {
-  
   element.onclick = function(event){
 
-    document.querySelectorAll('.key').forEach(function (element) {
-    // document.querySelectorAll('.keyboard .key').forEach(function (element) {
+    // keyboard.forEach(function (element) {
+    // // document.querySelectorAll('.key').forEach(function (element) {
+    // // document.querySelectorAll('.keyboard .key').forEach(function (element) {
 
-      element.classList.remove('active')
-    });
+    //   element.classList.remove('active')
+    // });
 
     let code = this.getAttribute('data')
     const englishKey = engLayout[code];

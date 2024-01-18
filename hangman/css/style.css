@@ -69,6 +69,7 @@
 
 .active {
   background-color: green;
+  pointer-events: none;
 }
 
 /* Текст */
