@@ -102,3 +102,9 @@ dist
 
 # TernJS port file
 .tern-port
+
+
+# Игнорировать файл с именем draft.txt
+draft.txt
+# Игнорировать файл с именем draft.txt
+index-draft-01.js
