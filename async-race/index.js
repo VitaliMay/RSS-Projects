@@ -1,9 +1,6 @@
 const body = document.querySelector('body')
 
-let carDivs = [];
-let carImages = [];
-
-const carObj = {} // надо сделать объект объектов
+const carObj = {} // надо сделать объект объектов по id
 
 
 function newElement (tegEl = 'div', classEl = 'carBlock', appendTo = body, addTextContent = '') {
@@ -18,28 +15,39 @@ const buttomBlock = newElement('div', 'buttomBlock')
 
 const changeCarButtomBlock = newElement('div', 'changeCarButtomBlock', buttomBlock)
 const addCarButtom = newElement('buttom', 'createCarButtom', changeCarButtomBlock, 'create Car')
-// const updateCarBottom = newElement('buttom', 'addCarButtom', changeCarButtomBlock, 'update Car')
 const add100CarsButtom = newElement('buttom', 'create100CarsButton', changeCarButtomBlock, 'create 100 Cars')
 
 const generalCarsButtomBlock = newElement('div', 'changeCarButtomBlock', buttomBlock)
-// const add100CarsButtom = newElement('buttom', 'create100CarsButton', generalCarsButtomBlock, 'create 100 Cars')
 const startRaceButtom = newElement('buttom', 'allCarsStartButton', generalCarsButtomBlock, 'Start Race')
 const resetRaceButtom = newElement('buttom', 'allCarsStopButton', generalCarsButtomBlock, 'Reset Race')
 
 addCarButtom.addEventListener('click', carBlockItem)
 
+/************************************************** */
+// генерирую уникальный id
+function idCounter () {
+  let counter = 4 // столько машинок изначально на сервере (это надо получать)
+  // let counter = document.querySelectorAll('.newCarBlock').length
+  return () => {
+    counter += 1;
+    return counter
+  }
+}
+
+const idGenerator = idCounter()
+
+/*************************************************** */
 
 function carBlockItem() {
   const newCarBlock = newElement('div', 'newCarBlock', body)
   /*** */
-  const newCarBlockId = `${carDivs.length}`; // Генерируем уникальный ID для нового блока
+  const newCarBlockId = `${idGenerator()}`; // Генерируем уникальный ID для нового блока
   newCarBlock.id = newCarBlockId;
   /*** */
   const newCarBlock__topDiv = newElement('div', 'newCarBlock__topDiv',newCarBlock)
   const newCarBlock__topDivItem01 = newElement('div', 'addCarButtom', newCarBlock__topDiv, 'Update color this car')
-  // const newCarBlock__topDivItem01 = newElement('div', 'addCarButtom', newCarBlock__topDiv, 'Select this car for update')
   const newCarBlock__topDivItem02 = newElement('div', 'addCarButtom', newCarBlock__topDiv, 'Update this car model')
-  const newCarBlock__topDivItem03 = newElement('div', 'addCarButtom', newCarBlock__topDiv, 'Delete Car')
+  const newCarBlock__topDivItem03 = newElement('div', 'deleteCarButtom', newCarBlock__topDiv, 'Delete Car')
   const newCarBlock__topDivItem04 = newElement('div', 'addCarButtom-model', newCarBlock__topDiv, 'Car Model')
   /*** */
   const newCarBlock__lowDiv = newElement('div', 'newCarBlock__lowDiv',newCarBlock)
@@ -47,26 +55,21 @@ function carBlockItem() {
   const driveButtom = newElement('div', 'engineButtomDrive', engineButtomBlock, 'A')
   const stopButtom = newElement('div', 'engineButtomStop', engineButtomBlock, 'B')
   const trackBlock = newElement('div', 'trackBlock', newCarBlock__lowDiv)
-  // trackBlock.style.paddingLeft = '5px'
-  carObj[newCarBlockId] = { isAnimationRunning: false, currentPadding: 5 };
-  // carObj[carDivs.length] = { isAnimationRunning: false, currentPadding: 5 };
+  
+  const imageElement = newElement('img', 'trackBlock__carImg', trackBlock)
 
-  const imageElement = newElement('img', 'carBlock__carImg', trackBlock)
-
-  imageElement.src = './vehicle-01.svg';
+  imageElement.src = './vehicle-01.svg';  // лучше сразу вставить SVG
   imageElement.alt = `Vehicle model`;
 
   const randomColor = Math.random() * 360
   imageElement.style.filter = `hue-rotate(${randomColor}deg)`;
 
-  /******************************** */ 
-  // Надо добавлять не в массивы, а в объект carObj
-  carDivs.push(trackBlock); // Добавить новый div в массив
-  carImages.push(imageElement); // Добавить новый img в массив
+  carObj[newCarBlockId] = { isAnimationRunning: false, currentTranslate: 0, carDivs: trackBlock, carImages: imageElement};
 }
 
 carBlockItem()
 carBlockItem()
+
 
 /************************************************************************* */
 // Игры с цветом 
@@ -91,59 +94,62 @@ function speedTest(velocity, distance, maxPadding) {
   return maxPadding/timeRace * coefficient
 }
 
-body.addEventListener('click', function(event) {
+body.addEventListener('click', function(event) { // работа с кнопками, надо разобрать на отдельные функции
+
+  if (event.target.closest('.deleteCarButtom')) { // удаляю машинку
+    const newCarBlock = event.target.closest('.newCarBlock'); // Находим соответствующий блок машинки
+    const id = newCarBlock.id
+    console.log(carObj)
+    newCarBlock.remove();
+    delete carObj[id];
+    console.log(carObj)
+  }
 
   if (event.target.closest('.engineButtomDrive')) { // запускаю машинку
     const newCarBlock = event.target.closest('.newCarBlock'); // Находим соответствующий блок машинки
     const id = newCarBlock.id
-    console.log (id);
-    drive(carDivs[id], carImages[id], id); // Запускаем анимацию для соответствующей машинки
+    drive(carObj[id].carDivs, carObj[id].carImages, id); // Запускаем анимацию для соответствующей машинки
   }
 
   if (event.target.closest('.engineButtomStop')) {  // останавливаю-возвращаю машинку
-    // console.log('Stop')
     const newCarBlock = event.target.closest('.newCarBlock'); // Находим соответствующий блок машинки
-    console.log (newCarBlock.id); // Находим соответствующий блок машинки
     const id = newCarBlock.id
     carObj[id].isAnimationRunning = false; // Останавливаем анимацию для соответствующей машинки
-    carObj[id].currentPadding = 5 ;
+    carObj[id].currentTranslate = 0 ;
     // возвращяю машинку, если она уже доехала и перестала обращаться к объекту
-    newCarBlock.querySelector('.trackBlock').style.paddingLeft = `${carObj[id].currentPadding}px`;
+    newCarBlock.querySelector('.trackBlock__carImg').style.transform = `translate(${carObj[id].currentTranslate}px, -11px)`;
   }
 
   if (event.target.closest('.allCarsStartButton')) { // запускаю все машинки
-    carDivs.forEach((item, index) => {drive(item, carImages[index], index)})
+    for (id in carObj) {
+      drive(carObj[id].carDivs, carObj[id].carImages, id)
+    }
   }
 
   if (event.target.closest('.allCarsStopButton')) { // останавливаю все машинки
-    const trackBlockArr = Array.from(body.querySelectorAll('.trackBlock'))
     for (id in carObj) {
 
       carObj[id].isAnimationRunning = false; // Останавливаем анимацию для соответствующей машинки
-      carObj[id].currentPadding = 5;
-      trackBlockArr[id].style.paddingLeft = `${carObj[id].currentPadding}px`;
+      carObj[id].currentTranslate = 0;
+      carObj[id].carImages.style.transform = `translate(${carObj[id].currentTranslate}px, -11px)`;
     }
-    // const trackBlockArr = Array.from(body.querySelectorAll('.trackBlock'))
-    // trackBlockArr.forEach((item, id) => item.style.paddingLeft = `${carObj[id].currentPadding}px`)
   }
 });
 
 function driveAnimation(newDiv, imageElement, index) {
-  let currentPadding = carObj[index].currentPadding; // Текущее значение отступа;
-  // let currentPadding = parseFloat(newDiv.style.paddingLeft); // Текущее значение отступа
-  const maxPadding = parseInt(newDiv.offsetWidth) - parseInt(imageElement.naturalWidth + 5); // Максимальное значение отступа
+  let currentTranslate = carObj[index].currentTranslate; // Текущее значение отступа;
+  const maxTranslate = parseInt(newDiv.offsetWidth) - parseInt(imageElement.naturalWidth + 5); // Максимальное значение отступа
 
-  if (currentPadding >= maxPadding) {
-    currentPadding = 5
+  if (currentTranslate >= maxTranslate) {
+    currentTranslate = 0
   }
-  const paddingIncrement = speedTest(velocity, distance, maxPadding)  // шаг анимации, он же скорость движения машинки на экране
-  currentPadding += paddingIncrement; 
+  const translateIncrement = speedTest(velocity, distance, maxTranslate)  // шаг анимации, он же скорость движения машинки на экране
+  currentTranslate += translateIncrement; 
+  imageElement.style.transform = `translate(${currentTranslate}px, -11px)`;
 
-  newDiv.style.paddingLeft = `${currentPadding}px`;
+  carObj[index].currentTranslate = currentTranslate; // сохранить измененное значение паддинга в объект
 
-  carObj[index].currentPadding = currentPadding; // сохранить измененное значение паддинга в объект
-
-  if (currentPadding < maxPadding && carObj[index].isAnimationRunning) {
+  if (currentTranslate < maxTranslate && carObj[index].isAnimationRunning) {
     requestAnimationFrame(() => driveAnimation(newDiv, imageElement, index))
   } else {
     carObj[index].isAnimationRunning = false; // Сброс флага после завершения анимации

@@ -33,6 +33,17 @@
   background-color: bisque;
 }
 
+.deleteCarButtom {
+  display: block;
+  cursor: pointer;
+  box-sizing: border-box;
+  border: solid 4px rgb(22, 24, 22);
+  border-radius: 5px;
+  background-color: rgb(95, 98, 95);
+  color: rgb(219, 211, 211);
+  padding: 10px;
+}
+
 .addCarButtom {
   /* width: 100px;
   height: 100px; */
@@ -154,4 +165,9 @@
   border: solid 2px black;
   width: 100%;
   padding-left: 5px;
+}
+.trackBlock__carImg {
+  position: absolute;
+  will-change: transform;
+  transform: translate(0px, -11px);
 }/*# sourceMappingURL=style.css.map */
