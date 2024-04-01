@@ -1,7 +1,20 @@
+const score = `Привет. Оценивать здесь особо нечего(
+  Всего один стартовый запрос на сервер
+  Сорри, за потраченное время`
+console.log(score)
+
 const body = document.querySelector('body')
 
 const carObj = {} // надо сделать объект объектов по id
+const carMark = ['Toyota','Reno', 'Pegeot', 'BMW', 'Audi', 'Ford',  'Geely',' Haval','Honda', 'Hyundai', 'Kia','Lada', 'Mazda', 'Mersedes']
+const carModel = ['Bombel', 'CRV', 'G8', 'Kalina', 'Daster',  'Rash','5','3', '9', 'TT','Scope', 'A5', 'CLK']
 
+function generateCarName () {
+  const carMarkIndex = Math.floor(Math.random() * (carMark.length));
+  const carModelIndex = Math.floor(Math.random() * (carModel.length));
+  const carName = `${carMark[carMarkIndex]} ${carModel[carModelIndex]}`
+  return carName
+}
 
 function newElement (tegEl = 'div', classEl = 'carBlock', appendTo = body, addTextContent = '') {
   const nameEl = document.createElement(tegEl);
@@ -21,13 +34,51 @@ const generalCarsButtomBlock = newElement('div', 'changeCarButtomBlock', buttomB
 const startRaceButtom = newElement('buttom', 'allCarsStartButton', generalCarsButtomBlock, 'Start Race')
 const resetRaceButtom = newElement('buttom', 'allCarsStopButton', generalCarsButtomBlock, 'Reset Race')
 
-addCarButtom.addEventListener('click', carBlockItem)
+// addCarButtom.addEventListener('click', carBlockItem) // отказывается присваивать id блоку
 
-/************************************************** */
+addCarButtom.addEventListener('click', () => {  // а так сработало
+  const newId = idGenerator();
+  carBlockItem(newId);
+  // console.log(`create Car ${JSON.stringify(carObj)}`)
+});
+
+/********************************************************************************************************************* */
+/********************************************************************************************************************* */
+
+async function fetchStartData() {  // Получение первых данных
+  try {
+    const response = await fetch('http://127.0.0.1:3000/garage', {
+      method: 'GET',
+    });
+    if (!response.ok) {
+      throw new Error('Error occurred!');
+    }
+    const data = await response.json();
+    let carStartObj = {};
+    data.forEach(item => {
+      carStartObj[item.id] = item;
+    });
+    // console.log(`${JSON.stringify(carStartObj)}`)
+    return carStartObj;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function handleFetchStartData() {
+  const startGarageData = await fetchStartData();
+  Object.keys(startGarageData).forEach((item) => {
+    carBlockItemAsync(item, startGarageData)
+  })
+}
+
+handleFetchStartData()
+
+/********************************************************************************************************************* */
+/********************************************************************************************************************* */
 // генерирую уникальный id
 function idCounter () {
   let counter = 4 // столько машинок изначально на сервере (это надо получать)
-  // let counter = document.querySelectorAll('.newCarBlock').length
   return () => {
     counter += 1;
     return counter
@@ -38,50 +89,112 @@ const idGenerator = idCounter()
 
 /*************************************************** */
 
-function carBlockItem() {
+function carBlockItem(startId) {  //  переписать функцию
   const newCarBlock = newElement('div', 'newCarBlock', body)
   /*** */
-  const newCarBlockId = `${idGenerator()}`; // Генерируем уникальный ID для нового блока
-  newCarBlock.id = newCarBlockId;
+  newCarBlock.id = startId;
+  const carName = generateCarName()
   /*** */
   const newCarBlock__topDiv = newElement('div', 'newCarBlock__topDiv',newCarBlock)
   const newCarBlock__topDivItem01 = newElement('div', 'addCarButtom', newCarBlock__topDiv, 'Update color this car')
   const newCarBlock__topDivItem02 = newElement('div', 'addCarButtom', newCarBlock__topDiv, 'Update this car model')
   const newCarBlock__topDivItem03 = newElement('div', 'deleteCarButtom', newCarBlock__topDiv, 'Delete Car')
-  const newCarBlock__topDivItem04 = newElement('div', 'addCarButtom-model', newCarBlock__topDiv, 'Car Model')
+  const newCarBlock__topDivItem04 = newElement('div', 'addCarButtom-model', newCarBlock__topDiv, carName)
+  // const newCarBlock__topDivItem04 = newElement('div', 'addCarButtom-model', newCarBlock__topDiv, 'Car Model')
   /*** */
   const newCarBlock__lowDiv = newElement('div', 'newCarBlock__lowDiv',newCarBlock)
   const engineButtomBlock = newElement('div', 'engineButtomBlock', newCarBlock__lowDiv)
   const driveButtom = newElement('div', 'engineButtomDrive', engineButtomBlock, 'A')
   const stopButtom = newElement('div', 'engineButtomStop', engineButtomBlock, 'B')
   const trackBlock = newElement('div', 'trackBlock', newCarBlock__lowDiv)
-  
+
+      /********************************************************************************** */
+      // с этому надо вернуться
   const imageElement = newElement('img', 'trackBlock__carImg', trackBlock)
 
   imageElement.src = './vehicle-01.svg';  // лучше сразу вставить SVG
   imageElement.alt = `Vehicle model`;
 
   const randomColor = Math.random() * 360
-  imageElement.style.filter = `hue-rotate(${randomColor}deg)`;
+  imageElement.style.filter = `hue-rotate(${randomColor}deg)`;  // цвет вынести в отдельную функцию
+      /*********************************************************************************** */
 
-  carObj[newCarBlockId] = { isAnimationRunning: false, currentTranslate: 0, carDivs: trackBlock, carImages: imageElement};
+  carObj[startId] = {
+    name: carName,
+    color: `#${Math.floor(Math.random()*1000000)}`,
+    id: startId,
+    isAnimationRunning: false,
+    currentTranslate: 0,
+    carDivs: trackBlock,
+    carImages: imageElement
+  };
+
+  // console.log(`${JSON.stringify(carObj)}`)
 }
 
-carBlockItem()
-carBlockItem()
+function carBlockItemAsync(startId, startGarageData) {  //  переписать функцию
+  const newCarBlock = newElement('div', 'newCarBlock', body)
+  /*** */
+  newCarBlock.id = startId;
+  /*** */
+  // carObj[startId] = {
+  //   name: startGarageData[startId].name,
+  //   color: startGarageData[startId].color,
+  //   id: startId, 
+  //   isAnimationRunning: false, 
+  //   currentTranslate: 0, 
+  //   carDivs: trackBlock, 
+  //   carImages: imageElement
+  // };
+  /*** */
+  const newCarBlock__topDiv = newElement('div', 'newCarBlock__topDiv',newCarBlock)
+  const newCarBlock__topDivItem01 = newElement('div', 'addCarButtom', newCarBlock__topDiv, 'Update color this car')
+  const newCarBlock__topDivItem02 = newElement('div', 'addCarButtom', newCarBlock__topDiv, 'Update this car model')
+  const newCarBlock__topDivItem03 = newElement('div', 'deleteCarButtom', newCarBlock__topDiv, 'Delete Car')
+  const newCarBlock__topDivItem04 = newElement('div', 'addCarButtom-model', newCarBlock__topDiv, `${startGarageData[startId].name}`)
+  // const newCarBlock__topDivItem04 = newElement('div', 'addCarButtom-model', newCarBlock__topDiv, 'Car Model')
+  /*** */
+  const newCarBlock__lowDiv = newElement('div', 'newCarBlock__lowDiv',newCarBlock)
+  const engineButtomBlock = newElement('div', 'engineButtomBlock', newCarBlock__lowDiv)
+  const driveButtom = newElement('div', 'engineButtomDrive', engineButtomBlock, 'A')
+  const stopButtom = newElement('div', 'engineButtomStop', engineButtomBlock, 'B')
+  const trackBlock = newElement('div', 'trackBlock', newCarBlock__lowDiv)
 
+      /********************************************************************************** */
+      // с этому надо вернуться
+  const imageElement = newElement('img', 'trackBlock__carImg', trackBlock)
+
+  imageElement.src = './vehicle-01.svg';  // лучше сразу вставить SVG
+  imageElement.alt = `Vehicle model`;
+
+  const randomColor = Math.random() * 360
+  imageElement.style.filter = `hue-rotate(${randomColor}deg)`;  // цвет вынести в отдельную функцию
+      /*********************************************************************************** */
+
+  carObj[startId] = {
+    name: startGarageData[startId].name,
+    color: startGarageData[startId].color,
+    id: startId, 
+    isAnimationRunning: false, 
+    currentTranslate: 0, 
+    carDivs: trackBlock, 
+    carImages: imageElement
+  };
+
+  // console.log(`${JSON.stringify(carObj)}`)
+}
 
 /************************************************************************* */
 // Игры с цветом 
 
-const slider = document.querySelector('.color-slider');
-const preview = document.querySelector('.color-preview');
+// const slider = document.querySelector('.color-slider');
+// const preview = document.querySelector('.color-preview');
 
-slider.addEventListener('input', function() {
-    const hueValue = this.value;
-    preview.style.filter = `hue-rotate(${hueValue}deg)`;
-    imageElement.style.filter = `hue-rotate(${hueValue}deg)`;
-});
+// slider.addEventListener('input', function() {
+//     const hueValue = this.value;
+//     preview.style.filter = `hue-rotate(${hueValue}deg)`;
+//     imageElement.style.filter = `hue-rotate(${hueValue}deg)`;
+// });
 /************************************************************************* */
 
 // Расчёт скорости (буду получать с сервера)
