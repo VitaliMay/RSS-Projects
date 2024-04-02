@@ -5,7 +5,13 @@ console.log(score)
 
 const body = document.querySelector('body')
 
+let idGenerator; // объявляю переменную для установления id в глобальной области видимости, 
+//                 чтобы в нее нормально пришло значение из handleFetchStartData()
+
 const carObj = {} // надо сделать объект объектов по id
+let carObjAdd = {} // объект для create машинки
+let carObjDelete = {} // объект для delete машинки
+
 const carMark = ['Toyota','Reno', 'Pegeot', 'BMW', 'Audi', 'Ford',  'Geely',' Haval','Honda', 'Hyundai', 'Kia','Lada', 'Mazda', 'Mersedes']
 const carModel = ['Bombel', 'CRV', 'G8', 'Kalina', 'Daster',  'Rash','5','3', '9', 'TT','Scope', 'A5', 'CLK']
 
@@ -39,11 +45,13 @@ const resetRaceButtom = newElement('buttom', 'allCarsStopButton', generalCarsBut
 addCarButtom.addEventListener('click', () => {  // а так сработало
   const newId = idGenerator();
   carBlockItem(newId);
-  // console.log(`create Car ${JSON.stringify(carObj)}`)
+  sendPostRequestAddCar(carObjAdd);  // добавить на сервер
+  console.log(JSON.stringify(carObjAdd))
 });
 
 /********************************************************************************************************************* */
 /********************************************************************************************************************* */
+/**************************************** */
 
 async function fetchStartData() {  // Получение первых данных
   try {
@@ -67,6 +75,14 @@ async function fetchStartData() {  // Получение первых данны
 
 async function handleFetchStartData() {
   const startGarageData = await fetchStartData();
+
+  // Нахожу максимальный ключ объекта startGarageData
+  // console.log(JSON.stringify(startGarageData))
+  const maxKey = Math.max(...Object.keys(startGarageData));
+  // console.log(maxKey)
+  // Передаю полученное значение в функцию idCounter
+  idGenerator = idCounter(maxKey);
+
   Object.keys(startGarageData).forEach((item) => {
     carBlockItemAsync(item, startGarageData)
   })
@@ -76,16 +92,64 @@ handleFetchStartData()
 
 /********************************************************************************************************************* */
 /********************************************************************************************************************* */
-// генерирую уникальный id
-function idCounter () {
-  let counter = 4 // столько машинок изначально на сервере (это надо получать)
-  return () => {
-    counter += 1;
-    return counter
+//  Добавляю машинку на сервер. Функция для отправки POST-запроса
+
+async function sendPostRequestAddCar(data) {
+  const url = 'http://127.0.0.1:3000/garage';
+
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const responseData = await response.json();
+    // console.log(responseData); // смотрю что отправляю
+  } catch (error) {
+    console.error('There was a problem with the fetch operation:', error);
   }
 }
 
-const idGenerator = idCounter()
+/********************************************************************************************************************* */
+/********************************************************************************************************************* */
+
+async function sendDeleteRequest(id) {
+  const url = `http://127.0.0.1:3000/garage/${id}`;
+
+  try {
+    const response = await fetch(url, {
+      method: 'DELETE'
+    });
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const responseData = await response.json();
+    console.log(responseData); // обрабатываем данные ответа по необходимости
+  } catch (error) {
+    console.error('Произошла проблема с выполнением запроса:', error);
+  }
+}
+
+/********************************************************************************************************************* */
+/********************************************************************************************************************* */
+
+function idCounter(maxKeyValue) {
+  let counter = maxKeyValue || 0; // Начальное значение с максимальным ключом (беру из fetch начальной загрузки) или 0
+  return () => {
+    counter += 1;
+    return counter;
+  };
+}
+
 
 /*************************************************** */
 
@@ -129,6 +193,12 @@ function carBlockItem(startId) {  //  переписать функцию
     carImages: imageElement
   };
 
+  carObjAdd = { // для добавления на сервер
+    id: carObj[startId].id,
+    name: carObj[startId].name,
+    color: carObj[startId].color
+  }
+  // return carObjAdd
   // console.log(`${JSON.stringify(carObj)}`)
 }
 
@@ -213,9 +283,12 @@ body.addEventListener('click', function(event) { // работа с кнопка
     const newCarBlock = event.target.closest('.newCarBlock'); // Находим соответствующий блок машинки
     const id = newCarBlock.id
     console.log(carObj)
-    newCarBlock.remove();
-    delete carObj[id];
+    newCarBlock.remove(); // удаление из разметки
+
+    delete carObj[id]; // удаление из массива машинок
     console.log(carObj)
+
+    sendDeleteRequest(id) // удаление с сайта
   }
 
   if (event.target.closest('.engineButtomDrive')) { // запускаю машинку
