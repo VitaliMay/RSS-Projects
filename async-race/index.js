@@ -108,6 +108,40 @@ async function fetchVelocity(id) {  // Получение скорости и д
   }
 }
 
+
+async function fetchDriveStatus(id) {
+  try {
+    const response = await fetch(`http://127.0.0.1:3000/engine?id=${id}&status=drive`, {
+      method: 'PATCH',
+    });
+    if (!response.ok) {
+      // console.log(`Двигатель ${carObj[id].name} неожиданно вышел из строя`)
+      // отправить запрос на остановку двигателя
+      return false
+    }
+    const data = await response.json();
+    // const driveStatus = await response.json();
+    // console.log(`${carObj[id].name} финиширует`)
+    
+    return data.success
+    // return data.success
+    // return true
+  } catch (error) {
+    console.log(`Статус ошибки ${error}`)
+    return false;
+  }
+}
+
+// для присвоения результата выполнения
+async function resultFetchDriveStatus(id) {
+  const result = await fetchDriveStatus(id); // Вызываем функцию и ждем результата
+  // console.log('Результат выполнения fetchDriveStatus:', result);
+  carObj[id].driveStatus = result
+}
+
+
+
+
 /********************************************************************************************************************* */
 /********************************************************************************************************************* */
 //  Добавляю машинку на сервер. Функция для отправки POST-запроса
@@ -208,7 +242,9 @@ function carBlockItem(startId) {  //  переписать функцию
     isAnimationRunning: false,
     currentTranslate: 0,
     carDivs: trackBlock,
-    carImages: imageElement
+    carImages: imageElement,
+
+    driveStatus: false,
   };
 
   carObjAdd = { // для добавления на сервер
@@ -216,6 +252,7 @@ function carBlockItem(startId) {  //  переписать функцию
     name: carObj[startId].name,
     color: carObj[startId].color
   }
+  // return carObjAdd
   // console.log(`${JSON.stringify(carObj)}`)
 }
 
@@ -223,6 +260,16 @@ function carBlockItemAsync(startId, startGarageData) {  //  переписать
   const newCarBlock = newElement('div', 'newCarBlock', body)
   /*** */
   newCarBlock.id = startId;
+  /*** */
+  // carObj[startId] = {
+  //   name: startGarageData[startId].name,
+  //   color: startGarageData[startId].color,
+  //   id: startId, 
+  //   isAnimationRunning: false, 
+  //   currentTranslate: 0, 
+  //   carDivs: trackBlock, 
+  //   carImages: imageElement
+  // };
   /*** */
   const newCarBlock__topDiv = newElement('div', 'newCarBlock__topDiv',newCarBlock)
   const newCarBlock__topDivItem01 = newElement('div', 'addCarButtom', newCarBlock__topDiv, 'Update color this car')
@@ -255,7 +302,9 @@ function carBlockItemAsync(startId, startGarageData) {  //  переписать
     isAnimationRunning: false, 
     currentTranslate: 0, 
     carDivs: trackBlock, 
-    carImages: imageElement
+    carImages: imageElement,
+
+    driveStatus: false,
   };
 
   // console.log(`${JSON.stringify(carObj)}`)
@@ -284,6 +333,10 @@ function speedTest(velocity, distance, maxPadding) {
   return maxPadding/timeRace * coefficient
 }
 
+/************************************************************************** */
+/************************************************************************** */
+// Управление
+
 body.addEventListener('click', function(event) { // работа с кнопками, надо разобрать на отдельные функции
 
   if (event.target.closest('.deleteCarButtom')) { // удаляю машинку
@@ -302,6 +355,10 @@ body.addEventListener('click', function(event) { // работа с кнопка
     const newCarBlock = event.target.closest('.newCarBlock'); // Находим соответствующий блок машинки
     const id = newCarBlock.id
     drive(carObj[id].carDivs, carObj[id].carImages, id); // Запускаем анимацию для соответствующей машинки
+
+    // Вызываем функцию для driveStatus
+    resultFetchDriveStatus(id);
+
   }
 
   if (event.target.closest('.engineButtomStop')) {  // останавливаю-возвращаю машинку
@@ -315,7 +372,10 @@ body.addEventListener('click', function(event) { // работа с кнопка
 
   if (event.target.closest('.allCarsStartButton')) { // запускаю все машинки
     for (id in carObj) {
+      // console.log(`${carObj[id].name} статус ${carObj[id].driveStatus}`)
       drive(carObj[id].carDivs, carObj[id].carImages, id)
+      resultFetchDriveStatus(id);
+      // console.log(`${carObj[id].name} статус ${carObj[id].driveStatus}`)
     }
   }
 
@@ -329,17 +389,27 @@ body.addEventListener('click', function(event) { // работа с кнопка
   }
 });
 
+/************************************************************************************************** */
+/************************************************************************************************** */
+
 async function driveAnimation(newDiv, imageElement, id, velocity, distance) {
   try {
   let currentTranslate = carObj[id].currentTranslate; // Текущее значение отступа;
   const maxTranslate = parseInt(newDiv.offsetWidth) - parseInt(imageElement.naturalWidth + 5); // Максимальное значение отступа
 
-  if (currentTranslate >= maxTranslate) {
+  if (currentTranslate >= maxTranslate ) {
     currentTranslate = 0
   }
 
-  const translateIncrement = speedTest(velocity, distance, maxTranslate)  // шаг анимации, он же скорость движения машинки на экране
-  
+  // установка скорости или остановка на трассе
+  let translateIncrement;
+  if (carObj[id].driveStatus){
+    translateIncrement = speedTest(velocity, distance, maxTranslate)  // шаг анимации, он же скорость движения машинки на экране
+  } else {
+    translateIncrement = 0
+  }
+
+  // const translateIncrement = speedTest(velocity, distance, maxTranslate)  // шаг анимации, он же скорость движения машинки на экране
 
   currentTranslate += translateIncrement; 
   imageElement.style.transform = `translate(${currentTranslate}px, -11px)`;
@@ -348,6 +418,7 @@ async function driveAnimation(newDiv, imageElement, id, velocity, distance) {
 
   if (currentTranslate < maxTranslate && carObj[id].isAnimationRunning) {
     requestAnimationFrame(() => driveAnimation(newDiv, imageElement, id, velocity, distance))
+    // requestAnimationFrame(() => driveAnimation(newDiv, imageElement, id))
   } else {
     carObj[id].isAnimationRunning = false; // Сброс флага после завершения анимации
   }
@@ -363,6 +434,10 @@ async function drive(newDiv, imageElement, id) {
 
     const dataVelocityObj = await fetchVelocity(id) // получаю данные о скорости с сервера
 
+    carObj[id].driveStatus = true
+
+    // console.log(`${carObj[id].name} статус ${carObj[id].driveStatus}`)
+    // driveAnimation(newDiv, imageElement, id); // Запускаем анимацию
     driveAnimation(newDiv, imageElement, id, dataVelocityObj.velocity, dataVelocityObj.distance); // Запускаем анимацию
   }
 }
