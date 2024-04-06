@@ -11,6 +11,8 @@ const carObj = {} // надо сделать объект объектов по 
 let carObjAdd = {} // объект для create машинки
 let carObjDelete = {} // объект для delete машинки
 
+let totalCarsValue
+
 const carMark = ['Toyota','Reno', 'Pegeot', 'BMW', 'Audi', 'Ford',  'Geely',' Haval','Honda', 'Hyundai', 'Kia','Lada', 'Mazda', 'Mersedes']
 const carModel = ['Bombel', 'CRV', 'G8', 'Kalina', 'Daster',  'Rash','5','3', '9', 'TT','Scope', 'A5', 'CLK']
 
@@ -35,6 +37,8 @@ const changeCarButtomBlock = newElement('div', 'changeCarButtomBlock', buttomBlo
 const addCarButtom = newElement('buttom', 'createCarButtom', changeCarButtomBlock, 'create Car')
 const add100CarsButtom = newElement('buttom', 'create100CarsButton', changeCarButtomBlock, 'create 100 Cars')
 
+const totalCars = newElement('div', 'create100CarsButton', changeCarButtomBlock, `Total`)
+
 const generalCarsButtomBlock = newElement('div', 'changeCarButtomBlock', buttomBlock)
 const startRaceButtom = newElement('buttom', 'allCarsStartButton', generalCarsButtomBlock, 'Start Race')
 const resetRaceButtom = newElement('buttom', 'allCarsStopButton', generalCarsButtomBlock, 'Reset Race')
@@ -46,6 +50,10 @@ addCarButtom.addEventListener('click', () => {  // а так сработало
   carBlockItem(newId);
   sendPostRequestAddCar(carObjAdd);  // добавить на сервер
   // console.log(JSON.stringify(carObjAdd))
+  // лучше вести количество машинок синхронно. Запросы не всегда успевают
+  // fetchTotalCount() // Поменять число машинок на экране
+  totalCarsValue += 1
+  totalCars.textContent = `Total Cars ${totalCarsValue}` // Вывожу число машинок
 });
 
 add100CarsButtom.addEventListener('click', () => {  // а так сработало
@@ -54,7 +62,10 @@ add100CarsButtom.addEventListener('click', () => {  // а так сработа�
     carBlockItem(newId);
     sendPostRequestAddCar(carObjAdd);  // добавить на сервер
   }
-
+  // лучше вести количество машинок синхронно. Запросы не всегда успевают
+  // fetchTotalCount() // Поменять число машинок на экране
+  totalCarsValue += 100
+  totalCars.textContent = `Total Cars ${totalCarsValue}` // Вывожу число машинок
 });
 
 /********************************************************************************************************************* */
@@ -97,6 +108,50 @@ async function handleFetchStartData() {
 }
 
 handleFetchStartData()
+
+/********************************************************************************************************************* */
+/********************************************************************************************************************* */
+// Количество машинок
+
+// fetch('http://127.0.0.1:3000/garage?_limit=7')
+//   .then(response => {
+//     const totalCount = response.headers.get('X-Total-Count'); // Извлечение значения из заголовка
+//     // Здесь вы можете использовать полученное значение totalCount в вашем коде
+//   })
+//   .catch(error => console.error('There was a problem with the fetch operation:', error));
+
+// let total
+
+async function fetchTotalCount() {
+  try {
+    const response = await fetch('http://127.0.0.1:3000/garage?_limit=7');
+    const totalCount = response.headers.get('X-Total-Count'); // Получение значения из заголовка
+
+    // console.log('Total Count:', totalCount);
+    totalCars.textContent = `Total Cars ${totalCount}` // Вывожу число машинок
+    totalCarsValue = Number(totalCount) // устанавливаю первоначальное значение. Дальше буду считать синхронно
+    // return totalCount
+  } catch (error) {
+    console.error('There was a problem with the fetch operation:', error);
+  }
+}
+
+fetchTotalCount()  // Первоначальное установление числа машинок. Дальше лучше вести синхронно. Запросы не успевают
+
+// total = setTimeout(() => {
+//   console.log('Прошла 1 секунда')
+// }, 0)
+// fetchTotalCount()
+// console.log(total)
+
+// async function resultFetchTotalCount() {
+//   const result = await fetchTotalCount(); // Вызываем функцию и ждем результата
+//   return result
+// }
+// total = resultFetchTotalCount()
+// console.log(total)
+// let total = resultFetchTotalCount()
+// console.log(JSON.stringify(total)); // Вызов функции для выполнения запроса и получения значения
 
 /********************************************************************************************************************* */
 /********************************************************************************************************************* */
@@ -362,6 +417,11 @@ body.addEventListener('click', async function (event) { // работа с кн�
     // console.log(carObj)
 
     sendDeleteRequest(id) // удаление с сайта
+
+    // лучше вести количество машинок синхронно. Запросы не всегда успевают
+    // fetchTotalCount() // Поменять число машинок на экране
+    totalCarsValue -= 1
+    totalCars.textContent = `Total Cars ${totalCarsValue}` // Вывожу число машинок
   }
 
   if (event.target.closest('.engineButtomDrive')) { // запускаю машинку
