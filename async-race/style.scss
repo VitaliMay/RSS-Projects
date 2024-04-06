@@ -84,8 +84,8 @@
 }
 .create100CarsButton {
   display: block;
-  // cursor: pointer;
-  pointer-events: none;
+  cursor: pointer;
+  // pointer-events: none;
 
   box-sizing: border-box;
   border: solid 4px rgb(203, 163, 55);
