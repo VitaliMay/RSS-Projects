@@ -1,6 +1,6 @@
-const score = `Привет. Работа кривая и недоделанная(
-  Сорри, за потраченное время`
-console.log(score)
+
+import { svgStartInner, svgImgInner } from "./images/index-copy-10-02-Car.js";
+import { generateCarName, hexaColor, idCounter } from "./app/generateCar.js";
 
 const body = document.querySelector('body')
 
@@ -11,17 +11,7 @@ const carObj = {} // надо сделать объект объектов по 
 let carObjAdd = {} // объект для create машинки
 let carObjDelete = {} // объект для delete машинки
 
-let totalCarsValue
-
-const carMark = ['Toyota','Reno', 'Pegeot', 'BMW', 'Audi', 'Ford',  'Geely',' Haval','Honda', 'Hyundai', 'Kia','Lada', 'Mazda', 'Mersedes']
-const carModel = ['Bombel', 'CRV', 'G8', 'Kalina', 'Daster',  'Rash','5','3', '9', 'TT','Scope', 'A5', 'CLK']
-
-function generateCarName () {
-  const carMarkIndex = Math.floor(Math.random() * (carMark.length));
-  const carModelIndex = Math.floor(Math.random() * (carModel.length));
-  const carName = `${carMark[carMarkIndex]} ${carModel[carModelIndex]}`
-  return carName
-}
+let totalCarsValue = 0;
 
 function newElement (tegEl = 'div', classEl = 'carBlock', appendTo = body, addTextContent = '') {
   const nameEl = document.createElement(tegEl);
@@ -30,7 +20,25 @@ function newElement (tegEl = 'div', classEl = 'carBlock', appendTo = body, addTe
   nameEl.textContent = addTextContent;
   return nameEl
 }
+ /***************************************** */
 
+const svgStart = newElement('div', 'svgStart')
+svgStart.innerHTML = svgStartInner;
+
+function addColorCar (svgImgInner, carColor, trackBlock, id) {
+  const svgImg = newElement('div', 'trackBlock__carImg', trackBlock, '')
+  svgImg.innerHTML = svgImgInner
+
+  const svgImgCar = svgImg.querySelector('.svgImgCar')
+  svgImgCar.setAttribute("fill", `${carColor}`)
+  carObj[id].carImagesItem = svgImgCar // сохранить картинку для изменения цвета
+  return svgImg
+}
+
+// addColorCar (svgStartInner, svgImgInner, hexaColor(), body)
+
+
+/****************************************** */
 const buttomBlock = newElement('div', 'buttomBlock')
 
 const changeCarButtomBlock = newElement('div', 'changeCarButtomBlock', buttomBlock)
@@ -42,8 +50,6 @@ const totalCars = newElement('div', 'create100CarsButton', changeCarButtomBlock,
 const generalCarsButtomBlock = newElement('div', 'changeCarButtomBlock', buttomBlock)
 const startRaceButtom = newElement('buttom', 'allCarsStartButton', generalCarsButtomBlock, 'Start Race')
 const resetRaceButtom = newElement('buttom', 'allCarsStopButton', generalCarsButtomBlock, 'Reset Race')
-
-// addCarButtom.addEventListener('click', carBlockItem) // отказывается присваивать id блоку
 
 addCarButtom.addEventListener('click', () => {  // а так сработало
   const newId = idGenerator();
@@ -113,15 +119,6 @@ handleFetchStartData()
 /********************************************************************************************************************* */
 // Количество машинок
 
-// fetch('http://127.0.0.1:3000/garage?_limit=7')
-//   .then(response => {
-//     const totalCount = response.headers.get('X-Total-Count'); // Извлечение значения из заголовка
-//     // Здесь вы можете использовать полученное значение totalCount в вашем коде
-//   })
-//   .catch(error => console.error('There was a problem with the fetch operation:', error));
-
-// let total
-
 async function fetchTotalCount() {
   try {
     const response = await fetch('http://127.0.0.1:3000/garage?_limit=7');
@@ -137,21 +134,6 @@ async function fetchTotalCount() {
 }
 
 fetchTotalCount()  // Первоначальное установление числа машинок. Дальше лучше вести синхронно. Запросы не успевают
-
-// total = setTimeout(() => {
-//   console.log('Прошла 1 секунда')
-// }, 0)
-// fetchTotalCount()
-// console.log(total)
-
-// async function resultFetchTotalCount() {
-//   const result = await fetchTotalCount(); // Вызываем функцию и ждем результата
-//   return result
-// }
-// total = resultFetchTotalCount()
-// console.log(total)
-// let total = resultFetchTotalCount()
-// console.log(JSON.stringify(total)); // Вызов функции для выполнения запроса и получения значения
 
 /********************************************************************************************************************* */
 /********************************************************************************************************************* */
@@ -172,7 +154,6 @@ async function fetchVelocity(id) {  // Получение скорости и д
   }
 }
 
-
 async function fetchDriveStatus(id) {
   try {
     const response = await fetch(`http://127.0.0.1:3000/engine?id=${id}&status=drive`, {
@@ -188,8 +169,7 @@ async function fetchDriveStatus(id) {
     console.log(`${carObj[id].name} финиширует`)
 
     return data.success
-    // return data.success
-    // return true
+
   } catch (error) {
     console.log(`Статус ошибки ${error}`)
     return false;
@@ -266,16 +246,6 @@ async function sendDeleteRequest(id) {
 /********************************************************************************************************************* */
 /********************************************************************************************************************* */
 
-function idCounter(maxKeyValue) {
-  let counter = maxKeyValue || 0; // Начальное значение с максимальным ключом (беру из fetch начальной загрузки) или 0
-  return () => {
-    counter += 1;
-    return counter;
-  };
-}
-
-/*************************************************** */
-
 function carBlockItem(startId) {  //  переписать функцию
   const newCarBlock = newElement('div', 'newCarBlock', body)
   /*** */
@@ -294,30 +264,63 @@ function carBlockItem(startId) {  //  переписать функцию
   const stopButtom = newElement('div', 'engineButtomStop', engineButtomBlock, 'B')
   const trackBlock = newElement('div', 'trackBlock', newCarBlock__lowDiv)
 
-      /********************************************************************************** */
-      // с этому надо вернуться
-  const imageElement = newElement('img', 'trackBlock__carImg', trackBlock)
+ /********************************************************************************** */
+ carObj[startId] = {
+  name: carName,
+  // color: carColor,
+  // color: `#${Math.floor(Math.random()*1000000)}`,
+  id: startId,
+  isAnimationRunning: false,
+  currentTranslate: 0,
+  carDivs: trackBlock,
+  // carImages: imageElement,
+  carDriveButton: driveButtom,
 
-  imageElement.src = './vehicle-01.svg';  // лучше сразу вставить SVG
-  imageElement.alt = `Vehicle model`;
+  driveStatus: false,
 
-  const randomColor = Math.random() * 360
-  imageElement.style.filter = `hue-rotate(${randomColor}deg)`;  // цвет вынести в отдельную функцию
-      /*********************************************************************************** */
-
-  carObj[startId] = {
-    name: carName,
-    color: `#${Math.floor(Math.random()*1000000)}`,
-    id: startId,
-    isAnimationRunning: false,
-    currentTranslate: 0,
-    carDivs: trackBlock,
-    carImages: imageElement,
-
-    driveStatus: false,
-
-    status: 'stop',
+  status: 'stop',
   };
+
+
+ /********************************************************************************** */
+      // с этому надо вернуться
+  // const imageElement = newElement('img', 'trackBlock__carImg', trackBlock)
+  // imageElement.src = './vehicle-01.svg';  // лучше сразу вставить SVG
+  // imageElement.alt = `Vehicle model`;
+  // const randomColor = Math.random() * 360
+  // imageElement.style.filter = `hue-rotate(${randomColor}deg)`;  // цвет вынести в отдельную функцию
+
+  const carColor = hexaColor();
+  // addColorCar (svgImgInner, carColor, trackBlock)
+  const imageElement = addColorCar (svgImgInner, carColor, trackBlock, startId)
+  
+  carObj[startId].carImages = imageElement // так как выше создаю объект и перезаписываю
+  carObj[startId].color = carColor // так как выше создаю объект и перезаписываю
+  
+  // imageElement.style.transform = `translate(40px, -11px)`;
+  // imageElement.style.transform = `translate(80px, -11px)`;
+  // imageElement.style.marginLeft = `100px`;
+  // trackBlock.style.paddingLeft = "120px"
+  // const imageElement = trackBlock.querySelector('.trackBlock__carImg')
+  console.log(imageElement)
+
+  /*********************************************************************************** */
+
+  // carObj[startId] = {
+  //   name: carName,
+  //   color: carColor,
+  //   // color: `#${Math.floor(Math.random()*1000000)}`,
+  //   id: startId,
+  //   isAnimationRunning: false,
+  //   currentTranslate: 0,
+  //   carDivs: trackBlock,
+  //   carImages: imageElement,
+  //   carDriveButton: driveButtom,
+
+  //   driveStatus: false,
+
+  //   status: 'stop',
+  // };
 
   carObjAdd = { // для добавления на сервер
     id: carObj[startId].id,
@@ -353,18 +356,8 @@ function carBlockItemAsync(startId, startGarageData) {  //  переписать
   const driveButtom = newElement('div', 'engineButtomDrive', engineButtomBlock, 'A')
   const stopButtom = newElement('div', 'engineButtomStop', engineButtomBlock, 'B')
   const trackBlock = newElement('div', 'trackBlock', newCarBlock__lowDiv)
-
-      /********************************************************************************** */
-      // с этому надо вернуться
-  const imageElement = newElement('img', 'trackBlock__carImg', trackBlock)
-
-  imageElement.src = './vehicle-01.svg';  // лучше сразу вставить SVG
-  imageElement.alt = `Vehicle model`;
-
-  const randomColor = Math.random() * 360
-  imageElement.style.filter = `hue-rotate(${randomColor}deg)`;  // цвет вынести в отдельную функцию
-      /*********************************************************************************** */
-
+  
+  /********************************************************************************** */
   carObj[startId] = {
     name: startGarageData[startId].name,
     color: startGarageData[startId].color,
@@ -372,11 +365,43 @@ function carBlockItemAsync(startId, startGarageData) {  //  переписать
     isAnimationRunning: false, 
     currentTranslate: 0, 
     carDivs: trackBlock, 
-    carImages: imageElement,
+    // carImages: imageElement,
+    carDriveButton: driveButtom,
 
     driveStatus: false,
     status: 'stop',    // start, drive
   };
+  
+  /********************************************************************************** */
+      // с этому надо вернуться
+  // const imageElement = newElement('img', 'trackBlock__carImg', trackBlock)
+
+  // imageElement.src = './vehicle-01.svg';  // лучше сразу вставить SVG
+  // imageElement.alt = `Vehicle model`;
+
+  // const randomColor = Math.random() * 360
+  // imageElement.style.filter = `hue-rotate(${randomColor}deg)`;  // цвет вынести в отдельную функцию
+  const carColor = startGarageData[startId].color;
+  const imageElement = addColorCar(svgImgInner, carColor, trackBlock, startId)
+  // console.log(imageElement)
+
+  carObj[startId].carImages = imageElement // так как выше создаю объект и перезаписываю
+  
+  /*********************************************************************************** */
+
+  // carObj[startId] = {
+  //   name: startGarageData[startId].name,
+  //   color: startGarageData[startId].color,
+  //   id: startId, 
+  //   isAnimationRunning: false, 
+  //   currentTranslate: 0, 
+  //   carDivs: trackBlock, 
+  //   carImages: imageElement,
+  //   carDriveButton: driveButtom,
+
+  //   driveStatus: false,
+  //   status: 'stop',    // start, drive
+  // };
 
   // console.log(`${JSON.stringify(carObj)}`)
 }
@@ -427,24 +452,36 @@ body.addEventListener('click', async function (event) { // работа с кн�
   if (event.target.closest('.engineButtomDrive')) { // запускаю машинку
     const newCarBlock = event.target.closest('.newCarBlock'); // Находим соответствующий блок машинки
     const id = newCarBlock.id
-    const { velocity, distance } = await fetchVelocity(id)
-    // const dataVelocityObj = await fetchVelocity(id)
-    drive(carObj[id].carDivs, carObj[id].carImages, id, velocity, distance); // Запускаем анимацию для соответствующей машинки
+    carObj[id].carDriveButton.classList.add('engineAnimation')
 
-    // Вызываем функцию для driveStatus
-    resultFetchDriveStatus(id);
+    try {
+      const { velocity, distance } = await fetchVelocity(id); // Ждем получения данных о скорости и дистанции
+
+      // Удалить класс анимации сразу после получения ответа
+      carObj[id].carDriveButton.classList.remove('engineAnimation');
+
+      // Запускаем анимацию для соответствующей машинки
+      drive(carObj[id].carDivs, carObj[id].carImages, id, velocity, distance);
+
+      // Вызываем функцию для driveStatus для остановки посреди дороги
+      resultFetchDriveStatus(id);
+    } catch (error) {
+      console.error('Error occurred while fetching velocity:', error);
+    }
+
   }
 
   if (event.target.closest('.allCarsStartButton')) { // запускаю все машинки
     const fetchPromises = [];  // Создаем массив для хранения промисов от fetchVelocity
     const idArr = [] // Массив на соотстветствие id индексу в fetchPromises
     // const statusArr = []
-    for (id in carObj) {
+    for (let id in carObj) {
+      carObj[id].carDriveButton.classList.add('engineAnimation')
+
       fetchPromises.push(fetchVelocity(id)); // Вызываем функцию fetchVelocity для каждой машинки и добавляем промис в массив
       idArr.push(id)
       carObj[id].status = 'start'
       resultFetchDriveStatus(id)  // меняет статус (возможно ответ придёт быстро)
-      // statusArr.push(resultFetchDriveStatus(id))
     }
     const dataVelocityArray = await Promise.all(fetchPromises);  // Ждем получения всех данных о скорости и дистанции
     for (let i = 0; i < dataVelocityArray.length; i++) {
@@ -453,15 +490,10 @@ body.addEventListener('click', async function (event) { // работа с кн�
       if (carObj[id].status === 'stop') {
         velocity = 0
       }
+      carObj[id].carDriveButton.classList.remove('engineAnimation'); // убираю анимацию кнопки
       drive(carObj[id].carDivs, carObj[id].carImages, id, velocity, distance); // После получения всех данных запускаем функцию drive для каждой машинки
     }
 
-    // const dataStatusArray = await Promise.all(statusArr);  // Ждем получения всех данных о скорости и дистанции
-    // for (let i = 0; i < dataStatusArray.length; i++) {
-    //   const { velocity, distance } = dataVelocityArray[i];
-    //   const id = idArr[i];
-    //   drive(carObj[id].carDivs, carObj[id].carImages, id, velocity, distance); // После получения всех данных запускаем функцию drive для каждой машинки
-    // }
   }
 
   if (event.target.closest('.engineButtomStop')) {  // останавливаю-возвращаю машинку
@@ -475,7 +507,7 @@ body.addEventListener('click', async function (event) { // работа с кн�
   }
 
   if (event.target.closest('.allCarsStopButton')) { // останавливаю все машинки
-    for (id in carObj) {
+    for (let id in carObj) {
 
       carObj[id].isAnimationRunning = false; // Останавливаем анимацию для соответствующей машинки
       carObj[id].currentTranslate = 0;
@@ -492,10 +524,15 @@ body.addEventListener('click', async function (event) { // работа с кн�
 async function driveAnimation(newDiv, imageElement, id, velocity, distance) {
   try {
   let currentTranslate = carObj[id].currentTranslate; // Текущее значение отступа;
-  const maxTranslate = parseInt(newDiv.offsetWidth) - parseInt(imageElement.naturalWidth + 5); // Максимальное значение отступа
+  const maxTranslate = parseInt(newDiv.offsetWidth) - parseInt(imageElement.offsetWidth + 5) // сработал, т.к. imageElement не имеет конкретной ширины
+  // const maxTranslate = parseInt(newDiv.offsetWidth) - parseInt(imageElement.clientWidth + 5); // Максимальное значение отступа
+  // const maxTranslate = parseInt(newDiv.offsetWidth); // Максимальное значение отступа
+  // const maxTranslate = parseInt(newDiv.offsetWidth) - parseInt(imageElement.naturalWidth + 5); // Максимальное значение отступа
 
+  // console.log(`currentTranslate= ${currentTranslate}  maxTranslate=${maxTranslate}`)
   if (currentTranslate >= maxTranslate ) {
     currentTranslate = 0
+    return  // чтобы остановить цикл рекурсии
   }
 
   // установка скорости или остановка на трассе
@@ -504,12 +541,15 @@ async function driveAnimation(newDiv, imageElement, id, velocity, distance) {
     translateIncrement = speedTest(velocity, distance, maxTranslate)  // шаг анимации, он же скорость движения машинки на экране
   } else {
     translateIncrement = 0
+    return // чтобы остановить цикл рекурсии
   }
 
   // const translateIncrement = speedTest(velocity, distance, maxTranslate)  // шаг анимации, он же скорость движения машинки на экране
 
   currentTranslate += translateIncrement; 
   imageElement.style.transform = `translate(${currentTranslate}px, -11px)`;
+
+  // console.log(`Привет ${JSON.stringify(imageElement)}`)
 
   carObj[id].currentTranslate = currentTranslate; // сохранить измененное значение паддинга в объект
 
