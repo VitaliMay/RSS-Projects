@@ -1,7 +1,7 @@
 .color-preview {
   width: 100px;
   height: 100px;
-  background-color: hsl(0, 100%, 50%);
+  border: solid black 2px;
   /* background-color: hsl(0, 14%, 97%); */
   /* filter: hue-rotate(0deg); */
 }
@@ -32,7 +32,8 @@
   background-color: bisque;
 }
 
-.deleteCarButtom {
+.deleteCarButtom,
+.selectCarButtom {
   display: block;
   cursor: pointer;
   box-sizing: border-box;
@@ -167,6 +168,7 @@
   position: relative;
 }
 .trackBlock__carImg {
+  display: block;
   position: absolute;
   will-change: transform;
   transform: translate(0px, -11px);
@@ -185,4 +187,51 @@
   to {
     transform: rotate(360deg);
   }
+}
+.formColorModel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  -moz-column-gap: 20px;
+       column-gap: 20px;
+}
+
+.inactive {
+  pointer-events: none;
+}
+
+.color-changer {
+  width: 40px;
+  height: 40px;
+}
+
+.blockInputColor {
+  padding-top: 20px;
+}
+
+.model-changer {
+  height: 30px;
+  width: 130px;
+}
+
+.blockInputModel {
+  padding-top: 20px;
+}
+
+.previewCarDiv {
+  border-style: none;
+  overflow: visible;
+  text-transform: none;
+  padding: 0;
+  background-color: inherit;
+  cursor: pointer;
+  transition: 0.4s;
+}
+.previewCarDiv:hover {
+  scale: 1.15;
+  transition: 0.4s;
+}
+.previewCarDiv:active {
+  scale: 0.9;
+  transition: 0.4s;
 }/*# sourceMappingURL=style.css.map */

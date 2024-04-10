@@ -12,6 +12,7 @@ let carObjAdd = {} // объект для create машинки
 let carObjDelete = {} // объект для delete машинки
 
 let totalCarsValue = 0;
+let selectId = null
 
 function newElement (tegEl = 'div', classEl = 'carBlock', appendTo = body, addTextContent = '') {
   const nameEl = document.createElement(tegEl);
@@ -160,6 +161,14 @@ async function fetchDriveStatus(id) {
       method: 'PATCH',
     });
     if (!response.ok) {
+      const carImages = carObj[id].carImages
+      carImages.style.transform = `translate(${carObj[id].currentTranslate}px, -11px) rotate(15deg)`
+
+      // const svgImgCar = carObj[id].carImagesItem
+      // svgImgCar.setAttribute("transform", `matrix(-1, -1, -1, 1, 0, 0)`)
+      // svgImgCar.setAttribute("height", '40px')
+      // svgImgCar.setAttribute("width", '40px')
+
       console.log(`Двигатель ${carObj[id].name} неожиданно вышел из строя`)
       // отправить запрос на остановку двигателя
       return false
@@ -185,6 +194,8 @@ async function resultFetchDriveStatus(id) {
     carObj[id].status = 'drive'
   } else {
     carObj[id].status = 'stop'
+    // Переворачиваю машинку на старте
+    // carImages.style.transform = `translate(${carObj[id].currentTranslate}px, -11px) rotate(15deg)`
   }
 }
 // async function resultFetchDriveStatus(id) {
@@ -253,7 +264,7 @@ function carBlockItem(startId) {  //  переписать функцию
   const carName = generateCarName()
   /*** */
   const newCarBlock__topDiv = newElement('div', 'newCarBlock__topDiv',newCarBlock)
-  const newCarBlock__topDivItem01 = newElement('div', 'addCarButtom', newCarBlock__topDiv, 'Update color this car')
+  const newCarBlock__topDivItem01 = newElement('div', 'selectCarButtom', newCarBlock__topDiv, 'Select this car for update')
   const newCarBlock__topDivItem02 = newElement('div', 'addCarButtom', newCarBlock__topDiv, 'Update this car model')
   const newCarBlock__topDivItem03 = newElement('div', 'deleteCarButtom', newCarBlock__topDiv, 'Delete Car')
   const newCarBlock__topDivItem04 = newElement('div', 'addCarButtom-model', newCarBlock__topDiv, carName)
@@ -346,7 +357,7 @@ function carBlockItemAsync(startId, startGarageData) {  //  переписать
   // };
   /*** */
   const newCarBlock__topDiv = newElement('div', 'newCarBlock__topDiv',newCarBlock)
-  const newCarBlock__topDivItem01 = newElement('div', 'addCarButtom', newCarBlock__topDiv, 'Update color this car')
+  const newCarBlock__topDivItem01 = newElement('div', 'selectCarButtom', newCarBlock__topDiv, 'Update color this car')
   const newCarBlock__topDivItem02 = newElement('div', 'addCarButtom', newCarBlock__topDiv, 'Update this car model')
   const newCarBlock__topDivItem03 = newElement('div', 'deleteCarButtom', newCarBlock__topDiv, 'Delete Car')
   const newCarBlock__topDivItem04 = newElement('div', 'addCarButtom-model', newCarBlock__topDiv, `${startGarageData[startId].name}`)
@@ -410,13 +421,156 @@ function carBlockItemAsync(startId, startGarageData) {  //  переписать
 // Игры с цветом 
 
 // const slider = document.querySelector('.color-slider');
+// const slider = document.querySelector('.color-changer');
 // const preview = document.querySelector('.color-preview');
 
+const formColorModel = newElement('form', 'formColorModel')
+formColorModel.classList.add('inactive')
+// formColorModel.setAttribute('action', 'http://127.0.0.1:3000/garage/10')
+// formColorModel.setAttribute('metod', 'PUT')
+
+const blockInputColor = newElement('div', 'blockInputColor', formColorModel)
+const previewColorInput = newElement('input', 'color-changer', blockInputColor)
+previewColorInput.setAttribute('type', 'color')
+previewColorInput.setAttribute('name', 'color')
+
+const previewCarDiv = newElement('button', 'previewCarDiv', formColorModel)
+// const previewCarDiv = newElement('div', 'previewCarDiv', formColorModel)
+// previewCarDiv.style.marginLeft = "300px"
+previewCarDiv.innerHTML = svgImgInner
+const previewCarImg = previewCarDiv.querySelector('.svgImgCar')
+previewCarImg.setAttribute("width", `130px`)
+previewCarImg.setAttribute("height", `130px`)
+previewCarImg.setAttribute("fill", previewColorInput.value)
+// previewCarImg.setAttribute("fill", `${slider.value}`)
+
+const blockInputModel = newElement('div', 'blockInputModel', formColorModel)
+const previewModelInput = newElement('input', 'model-changer', blockInputModel)
+previewModelInput.setAttribute('type', 'text')
+previewModelInput.setAttribute('name', 'name')
+
+// slider.addEventListener('input', function() {
+previewColorInput.addEventListener('input', function() {
+    const hueValue = this.value;
+    // preview.style.backgroundColor = hueValue;
+    previewCarImg.setAttribute("fill", `${hueValue}`)
+    // imageElement.style.filter = `hue-rotate(${hueValue}deg)`;
+});
 // slider.addEventListener('input', function() {
 //     const hueValue = this.value;
 //     preview.style.filter = `hue-rotate(${hueValue}deg)`;
 //     imageElement.style.filter = `hue-rotate(${hueValue}deg)`;
 // });
+
+async function handleFormSubmit(event) {
+  // Просим форму не отправлять данные самостоятельно
+  event.preventDefault()
+  console.log('Отправка!')
+  // serializeForm(formColorModel)
+  const data = serializeForm(event.target)
+  const response = await sendData(data, selectId)
+
+  // console.log(data.name)
+  updateCarentCar(selectId, data)
+
+  selectId = null
+  formColorModel.classList.add('inactive')
+
+  previewModelInput.value = ''
+  previewColorInput.value = '#000000' // значение по умолчанию
+  previewCarImg.setAttribute("fill", `${previewColorInput.value}`)
+
+  // event.target.reset()  // очистить форму (не очень нравится как это делает)
+
+
+}
+
+function serializeForm(formNode) {
+  const data = new FormData(formNode)
+  // console.log(JSON.stringify(Object.assign({}, data)))
+  console.log(Array.from(data.entries()))
+  const dataArr = Array.from(data.entries())
+  const result = {}
+  dataArr.forEach((item) => result[item[0]] = item[1])
+  console.log(result)
+  console.log(JSON.stringify(result))
+  return result
+  // return data
+}
+
+// function cleanForm(formNode) {
+//   const data = new FormData(formNode)
+//   for (let key in data) {
+//     data.key = ''
+//   }
+// }
+
+async function sendData(data, id) {
+  return await fetch(`http://127.0.0.1:3000/garage/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    // headers: { 'Content-Type': 'multipart/form-data' },
+    body: JSON.stringify(data),
+    // body: JSON.stringify({name: 'QWER', color: 'red'}),
+  })
+}
+
+function updateCarentCar(id, data) {
+  carObj[id].name = data.name
+  carObj[id].color = data.color
+  const carBlock = document.getElementById(id)
+  // const svgImgCar = carBlock.querySelector('.svgImgCar')
+  const svgImgCar = carObj[id].carImagesItem
+  svgImgCar.setAttribute("fill", `${carObj[id].color}`)
+  
+  const carModel = carBlock.querySelector('.addCarButtom-model')
+  carModel.textContent = carObj[id].name
+
+}
+
+// async function sendData(data) {
+//   return await fetch('http://127.0.0.1:3000/garage/9', {
+//     method: 'PUT',
+//     headers: { 'Content-Type': 'application/json' },
+//     // headers: { 'Content-Type': 'multipart/form-data' },
+//     body: JSON.stringify(data),
+//   })
+// }
+
+// function serializeForm(formNode) {
+//   console.log(formNode.elements)
+
+//   const { elements } = formNode
+//   const data = new FormData()
+
+//   Array.from(elements)
+//     .filter((item) => !!item.name)
+//     .forEach((element) => {
+//       const { name, value } = element
+
+//       data.append(name, value)
+//     })
+
+//   // console.log(JSON.stringify(data))
+//   return data
+
+//   // const data = Array.from(elements)
+//   //   .filter((item) => !!item.name)
+//   //   .map((element) => {
+//   //     const { name, value } = element
+
+//   //     return { name, value }
+//   //   })
+
+//   // console.log(data)
+//   // Array.from(elements)
+//   //   .forEach((element) => {
+//   //     const { name, value } = element
+//   //     console.log({ name, value })
+//   //   })
+// }
+formColorModel.addEventListener('submit', handleFormSubmit)
+
 /************************************************************************* */
 
 function speedTest(velocity, distance, maxPadding) {
@@ -447,6 +601,20 @@ body.addEventListener('click', async function (event) { // работа с кн�
     // fetchTotalCount() // Поменять число машинок на экране
     totalCarsValue -= 1
     totalCars.textContent = `Total Cars ${totalCarsValue}` // Вывожу число машинок
+  }
+
+  if (event.target.closest('.selectCarButtom')) {
+    const newCarBlock = event.target.closest('.newCarBlock'); // Находим соответствующий блок машинки
+    const id = newCarBlock.id
+
+    previewColorInput.value = carObj[id].color
+    previewModelInput.value = carObj[id].name
+    previewCarImg.setAttribute("fill", `${carObj[id].color}`)
+
+    selectId = id
+    formColorModel.classList.remove('inactive')
+
+    // updateCarentCar(id)
   }
 
   if (event.target.closest('.engineButtomDrive')) { // запускаю машинку
@@ -567,7 +735,10 @@ async function driveAnimation(newDiv, imageElement, id, velocity, distance) {
 async function drive(newDiv, imageElement, id, velocity, distance) {
   if (!carObj[id].isAnimationRunning) { // Проверка, запущена ли анимация для данной машинки
     carObj[id].isAnimationRunning = true; // Устанавливаю флаг запуска анимации
-    carObj[id].driveStatus = true;
+    if (carObj[id].status === 'start'){
+      carObj[id].driveStatus = true;
+    }
+    // carObj[id].driveStatus = true;
     console.log(`${carObj[id].name} статус ${carObj[id].driveStatus}`);
     driveAnimation(newDiv, imageElement, id, velocity, distance); // Запускаем анимацию с передачей данных о скорости и дистанции
   }

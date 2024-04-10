@@ -1,7 +1,8 @@
 .color-preview {
   width: 100px;
   height: 100px;
-  background-color: hsl(0, 100%, 50%);
+  border: solid black 2px;
+  // background-color: hsl(0, 100%, 50%);
   /* background-color: hsl(0, 14%, 97%); */
   /* filter: hue-rotate(0deg); */
 }
@@ -30,7 +31,8 @@
   background-color: bisque;
 }
 
-.deleteCarButtom {
+.deleteCarButtom,
+.selectCarButtom {
   display: block;
   // pointer-events: none;
   cursor: pointer;
@@ -167,6 +169,10 @@
 
   width: 30px;
   height: 40px;
+
+  // animation: verticalAnimation 0.4s infinite linear;
+  // pointer-events: none;
+  // background-color: inherit;
 }
 
 .engineButtomStop {
@@ -175,7 +181,6 @@
   align-items: center;
   justify-content: center;
   // padding: 10px;
-  // background-color: #bff499;
   background-color: rgb(191, 244, 153);
   border-radius: 5px;
 
@@ -189,16 +194,19 @@
   // border: solid 2px black;
   width: 100%;
   padding-left: 5px;
+
   position: relative;
 
   &__carImg {
-    // display: block;
+    display: block;
+    // width: 60px;
     position: absolute;
     will-change: transform;  // чтобы браузер знал что будут изменения
     transform: translate(0px, -11px);
     // transform: translateX(10px) translateY(0)
   }
 }
+
 
 .engineAnimation {
   animation: verticalAnimation 0.4s infinite linear;
@@ -212,5 +220,60 @@
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+.formColorModel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 20px;
+  // border: solid green 4px;
+}
+
+.inactive {
+  pointer-events: none;
+}
+
+.color-changer {
+  width: 40px;
+  height: 40px;
+}
+.blockInputColor {
+  // align-self: center;
+  padding-top: 20px;
+}
+
+.model-changer {
+  height: 30px;
+  width: 130px;
+}
+.blockInputModel {
+  // align-self: center;
+  padding-top: 20px;
+}
+
+// .formColorModel {
+//   position: relative;
+// }
+.previewCarDiv {
+  // position: absolute;
+  // transform: translate(20px, 50px);
+  border-style: none;
+  // outline: 1px dotted ButtonText;
+  overflow: visible;
+  text-transform: none;
+  padding: 0;
+  background-color: inherit;
+  cursor: pointer;
+  transition: 0.4s;
+
+  &:hover {
+    scale: 1.15;
+    transition: 0.4s;
+  }
+  &:active {
+    scale: 0.9;
+    transition: 0.4s;
   }
 }
