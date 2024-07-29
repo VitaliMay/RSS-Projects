@@ -576,11 +576,16 @@ body.lock .wrapper{
 
     .menu__list-item:hover{
       color: #292929;
+      transition: 0.7s;
     }
   }
 
+  &-item {
+    transition: 0.7s;
+  }
   &-item:hover {
     color: #FAFAFA;
+    transition: 0.7s;
   }
 
   &-item--active{
