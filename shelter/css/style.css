@@ -272,6 +272,10 @@ body.lock .wrapper {
   }
 }
 
+.logo--nolink {
+  cursor: default;
+}
+
 .logo__title {
   font-family: "Georgia";
   font-style: normal;
@@ -634,10 +638,12 @@ body.lock .wrapper {
   cursor: pointer;
   transition: 0.3s;
 }
-.button--start:hover {
-  transition: all 0.3s linear;
-  transform: scale(1.03);
-  background-color: #FDDCC4;
+@media (hover: hover) {
+  .button--start:hover {
+    transition: all 0.3s linear;
+    transform: scale(1.03);
+    background-color: #FDDCC4;
+  }
 }
 .button--arrow {
   width: 5.2rem;
@@ -645,9 +651,11 @@ body.lock .wrapper {
   background-color: #F6F6F6;
   flex-shrink: 0;
 }
-.button--arrow:hover {
-  transition: all 0.3s linear;
-  background-color: #FDDCC4;
+@media (hover: hover) {
+  .button--arrow:hover {
+    transition: all 0.3s linear;
+    background-color: #FDDCC4;
+  }
 }
 .button--arrow-inactive {
   width: 5.2rem;
@@ -955,14 +963,16 @@ body.lock .wrapper {
   transition: 0.42s;
   cursor: pointer;
 }
-.card:hover {
-  transition: all 0.3s linear;
-  transform: scale(1.06);
-  filter: drop-shadow(0 0 1rem gray);
-}
-.card:hover .button--card {
-  background-color: #FDDCC4;
-  transition: all 0.7s ease;
+@media (hover: hover) {
+  .card:hover {
+    transition: all 0.3s linear;
+    transform: scale(1.06);
+    filter: drop-shadow(0 0 1rem gray);
+  }
+  .card:hover .button--card {
+    background-color: #FDDCC4;
+    transition: all 0.7s ease;
+  }
 }
 
 .card .photo {

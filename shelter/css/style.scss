@@ -158,6 +158,10 @@ body.lock .wrapper{
   }
 }
 
+.logo--nolink {
+  cursor: default
+}
+
 .logo__title {
   font-family: 'Georgia';
   font-style: normal;
@@ -726,11 +730,19 @@ body.lock .wrapper{
   cursor: pointer;
   transition: 0.3s; // для плавного возвращения
 
-  &--start:hover {
-    transition: all 0.3s linear;
-    transform: scale(1.03);
-    background-color: #FDDCC4;
+  @media (hover: hover) {
+    &--start:hover {
+      transition: all 0.3s linear;
+      transform: scale(1.03);
+      background-color: #FDDCC4;
+    }
   }
+
+  // &--start:hover {
+  //   transition: all 0.3s linear;
+  //   transform: scale(1.03);
+  //   background-color: #FDDCC4;
+  // }
 
   &--arrow {
     width: 5.2rem;
@@ -739,11 +751,19 @@ body.lock .wrapper{
     // border: 2px solid #F1CDB3;
     flex-shrink: 0;
 
-    &:hover{
-      transition: all 0.3s linear;
-      // transform: scale(1.03);
-      background-color: #FDDCC4;
+    @media (hover: hover) {
+      &:hover{
+        transition: all 0.3s linear;
+        // transform: scale(1.03);
+        background-color: #FDDCC4;
+      }
     }
+
+    // &:hover{
+    //   transition: all 0.3s linear;
+    //   // transform: scale(1.03);
+    //   background-color: #FDDCC4;
+    // }
   }
   &--arrow-inactive {
     width: 5.2rem;
@@ -1111,18 +1131,34 @@ body.lock .wrapper{
 
   cursor: pointer;
 
-  &:hover {
-    // transition: all 0.3s ease;
-    transition: all 0.3s linear;
-    // transition: all 0.3s ease-in;
-    transform: scale(1.06);
-    filter: drop-shadow(0 0 1rem gray);
-
-    .button--card {
-      background-color: #FDDCC4;
-      transition: all 0.7s ease;
+  @media (hover: hover) {
+    &:hover {
+      // transition: all 0.3s ease;
+      transition: all 0.3s linear;
+      // transition: all 0.3s ease-in;
+      transform: scale(1.06);
+      filter: drop-shadow(0 0 1rem gray);
+      // box-shadow: 0 2px 35px 14px rgba(13, 13, 13, 0.04);
+  
+      .button--card {
+        background-color: #FDDCC4;
+        transition: all 0.7s ease;
+      }
     }
   }
+
+  // &:hover {
+  //   // transition: all 0.3s ease;
+  //   transition: all 0.3s linear;
+  //   // transition: all 0.3s ease-in;
+  //   transform: scale(1.06);
+  //   filter: drop-shadow(0 0 1rem gray);
+
+  //   .button--card {
+  //     background-color: #FDDCC4;
+  //     transition: all 0.7s ease;
+  //   }
+  // }
 
 }
 
