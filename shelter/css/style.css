@@ -645,6 +645,10 @@ body.lock .wrapper {
     background-color: #FDDCC4;
   }
 }
+.button--start:active {
+  transform: scale(0.9);
+  transition: all 0.4s;
+}
 .button--arrow {
   width: 5.2rem;
   height: 5.2rem;
@@ -688,6 +692,10 @@ body.lock .wrapper {
   transition: all 0.3s linear;
   transform: scale(1.03);
   background-color: #FDDCC4;
+}
+.button--primary:active {
+  transform: scale(0.9);
+  transition: all 0.4s;
 }
 .button--arrow svg {
   vertical-align: middle;
@@ -878,75 +886,91 @@ body.lock .wrapper {
 
 .slider {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 43.5rem;
-  position: relative;
-  width: 100%;
-}
-@media screen and (max-width: 768px) {
-  .slider {
-    position: static;
-    flex-direction: column;
-    row-gap: 1rem;
-  }
-}
-
-.slider__button-container {
-  width: 100%;
   justify-content: space-between;
-  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
 }
-@media screen and (max-width: 700px) {
-  .slider__button-container {
-    padding: 0 5.8rem;
+@media screen and (max-width: 800px) {
+  .slider {
+    margin: 0px 0px -11px 0px;
+  }
+}
+@media screen and (max-width: 765px) {
+  .slider {
+    -moz-column-gap: 80px;
+         column-gap: 80px;
+    justify-content: center;
+    margin: 0px 0px 2px 0px;
   }
 }
 
-.slider__inner {
+.slider__btn {
+  margin: -10px 0 0 0;
+}
+@media screen and (max-width: 800px) {
+  .slider__btn {
+    margin: -14px 0 0 0;
+  }
+}
+@media screen and (max-width: 765px) {
+  .slider__btn {
+    margin: 8px 0 0 0;
+  }
+}
+.slider__btn:active {
+  transform: scale(0.9);
+  transition: all 0.4s;
+}
+.slider__btn--order-01 {
+  order: 0;
+}
+@media screen and (max-width: 765px) {
+  .slider__btn--order-01 {
+    order: 1;
+  }
+}
+.slider__btn--order-02 {
+  order: 2;
+}
+
+.slider-strip {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   -moz-column-gap: 9rem;
        column-gap: 9rem;
   row-gap: 3rem;
-  position: absolute;
-  z-index: 1;
 }
 @media screen and (max-width: 1200px) {
-  .slider__inner {
+  .slider-strip {
     -moz-column-gap: 4rem;
          column-gap: 4rem;
   }
 }
 @media screen and (max-width: 1100px) {
-  .slider__inner {
+  .slider-strip {
     max-width: 60rem;
     height: 43.5rem;
     overflow: hidden;
     margin-bottom: 1rem;
   }
 }
-@media screen and (max-width: 767px) {
-  .slider__inner {
-    position: static;
-  }
-}
-.slider__inner--page {
+.slider-strip--page {
   -moz-column-gap: 4rem;
        column-gap: 4rem;
   position: static;
   flex-wrap: wrap;
 }
 @media screen and (max-width: 1100px) {
-  .slider__inner--page {
+  .slider-strip--page {
     max-width: 90rem;
     height: 136.5rem;
     overflow: hidden;
   }
 }
 @media screen and (max-width: 450px) {
-  .slider__inner--page {
+  .slider-strip--page {
     margin-bottom: 0;
   }
 }
@@ -973,6 +997,10 @@ body.lock .wrapper {
     background-color: #FDDCC4;
     transition: all 0.7s ease;
   }
+}
+.card:active {
+  transform: scale(0.9);
+  transition: all 0.4s;
 }
 
 .card .photo {
@@ -1279,10 +1307,16 @@ body.lock .wrapper {
   border-radius: 9px;
   transition: 0.3s;
 }
-.donation-content__credit-card:hover {
-  transition: all 0.3s linear;
-  transform: scale(1.03);
-  background-color: #FDDCC4;
+@media (hover: hover) {
+  .donation-content__credit-card:hover {
+    transition: all 0.3s linear;
+    transform: scale(1.03);
+    background-color: #FDDCC4;
+  }
+}
+.donation-content__credit-card:active {
+  transform: scale(0.9);
+  transition: all 0.4s;
 }
 @media screen and (max-width: 480px) {
   .donation-content__credit-card {
@@ -1435,6 +1469,10 @@ body.lock .wrapper {
 .contact__icon-text:hover {
   transition: all 0.3s linear;
   transform: scale(1.03);
+}
+.contact__icon-text:active {
+  transform: scale(0.9);
+  transition: all 0.4s;
 }
 
 .contact__icon-text p {

@@ -738,6 +738,11 @@ body.lock .wrapper{
     }
   }
 
+  &--start:active {
+    transform: scale(0.9);
+    transition: all 0.4s;
+  }
+
   // &--start:hover {
   //   transition: all 0.3s linear;
   //   transform: scale(1.03);
@@ -750,6 +755,7 @@ body.lock .wrapper{
     background-color: #F6F6F6;
     // border: 2px solid #F1CDB3;
     flex-shrink: 0;
+    // order: 0;
 
     @media (hover: hover) {
       &:hover{
@@ -802,6 +808,11 @@ body.lock .wrapper{
       transition: all 0.3s linear;
       transform: scale(1.03);
       background-color: #FDDCC4;
+    }
+
+    &:active {
+      transform: scale(0.9);
+      transition: all 0.4s;
     }
   }
 
@@ -1016,51 +1027,100 @@ body.lock .wrapper{
 
 .slider {
   display: flex;
-  // justify-content: space-between;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
+  flex-wrap: wrap;
+  // justify-content: center;
 
-  min-height: 43.5rem; //чтобы слайдер не схлопывался при position: relative;
-  position: relative; //надо чтобы сработал z-index и карточки стали перед кнопками
+  // min-height: 43.5rem; //чтобы слайдер не схлопывался при position: relative;
+  // position: relative; //надо чтобы сработал z-index и карточки стали перед кнопками
   
   width: 100%;
 
-  // border: solid 1px blue;
-  @media screen and (max-width: 768px) {
-    position: static;
-    flex-direction: column;
-    row-gap: 1rem;
+  // @media screen and (max-width: 765px) {
+  //   column-gap: 80px;
+  //   justify-content: center;
+  // }
+
+  @media screen and (max-width: 800px) {
+    margin: 0px 0px -11px 0px;
   }
+
+  @media screen and (max-width: 765px) {
+    column-gap: 80px;
+    justify-content: center;
+    margin: 0px 0px 2px 0px;
+  }
+
+  // border: solid 1px blue;
+  // @media screen and (max-width: 768px) {
+  //   position: static;
+  //   flex-direction: column;
+  //   row-gap: 1rem;
+  // }
 }
 
 // .slider__inner--page {
 //   position: static;
 // }
 
-.slider__button-container {
-  width: 100%;
+
+// Не нужно. Заменил на order
+// .slider__button-container {
+//   width: 100%;
   
-  justify-content: space-between;
-  // border: solid 1px aqua;
+//   justify-content: space-between;
+//   // border: solid 1px aqua;
 
-  // position: absolute;
-  // z-index: 8;
-  display: flex;
-  // @media screen and (max-width: 1200px) {
-  //  z-index: 0;
-  //  width: 50%;
-  // //  position: relative;
-  // position: static;
-  // }
+//   // position: absolute;
+//   // z-index: 8;
+//   display: flex;
+//   // @media screen and (max-width: 1200px) {
+//   //  z-index: 0;
+//   //  width: 50%;
+//   // //  position: relative;
+//   // position: static;
+//   // }
 
-  @media screen and (max-width: 700px) {
-    padding: 0 5.8rem;
+//   @media screen and (max-width: 700px) {
+//     padding: 0 5.8rem;
+//   }
+
+// }
+
+.slider__btn {
+  // margin-bottom: 14px;
+  margin: -10px 0 0 0;
+  @media screen and (max-width: 800px) {
+    margin: -14px 0 0 0;
   }
 
+  @media screen and (max-width: 765px) {
+    margin: 8px 0 0 0;
+  }
+
+  &:active {
+    transform: scale(0.9);
+    transition: all 0.4s;
+  }
+
+  &--order-01 {
+    order: 0;
+
+    // @media screen and (max-width: 770px) {
+    //   order: 1;
+    // }
+    @media screen and (max-width: 765px) {
+      order: 1;
+    }
+  }
+  &--order-02 {
+    order: 2;
+  }
 }
 
-
-.slider__inner {
+// .slider__inner {
+.slider-strip {
   display: flex;
   // justify-content: space-between;
   justify-content: center;
@@ -1070,8 +1130,10 @@ body.lock .wrapper{
   // row-gap: 1rem;
   row-gap: 3rem;
 
-  position: absolute; // чтобы карточки стали перед кнопками
-  z-index: 1;
+  // order: 0;
+
+  // position: absolute; // чтобы карточки стали перед кнопками
+  // z-index: 1;
 
   // border: solid red 1px;
    // order: -1;
@@ -1090,9 +1152,11 @@ body.lock .wrapper{
     overflow: hidden;
     margin-bottom: 1rem;
   }
-  @media screen and (max-width: 767px) {
-    position: static;
-  }
+  // @media screen and (max-width: 767px) {
+  //   position: static;
+
+  //   // order: -1;
+  // }
 
 
   &--page {
@@ -1145,6 +1209,11 @@ body.lock .wrapper{
         transition: all 0.7s ease;
       }
     }
+  }
+
+  &:active {
+    transform: scale(0.9);
+    transition: all 0.4s;
   }
 
   // &:hover {
@@ -1460,11 +1529,24 @@ body.lock .wrapper{
     border-radius: 9px;
     transition: 0.3s; // для плавного возвращения
 
-    &:hover {
-      transition: all 0.3s linear;
-      transform: scale(1.03);
-      background-color: #FDDCC4;
+    @media (hover: hover) {
+      &:hover {
+        transition: all 0.3s linear;
+        transform: scale(1.03);
+        background-color: #FDDCC4;
+      }
     }
+
+    &:active {
+      transform: scale(0.9);
+      transition: all 0.4s;
+    }
+
+    // &:hover {
+    //   transition: all 0.3s linear;
+    //   transform: scale(1.03);
+    //   background-color: #FDDCC4;
+    // }
 
     @media screen and (max-width: 480px)  {
       width: 28.1rem;
@@ -1652,6 +1734,11 @@ body.lock .wrapper{
   &:hover {
     transition: all 0.3s linear;
     transform: scale(1.03);
+  }
+
+  &:active {
+    transform: scale(0.9);
+    transition: all 0.4s;
   }
 }
 
