@@ -246,7 +246,7 @@ body.lock .wrapper {
 /*****************************************************/
 /*********Придется менять при адаптации****************/
 .header {
-  padding: 3rem 0 9rem 0;
+  padding: 3rem 0 8.9rem 0;
 }
 @media screen and (max-width: 1000px) {
   .header {
@@ -1302,7 +1302,12 @@ body.lock .wrapper {
   -moz-column-gap: 3rem;
        column-gap: 3rem;
   row-gap: 6rem;
-  padding: 8rem 0 10rem 0;
+  padding: 8rem 0 9.7rem 0;
+}
+@media screen and (max-width: 1050px) {
+  .donation__inner {
+    padding: 8rem 0 10rem 0;
+  }
 }
 @media screen and (max-width: 480px) {
   .donation__inner {
@@ -1415,6 +1420,7 @@ body.lock .wrapper {
   .footer__inner {
     justify-content: center;
     padding-top: 1rem;
+    row-gap: 6.8rem;
   }
 }
 @media screen and (max-width: 450px) {

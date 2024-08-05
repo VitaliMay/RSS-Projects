@@ -117,8 +117,8 @@ body.lock .wrapper{
 /*********Придется менять при адаптации****************/
 
 .header{
-  // padding: 6rem 0 6rem 0;
-  padding: 3rem 0 9rem 0;
+  padding: 3rem 0 8.9rem 0;
+  // padding: 3rem 0 9rem 0;
 
   @media screen and (max-width: 1000px) {
     padding: 3rem 0 6rem 0;
@@ -1359,7 +1359,6 @@ body.lock .wrapper{
     column-gap: 6rem;
   }
   @media screen and (max-width: 480px)  {
-    
     justify-content: space-between;
     column-gap: normal;
   }
@@ -1516,7 +1515,12 @@ body.lock .wrapper{
   column-gap: 3rem;
   row-gap: 6rem;
 
-  padding: 8rem 0 10rem 0;
+  padding: 8rem 0 9.7rem 0;
+  // padding: 8rem 0 10rem 0;
+
+  @media screen and (max-width: 1050px) {
+    padding: 8rem 0 10rem 0;
+  }
 
   @media screen and (max-width: 480px)  {
     padding: 4rem 1rem 4.2rem 1rem;
@@ -1670,6 +1674,7 @@ body.lock .wrapper{
   @media screen and (max-width: 1050px) {
     justify-content: center;
     padding-top: 1rem;
+    row-gap: 6.8rem;
   }
   @media screen and (max-width: 450px) {
     row-gap: 4rem;
