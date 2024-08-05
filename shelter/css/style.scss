@@ -117,8 +117,8 @@ body.lock .wrapper{
 /*********Придется менять при адаптации****************/
 
 .header{
-  // padding: 6rem 0 6rem 0;
-  padding: 3rem 0 9rem 0;
+  padding: 3rem 0 8.9rem 0;
+  // padding: 3rem 0 9rem 0;
 
   @media screen and (max-width: 1000px) {
     padding: 3rem 0 6rem 0;
@@ -156,6 +156,10 @@ body.lock .wrapper{
   @media screen and (max-width: 380px){
     padding: 0rem 1rem;
   }
+}
+
+.logo--nolink {
+  cursor: default
 }
 
 .logo__title {
@@ -726,11 +730,24 @@ body.lock .wrapper{
   cursor: pointer;
   transition: 0.3s; // для плавного возвращения
 
-  &--start:hover {
-    transition: all 0.3s linear;
-    transform: scale(1.03);
-    background-color: #FDDCC4;
+  @media (hover: hover) {
+    &--start:hover {
+      transition: all 0.3s linear;
+      transform: scale(1.03);
+      background-color: #FDDCC4;
+    }
   }
+
+  &--start:active {
+    transform: scale(0.9);
+    transition: all 0.4s;
+  }
+
+  // &--start:hover {
+  //   transition: all 0.3s linear;
+  //   transform: scale(1.03);
+  //   background-color: #FDDCC4;
+  // }
 
   &--arrow {
     width: 5.2rem;
@@ -738,12 +755,21 @@ body.lock .wrapper{
     background-color: #F6F6F6;
     // border: 2px solid #F1CDB3;
     flex-shrink: 0;
+    // order: 0;
 
-    &:hover{
-      transition: all 0.3s linear;
-      // transform: scale(1.03);
-      background-color: #FDDCC4;
+    @media (hover: hover) {
+      &:hover{
+        transition: all 0.3s linear;
+        // transform: scale(1.03);
+        background-color: #FDDCC4;
+      }
     }
+
+    // &:hover{
+    //   transition: all 0.3s linear;
+    //   // transform: scale(1.03);
+    //   background-color: #FDDCC4;
+    // }
   }
   &--arrow-inactive {
     width: 5.2rem;
@@ -782,6 +808,11 @@ body.lock .wrapper{
       transition: all 0.3s linear;
       transform: scale(1.03);
       background-color: #FDDCC4;
+    }
+
+    &:active {
+      transform: scale(0.9);
+      transition: all 0.4s;
     }
   }
 
@@ -996,51 +1027,129 @@ body.lock .wrapper{
 
 .slider {
   display: flex;
-  // justify-content: space-between;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
+  flex-wrap: wrap;
+  // justify-content: center;
 
-  min-height: 43.5rem; //чтобы слайдер не схлопывался при position: relative;
-  position: relative; //надо чтобы сработал z-index и карточки стали перед кнопками
+  // min-height: 43.5rem; //чтобы слайдер не схлопывался при position: relative;
+  // position: relative; //надо чтобы сработал z-index и карточки стали перед кнопками
   
   width: 100%;
 
-  // border: solid 1px blue;
-  @media screen and (max-width: 768px) {
-    position: static;
-    flex-direction: column;
-    row-gap: 1rem;
+  // @media screen and (max-width: 765px) {
+  //   column-gap: 80px;
+  //   justify-content: center;
+  // }
+
+  @media screen and (max-width: 800px) {
+    margin: 0px 0px -11px 0px;
   }
+
+  @media screen and (max-width: 782px) and (hover: hover) {
+    column-gap: 80px;
+    // justify-content: center;
+    margin: 0px 0px 2px 0px;
+  }
+
+  @media screen and (max-width: 765px) {
+    column-gap: 80px;
+    // justify-content: center;
+    margin: 0px 0px 2px 0px;
+  }
+
+  @media screen and (max-width: 380px) {
+    // column-gap: 80px;
+    // justify-content: center;
+    justify-content: space-around;
+    // margin: 0px 0px 2px 0px;
+  }
+
+  @media screen and (max-width: 340px) {
+    justify-content: center;
+  }
+
+  // border: solid 1px blue;
+  // @media screen and (max-width: 768px) {
+  //   position: static;
+  //   flex-direction: column;
+  //   row-gap: 1rem;
+  // }
 }
 
 // .slider__inner--page {
 //   position: static;
 // }
 
-.slider__button-container {
-  width: 100%;
+
+// Не нужно. Заменил на order
+// .slider__button-container {
+//   width: 100%;
   
-  justify-content: space-between;
-  // border: solid 1px aqua;
+//   justify-content: space-between;
+//   // border: solid 1px aqua;
 
-  // position: absolute;
-  // z-index: 8;
-  display: flex;
-  // @media screen and (max-width: 1200px) {
-  //  z-index: 0;
-  //  width: 50%;
-  // //  position: relative;
-  // position: static;
-  // }
+//   // position: absolute;
+//   // z-index: 8;
+//   display: flex;
+//   // @media screen and (max-width: 1200px) {
+//   //  z-index: 0;
+//   //  width: 50%;
+//   // //  position: relative;
+//   // position: static;
+//   // }
 
-  @media screen and (max-width: 700px) {
-    padding: 0 5.8rem;
+//   @media screen and (max-width: 700px) {
+//     padding: 0 5.8rem;
+//   }
+
+// }
+
+.slider__btn {
+  // margin-bottom: 14px;
+  margin: -10px 0 0 0;
+  @media screen and (max-width: 800px) {
+    margin: -14px 0 0 0;
   }
 
+  @media screen and (max-width: 782px) and (hover: hover) {
+    margin: 8px 0 0 0;
+  }
+  @media screen and (max-width: 765px) {
+    margin: 8px 0 0 0;
+  }
+
+  &:active {
+    transform: scale(0.9);
+    transition: all 0.4s;
+  }
+
+  &--order-01 {
+    order: 0;
+
+    // @media screen and (max-width: 770px) {
+    //   order: 1;
+    // }
+    @media screen and (max-width: 782px) and (hover: hover) {
+      order: 1;
+    }
+    @media screen and (max-width: 765px) {
+      order: 1;
+    }
+  }
+  &--order-02 {
+    order: 2;
+  }
 }
 
-
 .slider__inner {
+  margin: 0 auto;
+  // width: 100%;
+}
+
+// .slider__inner {
+.slider-strip {
+  // margin: 0 auto;
   display: flex;
   // justify-content: space-between;
   justify-content: center;
@@ -1050,8 +1159,12 @@ body.lock .wrapper{
   // row-gap: 1rem;
   row-gap: 3rem;
 
-  position: absolute; // чтобы карточки стали перед кнопками
-  z-index: 1;
+  // flex-grow: 1;
+
+  // order: 0;
+
+  // position: absolute; // чтобы карточки стали перед кнопками
+  // z-index: 1;
 
   // border: solid red 1px;
    // order: -1;
@@ -1070,9 +1183,11 @@ body.lock .wrapper{
     overflow: hidden;
     margin-bottom: 1rem;
   }
-  @media screen and (max-width: 767px) {
-    position: static;
-  }
+  // @media screen and (max-width: 767px) {
+  //   position: static;
+
+  //   // order: -1;
+  // }
 
 
   &--page {
@@ -1112,17 +1227,42 @@ body.lock .wrapper{
   cursor: pointer;
 
   &:hover {
-    // transition: all 0.3s ease;
-    transition: all 0.3s linear;
-    // transition: all 0.3s ease-in;
-    transform: scale(1.06);
-    filter: drop-shadow(0 0 1rem gray);
+    box-shadow: 0 2px 35px 14px rgba(13, 13, 13, 0.04);
+  }
 
-    .button--card {
-      background-color: #FDDCC4;
-      transition: all 0.7s ease;
+  @media (hover: hover) {
+    &:hover {
+      // transition: all 0.3s ease;
+      transition: all 0.3s linear;
+      // transition: all 0.3s ease-in;
+      transform: scale(1.06);
+      filter: drop-shadow(0 0 1rem gray);
+      // box-shadow: 0 2px 35px 14px rgba(13, 13, 13, 0.04);
+  
+      .button--card {
+        background-color: #FDDCC4;
+        transition: all 0.7s ease;
+      }
     }
   }
+
+  &:active {
+    transform: scale(0.9);
+    transition: all 0.4s;
+  }
+
+  // &:hover {
+  //   // transition: all 0.3s ease;
+  //   transition: all 0.3s linear;
+  //   // transition: all 0.3s ease-in;
+  //   transform: scale(1.06);
+  //   filter: drop-shadow(0 0 1rem gray);
+
+  //   .button--card {
+  //     background-color: #FDDCC4;
+  //     transition: all 0.7s ease;
+  //   }
+  // }
 
 }
 
@@ -1219,7 +1359,6 @@ body.lock .wrapper{
     column-gap: 6rem;
   }
   @media screen and (max-width: 480px)  {
-    
     justify-content: space-between;
     column-gap: normal;
   }
@@ -1227,6 +1366,9 @@ body.lock .wrapper{
     row-gap: 3rem;
     column-gap: 0rem;
     padding-left: 10px;
+  }
+  @media screen and (max-width: 307px)  {
+    justify-content: center;
   }
 }
 
@@ -1373,7 +1515,12 @@ body.lock .wrapper{
   column-gap: 3rem;
   row-gap: 6rem;
 
-  padding: 8rem 0 10rem 0;
+  padding: 8rem 0 9.7rem 0;
+  // padding: 8rem 0 10rem 0;
+
+  @media screen and (max-width: 1050px) {
+    padding: 8rem 0 10rem 0;
+  }
 
   @media screen and (max-width: 480px)  {
     padding: 4rem 1rem 4.2rem 1rem;
@@ -1424,11 +1571,24 @@ body.lock .wrapper{
     border-radius: 9px;
     transition: 0.3s; // для плавного возвращения
 
-    &:hover {
-      transition: all 0.3s linear;
-      transform: scale(1.03);
-      background-color: #FDDCC4;
+    @media (hover: hover) {
+      &:hover {
+        transition: all 0.3s linear;
+        transform: scale(1.03);
+        background-color: #FDDCC4;
+      }
     }
+
+    &:active {
+      transform: scale(0.9);
+      transition: all 0.4s;
+    }
+
+    // &:hover {
+    //   transition: all 0.3s linear;
+    //   transform: scale(1.03);
+    //   background-color: #FDDCC4;
+    // }
 
     @media screen and (max-width: 480px)  {
       width: 28.1rem;
@@ -1514,6 +1674,7 @@ body.lock .wrapper{
   @media screen and (max-width: 1050px) {
     justify-content: center;
     padding-top: 1rem;
+    row-gap: 6.8rem;
   }
   @media screen and (max-width: 450px) {
     row-gap: 4rem;
@@ -1576,13 +1737,11 @@ body.lock .wrapper{
     font-size: 2.5rem;
     line-height: 3.2rem;
     text-align: center;
-    
   }
 }
 
 .contact__icon-text {
   display: flex;
-  
   align-items: center;
 
   font-family: 'Georgia';
@@ -1613,9 +1772,53 @@ body.lock .wrapper{
     }
   }
 
+  @media (hover: hover) {
+    &:hover {
+      transition: all 0.3s linear;
+      transform: scale(1.03);
+      // color: #CDCDCD;
+    }
+  }
+  // &:hover {
+  //   transition: all 0.3s linear;
+  //   transform: scale(1.03);
+  //   color: #CDCDCD;
+  // }
+
   &:hover {
-    transition: all 0.3s linear;
-    transform: scale(1.03);
+    color: #CDCDCD;
+  }
+
+  &:hover .photo--icon-location{
+    background-image: url("../assets/svg/f-03-pin-hover.svg");
+  }
+  &:hover .photo--icon-tel{
+    background-image: url("../assets/svg/f-02-phone-hover.svg");
+  }
+  &:hover .photo--icon-mail{
+    background-image: url("../assets/svg/f-01-mail-hover.svg");
+  }
+
+  @media screen and (max-width: 450px) and (hover: hover) {
+    &:hover {
+      transform: scale(1);
+    }
+  }
+
+  &:active {
+    transform: scale(0.9);
+    transition: all 0.4s;
+    color: #CDCDCD;
+  }
+
+  &:active .photo--icon-location{
+    background-image: url("../assets/svg/f-03-pin-hover.svg");
+  }
+  &:active .photo--icon-tel{
+    background-image: url("../assets/svg/f-02-phone-hover.svg");
+  }
+  &:active .photo--icon-mail{
+    background-image: url("../assets/svg/f-01-mail-hover.svg");
   }
 }
 

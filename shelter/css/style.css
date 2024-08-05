@@ -246,7 +246,7 @@ body.lock .wrapper {
 /*****************************************************/
 /*********Придется менять при адаптации****************/
 .header {
-  padding: 3rem 0 9rem 0;
+  padding: 3rem 0 8.9rem 0;
 }
 @media screen and (max-width: 1000px) {
   .header {
@@ -270,6 +270,10 @@ body.lock .wrapper {
   .header__inner {
     padding: 0rem 1rem;
   }
+}
+
+.logo--nolink {
+  cursor: default;
 }
 
 .logo__title {
@@ -634,10 +638,16 @@ body.lock .wrapper {
   cursor: pointer;
   transition: 0.3s;
 }
-.button--start:hover {
-  transition: all 0.3s linear;
-  transform: scale(1.03);
-  background-color: #FDDCC4;
+@media (hover: hover) {
+  .button--start:hover {
+    transition: all 0.3s linear;
+    transform: scale(1.03);
+    background-color: #FDDCC4;
+  }
+}
+.button--start:active {
+  transform: scale(0.9);
+  transition: all 0.4s;
 }
 .button--arrow {
   width: 5.2rem;
@@ -645,9 +655,11 @@ body.lock .wrapper {
   background-color: #F6F6F6;
   flex-shrink: 0;
 }
-.button--arrow:hover {
-  transition: all 0.3s linear;
-  background-color: #FDDCC4;
+@media (hover: hover) {
+  .button--arrow:hover {
+    transition: all 0.3s linear;
+    background-color: #FDDCC4;
+  }
 }
 .button--arrow-inactive {
   width: 5.2rem;
@@ -680,6 +692,10 @@ body.lock .wrapper {
   transition: all 0.3s linear;
   transform: scale(1.03);
   background-color: #FDDCC4;
+}
+.button--primary:active {
+  transform: scale(0.9);
+  transition: all 0.4s;
 }
 .button--arrow svg {
   vertical-align: middle;
@@ -870,75 +886,121 @@ body.lock .wrapper {
 
 .slider {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  min-height: 43.5rem;
-  position: relative;
+  flex-wrap: wrap;
   width: 100%;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 800px) {
   .slider {
-    position: static;
-    flex-direction: column;
-    row-gap: 1rem;
+    margin: 0px 0px -11px 0px;
+  }
+}
+@media screen and (max-width: 782px) and (hover: hover) {
+  .slider {
+    -moz-column-gap: 80px;
+         column-gap: 80px;
+    margin: 0px 0px 2px 0px;
+  }
+}
+@media screen and (max-width: 765px) {
+  .slider {
+    -moz-column-gap: 80px;
+         column-gap: 80px;
+    margin: 0px 0px 2px 0px;
+  }
+}
+@media screen and (max-width: 380px) {
+  .slider {
+    justify-content: space-around;
+  }
+}
+@media screen and (max-width: 340px) {
+  .slider {
+    justify-content: center;
   }
 }
 
-.slider__button-container {
-  width: 100%;
-  justify-content: space-between;
-  display: flex;
+.slider__btn {
+  margin: -10px 0 0 0;
 }
-@media screen and (max-width: 700px) {
-  .slider__button-container {
-    padding: 0 5.8rem;
+@media screen and (max-width: 800px) {
+  .slider__btn {
+    margin: -14px 0 0 0;
   }
+}
+@media screen and (max-width: 782px) and (hover: hover) {
+  .slider__btn {
+    margin: 8px 0 0 0;
+  }
+}
+@media screen and (max-width: 765px) {
+  .slider__btn {
+    margin: 8px 0 0 0;
+  }
+}
+.slider__btn:active {
+  transform: scale(0.9);
+  transition: all 0.4s;
+}
+.slider__btn--order-01 {
+  order: 0;
+}
+@media screen and (max-width: 782px) and (hover: hover) {
+  .slider__btn--order-01 {
+    order: 1;
+  }
+}
+@media screen and (max-width: 765px) {
+  .slider__btn--order-01 {
+    order: 1;
+  }
+}
+.slider__btn--order-02 {
+  order: 2;
 }
 
 .slider__inner {
+  margin: 0 auto;
+}
+
+.slider-strip {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   -moz-column-gap: 9rem;
        column-gap: 9rem;
   row-gap: 3rem;
-  position: absolute;
-  z-index: 1;
 }
 @media screen and (max-width: 1200px) {
-  .slider__inner {
+  .slider-strip {
     -moz-column-gap: 4rem;
          column-gap: 4rem;
   }
 }
 @media screen and (max-width: 1100px) {
-  .slider__inner {
+  .slider-strip {
     max-width: 60rem;
     height: 43.5rem;
     overflow: hidden;
     margin-bottom: 1rem;
   }
 }
-@media screen and (max-width: 767px) {
-  .slider__inner {
-    position: static;
-  }
-}
-.slider__inner--page {
+.slider-strip--page {
   -moz-column-gap: 4rem;
        column-gap: 4rem;
   position: static;
   flex-wrap: wrap;
 }
 @media screen and (max-width: 1100px) {
-  .slider__inner--page {
+  .slider-strip--page {
     max-width: 90rem;
     height: 136.5rem;
     overflow: hidden;
   }
 }
 @media screen and (max-width: 450px) {
-  .slider__inner--page {
+  .slider-strip--page {
     margin-bottom: 0;
   }
 }
@@ -956,13 +1018,22 @@ body.lock .wrapper {
   cursor: pointer;
 }
 .card:hover {
-  transition: all 0.3s linear;
-  transform: scale(1.06);
-  filter: drop-shadow(0 0 1rem gray);
+  box-shadow: 0 2px 35px 14px rgba(13, 13, 13, 0.04);
 }
-.card:hover .button--card {
-  background-color: #FDDCC4;
-  transition: all 0.7s ease;
+@media (hover: hover) {
+  .card:hover {
+    transition: all 0.3s linear;
+    transform: scale(1.06);
+    filter: drop-shadow(0 0 1rem gray);
+  }
+  .card:hover .button--card {
+    background-color: #FDDCC4;
+    transition: all 0.7s ease;
+  }
+}
+.card:active {
+  transform: scale(0.9);
+  transition: all 0.4s;
 }
 
 .card .photo {
@@ -1067,6 +1138,11 @@ body.lock .wrapper {
     -moz-column-gap: 0rem;
          column-gap: 0rem;
     padding-left: 10px;
+  }
+}
+@media screen and (max-width: 307px) {
+  .help-list {
+    justify-content: center;
   }
 }
 
@@ -1226,7 +1302,12 @@ body.lock .wrapper {
   -moz-column-gap: 3rem;
        column-gap: 3rem;
   row-gap: 6rem;
-  padding: 8rem 0 10rem 0;
+  padding: 8rem 0 9.7rem 0;
+}
+@media screen and (max-width: 1050px) {
+  .donation__inner {
+    padding: 8rem 0 10rem 0;
+  }
 }
 @media screen and (max-width: 480px) {
   .donation__inner {
@@ -1269,10 +1350,16 @@ body.lock .wrapper {
   border-radius: 9px;
   transition: 0.3s;
 }
-.donation-content__credit-card:hover {
-  transition: all 0.3s linear;
-  transform: scale(1.03);
-  background-color: #FDDCC4;
+@media (hover: hover) {
+  .donation-content__credit-card:hover {
+    transition: all 0.3s linear;
+    transform: scale(1.03);
+    background-color: #FDDCC4;
+  }
+}
+.donation-content__credit-card:active {
+  transform: scale(0.9);
+  transition: all 0.4s;
 }
 @media screen and (max-width: 480px) {
   .donation-content__credit-card {
@@ -1333,6 +1420,7 @@ body.lock .wrapper {
   .footer__inner {
     justify-content: center;
     padding-top: 1rem;
+    row-gap: 6.8rem;
   }
 }
 @media screen and (max-width: 450px) {
@@ -1422,9 +1510,42 @@ body.lock .wrapper {
     margin-bottom: 1.4rem;
   }
 }
+@media (hover: hover) {
+  .contact__icon-text:hover {
+    transition: all 0.3s linear;
+    transform: scale(1.03);
+  }
+}
 .contact__icon-text:hover {
-  transition: all 0.3s linear;
-  transform: scale(1.03);
+  color: #CDCDCD;
+}
+.contact__icon-text:hover .photo--icon-location {
+  background-image: url("../assets/svg/f-03-pin-hover.svg");
+}
+.contact__icon-text:hover .photo--icon-tel {
+  background-image: url("../assets/svg/f-02-phone-hover.svg");
+}
+.contact__icon-text:hover .photo--icon-mail {
+  background-image: url("../assets/svg/f-01-mail-hover.svg");
+}
+@media screen and (max-width: 450px) and (hover: hover) {
+  .contact__icon-text:hover {
+    transform: scale(1);
+  }
+}
+.contact__icon-text:active {
+  transform: scale(0.9);
+  transition: all 0.4s;
+  color: #CDCDCD;
+}
+.contact__icon-text:active .photo--icon-location {
+  background-image: url("../assets/svg/f-03-pin-hover.svg");
+}
+.contact__icon-text:active .photo--icon-tel {
+  background-image: url("../assets/svg/f-02-phone-hover.svg");
+}
+.contact__icon-text:active .photo--icon-mail {
+  background-image: url("../assets/svg/f-01-mail-hover.svg");
 }
 
 .contact__icon-text p {
