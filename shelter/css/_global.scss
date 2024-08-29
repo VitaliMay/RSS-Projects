@@ -71,6 +71,13 @@ a{
   font-style: normal;
 }
 @font-face {
+  font-family: "Georgia";
+  src: url("../assets/fonts/georgia-bold.ttf") format("truetype");
+  // src: url("../fonts/georgia-regular.ttf") format("truetype");
+  font-weight: 800;
+  font-style: normal;
+}
+@font-face {
   font-family: "Arial";
   src: url("../assets/fonts/arial-regular.ttf") format("truetype");
   font-weight: normal;

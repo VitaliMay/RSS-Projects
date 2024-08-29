@@ -69,7 +69,7 @@
 
 // color: #545454;
 
-body.lock {
+body.lock { // убираю прокрутку 
   overflow: hidden;
   // background-color: red;
   transition: 1s;
@@ -406,6 +406,7 @@ body.lock .wrapper{
 }
 .fon.work {
   // transition: 0.6s all;
+  // z-index: 20;
   z-index: 10;
   width: 100vw;
   height: 100vh;
@@ -1202,6 +1203,11 @@ body.lock .wrapper{
   overflow: hidden;
   max-width: 99rem;
 
+  &--page {
+    max-width: 120rem;
+    // max-width: 100%;
+  }
+
   @media screen and (max-width: 1200px) {
     max-width: 89rem;
   }
@@ -1270,8 +1276,9 @@ body.lock .wrapper{
 
   &--page {
     column-gap: 4rem;
+    // max-width: 120rem;
     // row-gap: 3rem;
-    position: static; // чтобы не действовал  position: absolute; со страницы 01
+    // position: static; // чтобы не действовал  position: absolute; со страницы 01
     flex-wrap: wrap;
 
     // border: #000000 solid 1px;
@@ -1957,6 +1964,370 @@ body.lock .wrapper{
   background-image: url("../assets/svg/f-03-pin.svg");
 }
 
+
+/*********************************************************/
+/*********************************************************/
+
+.modal {
+
+  // margin-right: 50px;
+  // position: absolute;
+  // position: relative;
+  position: fixed;
+  // top: calc(50% + 52px);
+  top: 50%;
+  left: calc(50% + 21px);
+  // right: calc(50% - 42px);
+  // left: 50%;
+  transform: translate(-50%, -50%);
+
+  padding: 52px 82px 0px 40px;
+  // padding: 52px 72px 0px 30px;
+  // padding: 52px 42px 0px 0px;
+  @media screen and (max-width: 520px) {
+    padding: 82px 68px 52px 26px;
+  }
+
+  // margin-left: 40px; /* отступ справа */
+
+  // z-index: -2;
+  visibility: hidden;
+  opacity: 0;
+  // transition: visibility 0.8s, opacity 0.8s;
+  transition: visibility 0.4s, opacity 0.4s;
+  // transition: visibility 2s, opacity 2s;
+
+
+  // visibility: visible;
+  // z-index: -2; // такой же как у фона
+  // // z-index: 10;
+  // opacity: 1;
+  // transition: visibility 2s, opacity 2s;
+
+  // width: 100%;
+  // max-width: 900px;
+
+  // height: 500px;
+  width: 100%;
+  max-width: 1022px;
+  // max-width: 1002px;
+  // max-width: 952px;
+  // max-width: 900px;
+  @media screen and (max-width: 768px) {
+    max-width: 752px;
+  }
+
+  min-height: 552px;
+  // max-height: 90vh;
+  // max-height: 600px;
+  // max-height: calc(95vh - 60px);
+  overflow: hidden;
+
+  @media screen and (max-width: 850px) {
+    min-height: 402px;
+  }
+  // height: 552px;
+  // height: 500px;
+
+  background-color: rgba(0, 0, 0, 0);
+
+  // box-shadow: 0 2px 35px 14px rgba(13, 13, 13, 0.04);
+  // background-color: #fafafa;
+  // border-radius: 9px;
+
+  // overflow: hidden;
+
+  // @media screen and (max-width: 850px) { 
+  //   max-width: calc(100vw - 80px);
+  // }
+  // @media screen and (max-width: 710px) { 
+  //   max-width: 492px;
+  // }
+  // @media screen and (max-width: 560px) { 
+  //   max-width: calc(100vw - 38px);
+  // }
+
+  // padding: 16px;
+ 
+  // background-color: #E1D4C9;
+  display: flex;
+  // column-gap: 20px;
+
+  &--active {
+    z-index: 40; // чтобы перекрыть лого и бургер-баттон
+    visibility: visible;
+    opacity: 1;
+    // transition: visibility 0.4s, opacity 0.4s;
+    // transition: visibility 2s, opacity 2s;
+    transition: visibility 0.8s, opacity 0.8s;
+
+    // overflow-y: auto;  // чтобы был скролл если не влазит
+    // max-height: 95vh;  // чтобы был скролл если не влазит
+  }
+
+}
+
+.modal-container {
+  // position: relative;
+  z-index: 40;
+  // background-color: green;
+  border-radius: 9px;
+  width: 100%;
+  // overflow: hidden;
+  overflow-x: hidden;
+  max-height: 90vh;
+  overflow-y: auto;
+
+  display: flex;
+  @media screen and (max-width: 680px) {
+    flex-wrap: wrap;
+    // overflow-y: auto;
+    // overflow-y: scroll;
+    max-height: 90vh;
+  }
+
+  background-color: #fafafa;
+  box-shadow: 0 2px 35px 14px rgba(13, 13, 13, 0.04);
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  row-gap: 40px;
+
+  padding: 50px 20px 0px 30px;
+
+  @media screen and (max-width: 768px) {
+    row-gap: 20px;
+    padding: 10px 5px 0px 10px;
+    // padding: 10px 10px 0px 10px;
+  }
+}
+
+.modal-title {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+
+  @media screen and (max-width: 520px) {
+    text-align: center;
+  }
+}
+.modal-title-name {
+  // font-size: 2rem;
+  // line-height: 2.3rem;
+
+  // font-family: 'Georgia';
+  // font-style: normal;
+  // font-weight: 400;
+
+  // letter-spacing: 0.06em;
+
+  // color: #545454;
+
+  font-family: 'Georgia';
+  font-weight: 400;
+  font-size: 35px;
+  line-height: 130%;
+  letter-spacing: 0.06em;
+  color: #000;
+
+  
+}
+.modal-title-breed {
+  font-family: 'Georgia';
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 115%;
+  letter-spacing: 0.06em;
+  color: #000;
+
+  
+}
+.modal-description {
+  font-family: 'Georgia';
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 115%;
+  // line-height: 110%;
+  letter-spacing: 0.06em;
+  color: #000;
+
+  @media screen and (max-width: 768px) {
+    font-size: 13px;
+    line-height: 110%;
+  }
+  @media screen and (max-width: 520px) {
+    text-align: justify;
+    margin-bottom: 4px;
+  }
+}
+ul.modal-list {
+  // list-style-type: disc;
+  // color: red;
+  // position: relative; 
+
+  font-family: 'Georgia';
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 120%;
+  // line-height: 110%;
+  letter-spacing: 0.06em;
+  color: #000;
+
+  @media screen and (max-width: 768px) {
+    line-height: 90%;
+  }
+  @media screen and (max-width: 768px) {
+    line-height: 90%;
+  }
+
+
+  & .modal-list__item {
+  // & li {
+    // color: red;
+    position: relative; 
+    margin-bottom: 10px;
+    
+
+    &::before {
+      content: "•"; /* задаем символ для маркера, например, круг */
+      color: #f1cdb3;; /* цвет маркера */
+      font-size: 0.8em; /* размер маркера, если нужно */
+      margin-right: 0.6em; /* отступ между маркером и текстом */
+      // vertical-align: middle; /* выравниваем маркер по центру */
+      vertical-align: top; /* выравниваем маркер по центру */
+    }
+  }
+
+}
+
+// .modal-list {
+
+// }
+
+.modal-list__item-title {
+  // font-family: 'Inter';
+  font-weight: 800;
+  // font-size: 17px;
+  // letter-spacing: 0.07em;
+
+  // // font-size: 16px;
+  // // letter-spacing: 0.15em;
+
+  // &--age {
+  //   letter-spacing: 0.07em;
+
+  //   // letter-spacing: 0.12em;
+  // }
+}
+
+
+
+.modal-btn--close {
+  // margin-right: 100px;
+
+
+  position: absolute;
+  transform: translate(100%, -100%);
+  right: 92px;
+  // right: 82px;
+  // right: 52px;
+  // right: 10px;
+  // transform: translate(-50%, -50%);
+  // top: -26px;
+  // right: -68px;
+
+  z-index: 40;
+
+  width: 52px;
+  height: 52px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  // background-color: inherit;
+  // background-color: #f6f6f6;;
+  // background-color: #cdcdcd;
+
+  background-color: rgba(0, 0, 0, 0);
+  // background: rgba(41, 41, 41, 0.6);
+  border: 2px solid #f1cdb3;
+
+  // --color-light-xl: #fff;
+	// --color-light-l: #f6f6f6;
+	// --color-light-s: #fafafa;
+	// --color-dark-s: #cdcdcd;
+	// --color-dark-m: #b2b2b2;
+	// --color-dark-l: #545454;
+	// --color-dark-xl: #4c4c4c;
+	// --color-dark-2xl: #444;
+	// --color-dark-3xl: #292929;
+	// --color-primary: #f1cdb3;
+
+  transition: all 0.3s linear;
+
+  // @media (hover: hover) {
+  //   &:hover{
+  //     transition: all 0.3s linear;
+  //     // transform: scale(1.03);
+  //     background-color: #FDDCC4;
+  //   }
+  // }
+  &:hover{
+    transition: all 0.3s linear;
+    // transform: scale(1.03);
+    background-color: #FDDCC4;
+  }
+
+  &:active {
+    transform: scale(0.9) translate(110%, -110%);
+    transition: all 0.4s;
+  }
+
+  &:hover .button__svg--close {
+    fill: #ff0000;
+    transition: all 0.4s;
+  }
+
+  & .button__svg--close {
+    transition: all 0.4s;
+  }
+
+}
+
+
+
+.photo--modal {
+  width: 500px;
+  height: 500px;
+  flex-shrink: 0;
+
+  @media screen and (max-width: 850px) {
+    width: 350px;
+    height: 350px;
+  }
+
+  @media screen and (max-width: 520px) {
+    width: 250px;
+    height: 250px;
+    // padding: 10px 10px 0px 10px;
+  }
+  @media screen and (max-width: 420px) {
+    display: none;
+    // padding: 10px 10px 0px 10px;
+  }
+  // border: sienna 2px solid;
+}
+
+
+body.lock {  // убираю прокрутку под модалкой
+  // position: fixed;
+  width: 100%;
+  overflow: hidden;
+  // overflow-y: scroll; /* Добавить полосу прокрутки для всей страницы */
+}
 
 
 
