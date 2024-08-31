@@ -123,6 +123,8 @@ function randomNumber () {
     return Math.floor(Math.random() * ((dataPets.length - 1) - 0 + 1))
 }
 
+// export { randomNumber }
+
 // let uniqueIndexPetsNameArr = []
 
 for (let index = 0; index < 3; index++) {

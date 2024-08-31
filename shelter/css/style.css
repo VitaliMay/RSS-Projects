@@ -427,7 +427,7 @@ body.lock .wrapper {
   height: 0px;
   /* размещаю по центру */
   transform: translate(calc(50vw - 450px), calc((100vh - 500px) / 2));
-  z-index: -10;
+  z-index: 110;
   transition: 1s all;
 }
 @media screen and (max-width: 1080px) {
@@ -1051,6 +1051,7 @@ body.lock .wrapper {
 .slider-strip--page {
   -moz-column-gap: 4rem;
        column-gap: 4rem;
+  justify-content: center;
   flex-wrap: wrap;
 }
 @media screen and (max-width: 1100px) {
