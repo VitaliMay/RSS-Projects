@@ -2320,8 +2320,16 @@ ul.modal-list {
   }
 
   &:hover .button__svg--close {
-    fill: #ff0000;
+    // fill: #ff0000;
+    fill: #f5917b;
     transition: all 0.4s;
+  }
+  &:hover svg {
+    // fill: #ff0000;
+    // fill: #f5917b;
+    transition: all 0.4s;
+    width: 15px;
+    height: 15px;
   }
 
   & .button__svg--close {

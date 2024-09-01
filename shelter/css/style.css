@@ -1837,8 +1837,13 @@ ul.modal-list .modal-list__item::before {
   transition: all 0.4s;
 }
 .modal-btn--close:hover .button__svg--close {
-  fill: #ff0000;
+  fill: #f5917b;
   transition: all 0.4s;
+}
+.modal-btn--close:hover svg {
+  transition: all 0.4s;
+  width: 15px;
+  height: 15px;
 }
 .modal-btn--close .button__svg--close {
   transition: all 0.4s;
