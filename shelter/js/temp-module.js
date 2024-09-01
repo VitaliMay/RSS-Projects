@@ -66,6 +66,22 @@ function createPaginationArr () {
 
 export { createPaginationArr }
 
+
+/************************************************************** */
+// формирование массивов для пагинации на разных расширениях
+
+function createPaginationArrDevice (paginationArr, deviceCardNumber) {
+  const paginationArrFlat = paginationArr.flat()
+  const paginationArrDevice = []
+  for (let i = 0; i < paginationArrFlat.length; i += deviceCardNumber) {
+    paginationArrDevice.push(paginationArrFlat.slice(i, i + deviceCardNumber))
+    // console.log(paginationArrDevice)
+  }
+  return paginationArrDevice
+}
+
+export { createPaginationArrDevice }
+
 // Формирую массив уникальных имён питомцев
 /**************************************************************** */
 function createPetsNameArr (dataPets) {
@@ -127,6 +143,8 @@ function startPagePets(paginationArr, element) {
   for (let i = 0; i < paginationArr[0].length; i += 1) {
     appendNewCardInElement(paginationArr[0][i], element)
   }
+  // buttonPaginationStart.disabled = true;
+  // buttonPaginationPrePage.disabled = true;
 }
 
 export { startPagePets }
@@ -152,5 +170,28 @@ function removeAllCard(element) {
 }
 
 export { removeAllCard }
+
+/************************************************************** */
+  
+function calculationFlagCurrentPage(paginationArrPre, paginationArrCurrent, flagCurrentPagePre) {
+  const preArrLenght = paginationArrPre.length
+  const currArrLenght = paginationArrCurrent.length
+  const numberElementOnPrePage = paginationArrPre[0].length
+  const numberElementOnCurrPage = paginationArrCurrent[0].length
+  let flagCurrentPage = flagCurrentPagePre
+
+  if (flagCurrentPagePre) {
+    if (flagCurrentPagePre === preArrLenght - 1) {
+       flagCurrentPage = currArrLenght - 1
+    } else {
+      flagCurrentPage = Math.ceil((flagCurrentPagePre * numberElementOnPrePage + 1) / numberElementOnCurrPage) - 1
+      //  flagCurrentPage = Math.ceil((flagCurrentPagePre * numberElementOnPrePage + 1) / numberElementOnCurrPage)
+    }
+  }
+
+  return flagCurrentPage
+}
+
+export { calculationFlagCurrentPage }
 
 

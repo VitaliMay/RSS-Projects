@@ -788,25 +788,51 @@ body.lock .wrapper{
     //   background-color: #FDDCC4;
     // }
   }
-  &--arrow-inactive {
-    width: 5.2rem;
-    height: 5.2rem;
+
+  &--navigation:active {
+    transform: scale(0.9);
+    transition: all 0.4s;
+  }
+  &:disabled {
+    transition: all 0.4s;
+    transform: scale(1);
     background-color: #F6F6F6;
     border: 2px solid #CDCDCD;
     color: #CDCDCD;
 
     cursor: default;
+    pointer-events: none;
   }
+
+  // &--arrow-inactive {
+  //   width: 5.2rem;
+  //   height: 5.2rem;
+  //   background-color: #F6F6F6;
+  //   border: 2px solid #CDCDCD;
+  //   color: #CDCDCD;
+
+  //   cursor: default;
+  //   pointer-events: none;
+    
+  //   &:hover {
+  //     background-color: #F6F6F6;
+  //     border: 2px solid #CDCDCD;
+  //     color: #CDCDCD;
+  //   }
+  // }
   &--arrow-focus {
     width: 5.2rem;
     height: 5.2rem;
     background-color: #F1CDB3;
 
-    &:hover{
-      transition: all 0.3s linear;
-      // transform: scale(1.03);
-      background-color: #FDDCC4;
-    }
+    pointer-events: none;
+
+    // &:hover{
+    //   transition: all 0.3s linear;
+    //   // transform: scale(1.03);
+    //   background-color: #FDDCC4;
+    //   // cursor: default;
+    // }
 
   }
 
@@ -1152,6 +1178,7 @@ body.lock .wrapper{
     color: #CDCDCD;
 
     cursor: default;
+    pointer-events: none;
   }
 
   &:disabled .button__svg--arrow {
@@ -1289,6 +1316,11 @@ body.lock .wrapper{
       max-width: 90rem;
       height: 136.5rem;
       overflow: hidden;
+    }
+    @media screen and (max-width: 659.9px) {
+      max-width: 579px;
+      // height: 136.5rem;
+      // overflow: hidden;
     }
     @media screen and (max-width: 450px) {
       margin-bottom: 0;

@@ -32,7 +32,7 @@ function shuffle(previousArr, slicePre, sliceCurr) {
     let tempArr = previousArr.slice(slicePre)
     tempArr = tempArr.concat(array.slice(0, sliceCurr))
     // tempArr = [...new Set(tempArr)]  // убираю возможные повторы
-    console.log(`tempArr = ${tempArr}`)
+    // console.log(`tempArr = ${tempArr}`)
     
     if (tempArr.length !== [...new Set(tempArr)].length) {
       return shuffle(previousArr, slicePre, sliceCurr)
@@ -100,7 +100,61 @@ function createPaginationArr () {
 // console.log(`finish = ${finishArr}`)
 // console.log(finishArr)
 
-console.log(createPaginationArr())
+let paginationArr = createPaginationArr()
+console.log(paginationArr)
+
+let paginationArrFlat = paginationArr.flat()
+console.log(paginationArrFlat)
+
+
+function createPaginationArrDevice (paginationArr, deviceCardNumber) {
+  const paginationArrFlat = paginationArr.flat()
+  const paginationArrDevice = []
+  for (i = 0; i < paginationArrFlat.length; i += deviceCardNumber) {
+    paginationArrDevice.push(paginationArrFlat.slice(i, i + deviceCardNumber))
+    // console.log(paginationArrDevice)
+  }
+  return paginationArrDevice
+}
+
+const paginationArrTablet = createPaginationArrDevice (paginationArr, 6)
+console.log(paginationArrTablet)
+console.log(paginationArrTablet.length)
+
+const paginationArrMobile = createPaginationArrDevice (paginationArr, 3)
+console.log(paginationArrMobile)
+console.log(paginationArrMobile.length)
+
+
+function calculationFlagCurrentPage(paginationArrPre, paginationArrCurrent, flagCurrentPagePre) {
+  const preArrLenght = paginationArrPre.length
+  const currArrLenght = paginationArrCurrent.length
+  const numberElementOnPrePage = paginationArrPre[0].length
+  const numberElementOnCurrPage = paginationArrCurrent[0].length
+  let flagCurrentPage = flagCurrentPagePre
+
+  if (flagCurrentPagePre) {
+    if (flagCurrentPagePre === preArrLenght - 1) {
+       flagCurrentPage = currArrLenght - 1
+    } else {
+       flagCurrentPage = Math.ceil((flagCurrentPagePre * numberElementOnPrePage + 1) / numberElementOnCurrPage) - 1
+       console.log(flagCurrentPagePre * numberElementOnPrePage + 1)
+    }
+  }
+
+  return flagCurrentPage
+}
+
+let neFlag = calculationFlagCurrentPage(paginationArr, paginationArrTablet, 5)
+// let neFlag = calculationFlagCurrentPage(paginationArrTablet, paginationArr, 0)
+console.log(neFlag)
+
+// let experimentArr = [1, 0, 4, 2, 3, 7, 1, 5, 3, 0, 2,
+//   4, 6, 5, 1, 3, 4, 0, 2, 7, 6, 0,
+//   1, 5, 3, 7, 4, 6, 2, 0, 1, 6, 7,
+//   5, 4, 3, 2]
+
+// let newExperimentArr = 
 
 // console.log(8 % 2 === 0)
 // console.log(1 % 2 === 0)

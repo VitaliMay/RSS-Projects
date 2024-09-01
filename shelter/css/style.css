@@ -681,22 +681,24 @@ body.lock .wrapper {
     background-color: #FDDCC4;
   }
 }
-.button--arrow-inactive {
-  width: 5.2rem;
-  height: 5.2rem;
+.button--navigation:active {
+  transform: scale(0.9);
+  transition: all 0.4s;
+}
+.button:disabled {
+  transition: all 0.4s;
+  transform: scale(1);
   background-color: #F6F6F6;
   border: 2px solid #CDCDCD;
   color: #CDCDCD;
   cursor: default;
+  pointer-events: none;
 }
 .button--arrow-focus {
   width: 5.2rem;
   height: 5.2rem;
   background-color: #F1CDB3;
-}
-.button--arrow-focus:hover {
-  transition: all 0.3s linear;
-  background-color: #FDDCC4;
+  pointer-events: none;
 }
 .button--card {
   width: 18.7rem;
@@ -970,6 +972,7 @@ body.lock .wrapper {
   border: 2px solid #CDCDCD;
   color: #CDCDCD;
   cursor: default;
+  pointer-events: none;
 }
 .slider__btn:disabled .button__svg--arrow {
   fill: #CDCDCD;
@@ -1059,6 +1062,11 @@ body.lock .wrapper {
     max-width: 90rem;
     height: 136.5rem;
     overflow: hidden;
+  }
+}
+@media screen and (max-width: 659.9px) {
+  .slider-strip--page {
+    max-width: 579px;
   }
 }
 @media screen and (max-width: 450px) {
