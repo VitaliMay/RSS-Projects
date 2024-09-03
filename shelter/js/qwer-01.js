@@ -22,6 +22,18 @@ function createPetsNameIndexArr (petsNameIndexArr = []) {
 
 /************************************************* */
 
+// количество срабатывания шафлов
+function createShuffleCounter() {
+  let count = 0;
+  return function() {
+    count++;
+    return count;
+  }
+}
+
+const getShuffleCount = createShuffleCounter();
+/******************************************* */
+
 // Функция для перемешивания массива (перемешивание Фишера-Йетса)
 function shuffle(previousArr, slicePre, sliceCurr) {
     let array = [...previousArr]
@@ -33,6 +45,9 @@ function shuffle(previousArr, slicePre, sliceCurr) {
     tempArr = tempArr.concat(array.slice(0, sliceCurr))
     // tempArr = [...new Set(tempArr)]  // убираю возможные повторы
     // console.log(`tempArr = ${tempArr}`)
+
+    const shuffleCount = getShuffleCount(); // получаем количество срабатываний шафла
+    console.log(`Шафл выполнен ${shuffleCount} раз(а)`);
     
     if (tempArr.length !== [...new Set(tempArr)].length) {
       return shuffle(previousArr, slicePre, sliceCurr)
@@ -52,6 +67,8 @@ function createPaginationArr () {
   }
   return paginationArr
 }
+
+
 // function createPaginationArr () {
 //   const paginationArr = [] // объявляю финишный массив
 //   paginationArr[0] = createPetsNameIndexArr() // добавляю первый элемент (массив)
