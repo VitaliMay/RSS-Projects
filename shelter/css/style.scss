@@ -388,6 +388,8 @@ body.lock .wrapper{
 //     width: 100vw;
 //     height: 100vh;
 //     background: rgba(41, 41, 41, 0.6);
+
+//     z-index: 20;
 //   }
 // }
 
@@ -537,7 +539,7 @@ body.lock .wrapper{
   // .open {
   //   right: 0;
   // }
-
+  // overflow: auto;
   // border: whitesmoke 1px solid;
 
   // меню исчезает и появляется ПЛАВНО
@@ -573,6 +575,14 @@ body.lock .wrapper{
 
     // border: solid 1px wheat;
 
+    // &:first-child {
+    //   margin-top: 100px;
+    // }
+
+    // padding-top: 100px;
+    // overflow: scroll;
+    // overflow: auto;
+
   }
 
   
@@ -583,22 +593,39 @@ body.lock .wrapper{
 
   &.open {
     right: 0;
+
+    padding-top: 75px;
+    padding-bottom: 75px;
+
+    // overflow-x: hidden;
+    overflow-y: auto;
   }
+
+  /**********************************/
+  
 /**********************************/
 /************************************/
 
   &--page {
     color:#545454;
     // z-index: 16;
+    // background-color: #CDCDCD;
     &.open {
+      // background-color: #CDCDCD;
       color: #CDCDCD;
     }
 
-
-    .menu__list-item:hover{
-      color: #292929;
+    &.open .menu__list-item:hover{
+      // background-color: #CDCDCD;
+      color: #FAFAFA;
       transition: 0.7s;
     }
+    &.open .menu__list-item--active-page:hover{
+      // background-color: #CDCDCD;
+      color: #FAFAFA;
+      transition: 0s;
+    }
+    // .menu__list--page.open .menu__list-item:hover
   }
 
   &-item {

@@ -1,9 +1,10 @@
 console.log(`Привет. 
    При resize, 
-   если стр 1 перехожу на страницу 1, 
-   если стр последняя перехожу на последнюю страницу,
-   в остальных случаях переход на страницу,
-   на которой находится карточка, стоящая первой.`)
+    - если стр 1 перехожу на страницу 1, 
+    - если стр последняя перехожу на последнюю страницу,
+    - в остальных случаях переход на страницу,
+   на которой находится карточка, стоящая первой.
+   * Массивы страниц и петов оставляю в консоли, чтобы проверять было удобнее)`)
 
 import { dataPets } from './js/products.js';
 import { checkBurger } from './js/burger.js'
@@ -19,6 +20,40 @@ const body = document.querySelector('body')
 const fon = document.querySelector('.fon')
 const menu = document.querySelector(".menu__list")
 const burgerButton = document.getElementById('burger-button')
+
+const menuLink = document.querySelectorAll('.menu__list-item');
+
+/********************************************** */
+
+burgerButton.addEventListener("click", function(event) {
+   // console.log('Проверка')
+   // alert('Ещё одна проверка')
+
+   // if(!menu.contains(event.target)) {
+   //     menu.classList.remove('open');
+   //   }
+
+   menu.classList.toggle("open")
+   burgerButton.classList.toggle("rotade")
+   body.classList.toggle('lock')
+   fon.classList.toggle('work')
+
+
+})
+
+menu.addEventListener('click', burgerMenu)
+
+function burgerMenu (event) {
+   // console.log(event.target)
+   if (event.target.classList.contains('menu__list-link')){
+      closeMenu()
+      
+   }
+}
+
+// menuLink.forEach(link => link.addEventListener('click', closeMenu));
+
+/********************************************** */
 
 // import { closeMenu } from './js/closeMenu.js';
 
@@ -54,9 +89,9 @@ import { calculationFlagCurrentPage } from './js/temp-module.js';
 
 window.addEventListener('resize', function() {
   // const resizeCardNumber = resizeCardNumber ()
-   // if (window.innerWidth >= 767.9 && menu.classList.contains("open")) {
-   //    closeMenu()
-   // }
+   if (window.innerWidth >= 767.9 && menu.classList.contains("open")) {
+      closeMenu()
+   }
    const newWidth = window.innerWidth;
    if (newWidth > 1100.9 && currentWidth <= 1100.9) {
       // const preArrLenght = paginationArrCurrent.length
@@ -83,7 +118,7 @@ window.addEventListener('resize', function() {
 
       paginationArrCurrent = [...paginationArr]
       currentWidth = newWidth;
-      console.log('большой размер')
+      // console.log('большой размер')
 
       // flagCurrentPage = 0
       removeAllCard(sliderStripPage)
@@ -95,7 +130,7 @@ window.addEventListener('resize', function() {
       flagCurrentPage = calculationFlagCurrentPage(paginationArrCurrent, paginationArrTablet, flagCurrentPage)
 
       paginationArrCurrent = [...paginationArrTablet]
-      console.log('средний размер')
+      // console.log('средний размер')
       currentWidth = newWidth;
 
       // flagCurrentPage = 0
@@ -109,7 +144,7 @@ window.addEventListener('resize', function() {
 
       paginationArrCurrent = [...paginationArrMobile]
       currentWidth = newWidth;
-      console.log('малый размер')
+      // console.log('малый размер')
 
       // flagCurrentPage = 0
       removeAllCard(sliderStripPage)

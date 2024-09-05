@@ -512,6 +512,7 @@ body.lock .wrapper {
   /********************тест**********/
   /*  меню выезджает */
   /**********************************/
+  /**********************************/
   /************************************/
 }
 @media screen and (max-width: 767.9px) {
@@ -536,6 +537,9 @@ body.lock .wrapper {
 }
 .menu__list.open {
   right: 0;
+  padding-top: 75px;
+  padding-bottom: 75px;
+  overflow-y: auto;
 }
 .menu__list--page {
   color: #545454;
@@ -543,9 +547,13 @@ body.lock .wrapper {
 .menu__list--page.open {
   color: #CDCDCD;
 }
-.menu__list--page .menu__list-item:hover {
-  color: #292929;
+.menu__list--page.open .menu__list-item:hover {
+  color: #FAFAFA;
   transition: 0.7s;
+}
+.menu__list--page.open .menu__list-item--active-page:hover {
+  color: #FAFAFA;
+  transition: 0s;
 }
 .menu__list-item {
   transition: 0.7s;
