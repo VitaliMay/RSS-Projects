@@ -63,6 +63,30 @@ a{
 /***************************************************************/
 /***************************************************************/
 
+@font-face {
+  font-family: "Georgia";
+  src: url("../assets/fonts/georgia-regular.ttf") format("truetype");
+  // src: url("../fonts/georgia-regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Georgia";
+  src: url("../assets/fonts/georgia-bold.ttf") format("truetype");
+  // src: url("../fonts/georgia-regular.ttf") format("truetype");
+  font-weight: 800;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Arial";
+  src: url("../assets/fonts/arial-regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/***************************************************************/
+/***************************************************************/
+
 /* чтобы прижать футер к низу страницы*/
 // html,
 // body {
@@ -121,5 +145,7 @@ body {
     padding: 0rem 1rem;
   }
 }
+
+
 
 

@@ -6,6 +6,22 @@
  */
 @import 'global';
 
+
+// @font-face {
+//   font-family: "Georgia";
+//   src: url("../assets/fonts/georgia-regular.ttf") format("truetype");
+//   // src: url("../fonts/georgia-regular.ttf") format("truetype");
+//   font-weight: normal;
+//   font-style: normal;
+// }
+// @font-face {
+//   font-family: "Arial";
+//   src: url("../assets/fonts/arial-regular.ttf") format("truetype");
+//   font-weight: normal;
+//   font-style: normal;
+// }
+
+
 // создаю миксин
 
 @mixin title-h2 {
@@ -53,7 +69,7 @@
 
 // color: #545454;
 
-body.lock {
+body.lock { // убираю прокрутку 
   overflow: hidden;
   // background-color: red;
   transition: 1s;
@@ -372,6 +388,8 @@ body.lock .wrapper{
 //     width: 100vw;
 //     height: 100vh;
 //     background: rgba(41, 41, 41, 0.6);
+
+//     z-index: 20;
 //   }
 // }
 
@@ -390,6 +408,7 @@ body.lock .wrapper{
 }
 .fon.work {
   // transition: 0.6s all;
+  // z-index: 20;
   z-index: 10;
   width: 100vw;
   height: 100vh;
@@ -411,7 +430,7 @@ body.lock .wrapper{
   height: 0px;
   /* размещаю по центру */
   transform: translate((calc(50vw - 900px/2)), calc((100vh - 500px)/2));
-  z-index: -10; // перенёс в класс view
+  z-index: 110; // перенёс в класс view
   // visibility: hidden;
   // opacity: 0;
 
@@ -520,7 +539,7 @@ body.lock .wrapper{
   // .open {
   //   right: 0;
   // }
-
+  // overflow: auto;
   // border: whitesmoke 1px solid;
 
   // меню исчезает и появляется ПЛАВНО
@@ -556,6 +575,14 @@ body.lock .wrapper{
 
     // border: solid 1px wheat;
 
+    // &:first-child {
+    //   margin-top: 100px;
+    // }
+
+    // padding-top: 100px;
+    // overflow: scroll;
+    // overflow: auto;
+
   }
 
   
@@ -566,22 +593,39 @@ body.lock .wrapper{
 
   &.open {
     right: 0;
+
+    padding-top: 75px;
+    padding-bottom: 75px;
+
+    // overflow-x: hidden;
+    overflow-y: auto;
   }
+
+  /**********************************/
+  
 /**********************************/
 /************************************/
 
   &--page {
     color:#545454;
     // z-index: 16;
+    // background-color: #CDCDCD;
     &.open {
+      // background-color: #CDCDCD;
       color: #CDCDCD;
     }
 
-
-    .menu__list-item:hover{
-      color: #292929;
+    &.open .menu__list-item:hover{
+      // background-color: #CDCDCD;
+      color: #FAFAFA;
       transition: 0.7s;
     }
+    &.open .menu__list-item--active-page:hover{
+      // background-color: #CDCDCD;
+      color: #FAFAFA;
+      transition: 0s;
+    }
+    // .menu__list--page.open .menu__list-item:hover
   }
 
   &-item {
@@ -771,25 +815,51 @@ body.lock .wrapper{
     //   background-color: #FDDCC4;
     // }
   }
-  &--arrow-inactive {
-    width: 5.2rem;
-    height: 5.2rem;
+
+  &--navigation:active {
+    transform: scale(0.9);
+    transition: all 0.4s;
+  }
+  &:disabled {
+    transition: all 0.4s;
+    transform: scale(1);
     background-color: #F6F6F6;
     border: 2px solid #CDCDCD;
     color: #CDCDCD;
 
     cursor: default;
+    pointer-events: none;
   }
+
+  // &--arrow-inactive {
+  //   width: 5.2rem;
+  //   height: 5.2rem;
+  //   background-color: #F6F6F6;
+  //   border: 2px solid #CDCDCD;
+  //   color: #CDCDCD;
+
+  //   cursor: default;
+  //   pointer-events: none;
+    
+  //   &:hover {
+  //     background-color: #F6F6F6;
+  //     border: 2px solid #CDCDCD;
+  //     color: #CDCDCD;
+  //   }
+  // }
   &--arrow-focus {
     width: 5.2rem;
     height: 5.2rem;
     background-color: #F1CDB3;
 
-    &:hover{
-      transition: all 0.3s linear;
-      // transform: scale(1.03);
-      background-color: #FDDCC4;
-    }
+    pointer-events: none;
+
+    // &:hover{
+    //   transition: all 0.3s linear;
+    //   // transform: scale(1.03);
+    //   background-color: #FDDCC4;
+    //   // cursor: default;
+    // }
 
   }
 
@@ -1105,6 +1175,10 @@ body.lock .wrapper{
 
 // }
 
+// .button__svg--arrow {
+//   fill: red;
+// }
+
 .slider__btn {
   // margin-bottom: 14px;
   margin: -10px 0 0 0;
@@ -1121,6 +1195,21 @@ body.lock .wrapper{
 
   &:active {
     transform: scale(0.9);
+    transition: all 0.4s;
+  }
+  &:disabled {
+    transition: all 0.4s;
+    transform: scale(1);
+    background-color: #F6F6F6;
+    border: 2px solid #CDCDCD;
+    color: #CDCDCD;
+
+    cursor: default;
+    pointer-events: none;
+  }
+
+  &:disabled .button__svg--arrow {
+    fill: #CDCDCD;
     transition: all 0.4s;
   }
 
@@ -1142,22 +1231,71 @@ body.lock .wrapper{
   }
 }
 
+.slider-container {
+  margin: 0 auto;
+  // border: solid 2px blue;
+  width: 100%;
+
+  max-width: 99rem;
+  // max-width: 100%;
+
+  @media screen and (max-width: 1200px) {
+    max-width: 90rem;
+  }
+  @media screen and (max-width: 1100px) {
+    max-width: 60rem;
+  }
+}
+
 .slider__inner {
   margin: 0 auto;
   // width: 100%;
+  align-items: center;
+  // padding: 40px 0;
+
+  // border: solid 2px red;
+  overflow: hidden;
+  max-width: 99rem;
+
+  &--page {
+    max-width: 120rem;
+    // max-width: 100%;
+  }
+
+  @media screen and (max-width: 1200px) {
+    max-width: 89rem;
+  }
+
+  @media screen and (max-width: 1100px) {
+    max-width: 58rem;
+    // height: 43.5rem;
+    // overflow: hidden;
+    margin-bottom: 1rem;
+  }
+  @media screen and (max-width: 640px) {
+    max-width: 27rem;
+    // height: 43.5rem;
+    // overflow: hidden;
+    margin-bottom: 1rem;
+  }
 }
 
 // .slider__inner {
 .slider-strip {
   // margin: 0 auto;
+  // border: solid 2px green;
   display: flex;
-  // justify-content: space-between;
-  justify-content: center;
-  flex-wrap: wrap;
+  // justify-content: center;
+  // flex-wrap: wrap;
 
   column-gap: 9rem;
   // row-gap: 1rem;
   row-gap: 3rem;
+
+
+  // background-color: ;
+  transition: transform 0.7s ease; /* Плавный переход для анимации */
+  // transform: translateX(360px);
 
   // flex-grow: 1;
 
@@ -1177,12 +1315,12 @@ body.lock .wrapper{
     //position: static; // работает
 
   }
-  @media screen and (max-width: 1100px) {
-    max-width: 60rem;
-    height: 43.5rem;
-    overflow: hidden;
-    margin-bottom: 1rem;
-  }
+  // @media screen and (max-width: 1100px) {
+  //   max-width: 60rem;
+  //   height: 43.5rem;
+  //   // overflow: hidden;
+  //   margin-bottom: 1rem;
+  // }
   // @media screen and (max-width: 767px) {
   //   position: static;
 
@@ -1192,8 +1330,10 @@ body.lock .wrapper{
 
   &--page {
     column-gap: 4rem;
+    justify-content: center;
+    // max-width: 120rem;
     // row-gap: 3rem;
-    position: static; // чтобы не действовал  position: absolute; со страницы 01
+    // position: static; // чтобы не действовал  position: absolute; со страницы 01
     flex-wrap: wrap;
 
     // border: #000000 solid 1px;
@@ -1203,6 +1343,11 @@ body.lock .wrapper{
       max-width: 90rem;
       height: 136.5rem;
       overflow: hidden;
+    }
+    @media screen and (max-width: 659.9px) {
+      max-width: 579px;
+      // height: 136.5rem;
+      // overflow: hidden;
     }
     @media screen and (max-width: 450px) {
       margin-bottom: 0;
@@ -1220,14 +1365,22 @@ body.lock .wrapper{
   background-color: #FAFAFA;
   border-radius: 0.9rem;
 
+  flex-shrink: 0;
+
   height: 43.5rem;
   padding-bottom: 3rem;
   transition: 0.42s; // для плавного возвращения
 
   cursor: pointer;
 
+  overflow: hidden;
+
   &:hover {
     box-shadow: 0 2px 35px 14px rgba(13, 13, 13, 0.04);
+
+    .photo {
+      transform: scale(1.15);
+    }
   }
 
   @media (hover: hover) {
@@ -1235,7 +1388,8 @@ body.lock .wrapper{
       // transition: all 0.3s ease;
       transition: all 0.3s linear;
       // transition: all 0.3s ease-in;
-      transform: scale(1.06);
+
+      // transform: scale(1.06);
       filter: drop-shadow(0 0 1rem gray);
       // box-shadow: 0 2px 35px 14px rgba(13, 13, 13, 0.04);
   
@@ -1243,6 +1397,10 @@ body.lock .wrapper{
         background-color: #FDDCC4;
         transition: all 0.7s ease;
       }
+
+      // .photo {
+      //   transform: scale(1.15);
+      // }
     }
   }
 
@@ -1274,28 +1432,28 @@ body.lock .wrapper{
 }
 
 .photo--card-01 {
-  background-image: url("../assets/img/pets-katrine.png");
+  background-image: url("../assets/img/pets-jennifer.png");
 }
 .photo--card-02 {
-  background-image: url("../assets/img/pets-jennifer.png");
+  background-image: url("../assets/img/pets-sophia.png");
 }
 .photo--card-03 {
   background-image: url("../assets/img/pets-woody.png");
 }
 .photo--card-04 {
-  background-image: url("../assets/img/pets-sophia.png");
-}
-.photo--card-05 {
-  background-image: url("../assets/img/pets-timmy.png");
-}
-.photo--card-06 {
-  background-image: url("../assets/img/pets-charly.png");
-}
-.photo--card-07 {
   background-image: url("../assets/img/pets-scarlet.png");
 }
-.photo--card-08 {
+.photo--card-05 {
+  background-image: url("../assets/img/pets-katrine.png");
+}
+.photo--card-06 {
+  background-image: url("../assets/img/pets-timmy.png");
+}
+.photo--card-07 {
   background-image: url("../assets/img/pets-freddie.png");
+}
+.photo--card-08 {
+  background-image: url("../assets/img/pets-charly.png");
 }
 
 .navigation {
@@ -1866,6 +2024,378 @@ body.lock .wrapper{
   background-image: url("../assets/svg/f-03-pin.svg");
 }
 
+
+/*********************************************************/
+/*********************************************************/
+
+.modal {
+
+  // margin-right: 50px;
+  // position: absolute;
+  // position: relative;
+  position: fixed;
+  // top: calc(50% + 52px);
+  top: 50%;
+  left: calc(50% + 21px);
+  // right: calc(50% - 42px);
+  // left: 50%;
+  transform: translate(-50%, -50%);
+
+  padding: 52px 82px 0px 40px;
+  // padding: 52px 72px 0px 30px;
+  // padding: 52px 42px 0px 0px;
+  @media screen and (max-width: 520px) {
+    padding: 82px 68px 52px 26px;
+  }
+
+  // margin-left: 40px; /* отступ справа */
+
+  // z-index: -2;
+  visibility: hidden;
+  opacity: 0;
+  // transition: visibility 0.8s, opacity 0.8s;
+  transition: visibility 0.4s, opacity 0.4s;
+  // transition: visibility 2s, opacity 2s;
+
+
+  // visibility: visible;
+  // z-index: -2; // такой же как у фона
+  // // z-index: 10;
+  // opacity: 1;
+  // transition: visibility 2s, opacity 2s;
+
+  // width: 100%;
+  // max-width: 900px;
+
+  // height: 500px;
+  width: 100%;
+  max-width: 1022px;
+  // max-width: 1002px;
+  // max-width: 952px;
+  // max-width: 900px;
+  @media screen and (max-width: 768px) {
+    max-width: 752px;
+  }
+
+  min-height: 552px;
+  // max-height: 90vh;
+  // max-height: 600px;
+  // max-height: calc(95vh - 60px);
+  overflow: hidden;
+
+  @media screen and (max-width: 850px) {
+    min-height: 402px;
+  }
+  // height: 552px;
+  // height: 500px;
+
+  background-color: rgba(0, 0, 0, 0);
+
+  // box-shadow: 0 2px 35px 14px rgba(13, 13, 13, 0.04);
+  // background-color: #fafafa;
+  // border-radius: 9px;
+
+  // overflow: hidden;
+
+  // @media screen and (max-width: 850px) { 
+  //   max-width: calc(100vw - 80px);
+  // }
+  // @media screen and (max-width: 710px) { 
+  //   max-width: 492px;
+  // }
+  // @media screen and (max-width: 560px) { 
+  //   max-width: calc(100vw - 38px);
+  // }
+
+  // padding: 16px;
+ 
+  // background-color: #E1D4C9;
+  display: flex;
+  // column-gap: 20px;
+
+  &--active {
+    z-index: 40; // чтобы перекрыть лого и бургер-баттон
+    visibility: visible;
+    opacity: 1;
+    // transition: visibility 0.4s, opacity 0.4s;
+    // transition: visibility 2s, opacity 2s;
+    transition: visibility 0.8s, opacity 0.8s;
+
+    // overflow-y: auto;  // чтобы был скролл если не влазит
+    // max-height: 95vh;  // чтобы был скролл если не влазит
+  }
+
+}
+
+.modal-container {
+  // position: relative;
+  z-index: 40;
+  // background-color: green;
+  border-radius: 9px;
+  width: 100%;
+  // overflow: hidden;
+  overflow-x: hidden;
+  max-height: 90vh;
+  overflow-y: auto;
+
+  display: flex;
+  @media screen and (max-width: 680px) {
+    flex-wrap: wrap;
+    // overflow-y: auto;
+    // overflow-y: scroll;
+    max-height: 90vh;
+  }
+
+  background-color: #fafafa;
+  box-shadow: 0 2px 35px 14px rgba(13, 13, 13, 0.04);
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  row-gap: 40px;
+
+  padding: 50px 20px 0px 30px;
+
+  @media screen and (max-width: 768px) {
+    row-gap: 20px;
+    padding: 10px 5px 0px 10px;
+    // padding: 10px 10px 0px 10px;
+  }
+}
+
+.modal-title {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+
+  @media screen and (max-width: 520px) {
+    text-align: center;
+  }
+}
+.modal-title-name {
+  // font-size: 2rem;
+  // line-height: 2.3rem;
+
+  // font-family: 'Georgia';
+  // font-style: normal;
+  // font-weight: 400;
+
+  // letter-spacing: 0.06em;
+
+  // color: #545454;
+
+  font-family: 'Georgia';
+  font-weight: 400;
+  font-size: 35px;
+  line-height: 130%;
+  letter-spacing: 0.06em;
+  color: #000;
+
+  
+}
+.modal-title-breed {
+  font-family: 'Georgia';
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 115%;
+  letter-spacing: 0.06em;
+  color: #000;
+
+  
+}
+.modal-description {
+  font-family: 'Georgia';
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 115%;
+  // line-height: 110%;
+  letter-spacing: 0.06em;
+  color: #000;
+
+  @media screen and (max-width: 768px) {
+    font-size: 13px;
+    line-height: 110%;
+  }
+  @media screen and (max-width: 520px) {
+    text-align: justify;
+    margin-bottom: 4px;
+  }
+}
+ul.modal-list {
+  // list-style-type: disc;
+  // color: red;
+  // position: relative; 
+
+  font-family: 'Georgia';
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 120%;
+  // line-height: 110%;
+  letter-spacing: 0.06em;
+  color: #000;
+
+  @media screen and (max-width: 768px) {
+    line-height: 90%;
+  }
+  @media screen and (max-width: 768px) {
+    line-height: 90%;
+  }
+
+
+  & .modal-list__item {
+  // & li {
+    // color: red;
+    position: relative; 
+    margin-bottom: 10px;
+    
+
+    &::before {
+      content: "•"; /* задаем символ для маркера, например, круг */
+      color: #f1cdb3;; /* цвет маркера */
+      font-size: 0.8em; /* размер маркера, если нужно */
+      margin-right: 0.6em; /* отступ между маркером и текстом */
+      // vertical-align: middle; /* выравниваем маркер по центру */
+      vertical-align: top; /* выравниваем маркер по центру */
+    }
+  }
+
+}
+
+// .modal-list {
+
+// }
+
+.modal-list__item-title {
+  // font-family: 'Inter';
+  font-weight: 800;
+  // font-size: 17px;
+  // letter-spacing: 0.07em;
+
+  // // font-size: 16px;
+  // // letter-spacing: 0.15em;
+
+  // &--age {
+  //   letter-spacing: 0.07em;
+
+  //   // letter-spacing: 0.12em;
+  // }
+}
+
+
+
+.modal-btn--close {
+  // margin-right: 100px;
+
+
+  position: absolute;
+  transform: translate(100%, -100%);
+  right: 92px;
+  // right: 82px;
+  // right: 52px;
+  // right: 10px;
+  // transform: translate(-50%, -50%);
+  // top: -26px;
+  // right: -68px;
+
+  z-index: 40;
+
+  width: 52px;
+  height: 52px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  // background-color: inherit;
+  // background-color: #f6f6f6;;
+  // background-color: #cdcdcd;
+
+  background-color: rgba(0, 0, 0, 0);
+  // background: rgba(41, 41, 41, 0.6);
+  border: 2px solid #f1cdb3;
+
+  // --color-light-xl: #fff;
+	// --color-light-l: #f6f6f6;
+	// --color-light-s: #fafafa;
+	// --color-dark-s: #cdcdcd;
+	// --color-dark-m: #b2b2b2;
+	// --color-dark-l: #545454;
+	// --color-dark-xl: #4c4c4c;
+	// --color-dark-2xl: #444;
+	// --color-dark-3xl: #292929;
+	// --color-primary: #f1cdb3;
+
+  transition: all 0.3s linear;
+
+  // @media (hover: hover) {
+  //   &:hover{
+  //     transition: all 0.3s linear;
+  //     // transform: scale(1.03);
+  //     background-color: #FDDCC4;
+  //   }
+  // }
+  &:hover{
+    transition: all 0.3s linear;
+    // transform: scale(1.03);
+    background-color: #FDDCC4;
+  }
+
+  &:active {
+    transform: scale(0.9) translate(110%, -110%);
+    transition: all 0.4s;
+  }
+
+  &:hover .button__svg--close {
+    // fill: #ff0000;
+    fill: #f5917b;
+    transition: all 0.4s;
+  }
+  &:hover svg {
+    // fill: #ff0000;
+    // fill: #f5917b;
+    transition: all 0.4s;
+    width: 15px;
+    height: 15px;
+  }
+
+  & .button__svg--close {
+    transition: all 0.4s;
+  }
+
+}
+
+
+
+.photo--modal {
+  width: 500px;
+  height: 500px;
+  flex-shrink: 0;
+
+  @media screen and (max-width: 850px) {
+    width: 350px;
+    height: 350px;
+  }
+
+  @media screen and (max-width: 520px) {
+    width: 250px;
+    height: 250px;
+    // padding: 10px 10px 0px 10px;
+  }
+  @media screen and (max-width: 420px) {
+    display: none;
+    // padding: 10px 10px 0px 10px;
+  }
+  // border: sienna 2px solid;
+}
+
+
+body.lock {  // убираю прокрутку под модалкой
+  // position: fixed;
+  width: 100%;
+  overflow: hidden;
+  // overflow-y: scroll; /* Добавить полосу прокрутки для всей страницы */
+}
 
 
 
