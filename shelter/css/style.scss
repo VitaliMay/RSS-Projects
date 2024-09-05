@@ -608,6 +608,10 @@ body.lock .wrapper{
 
   &--page {
     color:#545454;
+
+    & .menu__list-item:hover {
+      color: #292929;
+    }
     // z-index: 16;
     // background-color: #CDCDCD;
     &.open {

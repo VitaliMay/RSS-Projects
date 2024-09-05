@@ -544,6 +544,9 @@ body.lock .wrapper {
 .menu__list--page {
   color: #545454;
 }
+.menu__list--page .menu__list-item:hover {
+  color: #292929;
+}
 .menu__list--page.open {
   color: #CDCDCD;
 }

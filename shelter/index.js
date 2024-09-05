@@ -1,16 +1,23 @@
-// const score = `
-// Привет. Сделал сабмит части своей работы сделаной в 2023.
-// Сорри за небрежность. До ума буду доводить когда дойдёт до JS
-//     `;
-// console.log(score);
+const score = `
+Привет. Вроде всё есть и работает)
+Из недостатков
+ - в коде полно мусора, дублирования, модульность фактически отсутствует, код не структурирован
+ - в пагинации нет плавности
+ - бургер меню без прокрутки (при ротации экрана обрезается)
+ - модалка с резиновой адаптацией, но не докручена до конца (на мобайл вроде ОК, а на десктопе при масштабировании теряется крестик и позиционирование)
+ 
+ Но это YAGNI и ТЗ не требует
+ Сорри за небрежность 
+    `;
+console.log(score);
 
 
 import { dataPets } from './js/products.js';
-import { checkBurger } from './js/burger.js'
+// import { checkBurger } from './js/burger.js'
 
 // console.log(dataPets)
 // console.log(dataPets[0].name)
-console.log(checkBurger)
+// console.log(checkBurger)
 
 // export const checkIndex = 'Проверка index'
 
@@ -338,13 +345,18 @@ function moveSlider (event) {
             flagFrame = flagBtnArr[1]
         }
 
-        console.log(`new left currentFrameArr = ${currentFrameArr}`)
-        console.log(`new left previousFrameArr = ${previousFrameArr}`)
+        /*********************************************************************************** */
+        // console.log(`new left currentFrameArr = ${currentFrameArr}`)
+        // console.log(`new left previousFrameArr = ${previousFrameArr}`)
+        /*********************************************************************************** */
 
         let currentFrameArrPretend = [...currentFrameArr] // чтобы сохранить порядок вывода карточек
         // let currentFrameArrPretend = [...currentFrameArr].reverse() // чтобы сохранить порядок вывода карточек
         // let currentFrameArrPretend = [...currentFrameArr].slice(0, cardNumber).reverse() // чтобы сохранить порядок вывода карточек
-        console.log(`currentFrameArrPretend = ${currentFrameArrPretend}`)
+        /*********************************************************************************** */
+
+        // console.log(`currentFrameArrPretend = ${currentFrameArrPretend}`)
+        /*********************************************************************************** */
 
         // for (let i = 0; i < 3; i += 1) { // удаляю 3 и вставлять надо 3
 
@@ -404,8 +416,11 @@ function moveSlider (event) {
             flagFrame = flagBtnArr[2]
         }
 
-        console.log(`new right currentFrameArr = ${currentFrameArr}`)
-        console.log(`new right previousFrameArr = ${previousFrameArr}`)
+        /*********************************************************************************** */
+        // console.log(`new right currentFrameArr = ${currentFrameArr}`)
+        // console.log(`new right previousFrameArr = ${previousFrameArr}`)
+        /*********************************************************************************** */
+
 
         for (let i = 0; i < cardNumber; i += 1) {
             // appendNewCard(currentFrameArr[i + 3 - cardNumber])
