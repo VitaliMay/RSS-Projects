@@ -753,7 +753,8 @@ function counterCreate() {
 /*************************************************** */
 
 
-let menu = document.querySelector(".menu__list")
+let menu = document.querySelector(".menu")
+// let menu = document.querySelector(".menu__list")
 let body = document.querySelector('body')
 const burgerButton = document.getElementById('burger-button')
 let fon = document.querySelector('.fon')

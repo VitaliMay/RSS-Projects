@@ -492,6 +492,51 @@ body.lock .wrapper {
 }
 
 /*************************************************/
+@media screen and (max-width: 767.9px) {
+  .menu {
+    position: fixed;
+    right: -32.2rem;
+    top: 0;
+    opacity: 6;
+    transition: 0.7s;
+    z-index: 16;
+    background-color: #292929;
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+}
+@media screen and (max-height: 430px) {
+  .menu {
+    padding-bottom: 20px;
+    justify-content: end;
+  }
+}
+@media screen and (max-height: 330px) {
+  .menu {
+    padding-bottom: 10px;
+  }
+}
+.menu.open {
+  right: 0;
+}
+.menu.open .menu__list--page .menu__list-item {
+  color: #CDCDCD;
+  transition: 0.7s;
+}
+.menu.open .menu__list--page .menu__list-item--active-page {
+  color: #FAFAFA;
+  transition: 0.7s;
+}
+.menu.open .menu__list--page .menu__list-item:hover {
+  color: #FAFAFA;
+  transition: 0.7s;
+}
+
 .menu__list {
   display: flex;
   justify-content: space-between;
@@ -517,12 +562,16 @@ body.lock .wrapper {
 }
 @media screen and (max-width: 767.9px) {
   .menu__list {
-    position: fixed;
-    right: -32.2rem;
-    top: 0;
-    opacity: 6;
-    transition: 0.7s;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
     z-index: 16;
+    /*******************************************
+
+
+    // transform: translateX(100vw); рабочий вариант
+    // transform: translateX(100%);
+    // display: none; рабочий вариант
+
     /************************************************/
     flex-direction: column;
     justify-content: center;
@@ -530,16 +579,24 @@ body.lock .wrapper {
     background-color: #292929;
     row-gap: 4rem;
     width: 32rem;
-    min-height: 100vh;
     font-size: 3.2rem;
     line-height: 160%;
   }
 }
-.menu__list.open {
-  right: 0;
-  padding-top: 75px;
-  padding-bottom: 75px;
-  overflow-y: auto;
+@media screen and (max-width: 767.9px) and (max-height: 480px) {
+  .menu__list {
+    row-gap: 2.5rem;
+  }
+}
+@media screen and (max-width: 767.9px) and (max-height: 375px) {
+  .menu__list {
+    row-gap: 1.5rem;
+  }
+}
+@media screen and (max-width: 767.9px) and (max-height: 350px) {
+  .menu__list {
+    row-gap: 1rem;
+  }
 }
 .menu__list--page {
   color: #545454;
@@ -1676,11 +1733,9 @@ body.lock .wrapper {
   position: fixed;
   top: 50%;
   left: calc(50% + 21px);
-  transform: translate(-50%, -50%);
   padding: 52px 82px 0px 40px;
-  visibility: hidden;
-  opacity: 0;
-  transition: visibility 0.4s, opacity 0.4s;
+  transition: all 0.4s linear;
+  transform: translate(-50%, -50%) scale(0);
   width: 100%;
   max-width: 1022px;
   min-height: 552px;
@@ -1705,9 +1760,8 @@ body.lock .wrapper {
 }
 .modal--active {
   z-index: 40;
-  visibility: visible;
-  opacity: 1;
-  transition: visibility 0.8s, opacity 0.8s;
+  transition: all 0.4s linear;
+  transform: translate(-50%, -50%) scale(1);
 }
 
 .modal-container {
