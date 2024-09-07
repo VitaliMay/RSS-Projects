@@ -515,6 +515,95 @@ body.lock .wrapper{
 /*************************************************/
 
 
+  .menu {
+    @media screen and (max-width: 767.9px) {
+      position: fixed;
+      right: -32.2rem;
+      top: 0;
+      opacity: 6;
+      transition: 0.7s;
+      z-index: 16;
+
+      // background-color: red;
+      background-color: #292929;
+      // padding-top: 75px;
+      // padding-bottom: 75px;
+      height: 100vh;
+
+      overflow-x: hidden;
+      overflow-y: auto;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      flex-shrink: 0;
+    }
+
+    @media screen and (max-height: 430px) {
+    // @media screen and (max-height: 480px) {
+    // @media screen and (max-height: 480px) and (max-width: 767.9px) {
+      padding-bottom: 20px;
+      // padding-top: 75px;
+      justify-content: end;
+      // flex-shrink: 0;
+      // overflow-x: hidden;
+      // overflow-y: auto;
+    }
+    @media screen and (max-height: 330px) {
+      padding-bottom: 10px;
+    }
+
+
+    &.open {
+      right: 0;
+    }
+
+    &.open .menu__list--page .menu__list-item {
+      color: #CDCDCD;
+      transition: 0.7s;
+    }
+    &.open .menu__list--page .menu__list-item--active-page {
+      color: #FAFAFA;
+      transition: 0.7s;
+    }
+    &.open .menu__list--page .menu__list-item:hover {
+      color: #FAFAFA;
+      transition: 0.7s;
+    }
+  }
+
+// @media screen and (max-width: 767.9px) {
+//   .menu {
+
+//     position: fixed;
+//     right: -32.2rem;
+//     top: 0;
+//     opacity: 6;
+//     transition: 0.7s;
+//     z-index: 16;
+
+//     background-color: red;
+//     // background-color: #292929;
+//       padding-top: 75px;
+//       padding-bottom: 75px;
+//       height: 100vh;
+
+//       overflow-x: hidden;
+//       overflow-y: auto;
+
+//       display: flex;
+//       flex-direction: column;
+//       justify-content: center;
+
+//       flex-shrink: 0;
+
+//     &.open {
+//       right: 0;
+//     }
+//   }
+// }
+
 .menu__list {
   display: flex;
   justify-content: space-between;
@@ -534,7 +623,7 @@ body.lock .wrapper{
   line-height: 2.4rem;
   color: #CDCDCD;
 
-  overflow-y: auto;
+  // overflow-y: auto;
   // opacity: none;
 
   // .open {
@@ -546,16 +635,19 @@ body.lock .wrapper{
   // меню исчезает и появляется ПЛАВНО
   transition: 0.7s;
   @media screen and (max-width: 767.9px) {
-    // position: absolute; появляется белая полоса
-    position: fixed;
-    right: -32.2rem;
-    top: 0;
-    // opacity: 0;
-    opacity: 6;
-    transition: 0.7s;
+    flex-wrap: nowrap;
+
+    flex-shrink: 0;
+    // position: fixed;
+    // right: -32.2rem;
+    // top: 0;
+    // opacity: 6;
+    // transition: 0.7s;
     //z-index: -1; // чтобы не срабатывало нажатие
     z-index: 16; // тест
-    
+    /*******************************************
+
+
     // transform: translateX(100vw); рабочий вариант
     // transform: translateX(100%);
     // display: none; рабочий вариант
@@ -567,13 +659,25 @@ body.lock .wrapper{
     background-color: #292929;
     row-gap: 4rem;
     width: 32rem;
+
     // height: 82.3rem;
-    min-height: 100vh;
+    // height: 100vh;
     
+    // height: 450px;
+
     // color: #FAFAFA;
     font-size: 3.2rem;
     line-height: 160%;
 
+    @media screen and (max-height: 480px) {
+      row-gap: 2.5rem;
+    }
+    @media screen and (max-height: 375px) {
+      row-gap: 1.5rem;
+    }
+    @media screen and (max-height: 350px) {
+      row-gap: 1rem;
+    }
     // border: solid 1px wheat;
 
     // &:first-child {
@@ -584,6 +688,11 @@ body.lock .wrapper{
     // overflow: scroll;
     // overflow: auto;
 
+    // padding-top: 75px;
+    // padding-bottom: 75px;
+
+    // margin-top: 100px;
+
   }
 
   
@@ -592,16 +701,17 @@ body.lock .wrapper{
 /********************тест**********/
 /*  меню выезджает */
 
-  &.open {
-    right: 0;
+  // &.open {
+  //   right: 0;
 
-    padding-top: 75px;
-    padding-bottom: 75px;
+  //   padding-top: 75px;
+  //   padding-bottom: 75px;
 
-    // overflow-x: hidden;
-    overflow-y: auto;
-  }
+  //   // overflow-x: hidden;
+  //   overflow-y: auto;
+  // }
 
+    
   /**********************************/
   
 /**********************************/

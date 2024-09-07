@@ -19,7 +19,8 @@ let modalPopup  // чтобы была видна модалка
 
 const body = document.querySelector('body')
 const fon = document.querySelector('.fon')
-const menu = document.querySelector(".menu__list")
+const menu = document.querySelector(".menu")
+// const menu = document.querySelector(".menu__list")
 const burgerButton = document.getElementById('burger-button')
 
 const menuLink = document.querySelectorAll('.menu__list-item');
