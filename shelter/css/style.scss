@@ -534,6 +534,7 @@ body.lock .wrapper{
   line-height: 2.4rem;
   color: #CDCDCD;
 
+  overflow-y: auto;
   // opacity: none;
 
   // .open {
@@ -2034,102 +2035,91 @@ body.lock .wrapper{
 
 .modal {
 
-  // margin-right: 50px;
-  // position: absolute;
-  // position: relative;
   position: fixed;
-  // top: calc(50% + 52px);
   top: 50%;
   left: calc(50% + 21px);
-  // right: calc(50% - 42px);
-  // left: 50%;
-  transform: translate(-50%, -50%);
 
   padding: 52px 82px 0px 40px;
-  // padding: 52px 72px 0px 30px;
-  // padding: 52px 42px 0px 0px;
+
   @media screen and (max-width: 520px) {
     padding: 82px 68px 52px 26px;
   }
 
-  // margin-left: 40px; /* отступ справа */
+  // transform: translate(-50%, -50%);
+  // visibility: hidden;
+  // opacity: 0;
+  // transition: visibility 0.4s, opacity 0.4s;
 
-  // z-index: -2;
-  visibility: hidden;
-  opacity: 0;
-  // transition: visibility 0.8s, opacity 0.8s;
-  transition: visibility 0.4s, opacity 0.4s;
-  // transition: visibility 2s, opacity 2s;
+  transition: all 0.4s linear;
+  transform: translate(-50%, -50%) scale(0);
 
-
-  // visibility: visible;
-  // z-index: -2; // такой же как у фона
-  // // z-index: 10;
-  // opacity: 1;
-  // transition: visibility 2s, opacity 2s;
-
-  // width: 100%;
-  // max-width: 900px;
-
-  // height: 500px;
   width: 100%;
   max-width: 1022px;
-  // max-width: 1002px;
-  // max-width: 952px;
-  // max-width: 900px;
+
   @media screen and (max-width: 768px) {
     max-width: 752px;
   }
 
   min-height: 552px;
-  // max-height: 90vh;
-  // max-height: 600px;
-  // max-height: calc(95vh - 60px);
   overflow: hidden;
 
   @media screen and (max-width: 850px) {
     min-height: 402px;
   }
-  // height: 552px;
-  // height: 500px;
 
   background-color: rgba(0, 0, 0, 0);
 
-  // box-shadow: 0 2px 35px 14px rgba(13, 13, 13, 0.04);
-  // background-color: #fafafa;
-  // border-radius: 9px;
-
-  // overflow: hidden;
-
-  // @media screen and (max-width: 850px) { 
-  //   max-width: calc(100vw - 80px);
-  // }
-  // @media screen and (max-width: 710px) { 
-  //   max-width: 492px;
-  // }
-  // @media screen and (max-width: 560px) { 
-  //   max-width: calc(100vw - 38px);
-  // }
-
-  // padding: 16px;
- 
-  // background-color: #E1D4C9;
   display: flex;
-  // column-gap: 20px;
 
   &--active {
     z-index: 40; // чтобы перекрыть лого и бургер-баттон
-    visibility: visible;
-    opacity: 1;
-    // transition: visibility 0.4s, opacity 0.4s;
-    // transition: visibility 2s, opacity 2s;
-    transition: visibility 0.8s, opacity 0.8s;
+    // visibility: visible;
+    // opacity: 1;
+    // transition: visibility 0.8s, opacity 0.8s;
 
-    // overflow-y: auto;  // чтобы был скролл если не влазит
-    // max-height: 95vh;  // чтобы был скролл если не влазит
+    transition: all 0.4s linear;
+    transform: translate(-50%, -50%) scale(1);
   }
-
 }
+
+// .modal {
+//   position: fixed;
+//   top: 50%;
+//   // left: 50%;
+//   left: calc(50% + 21px);
+//   transform: translate(-50%, -50%) scale(0); /* начальное позиционирование и масштабирование */
+//   transition: all 0.3s linear;
+
+//   padding: 52px 82px 0px 40px;
+
+//   @media screen and (max-width: 520px) {
+//     padding: 82px 68px 52px 26px;
+//   }
+
+//   width: 100%;
+//   max-width: 1022px;
+
+//   @media screen and (max-width: 768px) {
+//     max-width: 752px;
+//   }
+
+//   min-height: 552px;
+//   overflow: hidden;
+
+//   @media screen and (max-width: 850px) {
+//     min-height: 402px;
+//   }
+
+//   background-color: rgba(0, 0, 0, 0);
+//   display: flex;
+
+//   &--active {
+//     z-index: 40;
+//     transition: all 0.3s linear;
+//     transform: translate(-50%, -50%) scale(1); /* центральное позиционирование и нормальный масштаб */
+//   }
+// }
+
 
 .modal-container {
   // position: relative;

@@ -507,6 +507,7 @@ body.lock .wrapper {
   font-size: 1.5rem;
   line-height: 2.4rem;
   color: #CDCDCD;
+  overflow-y: auto;
   transition: 0.7s;
   /**********************************/
   /********************тест**********/
@@ -1676,11 +1677,9 @@ body.lock .wrapper {
   position: fixed;
   top: 50%;
   left: calc(50% + 21px);
-  transform: translate(-50%, -50%);
   padding: 52px 82px 0px 40px;
-  visibility: hidden;
-  opacity: 0;
-  transition: visibility 0.4s, opacity 0.4s;
+  transition: all 0.4s linear;
+  transform: translate(-50%, -50%) scale(0);
   width: 100%;
   max-width: 1022px;
   min-height: 552px;
@@ -1705,9 +1704,8 @@ body.lock .wrapper {
 }
 .modal--active {
   z-index: 40;
-  visibility: visible;
-  opacity: 1;
-  transition: visibility 0.8s, opacity 0.8s;
+  transition: all 0.4s linear;
+  transform: translate(-50%, -50%) scale(1);
 }
 
 .modal-container {
