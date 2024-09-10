@@ -2154,6 +2154,9 @@ body.lock .wrapper{
   @media screen and (max-width: 520px) {
     padding: 82px 68px 52px 26px;
   }
+  @media screen and (max-width: 450px) {
+    padding: 82px 58px 52px 16px;
+  }
 
   // transform: translate(-50%, -50%);
   // visibility: hidden;
@@ -2264,6 +2267,10 @@ body.lock .wrapper{
   @media screen and (max-width: 768px) {
     row-gap: 20px;
     padding: 10px 5px 0px 10px;
+    // padding: 10px 10px 0px 10px;
+  }
+  @media screen and (max-width: 500px) {
+    padding: 10px 10px 0px 10px;
     // padding: 10px 10px 0px 10px;
   }
 }
@@ -2401,6 +2408,9 @@ ul.modal-list {
   // transform: translate(-50%, -50%);
   // top: -26px;
   // right: -68px;
+  @media screen and (max-width: 450px) {
+    right: 82px;
+  }
 
   z-index: 40;
 
