@@ -1748,6 +1748,11 @@ body.lock .wrapper {
     padding: 82px 68px 52px 26px;
   }
 }
+@media screen and (max-width: 450px) {
+  .modal {
+    padding: 82px 58px 52px 16px;
+  }
+}
 @media screen and (max-width: 768px) {
   .modal {
     max-width: 752px;
@@ -1792,6 +1797,11 @@ body.lock .wrapper {
   .modal-content {
     row-gap: 20px;
     padding: 10px 5px 0px 10px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .modal-content {
+    padding: 10px 10px 0px 10px;
   }
 }
 
@@ -1892,6 +1902,11 @@ ul.modal-list .modal-list__item::before {
   background-color: rgba(0, 0, 0, 0);
   border: 2px solid #f1cdb3;
   transition: all 0.3s linear;
+}
+@media screen and (max-width: 450px) {
+  .modal-btn--close {
+    right: 82px;
+  }
 }
 .modal-btn--close:hover {
   transition: all 0.3s linear;

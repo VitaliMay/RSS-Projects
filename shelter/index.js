@@ -517,7 +517,8 @@ function cardCreation (uniqueIndex) {
 
    const cardTitle = document.createElement('h4')
    cardTitle.classList.add('title-card')
-   cardTitle.textContent = `${petsNameArr[uniqueIndex]}-${counter()}`
+   cardTitle.textContent = `${petsNameArr[uniqueIndex]}`
+//    cardTitle.textContent = `${petsNameArr[uniqueIndex]}-${counter()}`
 
    cardElement.appendChild(cardTitle)
 
@@ -709,45 +710,7 @@ function counterCreate() {
 // }
 
 
-/***************************************** */
 
-// Для удаления старого кадра из слайдера в чистом JavaScript, вы можете использовать метод remove() или parentNode.removeChild(). 
-// Вот обновленный JavaScript-код без использования jQuery для добавления функциональности удаления старого кадра:
-
-// Нажатие кнопки "Add Frame"
-// document.getElementById('addFrameBtn').addEventListener('click', function() {
-//     var newFrameSrc = 'newFrame.jpg';
-//     var slider = document.querySelector('.slider');
-//     var newFrame = document.createElement('img');
-//     newFrame.src = newFrameSrc;
-//     newFrame.alt = 'New Frame';
-//     slider.insertBefore(newFrame, slider.firstElementChild);
-//     slideToNewFrame();
-//   });
-  
-//   // Плавный переход к новому кадру
-//   function slideToNewFrame() {
-//     var slider = document.querySelector('.slider');
-//     slider.style.marginLeft = '-100%';
-//     setTimeout(function() {
-//       slider.style.marginLeft = '0';
-//       removeOldFrame();
-//     }, 400);
-//   }
-  
-//   // Удаление старого кадра
-//   function removeOldFrame() {
-//     var slider = document.querySelector('.slider');
-//     var oldFrame = slider.lastElementChild;
-//     slider.removeChild(oldFrame);
-//   }
-
-// В этом обновленном коде, после завершения анимации перехода к новому кадру, 
-// мы вызываем функцию removeOldFrame(), которая удаляет последний (старый) кадр из слайдера, 
-// используя slider.removeChild(oldFrame).
-
-
-/*************************************************** */
 /*************************************************** */
 /*************************************************** */
 /*************************************************** */
@@ -760,7 +723,6 @@ const burgerButton = document.getElementById('burger-button')
 let fon = document.querySelector('.fon')
 
 
-/************************************ */
 
 
 
