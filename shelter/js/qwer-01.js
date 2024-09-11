@@ -155,7 +155,7 @@ function calculationFlagCurrentPage(paginationArrPre, paginationArrCurrent, flag
        flagCurrentPage = currArrLenght - 1
     } else {
        flagCurrentPage = Math.ceil((flagCurrentPagePre * numberElementOnPrePage + 1) / numberElementOnCurrPage) - 1
-       console.log(flagCurrentPagePre * numberElementOnPrePage + 1)
+      //  console.log(flagCurrentPagePre * numberElementOnPrePage + 1)
     }
   }
 
@@ -192,3 +192,18 @@ console.log(neFlag)
 // console.log(numberArr)
 
 // console.log(numberArr.slice(0, 20))
+
+
+
+/********************************************* */
+// Вариант случайной сортировки (алгоритм Фишера-Йетса лучше)
+// Исходный массив чисел
+// const numbers = [1, 2, 3, 4, 5];
+
+// // Пример сортировки с использованием () => Math.random() - 0.5
+// const shuffledNumbers1 = [...numbers].sort(() => Math.random() - 0.5);
+// console.log("Shuffled numbers 1:", shuffledNumbers1);
+
+// // Пример сортировки с использованием (a, b) => Math.random() - 0.5
+// const shuffledNumbers2 = [...numbers].sort((a, b) => Math.random() - 0.5);
+// console.log("Shuffled numbers 2:", shuffledNumbers2);

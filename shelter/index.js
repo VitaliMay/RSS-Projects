@@ -134,6 +134,9 @@ function randomNumber () {
 
 // let uniqueIndexPetsNameArr = []
 
+// Первоначальное формирование массива currentFrameArr
+/******************************************************************** */
+
 for (let index = 0; index < 3; index++) {
     // console.log(`random ${randomNumber ()}`)
     createUniqueIndexPetsName(currentFrameArr)
@@ -147,8 +150,10 @@ for (let index = 0; index < 3; index++) {
 
 function createUniqueIndexPetsName (uniqueIndexPetsNameArr) {
     const randomDigit = randomNumber()
+    // Проверка на наличие числа в массиве
     const randomDigitTest = (element) => element === randomDigit;
 
+    // Если есть повторяем попытку
     if(uniqueIndexPetsNameArr.some(randomDigitTest)) {
         createUniqueIndexPetsName(uniqueIndexPetsNameArr)
     } else {
@@ -225,6 +230,16 @@ function startMain () {
 }
 
 startMain ()
+
+/************************************************************** */
+
+// document.addEventListener('DOMContentLoaded', () => {
+//     currentBreakpoint = window.innerWidth >= 1150 ? 3 : (window.innerWidth >= 761 ? 2 : 1);
+//     generateNewSlide();
+//     renderSlide('right');
+//   });
+
+/************************************************************** */
 
 
 
@@ -961,3 +976,56 @@ function modalCreation (dataUniqueIndex) {
 //  modalCreation(0)
 
 // btnCloseModalPopup.addEventListener('click', closeMenu)
+
+
+/************************************************* */
+/************************************************* */
+
+// function handleSlideTransition(direction) {
+//     if (isTransitioning) return;
+  
+//     isTransitioning = true;
+//     slidesEl.style.transition = "transform 0.5s ease-in-out";
+  
+//     if (direction === "prev") {
+//       slidesEl.style.transform = `translateX(${widthSlider + gapSlider}px)`;
+  
+//       slidesEl.addEventListener("transitionend", () => {
+//           rightSlideEl.innerHTML = activeSlideEl.innerHTML;
+//           activeSlideEl.innerHTML = leftSlideEl.innerHTML;
+  
+//           slidesEl.style.transition = "none";
+//           slidesEl.style.transform = "translateX(0)";
+  
+//           rightCardIndexes = activeCardIndexes;
+//           activeCardIndexes = leftCardIndexes;
+  
+//           leftSlideEl.innerHTML = "";
+//           leftCardIndexes = [];
+  
+//           identificationPets("leftCard");
+//           createElCard(leftSlideEl);
+//           isTransitioning = false;
+//         }, { once: true });
+//     } else if (direction === "next") {
+//       slidesEl.style.transform = `translateX(-${widthSlider + gapSlider}px)`;
+  
+//       slidesEl.addEventListener("transitionend", () => {
+//           leftSlideEl.innerHTML = activeSlideEl.innerHTML;
+//           activeSlideEl.innerHTML = rightSlideEl.innerHTML;
+  
+//           slidesEl.style.transition = "none";
+//           slidesEl.style.transform = "translateX(0)";
+  
+//           leftCardIndexes = activeCardIndexes;
+//           activeCardIndexes = rightCardIndexes;
+  
+//           rightSlideEl.innerHTML = "";
+//           rightCardIndexes = [];
+//           identificationPets("rightCard");
+//           createElCard(rightSlideEl);
+//           isTransitioning = false;
+//         }, { once: true });
+//     }
+//   }
+  
