@@ -520,14 +520,13 @@ body.lock .wrapper{
       position: fixed;
       right: -32.2rem;
       top: 0;
+      bottom: 0;
+
       opacity: 6;
       transition: 0.7s;
       z-index: 16;
 
-      // background-color: red;
       background-color: #292929;
-      // padding-top: 75px;
-      // padding-bottom: 75px;
       height: 100vh;
 
       overflow-x: hidden;
@@ -541,17 +540,12 @@ body.lock .wrapper{
     }
 
     @media screen and (max-height: 430px) {
-    // @media screen and (max-height: 480px) {
-    // @media screen and (max-height: 480px) and (max-width: 767.9px) {
-      padding-bottom: 20px;
-      // padding-top: 75px;
-      justify-content: end;
-      // flex-shrink: 0;
-      // overflow-x: hidden;
-      // overflow-y: auto;
+      padding-top: 95px;
+      padding-bottom: 95px;
     }
+
     @media screen and (max-height: 330px) {
-      padding-bottom: 10px;
+      padding-bottom: 40px;
     }
 
 
@@ -573,36 +567,6 @@ body.lock .wrapper{
     }
   }
 
-// @media screen and (max-width: 767.9px) {
-//   .menu {
-
-//     position: fixed;
-//     right: -32.2rem;
-//     top: 0;
-//     opacity: 6;
-//     transition: 0.7s;
-//     z-index: 16;
-
-//     background-color: red;
-//     // background-color: #292929;
-//       padding-top: 75px;
-//       padding-bottom: 75px;
-//       height: 100vh;
-
-//       overflow-x: hidden;
-//       overflow-y: auto;
-
-//       display: flex;
-//       flex-direction: column;
-//       justify-content: center;
-
-//       flex-shrink: 0;
-
-//     &.open {
-//       right: 0;
-//     }
-//   }
-// }
 
 .menu__list {
   display: flex;
@@ -635,9 +599,12 @@ body.lock .wrapper{
   // меню исчезает и появляется ПЛАВНО
   transition: 0.7s;
   @media screen and (max-width: 767.9px) {
+
+    overflow-y: auto;;
     flex-wrap: nowrap;
 
-    flex-shrink: 0;
+    // flex-shrink: 0;
+
     // position: fixed;
     // right: -32.2rem;
     // top: 0;
@@ -671,7 +638,12 @@ body.lock .wrapper{
 
     @media screen and (max-height: 480px) {
       row-gap: 2.5rem;
+      // padding-top: 90px;
+      justify-content: flex-start;
     }
+    // @media screen and (max-height: 430px) {
+    //   // padding-top: 90px;
+    // }
     @media screen and (max-height: 375px) {
       row-gap: 1.5rem;
     }

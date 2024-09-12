@@ -584,10 +584,14 @@ function modalCreation (dataUniqueIndex, body) {
    modalContent.appendChild(modalDescription)
    modalContent.appendChild(modalList)
 
+
+   // modalContainer.appendChild(btnClose)  // надо убрать overflow чтобы проявилось
+
    modalContainer.appendChild(modalFoto)
    modalContainer.appendChild(modalContent)
 
    // modal.appendChild(fonModal)
+
    modal.appendChild(btnClose)
    modal.appendChild(modalContainer)
 
