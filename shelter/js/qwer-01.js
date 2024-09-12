@@ -207,3 +207,57 @@ console.log(neFlag)
 // // Пример сортировки с использованием (a, b) => Math.random() - 0.5
 // const shuffledNumbers2 = [...numbers].sort((a, b) => Math.random() - 0.5);
 // console.log("Shuffled numbers 2:", shuffledNumbers2);
+
+/***************************************************** */
+/***************************************************** */
+// Игры с картинками
+
+console.log(
+  '%c /\\_/\\\n( o.o )\n > ^ <',
+  'color: orange; font-weight: bold; font-size: 16px;'
+);
+
+console.log(
+  '%c   /\\     /\\  \n  //\\\\___//\\\\\n  \\\\       //\n   \\\\ /_\\ //    \n    \\_\\ /_/  ',
+  'color: purple; font-weight: bold; font-size: 12px;'
+);
+
+console.log(
+  '%c   /\\     /\\  \n  //\\\\___//\\\\\n  \\\\ o   o //\n   \\\\ /_\\ //    \n    \\_\\ /_/  ',
+  'color: purple; font-weight: bold; font-size: 12px;'
+);
+
+console.log(
+  '%c   /\\    /\\  \n  //\\\\__//\\\\\n  \\\\ o  o //\n   \\\\ /\\ //    \n    \\_\\/_/  ',
+  'color: purple; font-weight: bold; font-size: 12px;'
+);
+
+console.log(
+  '%c   /\\    /\\  \n  //\\\\__//\\\\\n  \\\\ o  o //\n   \\\\ == //    \n    \\_\\/_/  ',
+  'color: purple; font-weight: bold; font-size: 12px;'
+);
+
+console.log(
+  '%c   /\\     /\\  \n  //\\\\___//\\\\\n  \\\\       //\n   \\\\o _ \o//    \n    \\_\\ /_/  ',
+  'color: purple; font-weight: bold; font-size: 12px;'
+);
+
+console.log(
+  '%cВсе сделав',
+  'color: green; font-weight: bold; font-size: 16px;'
+);
+
+console.log(
+  '%c   /\\     /\\  \n  //\\\\___//\\\\\n  \\\\       //\n   \\\\o _ \o//    \n    \\_\\=/_/  ',
+  'color: purple; font-weight: bold; font-size: 12px;'
+);
+
+
+console.log(
+  '%c   /\\     /\\  \n  //\\\\___//\\\\\n  \\\\       //\n   \\\\o _ \o//    \n    \\ /=\\ /  \n',
+  'color: purple; font-weight: bold; font-size: 12px;'
+);
+console.log(
+  '%c   /\\     /\\  \n  //\\\\___//\\\\\n  \\\\       //\n   \\\\o _ \o//    \n    \\ /=\\ /  \n',
+  'color: orange; font-weight: bold; font-size: 12px;'
+);

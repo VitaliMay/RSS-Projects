@@ -12,6 +12,12 @@ const score = `
 console.log(score);
 
 
+console.log(
+    '%c   /\\     /\\  \n  //\\\\___//\\\\\n  \\\\       //\n   \\\\o _ \o//    \n    \\ /=\\ /  \n       \' ',
+    'color: orange; font-weight: bold; font-size: 12px;'
+);
+
+
 import { dataPets } from './js/products.js';
 // import { checkBurger } from './js/burger.js'
 
@@ -980,6 +986,7 @@ function modalCreation (dataUniqueIndex) {
 
 /************************************************* */
 /************************************************* */
+// Обратить внимание на "transitionend"
 
 // function handleSlideTransition(direction) {
 //     if (isTransitioning) return;
