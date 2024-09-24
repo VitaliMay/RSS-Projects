@@ -60,6 +60,16 @@
   width: 100%;
   max-width: 600px;
 
+  @media screen and (max-height: 699.8px) {
+    max-width: 450px;
+  }
+  @media screen and (max-height: 519.8px) {
+    max-width: 370px;
+  }
+  @media screen and (max-height: 449.8px){
+    max-width: 600px;
+  }
+
   // height: 400px;
 
 
@@ -121,9 +131,15 @@
 
 .cover-inner--ratio {
   padding-top: 75%; /* 100% ширины делим на 4 и умножаем на 3 */
+
+  @media screen and (max-height: 449.8px){
+    padding-top: 0;
+  }
 }
 
-
+.cover-hidden {
+  padding-top: 0;
+}
 
 /***********************************************/
 /***********************************************/
@@ -299,13 +315,23 @@
 
   // filter: blur(1px);
   opacity: 0.8;
+
+  /****************************************************/
+  /** Для адаптации-ротации, если высота меньше ширины */
+  display: flex;
+
+  @media screen and (max-height: 699.8px) and (max-width: 1023.8px){
+    // display: none;
+    position: fixed;
+    width: 100%;
+  }
 }
 
 .footer-container {
 
   margin: 0 auto;
   width: 100%;
-  max-width: 600px;
+  // max-width: 600px;
   // max-width: 1440px;
 
   display: flex;

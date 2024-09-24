@@ -8,4 +8,5 @@ const arrSong = [
   {src: "./assets/audio/Maryla_Rodowicz-Cicha_woda.mp3", name: "Cicha woda", group: "Maryla Rodowicz", year:"", cover: "./assets/img/Maryla_Rodowicz.jpg", coverClass: "cover04"},
 ];
 
-export default arrSong
+export { arrSong }
+// export default arrSong

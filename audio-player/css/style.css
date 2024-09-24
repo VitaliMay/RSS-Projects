@@ -147,6 +147,21 @@ body {
   justify-content: end;
   row-gap: 10px;
 }
+@media screen and (max-height: 699.8px) {
+  .player-container {
+    max-width: 450px;
+  }
+}
+@media screen and (max-height: 519.8px) {
+  .player-container {
+    max-width: 370px;
+  }
+}
+@media screen and (max-height: 449.8px) {
+  .player-container {
+    max-width: 600px;
+  }
+}
 
 /**********************************************/
 /**********************************************/
@@ -178,6 +193,15 @@ body {
 
 .cover-inner--ratio {
   padding-top: 75%; /* 100% ширины делим на 4 и умножаем на 3 */
+}
+@media screen and (max-height: 449.8px) {
+  .cover-inner--ratio {
+    padding-top: 0;
+  }
+}
+
+.cover-hidden {
+  padding-top: 0;
 }
 
 /***********************************************/
@@ -304,12 +328,20 @@ body {
   background-color: rgb(80, 80, 80);
   box-shadow: 10px 10px 40px -2px rgba(0, 0, 0, 0.25);
   opacity: 0.8;
+  /****************************************************/
+  /** Для адаптации-ротации, если высота меньше ширины */
+  display: flex;
+}
+@media screen and (max-height: 699.8px) and (max-width: 1023.8px) {
+  .footer {
+    position: fixed;
+    width: 100%;
+  }
 }
 
 .footer-container {
   margin: 0 auto;
   width: 100%;
-  max-width: 600px;
   display: flex;
   justify-content: space-between;
   align-items: center;

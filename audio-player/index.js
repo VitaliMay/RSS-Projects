@@ -9,7 +9,8 @@ Score 60/60
 console.log(score)
 
 // подключаю плейлист
-import arrSong from "./playList.js";
+import { arrSong } from "./playList.js";
+// import arrSong from "./playList.js";
 
 
 const playBtn = document.querySelector('.btn--play');
@@ -24,8 +25,11 @@ const titleSinger = document.querySelector('.title-singer')
 const titleSong = document.querySelector('.title-song')
 
 const wrapper = document.querySelector('.wrapper')
-const playerContainer = document.querySelector('.cover-content')
-// const playerContainer = document.querySelector('.player-container')
+
+const coverContent = document.querySelector('.cover-content')
+// const playerContainer = document.querySelector('.cover-content')
+const coverInner = document.querySelector('.cover-inner')
+const playerContainer = document.querySelector('.player-container')
 
 
 const audio = new Audio();
@@ -44,7 +48,8 @@ audio.addEventListener('loadeddata', function() {
   titleSinger.innerHTML = `${arrSong[songNum].group}`;
   titleSong.innerHTML = `${arrSong[songNum].name}`;
   wrapper.style.backgroundImage =`url(${arrSong[songNum].cover})`
-  playerContainer.style.backgroundImage =`url(${arrSong[songNum].cover})`
+  coverContent.style.backgroundImage =`url(${arrSong[songNum].cover})`
+  // playerContainer.style.backgroundImage =`url(${arrSong[songNum].cover})`
 
 });
 
@@ -54,13 +59,16 @@ function playAudio() {
 
   audio.src = currentSong;
   audio.currentTime = playbackPosition;
-  
+
+   
 //   audio.addEventListener('loadedmetadata', function() {
   audio.addEventListener('loadeddata', function() {
     // console.log(`Время песни: ${audio.duration} секунд`);
     // console.log(`Время песни: ${timeFromSec(audio.duration)} секунд`);
     timeDuration.innerHTML = `${timeFromSec(audio.duration)}`;
   });
+
+  // audio.volume = 0.5;
 
   if (!isPlay) {
     isPlay = true;
@@ -75,6 +83,60 @@ function playAudio() {
   }
 }
 
+/************************************************* */
+/***  Игры с адаптацией (сделал медиазапросами)*/
+
+// checkScreenSize()
+
+// function checkScreenSize() {
+//   if (window.innerWidth >= window.innerHeight && window.innerHeight <= 599.8) {
+//   // if (window.innerWidth >= window.innerHeight && (window.innerHeight <= 599.8 && window.innerHeight >= 450.8)) {
+//   // if (window.innerWidth >= window.innerHeight && window.innerWidth <= 599.8) {
+//   // if (window.innerWidth >= window.innerHeight && window.innerWidth <= 599.8 || window.innerHeight <= 599.8) {
+//     // console.log('Screen width changed to:', window.innerWidth);
+//     // coverInner.classList.add('cover-hidden')
+//     playerContainer.style.maxWidth = `${window.innerHeight - 100}px`
+
+//     console.log(playerContainer.offsetWidth, playerContainer.offsetHeight, window.innerHeight)
+//     coverInner.classList.remove('cover-hidden')
+//   } else {
+//      if (window.innerHeight <= 449.8) {
+//         coverInner.classList.add('cover-hidden')
+//      }
+//      if (window.innerHeight > 599.8) {
+//         playerContainer.style.maxWidth = `600px`
+//      }
+//     // coverInner.classList.remove('cover-hidden')
+    
+//     //  coverInner.classList.add('cover-hidden')
+//   }
+// }
+
+
+// function checkScreenSize() {
+//   if (window.innerWidth >= window.innerHeight && window.innerHeight <= 599.8) {
+//     // Установка стилей
+//     playerContainer.style.maxWidth = `${window.innerHeight - 100}px`;
+//     console.log(playerContainer.offsetWidth, playerContainer.offsetHeight, window.innerHeight);
+    
+//     // Управление классами
+//     coverInner.classList.remove('cover-hidden');
+//   } else {
+//     // Управление классами
+//     if (window.innerHeight <= 449.8) {
+//       coverInner.classList.add('cover-hidden');
+//       playerContainer.style.maxWidth = `600px`;
+//     }
+  
+//     // Установка стилей
+//     if (window.innerHeight > 599.8) {
+//       playerContainer.style.maxWidth = `600px`;
+//     }
+//   }
+// }
+
+// window.addEventListener('resize', checkScreenSize);
+// window.addEventListener('orientationchange', checkScreenSize);
 
 /************************************************* */
 
@@ -96,6 +158,25 @@ audio.addEventListener('ended', savePlaybackPosition);
 /************************************************* */
 
 
+// function prevSong(){
+//   if (!songNum) { songNum = arrSong.length-1}
+//   else {songNum--}
+//   currentSong = arrSong[songNum].src
+//   // if (isPlay) { // если песня играет, то пусть играет
+//     isPlay = false;
+//     playbackPosition = 0;
+//     playAudio()
+//   // }
+//   // else {
+//   //   audio.src = currentSong;
+//   //   playbackPosition = 0;
+//   //   audio.addEventListener('loadeddata', function() {
+//   //     timeDuration.innerHTML = `${timeFromSec(audio.duration)}`;
+//   //   });
+//   // }
+// }
+
+
 function prevSong(){
   if (!songNum) { songNum = arrSong.length-1}
   else {songNum--}
@@ -113,6 +194,37 @@ function prevSong(){
     });
   }
 }
+
+
+
+// function nextSong(){
+//   // titleSinger.classList.add('hidden')  ///XXXXXXXXXXXXX
+
+//   if (songNum === arrSong.length-1) { songNum = 0}
+//   else {songNum++}
+//   currentSong = arrSong[songNum].src
+//   // if (isPlay) { // если песня играет, то пусть играет
+//     isPlay = false;
+//     playbackPosition = 0;
+//     playAudio()
+
+    
+//   // } 
+//   // else {
+//   //   audio.src = currentSong;
+//   //   playbackPosition = 0;
+//   //   audio.addEventListener('loadeddata', function() {
+//   //     timeDuration.innerHTML = `${timeFromSec(audio.duration)}`;
+
+//   //     // setTimeout(() => {  ///XXXXXXXXXXXXX
+//   //     //   titleSinger.innerHTML = `${arrSong[songNum].group}`;  ///XXXXXXXXXXXXX
+//   //     //   titleSinger.classList.remove('hidden')  ///XXXXXXXXXXXXX
+//   //     // }, 500);
+      
+//   //   });
+//   // }
+  
+// }
 
 function nextSong(){
   // titleSinger.classList.add('hidden')  ///XXXXXXXXXXXXX
