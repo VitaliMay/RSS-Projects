@@ -10,8 +10,6 @@ console.log(score)
 
 // подключаю плейлист
 import { arrSong } from "./playList.js";
-// import arrSong from "./playList.js";
-
 
 const playBtn = document.querySelector('.btn--play');
 const prevBtn = document.querySelector('.btn--prev');
@@ -27,29 +25,25 @@ const titleSong = document.querySelector('.title-song')
 const wrapper = document.querySelector('.wrapper')
 
 const coverContent = document.querySelector('.cover-content')
-// const playerContainer = document.querySelector('.cover-content')
 const coverInner = document.querySelector('.cover-inner')
 const playerContainer = document.querySelector('.player-container')
 
 
 const audio = new Audio();
 
-
-
 let isPlay = false;
 let songNum = 0;
 let currentSong = arrSong[songNum].src
-// let currentSong = arrSong[songNum]
+
 audio.src = currentSong;
 
 audio.addEventListener('loadeddata', function() {
-  timeDuration.innerHTML = `${timeFromSec(audio.duration)}`;
+  timeDuration.textContent = `${timeFromSec(audio.duration)}`;
 
-  titleSinger.innerHTML = `${arrSong[songNum].group}`;
-  titleSong.innerHTML = `${arrSong[songNum].name}`;
+  titleSinger.textContent = `${arrSong[songNum].group}`;
+  titleSong.textContent = `${arrSong[songNum].name}`;
   wrapper.style.backgroundImage =`url(${arrSong[songNum].cover})`
   coverContent.style.backgroundImage =`url(${arrSong[songNum].cover})`
-  // playerContainer.style.backgroundImage =`url(${arrSong[songNum].cover})`
 
 });
 
@@ -65,7 +59,7 @@ function playAudio() {
   audio.addEventListener('loadeddata', function() {
     // console.log(`Время песни: ${audio.duration} секунд`);
     // console.log(`Время песни: ${timeFromSec(audio.duration)} секунд`);
-    timeDuration.innerHTML = `${timeFromSec(audio.duration)}`;
+    timeDuration.textContent = `${timeFromSec(audio.duration)}`;
   });
 
   // audio.volume = 0.5;
@@ -145,15 +139,20 @@ function playAudio() {
 function savePlaybackPosition() {
   audio.currentTime = 0;
   playbackPosition = audio.currentTime;
-  timeCurrent.innerHTML = '0:00'
+  timeCurrent.textContent = '0:00'
   // playbackPosition = 0;
   // console.log(`Конец`)
   // playBtn.classList.remove('pause');
-  titleSong.innerHTML = `${arrSong[songNum].name} - track playback finished`;
+  titleSong.textContent = `${arrSong[songNum].name} - track playback finished`;
 }
 
+/************************************************************************* */
+/* Проигрываю только один трек */
+// audio.addEventListener('ended', savePlaybackPosition);
 
-audio.addEventListener('ended', savePlaybackPosition);
+/*************************************************************************** */
+/* Проигрываю треки по кругу */
+audio.addEventListener('ended', nextSong);
 
 /************************************************* */
 
@@ -179,7 +178,7 @@ audio.addEventListener('ended', savePlaybackPosition);
 
 function prevSong(){
   if (!songNum) { songNum = arrSong.length-1}
-  else {songNum--}
+  else {songNum -= 1}
   currentSong = arrSong[songNum].src
   if (isPlay) { // если песня играет, то пусть играет
     isPlay = false;
@@ -190,7 +189,7 @@ function prevSong(){
     audio.src = currentSong;
     playbackPosition = 0;
     audio.addEventListener('loadeddata', function() {
-      timeDuration.innerHTML = `${timeFromSec(audio.duration)}`;
+      timeDuration.textContent = `${timeFromSec(audio.duration)}`;
     });
   }
 }
@@ -229,8 +228,8 @@ function prevSong(){
 function nextSong(){
   // titleSinger.classList.add('hidden')  ///XXXXXXXXXXXXX
 
-  if (songNum === arrSong.length-1) { songNum = 0}
-  else {songNum++}
+  if (songNum === arrSong.length - 1) { songNum = 0}
+  else {songNum += 1}
   currentSong = arrSong[songNum].src
   if (isPlay) { // если песня играет, то пусть играет
     isPlay = false;
@@ -241,7 +240,7 @@ function nextSong(){
     audio.src = currentSong;
     playbackPosition = 0;
     audio.addEventListener('loadeddata', function() {
-      timeDuration.innerHTML = `${timeFromSec(audio.duration)}`;
+      timeDuration.textContent = `${timeFromSec(audio.duration)}`;
 
       // setTimeout(() => {  ///XXXXXXXXXXXXX
       //   titleSinger.innerHTML = `${arrSong[songNum].group}`;  ///XXXXXXXXXXXXX
@@ -275,7 +274,7 @@ setInterval(() => {
 
 /********Добавляю работу для мобилок дополнительно к прокрутке и перетаскиванию**************************************** */
 
-function timePointer() {
+function timePointer(event) {
   const stylesTimeLine = window.getComputedStyle(timeLine);
   let offsetX;
   if (event.type === "touchmove" || event.type === "touchstart") {
@@ -299,8 +298,10 @@ timeLine.addEventListener("click", event => {
   // const timePoint = event.offsetX / parseInt(stylesTimeLine.width) * audio.duration;
   // audio.currentTime = timePoint;
 
-  timePointer()
-}, false);
+  timePointer(event)
+}, {passive: false});
+
+
 
 /*****Добавляю перетаскивание **************************************/
 
@@ -317,7 +318,7 @@ timeLine.addEventListener("mousedown", e => {
 timeLine.addEventListener("mousemove", event => {
   // Проверяем, была ли нажата кнопка мыши
   if (isMouseDown) {
-    timePointer()
+    timePointer(event)
   }
 });
 
@@ -331,15 +332,15 @@ timeLine.addEventListener("mouseup", e => {
 
 timeLine.addEventListener("touchstart", event => {
   isMouseDown = true;
-  timePointer();
-});
+  timePointer(event);
+}, {passive: false});
 
 timeLine.addEventListener("touchmove", event => {
   if (isMouseDown) {
     event.preventDefault(); // предотвращаем прокрутку страницы
-    timePointer();
+    timePointer(event);
   }
-});
+}, {passive: false});
 
 timeLine.addEventListener("touchend", e => {
   isMouseDown = false;
