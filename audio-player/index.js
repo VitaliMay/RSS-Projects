@@ -24,10 +24,9 @@ const titleSong = document.querySelector('.title-song')
 
 const wrapper = document.querySelector('.wrapper')
 
-const coverContent = document.querySelector('.cover-content')
-const coverInner = document.querySelector('.cover-inner')
-const playerContainer = document.querySelector('.player-container')
+const cover = document.querySelector('.cover') // для перелистывания
 
+const coverContent = document.querySelector('.cover-content')
 
 const audio = new Audio();
 
@@ -39,11 +38,6 @@ audio.src = currentSong;
 
 audio.addEventListener('loadeddata', function() {
   timeDuration.textContent = `${timeFromSec(audio.duration)}`;
-
-  // titleSinger.textContent = `${arrSong[songNum].group}`;
-  // titleSong.textContent = `${arrSong[songNum].name}`;
-  // wrapper.style.backgroundImage =`url(${arrSong[songNum].cover})`
-  // coverContent.style.backgroundImage =`url(${arrSong[songNum].cover})`
 
   updateSongInfo()  // обновление информации о треке
 });
@@ -79,63 +73,8 @@ function playAudio() {
 }
 
 /************************************************* */
-/***  Игры с адаптацией (сделал медиазапросами)*/
-
-// checkScreenSize()
-
-// function checkScreenSize() {
-//   if (window.innerWidth >= window.innerHeight && window.innerHeight <= 599.8) {
-//   // if (window.innerWidth >= window.innerHeight && (window.innerHeight <= 599.8 && window.innerHeight >= 450.8)) {
-//   // if (window.innerWidth >= window.innerHeight && window.innerWidth <= 599.8) {
-//   // if (window.innerWidth >= window.innerHeight && window.innerWidth <= 599.8 || window.innerHeight <= 599.8) {
-//     // console.log('Screen width changed to:', window.innerWidth);
-//     // coverInner.classList.add('cover-hidden')
-//     playerContainer.style.maxWidth = `${window.innerHeight - 100}px`
-
-//     console.log(playerContainer.offsetWidth, playerContainer.offsetHeight, window.innerHeight)
-//     coverInner.classList.remove('cover-hidden')
-//   } else {
-//      if (window.innerHeight <= 449.8) {
-//         coverInner.classList.add('cover-hidden')
-//      }
-//      if (window.innerHeight > 599.8) {
-//         playerContainer.style.maxWidth = `600px`
-//      }
-//     // coverInner.classList.remove('cover-hidden')
-    
-//     //  coverInner.classList.add('cover-hidden')
-//   }
-// }
-
-
-// function checkScreenSize() {
-//   if (window.innerWidth >= window.innerHeight && window.innerHeight <= 599.8) {
-//     // Установка стилей
-//     playerContainer.style.maxWidth = `${window.innerHeight - 100}px`;
-//     console.log(playerContainer.offsetWidth, playerContainer.offsetHeight, window.innerHeight);
-    
-//     // Управление классами
-//     coverInner.classList.remove('cover-hidden');
-//   } else {
-//     // Управление классами
-//     if (window.innerHeight <= 449.8) {
-//       coverInner.classList.add('cover-hidden');
-//       playerContainer.style.maxWidth = `600px`;
-//     }
-  
-//     // Установка стилей
-//     if (window.innerHeight > 599.8) {
-//       playerContainer.style.maxWidth = `600px`;
-//     }
-//   }
-// }
-
-// window.addEventListener('resize', checkScreenSize);
-// window.addEventListener('orientationchange', checkScreenSize);
-
 /************************************************* */
-
-// Обнуляю конец трека:
+// Обнуляю конец трека: (Сейчас не использую. Надо при проигрывании одного трека)
 
 function savePlaybackPosition() {
   audio.currentTime = 0;
@@ -147,7 +86,6 @@ function savePlaybackPosition() {
   titleSong.textContent = `${arrSong[songNum].name} - track playback finished`;
 }
 
-/************************************************************************* */
 /* Проигрываю только один трек */
 // audio.addEventListener('ended', savePlaybackPosition);
 
@@ -157,45 +95,6 @@ audio.addEventListener('ended', nextSong);
 
 /************************************************* */
 
-
-// function prevSong(){
-//   if (!songNum) { songNum = arrSong.length-1}
-//   else {songNum--}
-//   currentSong = arrSong[songNum].src
-//   // if (isPlay) { // если песня играет, то пусть играет
-//     isPlay = false;
-//     playbackPosition = 0;
-//     playAudio()
-//   // }
-//   // else {
-//   //   audio.src = currentSong;
-//   //   playbackPosition = 0;
-//   //   audio.addEventListener('loadeddata', function() {
-//   //     timeDuration.innerHTML = `${timeFromSec(audio.duration)}`;
-//   //   });
-//   // }
-// }
-
-
-/**************************************************** */
-
-// function prevSong(){
-//   if (!songNum) { songNum = arrSong.length-1}
-//   else {songNum -= 1}
-//   currentSong = arrSong[songNum].src
-//   if (isPlay) { // если песня играет, то пусть играет
-//     isPlay = false;
-//     playbackPosition = 0;
-//     playAudio()
-//   }
-//   else {
-//     audio.src = currentSong;
-//     playbackPosition = 0;
-//     audio.addEventListener('loadeddata', function() {
-//       timeDuration.textContent = `${timeFromSec(audio.duration)}`;
-//     });
-//   }
-// }
 
 function prevSong(){
   if (!songNum) { songNum = arrSong.length-1}
@@ -216,63 +115,6 @@ function prevSong(){
   }
 }
 
-
-// function nextSong(){
-//   // titleSinger.classList.add('hidden')  ///XXXXXXXXXXXXX
-
-//   if (songNum === arrSong.length-1) { songNum = 0}
-//   else {songNum++}
-//   currentSong = arrSong[songNum].src
-//   // if (isPlay) { // если песня играет, то пусть играет
-//     isPlay = false;
-//     playbackPosition = 0;
-//     playAudio()
-
-    
-//   // } 
-//   // else {
-//   //   audio.src = currentSong;
-//   //   playbackPosition = 0;
-//   //   audio.addEventListener('loadeddata', function() {
-//   //     timeDuration.innerHTML = `${timeFromSec(audio.duration)}`;
-
-//   //     // setTimeout(() => {  ///XXXXXXXXXXXXX
-//   //     //   titleSinger.innerHTML = `${arrSong[songNum].group}`;  ///XXXXXXXXXXXXX
-//   //     //   titleSinger.classList.remove('hidden')  ///XXXXXXXXXXXXX
-//   //     // }, 500);
-      
-//   //   });
-//   // }
-  
-// }
-
-/**************************************************************** */
-// function nextSong(){
-//   // titleSinger.classList.add('hidden')  ///XXXXXXXXXXXXX
-
-//   if (songNum === arrSong.length - 1) { songNum = 0}
-//   else {songNum += 1}
-//   currentSong = arrSong[songNum].src
-//   if (isPlay) { // если песня играет, то пусть играет
-//     isPlay = false;
-//     playbackPosition = 0;
-//     playAudio()
-//   } 
-//   else {
-//     audio.src = currentSong;
-//     playbackPosition = 0;
-//     audio.addEventListener('loadeddata', function() {
-//       timeDuration.textContent = `${timeFromSec(audio.duration)}`;
-
-//       // setTimeout(() => {  ///XXXXXXXXXXXXX
-//       //   titleSinger.innerHTML = `${arrSong[songNum].group}`;  ///XXXXXXXXXXXXX
-//       //   titleSinger.classList.remove('hidden')  ///XXXXXXXXXXXXX
-//       // }, 500);
-      
-//     });
-//   }
-  
-// }
 
 function nextSong(){
   if (songNum === arrSong.length - 1) { songNum = 0}
@@ -339,16 +181,10 @@ function timePointer(event) {
 
 
 
-timeLine.addEventListener("click", event => {
-  // const stylesTimeLine = window.getComputedStyle(timeLine);  // получаю объект со всеми стилями
-  // // console.log(stylesTimeLine.width)
-  // // console.log(parseInt(stylesTimeLine.width))
-  // // console.log(`точка клика = ${event.offsetX}`)
-  // const timePoint = event.offsetX / parseInt(stylesTimeLine.width) * audio.duration;
-  // audio.currentTime = timePoint;
-
-  timePointer(event)
-}, {passive: false});
+timeLine.addEventListener("click", timePointer, {passive: false});
+// timeLine.addEventListener("click", event => {
+//   timePointer(event)
+// }, {passive: false});
 
 
 
@@ -358,7 +194,7 @@ timeLine.addEventListener("click", event => {
 let isMouseDown = false;
 
 // Добавляем слушатель события mousedown на элемент timeLine
-timeLine.addEventListener("mousedown", e => {
+timeLine.addEventListener("mousedown", event => {
   // Устанавливаем флаг, что кнопка мыши была нажата
   isMouseDown = true;
 });
@@ -372,7 +208,7 @@ timeLine.addEventListener("mousemove", event => {
 });
 
 // Добавляем слушатель события mouseup на элемент timeline
-timeLine.addEventListener("mouseup", e => {
+timeLine.addEventListener("mouseup", event => {
   // Сбрасываем флаг, указывающий на то, что кнопка мыши не нажата
   isMouseDown = false;
 });
@@ -386,12 +222,12 @@ timeLine.addEventListener("touchstart", event => {
 
 timeLine.addEventListener("touchmove", event => {
   if (isMouseDown) {
-    event.preventDefault(); // предотвращаем прокрутку страницы
+    // event.preventDefault(); // предотвращаем прокрутку страницы
     timePointer(event);
   }
 }, {passive: false});
 
-timeLine.addEventListener("touchend", e => {
+timeLine.addEventListener("touchend", event => {
   isMouseDown = false;
 });
 
@@ -417,6 +253,51 @@ function timeFromSec(sec) {
     if (hour === 0) return `${minute}:${second.padStart(2, 0)}`;
     if (hour !== 0) return `${hour.toString().padStart(2, '0')}:${minute.padStart(2, '0')}:${second.padStart(2, '0')}`;
 }
+
+
+/************************************************** */
+/**********    свайп на мобилках  ************* */
+
+// чтобы не появлялось контекстное меню при длительном таче
+// cover.addEventListener('contextmenu', function (event) {
+wrapper.addEventListener('contextmenu', function (event) {
+  event.preventDefault();
+});
+
+
+function createTouchHandler() {    // добавляю замыкание, чтобы избежать глобальных переменных
+  let xStart = null;
+  let swipe = null;
+
+  return function handleTouch(event) {
+    const touch = event.touches[0];
+
+    if (event.type === 'touchstart') {
+      xStart = touch.clientX;
+    }
+
+    if (event.type === 'touchmove' && xStart !== null) {
+      let xMove = touch.clientX;
+      swipe = xMove - xStart;
+
+      if (swipe < 0) {
+        nextSong();
+      }
+      if (swipe > 0) {
+        prevSong();
+      }
+      xStart = null;
+      swipe = null;
+    }
+  };
+}
+
+const handleTouch = createTouchHandler(); // чтобы работало замыкание и не было глобальных переменных
+
+cover.addEventListener('touchstart', handleTouch, { passive: false });
+cover.addEventListener('touchmove', handleTouch, { passive: true });
+
+
 
 
 //***Для кнопок*************************************
