@@ -40,11 +40,12 @@ audio.src = currentSong;
 audio.addEventListener('loadeddata', function() {
   timeDuration.textContent = `${timeFromSec(audio.duration)}`;
 
-  titleSinger.textContent = `${arrSong[songNum].group}`;
-  titleSong.textContent = `${arrSong[songNum].name}`;
-  wrapper.style.backgroundImage =`url(${arrSong[songNum].cover})`
-  coverContent.style.backgroundImage =`url(${arrSong[songNum].cover})`
+  // titleSinger.textContent = `${arrSong[songNum].group}`;
+  // titleSong.textContent = `${arrSong[songNum].name}`;
+  // wrapper.style.backgroundImage =`url(${arrSong[songNum].cover})`
+  // coverContent.style.backgroundImage =`url(${arrSong[songNum].cover})`
 
+  updateSongInfo()  // обновление информации о треке
 });
 
 let playbackPosition = 0;
@@ -176,16 +177,37 @@ audio.addEventListener('ended', nextSong);
 // }
 
 
+/**************************************************** */
+
+// function prevSong(){
+//   if (!songNum) { songNum = arrSong.length-1}
+//   else {songNum -= 1}
+//   currentSong = arrSong[songNum].src
+//   if (isPlay) { // если песня играет, то пусть играет
+//     isPlay = false;
+//     playbackPosition = 0;
+//     playAudio()
+//   }
+//   else {
+//     audio.src = currentSong;
+//     playbackPosition = 0;
+//     audio.addEventListener('loadeddata', function() {
+//       timeDuration.textContent = `${timeFromSec(audio.duration)}`;
+//     });
+//   }
+// }
+
 function prevSong(){
   if (!songNum) { songNum = arrSong.length-1}
   else {songNum -= 1}
-  currentSong = arrSong[songNum].src
-  if (isPlay) { // если песня играет, то пусть играет
+  currentSong = arrSong[songNum].src;
+  updateSongInfo(); // обновление информации о песне (для работы на мобиле Safari)
+
+  if (isPlay) {
     isPlay = false;
     playbackPosition = 0;
-    playAudio()
-  }
-  else {
+    playAudio();
+  } else {
     audio.src = currentSong;
     playbackPosition = 0;
     audio.addEventListener('loadeddata', function() {
@@ -193,7 +215,6 @@ function prevSong(){
     });
   }
 }
-
 
 
 // function nextSong(){
@@ -225,32 +246,60 @@ function prevSong(){
   
 // }
 
-function nextSong(){
-  // titleSinger.classList.add('hidden')  ///XXXXXXXXXXXXX
+/**************************************************************** */
+// function nextSong(){
+//   // titleSinger.classList.add('hidden')  ///XXXXXXXXXXXXX
 
+//   if (songNum === arrSong.length - 1) { songNum = 0}
+//   else {songNum += 1}
+//   currentSong = arrSong[songNum].src
+//   if (isPlay) { // если песня играет, то пусть играет
+//     isPlay = false;
+//     playbackPosition = 0;
+//     playAudio()
+//   } 
+//   else {
+//     audio.src = currentSong;
+//     playbackPosition = 0;
+//     audio.addEventListener('loadeddata', function() {
+//       timeDuration.textContent = `${timeFromSec(audio.duration)}`;
+
+//       // setTimeout(() => {  ///XXXXXXXXXXXXX
+//       //   titleSinger.innerHTML = `${arrSong[songNum].group}`;  ///XXXXXXXXXXXXX
+//       //   titleSinger.classList.remove('hidden')  ///XXXXXXXXXXXXX
+//       // }, 500);
+      
+//     });
+//   }
+  
+// }
+
+function nextSong(){
   if (songNum === arrSong.length - 1) { songNum = 0}
   else {songNum += 1}
-  currentSong = arrSong[songNum].src
-  if (isPlay) { // если песня играет, то пусть играет
+  currentSong = arrSong[songNum].src;
+  updateSongInfo(); // обновление информации о песне (для работы на мобиле Safari)
+  if (isPlay) {
     isPlay = false;
     playbackPosition = 0;
-    playAudio()
-  } 
-  else {
+    playAudio();
+  } else {
     audio.src = currentSong;
     playbackPosition = 0;
     audio.addEventListener('loadeddata', function() {
       timeDuration.textContent = `${timeFromSec(audio.duration)}`;
-
-      // setTimeout(() => {  ///XXXXXXXXXXXXX
-      //   titleSinger.innerHTML = `${arrSong[songNum].group}`;  ///XXXXXXXXXXXXX
-      //   titleSinger.classList.remove('hidden')  ///XXXXXXXXXXXXX
-      // }, 500);
-      
     });
   }
-  
 }
+
+function updateSongInfo() {
+  titleSinger.textContent = `${arrSong[songNum].group}`;
+  titleSong.textContent = `${arrSong[songNum].name}`;
+  wrapper.style.backgroundImage =`url(${arrSong[songNum].cover})`;
+  coverContent.style.backgroundImage =`url(${arrSong[songNum].cover})`;
+}
+
+/*************************************************************** */
 
 setInterval(() => {
   // меняю текущее время
