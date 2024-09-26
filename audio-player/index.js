@@ -173,6 +173,8 @@ function updateSelectedSong() {
     audio.addEventListener('loadeddata', function() {
       timeDuration.textContent = `${timeFromSec(audio.duration)}`;
     });
+
+    playAudioForLoadingData(); // Включить воспроизведение на короткое время, чтобы сработало 'loadeddata' на iPhone
   }
 }
 
@@ -180,6 +182,15 @@ function updateSelectedSong() {
 // Теперь функции prevSong и nextSong только выбирают новую песню и вызывают функцию updateSelectedSong, 
 // которая обновляет информацию о песне и продолжительности аудио. =>
 // информация о времени должна обновляться при выборе новой песни и не ожидать начала воспроизведения.
+
+// Пробую обновить время на паузе на iPhone
+function playAudioForLoadingData() {
+  audio.play();
+  setTimeout(function() {
+    audio.pause();
+    audio.currentTime = 0;
+  }, 50); // Играть в течение 50 миллисекунд (чтобы сработало 'loadeddata' на iPhone)
+}
 
 /*************************************************************** */
 
