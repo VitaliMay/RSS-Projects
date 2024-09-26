@@ -96,43 +96,43 @@ audio.addEventListener('ended', nextSong);
 /************************************************* */
 
 
-function prevSong(){
-  if (!songNum) { songNum = arrSong.length-1}
-  else {songNum -= 1}
-  currentSong = arrSong[songNum].src;
-  updateSongInfo(); // обновление информации о песне (для работы на мобиле Safari)
+// function prevSong(){
+//   if (!songNum) { songNum = arrSong.length-1}
+//   else {songNum -= 1}
+//   currentSong = arrSong[songNum].src;
+//   updateSongInfo(); // обновление информации о песне (для работы на мобиле Safari)
 
-  if (isPlay) {
-    isPlay = false;
-    playbackPosition = 0;
-    playAudio();
-  } else {
-    audio.src = currentSong;
-    playbackPosition = 0;
-    audio.addEventListener('loadeddata', function() {
-      timeDuration.textContent = `${timeFromSec(audio.duration)}`;
-    });
-  }
-}
+//   if (isPlay) {
+//     isPlay = false;
+//     playbackPosition = 0;
+//     playAudio();
+//   } else {
+//     audio.src = currentSong;
+//     playbackPosition = 0;
+//     audio.addEventListener('loadeddata', function() {
+//       timeDuration.textContent = `${timeFromSec(audio.duration)}`;
+//     });
+//   }
+// }
 
 
-function nextSong(){
-  if (songNum === arrSong.length - 1) { songNum = 0}
-  else {songNum += 1}
-  currentSong = arrSong[songNum].src;
-  updateSongInfo(); // обновление информации о песне (для работы на мобиле Safari)
-  if (isPlay) {
-    isPlay = false;
-    playbackPosition = 0;
-    playAudio();
-  } else {
-    audio.src = currentSong;
-    playbackPosition = 0;
-    audio.addEventListener('loadeddata', function() {
-      timeDuration.textContent = `${timeFromSec(audio.duration)}`;
-    });
-  }
-}
+// function nextSong(){
+//   if (songNum === arrSong.length - 1) { songNum = 0}
+//   else {songNum += 1}
+//   currentSong = arrSong[songNum].src;
+//   updateSongInfo(); // обновление информации о песне (для работы на мобиле Safari)
+//   if (isPlay) {
+//     isPlay = false;
+//     playbackPosition = 0;
+//     playAudio();
+//   } else {
+//     audio.src = currentSong;
+//     playbackPosition = 0;
+//     audio.addEventListener('loadeddata', function() {
+//       timeDuration.textContent = `${timeFromSec(audio.duration)}`;
+//     });
+//   }
+// }
 
 function updateSongInfo() {
   titleSinger.textContent = `${arrSong[songNum].group}`;
@@ -140,6 +140,46 @@ function updateSongInfo() {
   wrapper.style.backgroundImage =`url(${arrSong[songNum].cover})`;
   coverContent.style.backgroundImage =`url(${arrSong[songNum].cover})`;
 }
+
+/************************************************* */
+/************************************************* */
+
+// На паузе не обновлялось время трека (на реальных мобилках) пробую решить
+
+function prevSong(){
+  if (!songNum) { songNum = arrSong.length - 1 }
+  else { songNum -= 1 }
+  updateSelectedSong();
+}
+
+function nextSong(){
+  if (songNum === arrSong.length - 1) { songNum = 0 }
+  else { songNum += 1 }
+  updateSelectedSong();
+}
+
+function updateSelectedSong() {
+  currentSong = arrSong[songNum].src;
+  updateSongInfo(); // обновление информации о песне
+
+  if (isPlay) {
+    isPlay = false;
+    playbackPosition = 0;
+    playAudio();
+  } else {
+    audio.src = currentSong;
+    playbackPosition = 0;
+
+    audio.addEventListener('loadeddata', function() {
+      timeDuration.textContent = `${timeFromSec(audio.duration)}`;
+    });
+  }
+}
+
+
+// Теперь функции prevSong и nextSong только выбирают новую песню и вызывают функцию updateSelectedSong, 
+// которая обновляет информацию о песне и продолжительности аудио. =>
+// информация о времени должна обновляться при выборе новой песни и не ожидать начала воспроизведения.
 
 /*************************************************************** */
 
