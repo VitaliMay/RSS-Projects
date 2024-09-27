@@ -11,8 +11,13 @@ console.log(score)
 // подключаю плейлист
 import { arrSong } from "./playList.js";
 
+// кнопки настроек
+import { createImageChanger } from "./setting.js";
+
 const btnContainer = document.querySelector('.btn-container')
 const playBtn = document.querySelector('.btn--play');
+
+const settingBtn = document.querySelector('.setting')
 
 const timeDuration = document.querySelector('.time-duration')
 const timeCurrent = document.querySelector('.time-current')
@@ -80,7 +85,11 @@ function savePlaybackPosition() {
 
 /*************************************************************************** */
 /* Проигрываю треки по кругу */
-audio.addEventListener('ended', nextSong);
+// audio.addEventListener('ended', nextSong);
+
+/*************************************************************************** */
+/* Проигрываю треки по Setting */
+audio.addEventListener('ended', settingSong);
 
 /************************************************* */
 
@@ -106,17 +115,44 @@ function nextSong(){
   updateSelectedSong();
 }
 
+function randomSong() {
+  // const prevSongNum = songNum
+  const songNumRandom = Math.floor(Math.random() * (arrSong.length - 1 - 0 + 1)) + 0;
+  console.log(`songNum = ${songNum}, randomSong = ${songNumRandom}`)
+  if (songNumRandom === songNum) { return randomSong()}
+  return songNumRandom
+  // if (songNumRandom !== songNum) { return songNumRandom}
+  // else { return randomSong() }
+}
+
+function settingSong(){
+  if (settingBtn.classList.contains('btn--repeat')) {
+    nextSong()
+  }
+  if (settingBtn.classList.contains('btn--repeatOne')) {
+    updateSelectedSong();
+  }
+  if (settingBtn.classList.contains('btn--mix')) {
+    songNum = randomSong()
+    console.log(songNum)
+    updateSelectedSong();
+  }
+}
+
+
+
 function updateSelectedSong() {
   currentSong = arrSong[songNum].src;
   updateSongInfo(); // обновление информации о песне
 
+  playbackPosition = 0;
   if (isPlay) {
     isPlay = false;
-    playbackPosition = 0;
+    // playbackPosition = 0;
     playAudio();
   } else {
     audio.src = currentSong;
-    playbackPosition = 0;
+    // playbackPosition = 0;
 
     playAudioForLoadingData(); // Включить воспроизведение на короткое время, чтобы сработало 'loadeddata' на iPhone для обновления длительности трека
   }
@@ -150,15 +186,25 @@ setInterval(() => {
 
 /********Добавляю работу для мобилок дополнительно к прокрутке и перетаскиванию**************************************** */
 
+// function timePointer(event) {
+//   const stylesTimeLine = window.getComputedStyle(timeLine);
+//   let offsetX;
+//   if (event.type === "touchmove" || event.type === "touchstart") {
+//     offsetX = event.touches[0].clientX - timeLine.getBoundingClientRect().left;
+//   } else {
+//     offsetX = event.offsetX;
+//   }
+//   const timePoint = offsetX / parseInt(stylesTimeLine.width) * audio.duration;
+//   audio.currentTime = timePoint;
+// }
+
 function timePointer(event) {
+  const { type, touches, offsetX } = event;
   const stylesTimeLine = window.getComputedStyle(timeLine);
-  let offsetX;
-  if (event.type === "touchmove" || event.type === "touchstart") {
-    offsetX = event.touches[0].clientX - timeLine.getBoundingClientRect().left;
-  } else {
-    offsetX = event.offsetX;
-  }
-  const timePoint = offsetX / parseInt(stylesTimeLine.width) * audio.duration;
+
+  const calculatedOffsetX = type.includes("touch") ? touches[0].clientX - timeLine.getBoundingClientRect().left : offsetX;
+
+  const timePoint = calculatedOffsetX / parseInt(stylesTimeLine.width) * audio.duration;
   audio.currentTime = timePoint;
 }
 
@@ -282,4 +328,8 @@ const handleTouch = createTouchHandler(); // чтобы работало зам�
 cover.addEventListener('touchstart', handleTouch, { passive: false });
 cover.addEventListener('touchmove', handleTouch, { passive: true });
 
+/********************************************** */
+// меняю картинку настроек
 
+const imageChanger = createImageChanger();
+settingBtn.addEventListener("click", () => imageChanger(settingBtn));

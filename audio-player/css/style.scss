@@ -189,9 +189,19 @@
 .info-screen {
   // background-color: burlywood;
 
+  display: flex;
+  justify-content: space-between;
   width: 100%;
-
   transition: all 2s;
+}
+
+.title {
+  width: 80%;
+}
+.setting {
+  // background-color: tomato;
+  // width: 20%;
+  flex-shrink: 0;
 }
 
 .hidden {
@@ -264,8 +274,9 @@
         transform: scale(0.9);
       }
     }
-    
+
   }
+
   &--next {
     background-image: url("../assets/svg/forward.png");
     transition: all 0.4s;
@@ -275,8 +286,51 @@
         transform: scale(0.9);
       }
     }
-    
   }
+
+  &--repeatOne {
+    background-image: url("../assets/svg/icon-repeatOne-60.png");
+    transition: all 0.4s;
+    width: 30px;
+    height: 30px;
+    border-radius: 0%;
+
+    @media (hover: hover) {
+      &:active {
+        transform: scale(0.9);
+      }
+    }
+  }
+
+  &--repeat {
+    background-image: url("../assets/svg/icons-repeat-60.png");
+    transition: all 0.4s;
+    width: 30px;
+    height: 30px;
+    border-radius: 0%;
+
+    @media (hover: hover) {
+      &:active {
+        transform: scale(0.9);
+      }
+    }
+  }
+
+  &--mix {
+    background-image: url("../assets/svg/icons-mix-60.png");
+    transition: all 0.4s;
+    width: 30px;
+    height: 30px;
+    border-radius: 0%;
+
+    @media (hover: hover) {
+      &:active {
+        transform: scale(0.9);
+      }
+    }
+  }
+
+
 }
 
 

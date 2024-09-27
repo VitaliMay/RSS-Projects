@@ -238,8 +238,18 @@ body {
 
 /***********************************************/
 .info-screen {
+  display: flex;
+  justify-content: space-between;
   width: 100%;
   transition: all 2s;
+}
+
+.title {
+  width: 80%;
+}
+
+.setting {
+  flex-shrink: 0;
 }
 
 .hidden {
@@ -301,6 +311,42 @@ body {
 }
 @media (hover: hover) {
   .btn--next:active {
+    transform: scale(0.9);
+  }
+}
+.btn--repeatOne {
+  background-image: url("../assets/svg/icon-repeatOne-60.png");
+  transition: all 0.4s;
+  width: 30px;
+  height: 30px;
+  border-radius: 0%;
+}
+@media (hover: hover) {
+  .btn--repeatOne:active {
+    transform: scale(0.9);
+  }
+}
+.btn--repeat {
+  background-image: url("../assets/svg/icons-repeat-60.png");
+  transition: all 0.4s;
+  width: 30px;
+  height: 30px;
+  border-radius: 0%;
+}
+@media (hover: hover) {
+  .btn--repeat:active {
+    transform: scale(0.9);
+  }
+}
+.btn--mix {
+  background-image: url("../assets/svg/icons-mix-60.png");
+  transition: all 0.4s;
+  width: 30px;
+  height: 30px;
+  border-radius: 0%;
+}
+@media (hover: hover) {
+  .btn--mix:active {
     transform: scale(0.9);
   }
 }
