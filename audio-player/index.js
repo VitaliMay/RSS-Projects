@@ -116,13 +116,9 @@ function nextSong(){
 }
 
 function randomSong() {
-  // const prevSongNum = songNum
   const songNumRandom = Math.floor(Math.random() * (arrSong.length - 1 - 0 + 1)) + 0;
-  console.log(`songNum = ${songNum}, randomSong = ${songNumRandom}`)
   if (songNumRandom === songNum) { return randomSong()}
   return songNumRandom
-  // if (songNumRandom !== songNum) { return songNumRandom}
-  // else { return randomSong() }
 }
 
 function settingSong(){
@@ -134,7 +130,6 @@ function settingSong(){
   }
   if (settingBtn.classList.contains('btn--mix')) {
     songNum = randomSong()
-    console.log(songNum)
     updateSelectedSong();
   }
 }
@@ -333,3 +328,4 @@ cover.addEventListener('touchmove', handleTouch, { passive: true });
 
 const imageChanger = createImageChanger();
 settingBtn.addEventListener("click", () => imageChanger(settingBtn));
+

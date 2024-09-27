@@ -11,7 +11,6 @@ const settingClassArr = [
   }, 
 ];
 
-// export { settingClassArr }
 
 function createImageChanger() {
   let currentImageIndex = 2;
