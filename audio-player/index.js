@@ -11,9 +11,9 @@ console.log(score)
 // подключаю плейлист
 import { arrSong } from "./playList.js";
 
+const btnContainer = document.querySelector('.btn-container')
 const playBtn = document.querySelector('.btn--play');
-const prevBtn = document.querySelector('.btn--prev');
-const nextBtn = document.querySelector('.btn--next');
+
 const timeDuration = document.querySelector('.time-duration')
 const timeCurrent = document.querySelector('.time-current')
 const progressBar = document.querySelector('.time-progress')
@@ -35,29 +35,20 @@ let songNum = 0;
 let currentSong = arrSong[songNum].src
 
 audio.src = currentSong;
+let playbackPosition = 0
+
 
 audio.addEventListener('loadeddata', function() {
   timeDuration.textContent = `${timeFromSec(audio.duration)}`;
-
   updateSongInfo()  // обновление информации о треке
 });
 
-let playbackPosition = 0;
+;
 
 function playAudio() {
 
   audio.src = currentSong;
   audio.currentTime = playbackPosition;
-
-   
-//   audio.addEventListener('loadedmetadata', function() {
-  audio.addEventListener('loadeddata', function() {
-    // console.log(`Время песни: ${audio.duration} секунд`);
-    // console.log(`Время песни: ${timeFromSec(audio.duration)} секунд`);
-    timeDuration.textContent = `${timeFromSec(audio.duration)}`;
-  });
-
-  // audio.volume = 0.5;
 
   if (!isPlay) {
     isPlay = true;
@@ -80,10 +71,8 @@ function savePlaybackPosition() {
   audio.currentTime = 0;
   playbackPosition = audio.currentTime;
   timeCurrent.textContent = '0:00'
-  // playbackPosition = 0;
-  // console.log(`Конец`)
-  // playBtn.classList.remove('pause');
   titleSong.textContent = `${arrSong[songNum].name} - track playback finished`;
+  audio.play()
 }
 
 /* Проигрываю только один трек */
@@ -95,45 +84,6 @@ audio.addEventListener('ended', nextSong);
 
 /************************************************* */
 
-
-// function prevSong(){
-//   if (!songNum) { songNum = arrSong.length-1}
-//   else {songNum -= 1}
-//   currentSong = arrSong[songNum].src;
-//   updateSongInfo(); // обновление информации о песне (для работы на мобиле Safari)
-
-//   if (isPlay) {
-//     isPlay = false;
-//     playbackPosition = 0;
-//     playAudio();
-//   } else {
-//     audio.src = currentSong;
-//     playbackPosition = 0;
-//     audio.addEventListener('loadeddata', function() {
-//       timeDuration.textContent = `${timeFromSec(audio.duration)}`;
-//     });
-//   }
-// }
-
-
-// function nextSong(){
-//   if (songNum === arrSong.length - 1) { songNum = 0}
-//   else {songNum += 1}
-//   currentSong = arrSong[songNum].src;
-//   updateSongInfo(); // обновление информации о песне (для работы на мобиле Safari)
-//   if (isPlay) {
-//     isPlay = false;
-//     playbackPosition = 0;
-//     playAudio();
-//   } else {
-//     audio.src = currentSong;
-//     playbackPosition = 0;
-//     audio.addEventListener('loadeddata', function() {
-//       timeDuration.textContent = `${timeFromSec(audio.duration)}`;
-//     });
-//   }
-// }
-
 function updateSongInfo() {
   titleSinger.textContent = `${arrSong[songNum].group}`;
   titleSong.textContent = `${arrSong[songNum].name}`;
@@ -142,9 +92,7 @@ function updateSongInfo() {
 }
 
 /************************************************* */
-/************************************************* */
-
-// На паузе не обновлялось время трека (на реальных мобилках) пробую решить
+// На паузе не обновлялось время трека (на iPhone) пробую решить
 
 function prevSong(){
   if (!songNum) { songNum = arrSong.length - 1 }
@@ -170,20 +118,17 @@ function updateSelectedSong() {
     audio.src = currentSong;
     playbackPosition = 0;
 
-    audio.addEventListener('loadeddata', function() {
-      timeDuration.textContent = `${timeFromSec(audio.duration)}`;
-    });
-
-    playAudioForLoadingData(); // Включить воспроизведение на короткое время, чтобы сработало 'loadeddata' на iPhone
+    playAudioForLoadingData(); // Включить воспроизведение на короткое время, чтобы сработало 'loadeddata' на iPhone для обновления длительности трека
   }
 }
 
 
-// Теперь функции prevSong и nextSong только выбирают новую песню и вызывают функцию updateSelectedSong, 
+// Функции prevSong и nextSong только выбирают новую песню и вызывают функцию updateSelectedSong, 
 // которая обновляет информацию о песне и продолжительности аудио. =>
 // информация о времени должна обновляться при выборе новой песни и не ожидать начала воспроизведения.
 
-// Пробую обновить время на паузе на iPhone
+// Пробую обновить время на паузе на iPhone 
+// (если после перезагрузки сразу делать swipe в консоли показывает ошибку, но всё работает)
 function playAudioForLoadingData() {
   audio.play();
   setTimeout(function() {
@@ -198,21 +143,10 @@ setInterval(() => {
   // меняю текущее время
   timeCurrent.textContent = timeFromSec(audio.currentTime);
   // заставляю бежать time-progress
-  // progressBar.style.width = audio.currentTime / audio.duration * 100 + "%";
   progressBar.style.width = `${audio.currentTime / audio.duration * 100}%`;
-
   playbackPosition = audio.currentTime
 }, 100);
 
-
-/*****Добавляю прокрутку по клику******************************* */
-
-// Функция изменения текущего времени по событию на progress
-// function timePointer() {
-//   const stylesTimeLine = window.getComputedStyle(timeLine);  // получаю объект со всеми стилями
-//   const timePoint = event.offsetX / parseInt(stylesTimeLine.width) * audio.duration;
-//   audio.currentTime = timePoint;
-// }
 
 /********Добавляю работу для мобилок дополнительно к прокрутке и перетаскиванию**************************************** */
 
@@ -230,14 +164,7 @@ function timePointer(event) {
 
 /************************************************ */
 
-
-
 timeLine.addEventListener("click", timePointer, {passive: false});
-// timeLine.addEventListener("click", event => {
-//   timePointer(event)
-// }, {passive: false});
-
-
 
 /*****Добавляю перетаскивание **************************************/
 
@@ -283,14 +210,21 @@ timeLine.addEventListener("touchend", event => {
 });
 
 /************************************** */
-/************************************** */
+// Управление плеером
 
+btnContainer.addEventListener('click', songControl)
 
-
-playBtn.addEventListener('click', playAudio);
-prevBtn.addEventListener('click', prevSong);
-nextBtn.addEventListener('click', nextSong);
-
+function songControl (event) {
+  if (event.target.closest('.btn--play')) {
+    playAudio()
+  }
+  if (event.target.closest('.btn--prev')) {
+    prevSong()
+  }
+  if (event.target.closest('.btn--next')) {
+    nextSong()
+  }
+}
 
 /*************************************************** */
 // Преобразую секунды в часы и минуты
@@ -307,14 +241,14 @@ function timeFromSec(sec) {
 
 
 /************************************************** */
-/**********    свайп на мобилках  ************* */
-
 // чтобы не появлялось контекстное меню при длительном таче
-// cover.addEventListener('contextmenu', function (event) {
 wrapper.addEventListener('contextmenu', function (event) {
   event.preventDefault();
 });
 
+
+/************************************************** */
+/**********    свайп на мобилках  ************* */
 
 function createTouchHandler() {    // добавляю замыкание, чтобы избежать глобальных переменных
   let xStart = null;
@@ -347,34 +281,5 @@ const handleTouch = createTouchHandler(); // чтобы работало зам�
 
 cover.addEventListener('touchstart', handleTouch, { passive: false });
 cover.addEventListener('touchmove', handleTouch, { passive: true });
-
-
-
-
-//***Для кнопок*************************************
-// Коды HTML
-
-// &#9658;	►	Треугольная стрелка вправо
-// &#9668;	◄	Треугольная стрелка влево
-
-// ‖
-// &#8214;
-// \2016
-// U+2016
-// &Vert;
-// Двойная вертикальная линия
-
-// ⊲
-// &#8882;
-// \22B2
-// U+22B2
-// &vltri;
-// Нормальная подгруппа
-// ⊳
-// &#8883;
-// \22B3
-// U+22B3
-// &vrtri;
-// Содержит как нормальную подгруппу
 
 
