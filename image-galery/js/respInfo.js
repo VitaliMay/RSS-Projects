@@ -81,7 +81,7 @@ const arrInfo = [
   Authentication
 ];
 
-export default arrInfo
+export { arrInfo }
 
 
 

@@ -1,3 +1,7 @@
+import { arrInfo } from "./respInfo.js"
+import { score, signature } from "./score.js";
+
+// console.log(arrInfo)
 
 const accessKey = 'AgIOi8YzpBhcLPxcfuRxOgz8rB0kBz01guzjO1JH2Kk'
 // const Authentication = `https://api.unsplash.com/photos/?client_id=${accessKey}`
@@ -9,7 +13,15 @@ let numPage = 1
 let perPage = 24
 
 let searchDefolt = 'strange'
-let startUrl = `https://api.unsplash.com/search/photos?query=${searchDefolt}&per_page=${perPage}&page=${numPage}&orientation=landscape&client_id=${accessKey}`
+
+// Для рандома первой страницы (пока не сделал)
+const searchDefoltArr = ['strange', 'roman', 'may', 'carrier', 'submit', 'no', 'repo', 'yes', 'some', 'random', 'gorgeous']
+
+
+
+
+let startUrl = `https://api.unsplash.com/search/photos?query=${searchDefolt}&per_page=${perPage}&page=${numPage}&orientation=landscape&client_id=${arrInfo[0]}`
+// let startUrl = `https://api.unsplash.com/search/photos?query=${searchDefolt}&per_page=${perPage}&page=${numPage}&orientation=landscape&client_id=${accessKey}`
 
 // для проверки наличия фото
 let flag = true
@@ -76,7 +88,7 @@ clearButton.addEventListener('click', () => {
 
 function start(size=perPage) {
   main.innerHTML = '';
-  for (let index = 0; index < size; index++) {
+  for (let index = 0; index < size; index += 1) {
     main.innerHTML +=
   `
 <a class="cover" target="_blank" href="#">
@@ -116,11 +128,10 @@ async function getFoto(url) {
     let arrCoverContent = Array.from(document.querySelectorAll('.cover-content'))
     let arrCover = Array.from(document.querySelectorAll('.cover'))
 
-    for (let i = 0; i < arrCoverContent.length; i++) {
-      // let fotoUrl = data.results[i].urls.full;
-      // let fotoUrl = data.results[i].urls.regular;
+    for (let i = 0; i < arrCoverContent.length; i += 1) {
+
       let fotoUrl = data.results[i].urls.small;   // нет смысла загружать фоновые картинки большого объема
-      arrCoverContent[i].style.backgroundImage =`url(${fotoUrl})`
+      arrCoverContent[i].style.backgroundImage = `url(${fotoUrl})`
 
       let fotoUrlFull = data.results[i].urls.full;   // а вот для загрузки картинки по ссылке надо полный размер
       arrCover[i].href = `${fotoUrlFull}`
@@ -136,20 +147,6 @@ async function getFoto(url) {
 /*************************************************************************************************************** */
 /*************************************************************************************************************** */
 
-const score = `
-Привет! Вроде как всё по ТЗ.
-Функционал немного расширен, по сравнению с демкой:
-  * Крестик появляется, когда есть текст, и исчезает когда текста нет
-  * Добавлен выбор основного языка (без этого поиск на русском не всегда работает корректно)
-  * При клике на картинку в новой вкладке открывается полноразмерное фото, которое можно сохранить
-  (думал добавить onclick="return false; чтобы не уходить со страницы поиска, 
-  но решил, что без него более понятно что происходит ;)
-Ну, а дизайн - вот такой из меня дизайнер((
-Кстати, по поведению title - так и было задумано. А вот толком для такого поведения цвета подобрать...
-Но мы же не дизайн оцениваем ;)
-В общем и целом, думаю, максимальный балл я заработал ))
-
-Score = 60
-
-`
 console.log(score)
+signature()
+

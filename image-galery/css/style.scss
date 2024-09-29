@@ -1,21 +1,24 @@
 // @import 'normalize';
-
 @import 'global';
 
-
-/***********************************************/
 /***********************************************/
 
+:root {
+  // --background-primary: rgb(80, 80, 80);
+  --background-primary: linear-gradient(rgb(0, 0, 0), rgba(255, 255, 255, 0.7));
+  --background-seach: #c4c3c2;
+  --color-shadow: rgba(0, 0, 0, 0.25);
+  --color-shadow-line: rgba(0, 0, 0, 0.533);
+  --color-active: coral;
+  --color-light: rgb(255, 255, 255);
+  --color-dark: rgb(0, 0, 0);
+}
 
-
-// body {
-//   background: #0C0C0E;
-// }
+/***********************************************/
 
 .wrapper {
   margin: 0 auto;
 
-  // background-image: url(../assets/img/lemonade.png);
   background-image: url(../assets/img/Lzy-cover02.jpg);
   background-size: cover;
   background-repeat: no-repeat;
@@ -29,12 +32,13 @@
   font-size: 12px;
   font-weight: 700;
 
-  color: rgb(255, 255, 255);
+  // color: rgb(255, 255, 255);
 }
 
 
 .main {
   width: 100%;
+  max-width: 1980px;
   height: 100%;
 
   padding: 20px;
@@ -43,8 +47,8 @@
   backdrop-filter: blur(10px);
 
   display: flex;
-  // flex-direction: column;
   justify-content: center;
+  // flex-direction: column;
   // align-items: center;
 
   row-gap: 20px;
@@ -111,35 +115,16 @@
   right: 0;
   bottom: 0;
   left: 0;
-  // background: #eee;
 
-  // background-image: url(../assets/img/Lzy-cover02.jpg);
-  // background-position: center;
   background-position: top;
-  // background-size: cover;
   background-size: contain;
   background-repeat: no-repeat;
 
   border-radius: 5px;
 
-  // border: solid 2px green;
   box-shadow: 10px 10px 40px -2px rgba(0, 0, 0, 0.25);
 }
 
-/******* Тест ****************************************/
-
-// .cover-content--0 {
-//   background-image: url(../assets/img/Lzy-cover02.jpg);
-// }
-// .cover-content--1 {
-//   background-image: url(../assets/svg/GR_favicon.ico);
-// }
-// .cover-content--2 {
-//   background-image: url(../assets/svg/rs_school_js.svg);
-// }
-// .cover-content--3 {
-//   background-image: url(../assets/svg/search_icon_252091.svg);
-// }
 
 /*************************************************************/
 
@@ -147,20 +132,18 @@
   padding-top: 75%; /* 100% ширины делим на 4 и умножаем на 3 */
 }
 
-
-
-
-/***********************************************/
 /***********************************************************/
 
 .footer {
-  background-color: rgb(80, 80, 80);
+  width: 100%;
+  // background-color: rgb(80, 80, 80);
+  background: var(--background-primary);
   box-shadow: 10px 10px 40px -2px rgba(0, 0, 0, 0.25);
 
   font-family: 'Roboto';
   font-size: 12px;
   font-weight: 700;
-  color: rgb(255, 255, 255);
+  // color: rgb(255, 255, 255);
 
   opacity: 0.8;
 }
@@ -204,7 +187,8 @@
 }
 
 .footer-container__copy {
-  color: rgb(0, 0, 0);
+  // color: rgb(0, 0, 0);
+  color: var(--color-dark);
   margin-left: 25px;
 }
 
@@ -212,16 +196,16 @@
 /*********************************************************/
 /*********************************************************/
 .header {
-  // backdrop-filter: blur(10px);
+  width: 100%;
   position: relative;
 
-  background-color: rgb(80, 80, 80);
-  box-shadow: 10px 10px 40px -2px rgba(0, 0, 0, 0.25);
+  // background-color: rgb(80, 80, 80);
+  background: var(--background-primary);
+  box-shadow: 10px 10px 40px -2px var(--color-shadow);
 
   font-family: 'Roboto';
   font-size: 20px;
   font-weight: 700;
-  // color: rgb(255, 255, 255);
 
   opacity: 0.8;
 }
@@ -244,9 +228,7 @@
   max-width: 1230px;
   margin: 0 auto;
 
-  // border: solid red 2px;
-  // padding: 0 15px;
-  padding: 10px 15px;
+  padding: 12px 15px;
 
   column-gap: 15px;
   row-gap: 10px;
@@ -255,15 +237,7 @@
 
 .header-form {
   display: flex;
-  // justify-content: space-between;
-  // position: relative;
   align-items: center;
-  // background-color: aqua;
-  // width: 100%;
-  // max-width: 800px;
-  // max-width: 1230px;
-  // padding-right: 15px;
-  // margin: 0 auto;
   justify-content: end;
 }
 
@@ -285,7 +259,8 @@
 
   box-sizing: border-box;
 
-  background-color: #c4c3c2;
+  background: var(--background-seach);
+  // background-color: #c4c3c2;
   // background-color: antiquewhite;
 
   // opacity: 0.6;
@@ -326,7 +301,8 @@
   opacity: 0;
   width: 17px;
   // height: 50px;
-  background-image: url(../assets/svg/Delete-80_icon-icons.com_57340.png); /*изображение крестика */
+  // background-image: url(../assets/svg/Delete-80_icon-icons.com_57340.png); /*изображение крестика */
+  background-image: url(../assets/svg/Delete-80_icon-icons.com_57340.svg); /*изображение крестика */
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;
@@ -342,8 +318,8 @@
 
   width: 32px;
   // height: 50px;
-  // background-image: url(../assets/svg/search_icon_252091.svg);
-  background-image: url(../assets/svg/search_icon_252091.png);
+  background-image: url(../assets/svg/search_icon_252091.svg);
+  // background-image: url(../assets/svg/search_icon_252091.png);
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;
