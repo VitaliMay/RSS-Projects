@@ -76,10 +76,7 @@ const Authentication = `https://api.unsplash.com/photos/?client_id=${accessKey}`
 
 /****************************************** */
 
-const arrInfo = [
-  accessKey,
-  Authentication
-];
+const arrInfo = [accessKey, Authentication];
 
 export { arrInfo }
 

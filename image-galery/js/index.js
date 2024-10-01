@@ -1,26 +1,23 @@
 import { arrInfo } from "./respInfo.js"
-import { score, signature } from "./score.js";
-
-// console.log(arrInfo)
-
-const accessKey = 'AgIOi8YzpBhcLPxcfuRxOgz8rB0kBz01guzjO1JH2Kk'
-// const Authentication = `https://api.unsplash.com/photos/?client_id=${accessKey}`
+import { signatureScore } from "./score.js";
 
 const select = document.querySelector('.header-select');
+const inputText = document.querySelector('.header-input__text');
+const clearButton = document.querySelector('.header-input__clear');
 
 let startFoto = false;
 let numPage = 1
 let perPage = 24
 
-let searchDefolt = 'strange'
+let searchDefolt = null
 
-// Для рандома первой страницы (пока не сделал)
-const searchDefoltArr = ['strange', 'roman', 'may', 'carrier', 'submit', 'no', 'repo', 'yes', 'some', 'random', 'gorgeous']
-
-
-
+// Для рандома первой страницы
+const searchDefoltArr = ['random', 'roman', 'carrier', 'submit', 'no', 'repo', 'yes', 'some', 'may', 'strange', 'gorgeous']
+const randomIndexDefoltArr = Math.floor(Math.random() * (searchDefoltArr.length - 1 - 0 + 1)) + 0;
+searchDefolt = searchDefoltArr[randomIndexDefoltArr]
 
 let startUrl = `https://api.unsplash.com/search/photos?query=${searchDefolt}&per_page=${perPage}&page=${numPage}&orientation=landscape&client_id=${arrInfo[0]}`
+
 // let startUrl = `https://api.unsplash.com/search/photos?query=${searchDefolt}&per_page=${perPage}&page=${numPage}&orientation=landscape&client_id=${accessKey}`
 
 // для проверки наличия фото
@@ -51,7 +48,8 @@ form.addEventListener('submit', (event) => {
   let search = input.value
   let lang = select.value
 
-  let searchRequest = `https://api.unsplash.com/search/photos?query=${search}&per_page=${perPage}&page=${numPage}&lang=${lang}&client_id=${accessKey}`
+  let searchRequest = `https://api.unsplash.com/search/photos?query=${search}&per_page=${perPage}&page=${numPage}&lang=${lang}&client_id=${arrInfo[0]}`
+  // let searchRequest = `https://api.unsplash.com/search/photos?query=${search}&per_page=${perPage}&page=${numPage}&lang=${lang}&client_id=${accessKey}`
   // let searchRequest = `https://api.unsplash.com/search/photos?query=${search}&per_page=${perPage}&page=${numPage}&lang=${lang}&orientation=landscape&client_id=${accessKey}`
   // let searchRequest = `https://api.unsplash.com/search/photos?query=${search}&per_page=${perPage}&page=${numPage}&orientation=landscape&client_id=${accessKey}`
   getFoto(searchRequest)
@@ -61,9 +59,6 @@ form.addEventListener('submit', (event) => {
 
 
 /*********************************************************************************************** */
-
-const inputText = document.querySelector('.header-input__text');
-const clearButton = document.querySelector('.header-input__clear');
 
 // Отображение крестика, когда в поле ввода есть текст
 inputText.addEventListener('input', () => {
@@ -86,6 +81,7 @@ clearButton.addEventListener('click', () => {
 /*********************************************************************************************** */
 /*********************************************************************************************** */
 
+// function start(size = 0) {
 function start(size=perPage) {
   main.innerHTML = '';
   for (let index = 0; index < size; index += 1) {
@@ -112,7 +108,7 @@ async function getFoto(url) {
       }
     });
     const data = await response.json();
-    // console.log(data)
+    console.log(data)
 
     if (data.results.length < perPage) {
       start(data.results.length)
@@ -122,6 +118,7 @@ async function getFoto(url) {
     else if (!flag) {
       flag = true
       start()
+      // start(data.results.length)
     }
 
 
@@ -147,6 +144,5 @@ async function getFoto(url) {
 /*************************************************************************************************************** */
 /*************************************************************************************************************** */
 
-console.log(score)
-signature()
+signatureScore()
 
