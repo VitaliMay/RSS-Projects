@@ -14,30 +14,22 @@ let perPage = 24
 
 let searchDefolt = null
 
+const expKey = '12345678'
+
 // Для рандома первой страницы
 const searchDefoltArr = ['random', 'roman', 'carrier', 'submit', 'no', 'repo', 'yes', 'some', 'may', 'strange', 'gorgeous', 'fool', 'stupid']
 const randomIndexDefoltArr = Math.floor(Math.random() * (searchDefoltArr.length - 1 - 0 + 1)) + 0;
 searchDefolt = searchDefoltArr[randomIndexDefoltArr]
 
+// let startUrl = `https://api.unsplash.com/search/photos?query=${searchDefolt}&per_page=${perPage}&page=${numPage}&orientation=landscape&client_id=${expKey}`
 let startUrl = `https://api.unsplash.com/search/photos?query=${searchDefolt}&per_page=${perPage}&page=${numPage}&orientation=landscape&client_id=${arrInfo[0]}`
 
-// let startUrl = `https://api.unsplash.com/search/photos?query=${searchDefolt}&per_page=${perPage}&page=${numPage}&orientation=landscape&client_id=${accessKey}`
+const textMessageArr = {
+  en: 'No photos were found matching your search criteria',
+  ru: 'Не найдено ни одной фотографии, соответствующей вашим критериям поиска'
+}
 
-// для проверки наличия фото
-// let flag = true
-
-
-// if (!startFoto) {  // первый раз)
-//   startFoto = true;
-
-//   start();
-//   // getFoto(startUrl)
-
-// }
-// else {
-//   console.log(`startFoto = ${startFoto}`)
-
-// }
+/*********************************************************************************************** */
 
 getFoto(startUrl)
 
@@ -78,8 +70,6 @@ clearButton.addEventListener('click', () => {
 // При вводе текста в поле header-input__text, появится крестик справа от него. 
 // Если в поле есть текст, крестик будет отображаться. При клике на крестик текст будет удален.
 
-
-
 /********************************************************* */
 // удаление всех карточек со страницы (удаления у элемента всех дочерних)
 
@@ -91,7 +81,7 @@ function removeAllCard(element) {
 
 /*********************************************************************************************** */
 
-function creatLinkEl (urlSmall, urlFull) {
+function createLinkEl (urlSmall, urlFull) {
   const linkEl = document.createElement('a');
   linkEl.classList.add('cover')
   linkEl.setAttribute('taget', '_blank')
@@ -113,27 +103,17 @@ function creatLinkEl (urlSmall, urlFull) {
 
 /*********************************************************************************************** */
 
-// function start(size = 0) {
-// function start(size=perPage) {
-//   main.innerHTML = '';
-//   for (let index = 0; index < size; index += 1) {
-//     main.innerHTML +=
-//   `
-// <a class="cover" target="_blank" href="#">
-//   <div class="cover-inner cover-inner--ratio">
-//     <div class="cover-content">
+function createErrorEl (textMessage) {
+  const errorEl = document.createElement('div')
+  errorEl.classList.add('error-div')
+  errorEl.textContent = textMessage
+  // errorEl.textContent = 'По вашему запросу ничего не найдено'
 
-//     </div>
-//   </div>
-// </a>
-// `
-//   }
-// }
+  return errorEl
+}
 
+/*********************************************************************************************** */
 
-
-
-// async function getFoto(url, arrCoverContent) {
 async function getFoto(url) {
   try {
     const response = await fetch(url, {
@@ -142,44 +122,29 @@ async function getFoto(url) {
       }
     });
     const data = await response.json();
-    console.log(data)
+    console.log('data', data)
 
     removeAllCard(main)
-    if (data.results.length) {
-      for (let i = 0; i < data.results.length; i += 1) {
-        const fotoUrlSmall = data.results[i].urls.small;
-        const fotoUrlFull = data.results[i].urls.full;
-        main.append(creatLinkEl(fotoUrlSmall, fotoUrlFull))
+
+    if ('errors' in data) {
+      main.append(createErrorEl(data.errors[0]));
+    } else {
+      if (data.results.length) {
+        for (let i = 0; i < data.results.length; i += 1) {
+          const fotoUrlSmall = data.results[i].urls.small;
+          const fotoUrlFull = data.results[i].urls.full;
+          main.append(createLinkEl(fotoUrlSmall, fotoUrlFull))
+        }
+      } else {
+        main.append(createErrorEl(textMessageArr[select.value]))
       }
     }
-
-
-    // if (data.results.length < perPage) {
-    //   start(data.results.length)
-
-    //   flag = false
-    // }
-    // else if (!flag) {
-    //   flag = true
-    //   start()
-    //   // start(data.results.length)
-    // }
-
-
-    // let arrCoverContent = Array.from(document.querySelectorAll('.cover-content'))
-    // let arrCover = Array.from(document.querySelectorAll('.cover'))
-
-    // for (let i = 0; i < arrCoverContent.length; i += 1) {
-
-    //   let fotoUrl = data.results[i].urls.small;   // нет смысла загружать фоновые картинки большого объема
-    //   arrCoverContent[i].style.backgroundImage = `url(${fotoUrl})`
-
-    //   let fotoUrlFull = data.results[i].urls.full;   // а вот для загрузки картинки по ссылке надо полный размер
-    //   arrCover[i].href = `${fotoUrlFull}`
-    // }
-
   }
   catch (error) {
+    removeAllCard(main)
+    // main.append(createErrorEl(error))
+    main.append(createErrorEl(error.status))
+    // main.append(createErrorEl(error.message))
     console.log(error);
   }
 

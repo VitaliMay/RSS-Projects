@@ -331,6 +331,17 @@
 }
 
 
+.error-div {
+  position: fixed;
+  transform: translate(50% 50%);
+  width: 80%;
+  padding: 20px;
+  background: tomato;
+  color: var(--color-light);
 
+  text-align: center;
+
+  font-size: 2rem;
+}
 
 
