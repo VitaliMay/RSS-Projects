@@ -86,20 +86,69 @@ function removeAllCard(element) {
 }
 
 /*********************************************************************************************** */
+/*********************************************************************************************** */
 
-function createLinkEl (urlSmall, urlFull) {
+function createEl (options) {
+  const { tag = 'div', text = '', classes = [], attributes = {}, styles = {}} = options;
+
+  const element = document.createElement(tag);
+  element.textContent = text;
+  element.classList.add(...classes);
+
+  if (attributes) {
+    for (const key in attributes) {
+      element.setAttribute(key, attributes[key]);
+    }
+  }
+
+  if (styles) {
+    Object.keys(styles).forEach(key => {
+      element.style[key] = styles[key];
+    });
+  }
+
+  return element
+}
+
+
+function createLinkEl (options) {
+  const { classes, classOne, attributes, styles } = options;
+
+  // 1 ****
   const linkEl = document.createElement('a');
   linkEl.classList.add('cover')
-  linkEl.setAttribute('target', '_blank')
-  linkEl.setAttribute('href', urlFull)
+  // linkEl.setAttribute('target', '_blank')
+  // linkEl.setAttribute('href', urlFull)
+  if (attributes) {
+    for (const key in attributes) {
+      linkEl.setAttribute(key, attributes[key]);
+    }
+  }
 
+  // 2 ****
   const coverInnerRatio = document.createElement('div')
-  coverInnerRatio.classList.add('cover-inner')
-  coverInnerRatio.classList.add('cover-inner--ratio')
+  coverInnerRatio.classList.add(...classes)
+  // coverInnerRatio.classList.add('cover-inner', 'cover-inner--ratio')
 
+  // 3 ****
   const coverContent = document.createElement('div')
-  coverContent.classList.add('cover-content')
-  coverContent.style.backgroundImage = `url(${urlSmall})`
+  coverContent.classList.add(...classOne)
+  // coverContent.classList.add('cover-content')
+
+  // coverContent.style.backgroundImage = `url(${urlSmall})`
+
+  // if (styles) {
+  //   Object.keys(styles).forEach(key => {
+  //     coverContent.style[key] = styles[key];
+  //   });
+  // }
+
+  if (styles) {
+    for (const key in styles) {
+      coverContent.style[key] = styles[key];
+    }
+  }
+
 
   linkEl.append(coverInnerRatio)
   coverInnerRatio.append(coverContent)
@@ -107,6 +156,7 @@ function createLinkEl (urlSmall, urlFull) {
   return linkEl
 }
 
+/*********************************************************************************************** */
 /*********************************************************************************************** */
 
 function createErrorEl (textMessage) {
@@ -145,7 +195,53 @@ async function getFoto(url) {
         for (let i = 0; i < data.results.length; i += 1) {
           const fotoUrlSmall = data.results[i].urls.small;
           const fotoUrlFull = data.results[i].urls.full;
-          main.append(createLinkEl(fotoUrlSmall, fotoUrlFull))
+
+          // const linkOptions = {
+          //   // urlSmall: fotoUrlSmall,
+          //   classes: ['cover-inner', 'cover-inner--ratio'],
+          //   classOne: ['cover-content'],
+          //   attributes: {
+          //     'target': '_blank',
+          //     'href': fotoUrlFull,
+          //   },
+          //   styles: {
+          //     'backgroundImage': `url(${fotoUrlSmall})`,
+          //   }
+          // };
+
+          // // main.append(createLinkEl(fotoUrlSmall, fotoUrlFull))
+          // main.append(createLinkEl(linkOptions))
+
+          const optionsLink = {
+            tag: 'a',
+            classes: ['cover'],
+            attributes: {
+              'target': '_blank',
+              'href': fotoUrlFull,
+            }
+          };
+
+          const elemLink = createEl (optionsLink)
+
+          const optionsLinkInnerRatio = {
+            classes: ['cover-inner', 'cover-inner--ratio'],
+          }
+
+          const elemLinkInnerRatio = createEl (optionsLinkInnerRatio)
+
+          const optionsLinkContent = {
+            classes: ['cover-content'],
+            styles: {
+              'backgroundImage': `url(${fotoUrlSmall})`,
+            },
+          }
+
+          const elemLinkContent = createEl (optionsLinkContent)
+
+          elemLink.append(elemLinkInnerRatio)
+          elemLinkInnerRatio.append(elemLinkContent)
+          main.append(elemLink)
+
         }
       } else {
         main.append(createErrorEl(textMessageArr[select.value]))
