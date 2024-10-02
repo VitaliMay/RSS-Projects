@@ -1,5 +1,6 @@
 import { arrInfo } from "./respInfo.js"
 import { signatureScore } from "./score.js";
+import { createEl, optionsLink, optionsLinkInnerRatio, optionsLinkContent, removeAllCard } from "./elementUtils.js";
 
 const main = document.querySelector('.main')
 const form = document.querySelector('.header-form')
@@ -76,87 +77,6 @@ clearButton.addEventListener('click', () => {
 // При вводе текста в поле header-input__text, появится крестик справа от него. 
 // Если в поле есть текст, крестик будет отображаться. При клике на крестик текст будет удален.
 
-/********************************************************* */
-// удаление всех карточек со страницы (удаления у элемента всех дочерних)
-
-function removeAllCard(element) {
-  while (element.firstElementChild) {
-      element.removeChild(element.firstElementChild)
-  }
-}
-
-/*********************************************************************************************** */
-/*********************************************************************************************** */
-
-function createEl (options) {
-  const { tag = 'div', text = '', classes = [], attributes = {}, styles = {}} = options;
-
-  const element = document.createElement(tag);
-  element.textContent = text;
-  element.classList.add(...classes);
-
-  if (attributes) {
-    for (const key in attributes) {
-      element.setAttribute(key, attributes[key]);
-    }
-  }
-
-  if (styles) {
-    Object.keys(styles).forEach(key => {
-      element.style[key] = styles[key];
-    });
-  }
-
-  return element
-}
-
-
-function createLinkEl (options) {
-  const { classes, classOne, attributes, styles } = options;
-
-  // 1 ****
-  const linkEl = document.createElement('a');
-  linkEl.classList.add('cover')
-  // linkEl.setAttribute('target', '_blank')
-  // linkEl.setAttribute('href', urlFull)
-  if (attributes) {
-    for (const key in attributes) {
-      linkEl.setAttribute(key, attributes[key]);
-    }
-  }
-
-  // 2 ****
-  const coverInnerRatio = document.createElement('div')
-  coverInnerRatio.classList.add(...classes)
-  // coverInnerRatio.classList.add('cover-inner', 'cover-inner--ratio')
-
-  // 3 ****
-  const coverContent = document.createElement('div')
-  coverContent.classList.add(...classOne)
-  // coverContent.classList.add('cover-content')
-
-  // coverContent.style.backgroundImage = `url(${urlSmall})`
-
-  // if (styles) {
-  //   Object.keys(styles).forEach(key => {
-  //     coverContent.style[key] = styles[key];
-  //   });
-  // }
-
-  if (styles) {
-    for (const key in styles) {
-      coverContent.style[key] = styles[key];
-    }
-  }
-
-
-  linkEl.append(coverInnerRatio)
-  coverInnerRatio.append(coverContent)
-
-  return linkEl
-}
-
-/*********************************************************************************************** */
 /*********************************************************************************************** */
 
 function createErrorEl (textMessage) {
@@ -196,50 +116,17 @@ async function getFoto(url) {
           const fotoUrlSmall = data.results[i].urls.small;
           const fotoUrlFull = data.results[i].urls.full;
 
-          // const linkOptions = {
-          //   // urlSmall: fotoUrlSmall,
-          //   classes: ['cover-inner', 'cover-inner--ratio'],
-          //   classOne: ['cover-content'],
-          //   attributes: {
-          //     'target': '_blank',
-          //     'href': fotoUrlFull,
-          //   },
-          //   styles: {
-          //     'backgroundImage': `url(${fotoUrlSmall})`,
-          //   }
-          // };
-
-          // // main.append(createLinkEl(fotoUrlSmall, fotoUrlFull))
-          // main.append(createLinkEl(linkOptions))
-
-          const optionsLink = {
-            tag: 'a',
-            classes: ['cover'],
-            attributes: {
-              'target': '_blank',
-              'href': fotoUrlFull,
-            }
-          };
 
           const elemLink = createEl (optionsLink)
-
-          const optionsLinkInnerRatio = {
-            classes: ['cover-inner', 'cover-inner--ratio'],
-          }
+          elemLink.href = `${fotoUrlFull}`
 
           const elemLinkInnerRatio = createEl (optionsLinkInnerRatio)
 
-          const optionsLinkContent = {
-            classes: ['cover-content'],
-            styles: {
-              'backgroundImage': `url(${fotoUrlSmall})`,
-            },
-          }
-
           const elemLinkContent = createEl (optionsLinkContent)
+          elemLinkContent.style.backgroundImage = `url(${fotoUrlSmall})`
 
-          elemLink.append(elemLinkInnerRatio)
           elemLinkInnerRatio.append(elemLinkContent)
+          elemLink.append(elemLinkInnerRatio)
           main.append(elemLink)
 
         }
