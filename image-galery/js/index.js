@@ -14,20 +14,26 @@ let perPage = 24
 
 let searchDefolt = null
 
-const expKey = '12345678'
-
 // Для рандома первой страницы
-const searchDefoltArr = ['random', 'roman', 'carrier', 'submit', 'no', 'repo', 'yes', 'some', 'may', 'strange', 'gorgeous', 'fool', 'stupid']
+const searchDefoltArr = ['random', 'roman', 'carrier', 'submit', 'no', 'repo', 'yes', 'sea', 'some', 'may', 'ocean', 'strange', 'gorgeous', 'fool', 'stupid', 'search']
 const randomIndexDefoltArr = Math.floor(Math.random() * (searchDefoltArr.length - 1 - 0 + 1)) + 0;
 searchDefolt = searchDefoltArr[randomIndexDefoltArr]
 
-// let startUrl = `https://api.unsplash.com/search/photos?query=${searchDefolt}&per_page=${perPage}&page=${numPage}&orientation=landscape&client_id=${expKey}`
 let startUrl = `https://api.unsplash.com/search/photos?query=${searchDefolt}&per_page=${perPage}&page=${numPage}&orientation=landscape&client_id=${arrInfo[0]}`
 
 const textMessageArr = {
   en: 'No photos were found matching your search criteria',
   ru: 'Не найдено ни одной фотографии, соответствующей вашим критериям поиска'
 }
+
+const errorMessageArr = {
+  en: 'Something went wrong. Try again later',
+  ru: 'Что-то пошло не так. Попробуй позже'
+}
+// const errorMessageArr = {
+//   en: 'Something went wrong. Maybe the request limit has been exceeded? Try again later',
+//   ru: 'Что-то пошло не так. Может превышен лимит запросов? Попробуй позже'
+// }
 
 /*********************************************************************************************** */
 
@@ -84,7 +90,7 @@ function removeAllCard(element) {
 function createLinkEl (urlSmall, urlFull) {
   const linkEl = document.createElement('a');
   linkEl.classList.add('cover')
-  linkEl.setAttribute('taget', '_blank')
+  linkEl.setAttribute('target', '_blank')
   linkEl.setAttribute('href', urlFull)
 
   const coverInnerRatio = document.createElement('div')
@@ -121,8 +127,14 @@ async function getFoto(url) {
         'Accept-Version': 'v1'
       }
     });
+
+    // if (response.status !== 200) {
+    if (response.status >= 400) {
+      throw new Error(response.status);
+    }
+
     const data = await response.json();
-    console.log('data', data)
+    // console.log('data', data)
 
     removeAllCard(main)
 
@@ -142,10 +154,12 @@ async function getFoto(url) {
   }
   catch (error) {
     removeAllCard(main)
+    const errorMessage = `${error}\n${errorMessageArr[select.value]}`
+    main.append(createErrorEl(errorMessage))
     // main.append(createErrorEl(error))
-    main.append(createErrorEl(error.status))
     // main.append(createErrorEl(error.message))
-    console.log(error);
+    // console.log(error);
+    // console.log(errorMessage);
   }
 
 }
