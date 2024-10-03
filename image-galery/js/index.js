@@ -79,14 +79,14 @@ clearButton.addEventListener('click', () => {
 
 /*********************************************************************************************** */
 
-function createErrorEl (textMessage) {
-  const errorEl = document.createElement('div')
-  errorEl.classList.add('error-div')
-  errorEl.textContent = textMessage
-  // errorEl.textContent = 'По вашему запросу ничего не найдено'
+// function createErrorEl (textMessage) {
+//   const errorEl = document.createElement('div')
+//   errorEl.classList.add('error-div')
+//   errorEl.textContent = textMessage
+//   // errorEl.textContent = 'По вашему запросу ничего не найдено'
 
-  return errorEl
-}
+//   return errorEl
+// }
 
 /*********************************************************************************************** */
 
@@ -109,7 +109,8 @@ async function getFoto(url) {
     removeAllCard(main)
 
     if ('errors' in data) {
-      main.append(createErrorEl(data.errors[0]));
+      main.append(createEl({classes: ['error-div'], text: data.errors[0]}));
+      // main.append(createErrorEl(data.errors[0]));
     } else {
       if (data.results.length) {
         for (let i = 0; i < data.results.length; i += 1) {
@@ -131,14 +132,16 @@ async function getFoto(url) {
 
         }
       } else {
-        main.append(createErrorEl(textMessageArr[select.value]))
+        main.append(createEl({classes: ['error-div'], text: textMessageArr[select.value]}))
+        // main.append(createErrorEl(textMessageArr[select.value]))
       }
     }
   }
   catch (error) {
     removeAllCard(main)
     const errorMessage = `${error}\n${errorMessageArr[select.value]}`
-    main.append(createErrorEl(errorMessage))
+    main.append(createEl({classes: ['error-div'], text: errorMessage}))
+    // main.append(createErrorEl(errorMessage))
     // main.append(createErrorEl(error))
     // main.append(createErrorEl(error.message))
     // console.log(error);

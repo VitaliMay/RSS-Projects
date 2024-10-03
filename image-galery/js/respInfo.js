@@ -1,5 +1,6 @@
 
 const accessKey = 'AgIOi8YzpBhcLPxcfuRxOgz8rB0kBz01guzjO1JH2Kk'
+
 const Authentication = `https://api.unsplash.com/photos/?client_id=${accessKey}`
 
 // const input = document.querySelector('.header-input')
