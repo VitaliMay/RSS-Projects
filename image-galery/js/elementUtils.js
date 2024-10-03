@@ -1,6 +1,6 @@
 
 function createEl (options) {
-  const { tag = 'div', text = '', classes = [], attributes = {}, styles = {}} = options;
+  const { tag = 'div', text = '', classes = [], attributes = {}, styles = {}, parent = null,} = options;
 
   const element = document.createElement(tag);
   element.textContent = text;
@@ -17,6 +17,8 @@ function createEl (options) {
       element.style[key] = styles[key];
     });
   }
+
+  if (parent) parent.append(element);
 
   return element
 }

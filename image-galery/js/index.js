@@ -97,18 +97,13 @@ async function getFoto(url) {
           const fotoUrlSmall = data.results[i].urls.small;
           const fotoUrlFull = data.results[i].urls.full;
 
-
-          const elemLink = createEl (optionsLink)
+          const elemLink = createEl ({ ...optionsLink, parent: main })
           elemLink.href = `${fotoUrlFull}`
 
-          const elemLinkInnerRatio = createEl (optionsLinkInnerRatio)
+          const elemLinkInnerRatio = createEl ({ ...optionsLinkInnerRatio, parent: elemLink })
 
-          const elemLinkContent = createEl (optionsLinkContent)
+          const elemLinkContent = createEl ({ ...optionsLinkContent, parent: elemLinkInnerRatio })
           elemLinkContent.style.backgroundImage = `url(${fotoUrlSmall})`
-
-          elemLinkInnerRatio.append(elemLinkContent)
-          elemLink.append(elemLinkInnerRatio)
-          main.append(elemLink)
 
         }
       } else {
