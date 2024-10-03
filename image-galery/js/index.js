@@ -31,10 +31,6 @@ const errorMessageArr = {
   en: 'Something went wrong. Try again later',
   ru: 'Что-то пошло не так. Попробуй позже'
 }
-// const errorMessageArr = {
-//   en: 'Something went wrong. Maybe the request limit has been exceeded? Try again later',
-//   ru: 'Что-то пошло не так. Может превышен лимит запросов? Попробуй позже'
-// }
 
 /*********************************************************************************************** */
 
@@ -48,14 +44,10 @@ form.addEventListener('submit', (event) => {
   let lang = select.value
 
   let searchRequest = `https://api.unsplash.com/search/photos?query=${search}&per_page=${perPage}&page=${numPage}&lang=${lang}&client_id=${arrInfo[0]}`
-  // let searchRequest = `https://api.unsplash.com/search/photos?query=${search}&per_page=${perPage}&page=${numPage}&lang=${lang}&client_id=${accessKey}`
-  // let searchRequest = `https://api.unsplash.com/search/photos?query=${search}&per_page=${perPage}&page=${numPage}&lang=${lang}&orientation=landscape&client_id=${accessKey}`
-  // let searchRequest = `https://api.unsplash.com/search/photos?query=${search}&per_page=${perPage}&page=${numPage}&orientation=landscape&client_id=${accessKey}`
   getFoto(searchRequest)
   // input.value = ''  // не по ТЗ
   inputText.focus();
 })
-
 
 /*********************************************************************************************** */
 
@@ -79,17 +71,6 @@ clearButton.addEventListener('click', () => {
 
 /*********************************************************************************************** */
 
-// function createErrorEl (textMessage) {
-//   const errorEl = document.createElement('div')
-//   errorEl.classList.add('error-div')
-//   errorEl.textContent = textMessage
-//   // errorEl.textContent = 'По вашему запросу ничего не найдено'
-
-//   return errorEl
-// }
-
-/*********************************************************************************************** */
-
 async function getFoto(url) {
   try {
     const response = await fetch(url, {
@@ -110,7 +91,6 @@ async function getFoto(url) {
 
     if ('errors' in data) {
       main.append(createEl({classes: ['error-div'], text: data.errors[0]}));
-      // main.append(createErrorEl(data.errors[0]));
     } else {
       if (data.results.length) {
         for (let i = 0; i < data.results.length; i += 1) {
@@ -133,7 +113,6 @@ async function getFoto(url) {
         }
       } else {
         main.append(createEl({classes: ['error-div'], text: textMessageArr[select.value]}))
-        // main.append(createErrorEl(textMessageArr[select.value]))
       }
     }
   }
@@ -141,13 +120,7 @@ async function getFoto(url) {
     removeAllCard(main)
     const errorMessage = `${error}\n${errorMessageArr[select.value]}`
     main.append(createEl({classes: ['error-div'], text: errorMessage}))
-    // main.append(createErrorEl(errorMessage))
-    // main.append(createErrorEl(error))
-    // main.append(createErrorEl(error.message))
-    // console.log(error);
-    // console.log(errorMessage);
   }
-
 }
 
 /*************************************************************************************************************** */
