@@ -1,6 +1,6 @@
 
 const arrInfo = [
-  'Проверка подключения модуля'
+  'Проверка подключения модуля. Новая версия'
 ];
 
-export default arrInfo
+export { arrInfo }

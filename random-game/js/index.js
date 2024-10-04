@@ -1,7 +1,10 @@
 
 // подключаю модуль
-import arrInfo from "./respInfo.js";
+import { arrInfo } from "./respInfo.js";
+import { signatureScore } from "./score.js";
 
+console.log(arrInfo)
+signatureScore ()
 
 /********************************************* */
 const canvas = document.querySelector('.canvas');
@@ -59,13 +62,22 @@ const modalBtnCross = [...document.querySelectorAll('.modal-btn-cross')]
 // console.log (`cross = ${modalBtnCross}`)
 modalBtnCross.forEach(function(item) {
   item.addEventListener('click',function() {
-    closeMenu()
-
-    startNew()
+    // console.log(`flag cross start = ${flagCup}`)
+    // closeMenu()
+    // closeMenuSetting()
+    if (!flagCup) {
+      startNew()
+    }
+    fon.classList.remove('work');
+    closeMenuSetting()
+    // console.log(`flag cross finish= ${flagCup}`)
   })
 })
 
 // let flagSetting = false
+
+let flagCup = false;
+
 
 
 // у настроек не должна запускаться новая игра
@@ -112,6 +124,8 @@ function closeMenuSetting() {
   modalSetting.classList.remove('modal-setting--active')
   modalRules.classList.remove('modal-rules--active')
 
+  modalLogin.classList.remove('modal-login--active')
+  flagCup = false
 }
 
 function testOpenModalSetting() {
@@ -276,7 +290,7 @@ function soundOnOff() {
 let canvasWidth = canvas.clientWidth;
 let canvasHeight = canvas.clientHeight
 
-console.log(canvasWidth, canvasHeight)
+// console.log(canvasWidth, canvasHeight)
 
 // canvas.width = 300
 // canvas.height = 200
@@ -294,14 +308,14 @@ console.log(canvasWidth, canvasHeight)
 // console.log("Размер экрана: " + screenWidth + " x " + screenHeight);
 // console.log("Размер экрана: " + screenWidthOuter + " x " + screenHeightOuter);
 
-console.log("Размер экрана: " + screen.width + " x " + screen.height);
+// console.log("Размер экрана: " + screen.width + " x " + screen.height);
 
 
 /*****Рисую поле для игры************************************ */
 /************************************************************ */
 
-const stepX = 31;
-const stepY = 31;
+let stepX = 31;
+let stepY = 31;
 const step = 31 // пока рисую квадраты, потенциально буду менять размер при адаптации
 
 let imgSizeX = stepX-2 // надо уменьшить картинку, чтобы очистка не цепляла линии разметки
@@ -312,7 +326,22 @@ let imgSizeY = stepY-2 // надо уменьшить картинку, чтоб
 let screenWidth = screen.width
 let screenHeight = screen.height
 
-if (screenWidth < 880) {
+
+if (screenWidth < 700){
+  // let windowHeight = window.innerHeight;
+  stepX = 26
+  stepY = 26
+  imgSizeX = stepX-2 // надо уменьшить картинку, чтобы очистка не цепляла линии разметки
+  imgSizeY = stepY-2 
+
+  let windowHeight = screenHeight;
+  let headerHeight = document.querySelector('.header').clientHeight
+  canvasWidth = stepX * Math.round(screenWidth*0.9 / stepX)
+  canvasHeight = stepY * Math.round((windowHeight - headerHeight)*0.8 / stepY)
+  // console.log(`Привет ${canvasHeight}`)
+  // console.log(`Привет header ${headerHeight}`)
+}
+else if (screenWidth < 880) {
   canvasWidth = stepX * Math.round(screenWidth*0.9 / stepX)
   
   canvasHeight = stepY * Math.round(screenHeight*0.7 / stepY)
@@ -628,15 +657,15 @@ let foodImg = new Image();
 let foodIndex = Math.floor(foodArrImg.length * Math.random())
 foodImg.src = foodArrImg[foodIndex]
 
-console.log(`foodIndex = ${foodIndex}`)
+// console.log(`foodIndex = ${foodIndex}`)
 
 let food = {
   x: Math.floor((Math.random()*canvasWidth/stepX))*stepX + 1, // 15 (+1 нужен чтобы не цеплять линию разметки)
   y: Math.floor((Math.random()*canvasHeight/stepY))*stepY + 1 // 11
 }
 
-console.log (`x food = ${food.x / stepX}`)
-console.log (`y food = ${food.y / stepY}`)
+// console.log (`x food = ${food.x / stepX}`)
+// console.log (`y food = ${food.y / stepY}`)
 
 let snake = []
 snake[0] = {
@@ -678,12 +707,12 @@ function lineEvent (canvasHeight, stepY) {
 // }
 
 
-console.log(`Одна четвёртая ${lineEvent(canvasHeight, stepY)}`)
+// console.log(`Одна четвёртая ${lineEvent(canvasHeight, stepY)}`)
 
 /*********************************** */
 
-console.log (`x center = ${snake[0].x / stepX}`)
-console.log (`y center = ${snake[0].y / stepY}`)
+// console.log (`x center = ${snake[0].x / stepX}`)
+// console.log (`y center = ${snake[0].y / stepY}`)
 
 
 
@@ -906,12 +935,36 @@ function drawPicture() {
 
     memoryLocalTest.putScore(450-gameSpeedInput, gameScore)
 
+    modalNoCup.forEach( item => item.classList.remove('modal-title--noCup-active'))
+
     modalScoreLocal(gameSpeedInput)
 
     testOpenModal()
   }
 
 }
+
+/************************************************* */
+
+const btnCup = document.querySelector('.btn_Cup')
+const modalNoCup = document.querySelectorAll('.modal-title--noCup')
+
+btnCup.addEventListener('click', () => {
+  flagCup = true;
+  modalNoCup.forEach( item => item.classList.add('modal-title--noCup-active'))
+
+  modalLogin.classList.add('modal-login--active')
+  body.classList.add('lock');
+  fonSetting.classList.add('work');
+  // let checkSpeedForCup = memoryLocalTest.getScore()
+  // console.log(checkSpeedForCup)
+  
+  direction = 'stop'
+  modalScoreLocal(gameSpeedInput)
+  // testOpenModal()
+  // console.log(`flag btn = ${flagCup}`)
+})
+
 
 /*********************************************** */
 /*********************************************** */
@@ -921,7 +974,7 @@ function modalScoreLocal(gameSpeedInput) {
   let modalScoreText = memoryLocalTest.getScore()
   let modalScoreTextArr = modalScoreText[gameKeySpeedInput]
 
-  // console.log(modalScoreTextArr)
+  // console.log(`Массив из локал ${modalScoreTextArr}`)
 
   modalMaxCurrentSpeed.innerHTML = gameKeySpeedInput
   modalTotalScore.innerHTML = `${gameScore}`
@@ -933,11 +986,14 @@ function modalScoreLocal(gameSpeedInput) {
     // modalMaxCurrentSpeed.innerHTML = gameKeySpeedInput
   }
 
-  for (let i = 0; i < modalScoreTextArr.length; i++) {
-    modalScoreNumber[i].innerHTML = `${(i+1).toString().padStart(2, '0')} Место`
-    modalScoreResult[i].innerHTML = `набрано очков ${modalScoreTextArr[i]}`
-    // modalMaxCurrentSpeed.innerHTML = gameKeySpeedInput
+  if (modalScoreTextArr) {
+    for (let i = 0; i < modalScoreTextArr.length; i++) {
+      modalScoreNumber[i].innerHTML = `${(i+1).toString().padStart(2, '0')} Место`
+      modalScoreResult[i].innerHTML = `набрано очков ${modalScoreTextArr[i]}`
+      // modalMaxCurrentSpeed.innerHTML = gameKeySpeedInput
+    }
   }
+  
   // for (let key of modalScoreTextArr) {
   //   modalScoreNumber[key].innerHTML = `45 Место`
   //   modalScoreResult[key].innerHTML = `набрано очков ${modalScoreTextArr[key]}`
@@ -1060,7 +1116,7 @@ function stopSnake() {
     direction = null
 
     gameScoreHtml.innerHTML = `${gameScore}`
-    console.log('Первый раз')
+    // console.log('Первый раз')
   }
   else if (direction === 'stop') { 
     direction = prevDirection
@@ -1110,9 +1166,9 @@ function moveSnake(event) {
       prevDirection = direction
     }
 
-    console.log(`Нажал вверх`)
-    console.log(`prevDirection = ${prevDirection}`)
-    console.log(`direction = ${direction}`)
+    // console.log(`Нажал вверх`)
+    // console.log(`prevDirection = ${prevDirection}`)
+    // console.log(`direction = ${direction}`)
    
   }
   if (event.code === codeArr[4] || event.code === codeArr[5] || event.code === codeArr[6] || event.code === codeArr[7] || event.offsetX >= lineBox.downX) {
@@ -1125,9 +1181,9 @@ function moveSnake(event) {
       prevDirection = direction
     }
 
-    console.log(`Нажал вправо`)
-    console.log(`prevDirection = ${prevDirection}`)
-    console.log(`direction = ${direction}`)
+    // console.log(`Нажал вправо`)
+    // console.log(`prevDirection = ${prevDirection}`)
+    // console.log(`direction = ${direction}`)
     
   }
   if (event.code === codeArr[8] || event.code === codeArr[9] || event.code === codeArr[10] || event.code === codeArr[11] || (event.offsetY > lineBox.centerY && event.offsetX > lineBox.upX && event.offsetX < lineBox.downX) ) {
@@ -1140,9 +1196,9 @@ function moveSnake(event) {
       prevDirection = direction
     }
 
-    console.log(`Нажал вниз`)
-    console.log(`prevDirection = ${prevDirection}`)
-    console.log(`direction = ${direction}`)
+    // console.log(`Нажал вниз`)
+    // console.log(`prevDirection = ${prevDirection}`)
+    // console.log(`direction = ${direction}`)
     
   }
   if (event.code === codeArr[12] || event.code === codeArr[13] || event.code === codeArr[14] || event.code === codeArr[15] || (event.offsetX <= lineBox.upX)) {
@@ -1155,9 +1211,9 @@ function moveSnake(event) {
       prevDirection = direction
     }
 
-    console.log(`Нажал влево`)
-    console.log(`prevDirection = ${prevDirection}`)
-    console.log(`direction = ${direction}`)
+    // console.log(`Нажал влево`)
+    // console.log(`prevDirection = ${prevDirection}`)
+    // console.log(`direction = ${direction}`)
     
   }
   // if (event.code === codeArr[16] || event.target.classList.contains('btn_Stop')) {
@@ -1166,12 +1222,12 @@ function moveSnake(event) {
       direction = null
 
       gameScoreHtml.innerHTML = `${gameScore}`
-      console.log('Первый раз')
+      // console.log('Первый раз')
     }
     else if (direction === 'stop') { // ловлю нажатие в самом начале игры
       direction = prevDirection
       // gameScoreHtml.innerHTML = `${gameScore}`
-      console.log('Второй раз')
+      // console.log('Второй раз')
     }
     // if (direction === 'stop') {
     //   direction = prevDirection
@@ -1180,9 +1236,9 @@ function moveSnake(event) {
       
       direction = 'stop';
     }
-    console.log(`Нажал stop`)
-    console.log(`prevDirection = ${prevDirection}`)
-    console.log(`direction = ${direction}`)
+    // console.log(`Нажал stop`)
+    // console.log(`prevDirection = ${prevDirection}`)
+    // console.log(`direction = ${direction}`)
     
   }
 
@@ -1196,9 +1252,9 @@ function moveSnake(event) {
 
   changeDirection = false;
   
-  console.log(`****`)
-  console.log(direction)
-  console.log(`  `)
+  // console.log(`****`)
+  // console.log(direction)
+  // console.log(`  `)
 }
 
 
@@ -1419,3 +1475,22 @@ let arrNumPreventDefolt = [
 function numPreventDefolt(event) {
 	if (arrNumPreventDefolt.indexOf(event.code) >= 0) event.preventDefault()
 }
+
+
+/************************************* */
+/************************************* */
+
+// const score = `
+// Привет!
+// Требования ТЗ вроде как выполнены.
+// В коде, конечно, полно мусора и дублирования выше крыши.
+// И модули надо подключать...
+// Но, зато, адаптацию почти победил). На компе для проверки адаптации надо перегружать страницу.
+// И на мобилках должно работать, правда, на Safari без музыки.
+// Мелкие баги имеются и, думаю, ты их найдешь :)
+// И я что-то из них устранял, а потом вернул, т.к. змейка становилась более тупой ))
+
+// В общем и целом, думаю, на max балл я наработал)
+
+// `
+// console.log(score)
