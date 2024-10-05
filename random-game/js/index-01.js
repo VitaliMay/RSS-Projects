@@ -178,7 +178,7 @@ if (testInput.value < 60) testInput.value = 60;
 let gameSpeedInput = 450 - testInput.value
 // let gameSpeedInput = testInput.value
 
-speedScoreHtml.innerHTML = `${60} / ${450 - gameSpeedInput}`
+speedScoreHtml.textContent = `${60} / ${450 - gameSpeedInput}`
 
 /******** Старт ******************************** */
 /******** Старт ******************************** */
@@ -196,17 +196,17 @@ function startNew() {
   prevDirection = null
 
   gameScore = 0
-  gameScoreHtml.innerHTML = `Score`
+  gameScoreHtml.textContent = `Score`
 
   immunityScore = 0
-  immunityScoreHtml.innerHTML = `0`
+  immunityScoreHtml.textContent = `0`
 
   gameSpeed = 390
   if (testInput.value > 390) testInput.value = 390;
   if (testInput.value < 60) testInput.value = 60;
   gameSpeedInput = 450 - testInput.value
 
-  speedScoreHtml.innerHTML = `${60} / ${450 - gameSpeedInput}`
+  speedScoreHtml.textContent = `${60} / ${450 - gameSpeedInput}`
   // gameSpeedInput = testInput.value
 
   // musicBase.volume = 0;
@@ -376,8 +376,8 @@ function startField() {
       ctx.fillStyle = '#ddc8ac'
       ctx.fillRect(i, 0, stepX, canvasHeight)
     }
-    
-    
+
+
     // if (i === centerXbox*stepX) {
     //   // ctx.fillStyle = 'red'
     //   ctx.fillStyle = '#ddc8ac'
@@ -731,136 +731,67 @@ function drawPicture() {
   startField()
   ctx.drawImage(foodImg, food.x, food.y, imgSizeX, imgSizeY);
 
-  for (let i = 0; i < snake.length; i++) {
-    if (i ===0 ) {ctx.drawImage(snakeImg, (snake[0].x), (snake[0].y), imgSizeX, imgSizeY); }
+  for (let i = 0; i < snake.length; i += 1) {
+    if (i === 0 ) {ctx.drawImage(snakeImg, (snake[0].x), (snake[0].y), imgSizeX, imgSizeY); }
     else {drawRoundedRectangle(ctx, snake[i].x, snake[i].y, imgSizeX, imgSizeY, 7, '#597059');}
   }
 
   let snakeHeadX = snake[0].x
   let snakeHeadY = snake[0].y
 
-  // if (direction === 'up') {
-  //   if (snakeHeadY < 0) {
-  //     snakeHeadY = canvasHeight + 1
-  //     gameScore = gameScore - 2
-  //     gameScoreHtml.innerHTML = `${gameScore}`
-  //   }
-  //   else {
-  //     snakeHeadY = snakeHeadY - stepY;
-  //   }
-  // }
-  // if (direction === 'right') {
-  //   if (snakeHeadX > canvasWidth) { 
-  //     snakeHeadX = 0-stepX + 1
-  //     gameScore = gameScore - 2
-  //     gameScoreHtml.innerHTML = `${gameScore}`
-  //   }
-  //   else {
-  //     snakeHeadX = snakeHeadX + stepX;
-  //   }
-  // }
-  // if (direction === 'down') {
-  //   if (snakeHeadY > canvasHeight) { 
-  //     snakeHeadY = 0-stepY + 1
-  //     gameScore = gameScore - 2
-  //     gameScoreHtml.innerHTML = `${gameScore}`
-  //   }
-  //   else {
-  //     snakeHeadY = snakeHeadY + stepY;
-  //   }
-  // }
-  // if (direction === 'left') { 
-  //   if (snakeHeadX < 0) { 
-  //     snakeHeadX = canvasWidth + 1 
-  //     gameScore = gameScore - 2
-  //     gameScoreHtml.innerHTML = `${gameScore}`
-  //   }
-  //   else {
-  //     snakeHeadX = snakeHeadX - stepX;
-  //   } 
-  // }
-  // if (direction === 'stop') {
-  //   snakeHeadX = snakeHeadX 
-  //   snakeHeadY = snakeHeadY
-  // };
-
-
   if (direction === 'up') {
-    // console.log(checkBorder())
     snakeHeadY = (snakeHeadY - stepY + canvasHeight) % canvasHeight;
-    // console.log(`snakeHeadY = ${snakeHeadY}`)
-    // console.log(`snake[0].y = ${snake[0].y}`)
-    // console.log(Math.abs(snake[0].y - snakeHeadY) === stepY)
     musicBase.play()
-
-    gameScoreHtml.innerHTML = `${gameScore}`
-  
+    gameScoreHtml.textContent = `${gameScore}`
   }
+
   if (direction === 'right') {
     snakeHeadX = (snakeHeadX + stepX) % canvasWidth;
-
     musicBase.play()
-
-    gameScoreHtml.innerHTML = `${gameScore}`
+    gameScoreHtml.textContent = `${gameScore}`
   }
+
   if (direction === 'down') {
     snakeHeadY = (snakeHeadY + stepY) % canvasHeight;
     musicBase.play()
-
-    gameScoreHtml.innerHTML = `${gameScore}`
+    gameScoreHtml.textContent = `${gameScore}`
   }
+
   if (direction === 'left') { 
     snakeHeadX = (snakeHeadX - stepX + canvasWidth) % canvasWidth;
     musicBase.play()
-
-    gameScoreHtml.innerHTML = `${gameScore}`
+    gameScoreHtml.textContent = `${gameScore}`
   }
+
   if (direction === 'stop') {
     snakeHeadX = snakeHeadX 
     snakeHeadY = snakeHeadY
-
     musicBase.pause()
-    // musicStop.play()
-    // musicStop.pause()
-
-    gameScoreHtml.innerHTML = `STOP`
+    gameScoreHtml.textContent = `STOP`
   };
-
 
   if (checkBorder(snakeHeadX, snakeHeadY)) { // проверка что змейка побывала за пределами поля
     musicBorder.play()
-  
-    // gameScore = gameScore - 2
     immunityScore = immunityScore - 2
-    immunityScoreHtml.innerHTML = `${immunityScore}`
-    gameScoreHtml.innerHTML = `${gameScore}`
+    immunityScoreHtml.textContent = `${immunityScore}`
+    gameScoreHtml.textContent = `${gameScore}`
   }
 
 /****************************************** */
 
   if (snakeHeadX === food.x && snakeHeadY === food.y) {
     musicFood.play()
-    // musicBase.playbackRate = musicBase.playbackRate + 0.05;
-
     gameScore = gameScore + 1
-    // gameScoreHtml.innerHTML = `Music ${musicBase.playbackRate}`
-    gameScoreHtml.innerHTML = `${gameScore}`
-
+    gameScoreHtml.textContent = `${gameScore}`
     immunityScore = immunityScore + 1
-    // immunityScoreHtml.innerHTML = `Immunity: ${immunityScore}  Speed: ${gameSpeed}`
-
     foodIndex = Math.floor(foodArrImg.length * Math.random())
     foodImg.src = foodArrImg[foodIndex]
 
-    if (gameSpeed > gameSpeedInput) {  
-    // if (gameSpeed > testInput.value) {  
-    // if (gameSpeed > 90) {  
-      clearInterval(startPicture);  
-      gameSpeed = gameSpeed - 30; 
+    if (gameSpeed > gameSpeedInput) {
+      clearInterval(startPicture);
+      gameSpeed = gameSpeed - 30;
       startPicture = setInterval(drawPicture, gameSpeed);
-
       musicBase.playbackRate = musicBase.playbackRate + 0.05; // ускоряю музыку
-      // gameScoreHtml.innerHTML = `Music ${musicBase.playbackRate}`
     }
 
     food = {
@@ -868,8 +799,8 @@ function drawPicture() {
       y: Math.floor((Math.random()*canvasHeight/stepY))*stepY + 1 
     }
 
-    immunityScoreHtml.innerHTML = `${immunityScore}`
-    speedScoreHtml.innerHTML = `${450-gameSpeed} / ${450 - gameSpeedInput}`
+    immunityScoreHtml.textContent = `${immunityScore}`
+    speedScoreHtml.textContent = `${450-gameSpeed} / ${450 - gameSpeedInput}`
   }
   else {
     snake.pop()
@@ -882,66 +813,23 @@ function drawPicture() {
 
   snake.unshift(snakeHead)
 
-  // if (immunityScore < 0) {
-  //   // gameScoreHtml.innerHTML = `Game over`
-
-  //   immunityScoreHtml.innerHTML = 
-  //   `Immunity: ${immunityScore} Game over`
-  //   clearInterval(startPicture); 
-  // }
-
   if (checkTail(snake, snakeHead)) {
-    // musicTail.volume = 0.8;
     musicTail.play()
-    
-    // immunityScoreHtml.innerHTML = `Don\`t eat your tail -5 Immynity`
     immunityScore = immunityScore - 6
-    immunityScoreHtml.innerHTML = `${immunityScore}`
-    // speedScoreHtml.innerHTML = `${450-gameSpeed} / ${450 - gameSpeedInput}`
-
-    // setTimeout(() => {
-    //   immunityScoreHtml.innerHTML = `Immunity: ${immunityScore}  Speed: ${gameSpeed} Don\`t eat your tail -5 Immynity`;
-    // }, 3000);
-
-    
-    // gameScore = gameScore + 1
-    // gameScoreHtml.innerHTML = `${gameScore}`
-
-
+    immunityScoreHtml.textContent = `${immunityScore}`
   }
 
   if (immunityScore < 0) {
 
-    // gameScoreHtml.innerHTML = `Total ${gameScore} Game over`
-
-    
-
-    // setTimeout(() => {
-    //   immunityScoreHtml.innerHTML = `Immunity: ${immunityScore} Be healthy`;
-    // }, 3000);
-    
-    // immunityScoreHtml.innerHTML = `Immunity: ${immunityScore}`;
-
-    // immunityScoreHtml.innerHTML = `${immunityScore}`
-    // speedScoreHtml.innerHTML = `${450-gameSpeed} / ${450 - gameSpeedInput}`
-    
     musicBase.pause()
-
     clearInterval(startPicture);
-
     musicStop.play()
-
     closeMenuSetting()
-
     memoryLocalTest.putScore(450-gameSpeedInput, gameScore)
-
     modalNoCup.forEach( item => item.classList.remove('modal-title--noCup-active'))
-
     modalScoreLocal(gameSpeedInput)
-
     testOpenModal()
   }
-
 }
 
 /************************************************* */
@@ -961,8 +849,6 @@ btnCup.addEventListener('click', () => {
   
   direction = 'stop'
   modalScoreLocal(gameSpeedInput)
-  // testOpenModal()
-  // console.log(`flag btn = ${flagCup}`)
 })
 
 
@@ -976,32 +862,23 @@ function modalScoreLocal(gameSpeedInput) {
 
   // console.log(`Массив из локал ${modalScoreTextArr}`)
 
-  modalMaxCurrentSpeed.innerHTML = gameKeySpeedInput
-  modalTotalScore.innerHTML = `${gameScore}`
+  modalMaxCurrentSpeed.textContent = gameKeySpeedInput
+  modalTotalScore.textContent = `${gameScore}`
 
   // сначала нужно очистить предыдущую модалку
-  for (let i = 0; i < modalScoreNumber.length; i++) {
-    modalScoreNumber[i].innerHTML = `${(i+1).toString().padStart(2, '0')}`
-    modalScoreResult[i].innerHTML = ``
-    // modalMaxCurrentSpeed.innerHTML = gameKeySpeedInput
+  for (let i = 0; i < modalScoreNumber.length; i += 1) {
+    modalScoreNumber[i].textContent = `${(i + 1).toString().padStart(2, '0')}`
+    modalScoreResult[i].textContent = ``
   }
 
   if (modalScoreTextArr) {
     for (let i = 0; i < modalScoreTextArr.length; i++) {
-      modalScoreNumber[i].innerHTML = `${(i+1).toString().padStart(2, '0')} Место`
-      modalScoreResult[i].innerHTML = `набрано очков ${modalScoreTextArr[i]}`
-      // modalMaxCurrentSpeed.innerHTML = gameKeySpeedInput
+      modalScoreNumber[i].textContent = `${(i+1).toString().padStart(2, '0')} Место`
+      modalScoreResult[i].textContent = `набрано очков ${modalScoreTextArr[i]}`
     }
   }
-  
-  // for (let key of modalScoreTextArr) {
-  //   modalScoreNumber[key].innerHTML = `45 Место`
-  //   modalScoreResult[key].innerHTML = `набрано очков ${modalScoreTextArr[key]}`
-  //   modalMaxCurrentSpeed.innerHTML = gameKeySpeedInput
-  // }
 }
 
-// modalScoreLocal(gameSpeedInput)
 
 /*********************************************** */
 /*********************************************** */
@@ -1034,80 +911,6 @@ function checkTail(snakeArr, snakeHead) {
 
 /**************************************************** */
 /**************************************************** */
-// function drawPicture() {
-//   // let x = Math.floor(canvasWidth/2) - stepX; // Чётное вычисляем центрированное положение по X
-  
-//   // let x = Math.floor((canvasWidth - stepX) / 2); // Нечётное вычисляем центрированное положение по X
-//   // let y = (canvasHeight - stepY) / 2; // вычисляем центрированное положение по Y
-//   // ctx.drawImage(foodImg, x, y, stepX, stepY); // передаем координаты и размер изображения
-//   // ctx.drawImage(foodImg, snake[0].x, snake[0].y, stepX, stepY); // передаем координаты и размер изображения
-//   // ctx.drawImage(foodImg, (snake[0].x + 1), (snake[0].y + 1), sizeFotoX, sizeFotoX); // передаем координаты и размер изображения
-//   // ctx.drawImage(foodImg, (snake[0].x + 1), (snake[0].y + 1), sizeFotoX, sizeFotoX); // передаем координаты и размер изображения
-  
-//   // ctx.drawImage(snakeImg, (snake[0].x + 1), (snake[0].y + 1), (stepX-2), (stepY-2)); // передаем координаты и размер изображения
-  
-//   // ctx.clearRect(x, y, stepX, stepY); // Стирание предыдущей картинки
-
-//   // ctx.clearRect(food.x, food.y, imgSizeX, imgSizeY);
-//   ctx.drawImage(foodImg, food.x, food.y, imgSizeX, imgSizeY);
-//   // ctx.drawImage(foodImg, food.x, food.y, (stepX-2), (stepY-2));
-
-//   // ctx.clearRect(food.x, food.y, imgSizeX, imgSizeY);
-//   for (let i = 0; i < snake.length; i++) {
-//     // cтереть перед отрисовкой
-//     ctx.clearRect(snake[i].x, snake[i].y, imgSizeX, imgSizeY);
-
-//     if (i ===0 ) {ctx.drawImage(snakeImg, (snake[0].x), (snake[0].y), imgSizeX, imgSizeY); }
-//     // if (i ===0 ) {ctx.drawImage(snakeImg, (snake[0].x), (snake[0].y), (stepX-2), (stepY-2)); }
-//     // if (i ===0 ) {ctx.drawImage(snakeImg, (snake[0].x + 1), (snake[0].y + 1), (stepX-2), (stepY-2)); }
-//     else {
-//       ctx.beginPath()
-//       ctx.fillStyle = 'green'; 
-//       ctx.fillRect(snake[i].x, snake[i].y, (stepX-2), (stepY-2))
-//       ctx.closePath()
-//     }
-//     // ctx.clearRect(snake[i].x, snake[i].y, imgSizeX, imgSizeY);
-
-//   }
-//   // for (let i = 0; i < snake.length; i++) {
-//   //   ctx.beginPath()
-//   //   ctx.fillStyle = 'green';  
-//   //   ctx.fillRect(snake[i].x, snake[i].y, (stepX-2), (stepY-2))
-//   //   ctx.closePath()
-    
-//   // }
-
-//   let snakeHeadX = snake[0].x
-//   let snakeHeadY = snake[0].y
-
-//   snake.pop()
-
-//   if (direction === 'up') snakeHeadY = snakeHeadY - stepY;
-//   if (direction === 'right') snakeHeadX = snakeHeadX + stepX;
-//   if (direction === 'down') snakeHeadY = snakeHeadY + stepY;
-//   if (direction === 'left') snakeHeadX = snakeHeadX - stepX;
-
-//   let snakeHead = {
-//     x: snakeHeadX,
-//     y: snakeHeadY
-//   }
-
-//   snake.unshift(snakeHead)
-
-// }
-
-
-
-/******************************************************************* */
-
-// canvas.addEventListener("click", (event) => console.log(event.offsetX))
-
-
-/******************************************************************* */
-
-// document.addEventListener("keydown", (event) => console.log(event.code))
-// btnStop.addEventListener("click", (event) => console.log(event.target.classList.contains('btn_Stop')))
-// btnStop.addEventListener("click", moveSnake)
 
 btnStop.addEventListener("click", stopSnake);
 
@@ -1115,7 +918,7 @@ function stopSnake() {
   if (direction === 'stop' && prevDirection == undefined) {
     direction = null
 
-    gameScoreHtml.innerHTML = `${gameScore}`
+    gameScoreHtml.textContent = `${gameScore}`
     // console.log('Первый раз')
   }
   else if (direction === 'stop') { 
@@ -1143,7 +946,7 @@ const codeArr = [
 document.addEventListener("keydown", moveSnake)
 
 canvas.addEventListener("click", moveSnake)
-// canvas.addEventListener("touchstart", moveSnake);
+
 canvas.addEventListener("touchstart", moveSnake, { passive: true });
 let direction;
 let prevDirection
@@ -1169,12 +972,12 @@ function moveSnake(event) {
     // console.log(`Нажал вверх`)
     // console.log(`prevDirection = ${prevDirection}`)
     // console.log(`direction = ${direction}`)
-   
   }
+
   if (event.code === codeArr[4] || event.code === codeArr[5] || event.code === codeArr[6] || event.code === codeArr[7] || event.offsetX >= lineBox.downX) {
-   
-    if (direction === 'stop') { 
-      direction = 'stop' 
+
+    if (direction === 'stop') {
+      direction = 'stop'
     }
     else if (prevDirection !== 'left') {
       direction = 'right';
@@ -1184,12 +987,12 @@ function moveSnake(event) {
     // console.log(`Нажал вправо`)
     // console.log(`prevDirection = ${prevDirection}`)
     // console.log(`direction = ${direction}`)
-    
   }
+
   if (event.code === codeArr[8] || event.code === codeArr[9] || event.code === codeArr[10] || event.code === codeArr[11] || (event.offsetY > lineBox.centerY && event.offsetX > lineBox.upX && event.offsetX < lineBox.downX) ) {
-    
-    if (direction === 'stop') { 
-      direction = 'stop' 
+
+    if (direction === 'stop') {
+      direction = 'stop'
     }
     else if (prevDirection !== 'up') {
       direction = 'down';
@@ -1199,12 +1002,12 @@ function moveSnake(event) {
     // console.log(`Нажал вниз`)
     // console.log(`prevDirection = ${prevDirection}`)
     // console.log(`direction = ${direction}`)
-    
   }
+
   if (event.code === codeArr[12] || event.code === codeArr[13] || event.code === codeArr[14] || event.code === codeArr[15] || (event.offsetX <= lineBox.upX)) {
-    
+
     if (direction === 'stop') { 
-      direction = 'stop' 
+      direction = 'stop'
     }
     else if (prevDirection !== 'right') {
       direction = 'left';
@@ -1221,7 +1024,7 @@ function moveSnake(event) {
     if (direction === 'stop' && prevDirection == undefined) {
       direction = null
 
-      gameScoreHtml.innerHTML = `${gameScore}`
+      gameScoreHtml.textContent = `${gameScore}`
       // console.log('Первый раз')
     }
     else if (direction === 'stop') { // ловлю нажатие в самом начале игры
@@ -1233,13 +1036,12 @@ function moveSnake(event) {
     //   direction = prevDirection
     // }
     else {
-      
       direction = 'stop';
     }
     // console.log(`Нажал stop`)
     // console.log(`prevDirection = ${prevDirection}`)
     // console.log(`direction = ${direction}`)
-    
+
   }
 
   /********************************* */
@@ -1251,7 +1053,7 @@ function moveSnake(event) {
   /********************************** */
 
   changeDirection = false;
-  
+
   // console.log(`****`)
   // console.log(direction)
   // console.log(`  `)
@@ -1480,17 +1282,3 @@ function numPreventDefolt(event) {
 /************************************* */
 /************************************* */
 
-// const score = `
-// Привет!
-// Требования ТЗ вроде как выполнены.
-// В коде, конечно, полно мусора и дублирования выше крыши.
-// И модули надо подключать...
-// Но, зато, адаптацию почти победил). На компе для проверки адаптации надо перегружать страницу.
-// И на мобилках должно работать, правда, на Safari без музыки.
-// Мелкие баги имеются и, думаю, ты их найдешь :)
-// И я что-то из них устранял, а потом вернул, т.к. змейка становилась более тупой ))
-
-// В общем и целом, думаю, на max балл я наработал)
-
-// `
-// console.log(score)
