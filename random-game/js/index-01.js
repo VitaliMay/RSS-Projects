@@ -1,12 +1,14 @@
 
 // подключаю модуль
 import { signatureScore } from "./score.js";
+import { canvas, ctx, canvasWidth, canvasHeight, stepX, stepY, imgSizeX, imgSizeY, snake, updateSnake, lineBox, evenOddCenter } from "./variables.js";
+import { drawTriangle, startField } from "./fielDraw.js";
 
 signatureScore ()
 
 /********************************************* */
-const canvas = document.querySelector('.canvas');
-const ctx = canvas.getContext('2d');
+// const canvas = document.querySelector('.canvas');
+// const ctx = canvas.getContext('2d');
 
 const start = document.querySelector('.color-test')
 
@@ -20,8 +22,6 @@ const btnSetting = document.querySelector('.btn_Setting')
 const btnStop = document.querySelector('.btn_Stop')
 
 const testInput = document.querySelector('.testInput')
-
-// console.log(testInput.value)
 
 
 /**************************************************** */
@@ -47,11 +47,9 @@ function testOpenModal() {
 
 // ловлю все крестики в модалках
 const modalBtnCross = [...document.querySelectorAll('.modal-btn-cross')]
+
 modalBtnCross.forEach(function(item) {
   item.addEventListener('click',function() {
-    // console.log(`flag cross start = ${flagCup}`)
-    // closeMenu()
-    // closeMenuSetting()
     if (!flagCup) {
       startNew()
     }
@@ -121,11 +119,6 @@ const modalMaxCurrentSpeed = document.querySelector('.maxCurrentSpeed')
 const modalTotalScore = document.querySelector('.totalScore')
 
 
-
-// console.log( modalScoreNumber[0])
-
-
-
 /*********************************************** */
 
 let gameScore = 0
@@ -136,7 +129,6 @@ if (testInput.value > 390) testInput.value = 390;
 if (testInput.value < 60) testInput.value = 60;
 
 let gameSpeedInput = 450 - testInput.value
-// let gameSpeedInput = testInput.value
 
 speedScoreHtml.textContent = `${60} / ${450 - gameSpeedInput}`
 
@@ -148,7 +140,6 @@ start.addEventListener('click', function () {
   startNew()
 
 })
-// start.addEventListener('click', startNew)
 
 function startNew() {
 
@@ -177,11 +168,33 @@ function startNew() {
     y: Math.floor((Math.random()*canvasHeight/stepY))*stepY + 1 // 11
   }
   
-  snake = []
+  /************** с модулем так не работает */
+  // snake = []
+  // snake[0] = {
+  //   x: evenOddCenter(canvasWidth, stepX) + 1,
+  //   y: evenOddCenter(canvasHeight, stepY) + 1
+  // }
+
+  // Обновляю snake в через модуль variables
+
+  // let newSnake = [];
+  // newSnake[0] = {
+  //   x: evenOddCenter(canvasWidth, stepX) + 1,
+  //   y: evenOddCenter(canvasHeight, stepY) + 1
+  // };
+
+  // // Обновление snake с помощью функции updateSnake()
+  // updateSnake(newSnake);
+
+  // Еще вариант очистить без присвоения
+  snake.length = 0
   snake[0] = {
     x: evenOddCenter(canvasWidth, stepX) + 1,
     y: evenOddCenter(canvasHeight, stepY) + 1
   }
+
+
+  /*************************************** */
 
   clearInterval(startPicture);
   startPicture = setInterval(drawPicture, gameSpeed) 
@@ -243,92 +256,99 @@ function soundOnOff() {
 
 
 // получаю ширину и высоту canvas
-let canvasWidth = canvas.clientWidth;
-let canvasHeight = canvas.clientHeight
+// let canvasWidth = canvas.clientWidth;
+// let canvasHeight = canvas.clientHeight
 
 
 /*****Рисую поле для игры************************************ */
 /************************************************************ */
 
-let stepX = 31;
-let stepY = 31;
-const step = 31 // пока рисую квадраты, потенциально буду менять размер при адаптации
+// let stepX = 31;
+// let stepY = 31;
+// const step = 31 // пока рисую квадраты, потенциально буду менять размер при адаптации
 
-let imgSizeX = stepX-2 // надо уменьшить картинку, чтобы очистка не цепляла линии разметки
-let imgSizeY = stepY-2 // надо уменьшить картинку, чтобы очистка не цепляла линии разметки
+// let imgSizeX = stepX-2 // надо уменьшить картинку, чтобы очистка не цепляла линии разметки
+// let imgSizeY = stepY-2 // надо уменьшить картинку, чтобы очистка не цепляла линии разметки
 
 // ставлю размер поля в зависимость от stepX или stepY
 
-let screenWidth = screen.width
-let screenHeight = screen.height
 
+/******************************************************************* */
+/******************************************************************* */
+//  Пока без адаптации
 
-if (screenWidth < 700){
-  stepX = 26
-  stepY = 26
-  imgSizeX = stepX-2 // надо уменьшить картинку, чтобы очистка не цепляла линии разметки
-  imgSizeY = stepY-2 
+// let screenWidth = screen.width
+// let screenHeight = screen.height
 
-  let windowHeight = screenHeight;
-  let headerHeight = document.querySelector('.header').clientHeight
-  canvasWidth = stepX * Math.round(screenWidth*0.9 / stepX)
-  canvasHeight = stepY * Math.round((windowHeight - headerHeight)*0.8 / stepY)
-}
-else if (screenWidth < 880) {
-  canvasWidth = stepX * Math.round(screenWidth*0.9 / stepX)
+// // let screenWidth = screen.availWidth
+// // let screenHeight = screen.availHeight
+
+// if (screenWidth < 700){
+//   stepX = 26
+//   stepY = 26
+//   imgSizeX = stepX-2 // надо уменьшить картинку, чтобы очистка не цепляла линии разметки
+//   imgSizeY = stepY-2 
+
+//   let windowHeight = screenHeight;
+//   let headerHeight = document.querySelector('.header').clientHeight
+//   canvasWidth = stepX * Math.round(screenWidth*0.9 / stepX)
+//   canvasHeight = stepY * Math.round((windowHeight - headerHeight)*0.8 / stepY)
+// }
+// else if (screenWidth < 880) {
+//   canvasWidth = stepX * Math.round(screenWidth*0.9 / stepX)
   
-  canvasHeight = stepY * Math.round(screenHeight*0.7 / stepY)
-}
-else {
-  canvasWidth = stepX * Math.round(canvasWidth / stepX)
-}
+//   canvasHeight = stepY * Math.round(screenHeight*0.7 / stepY)
+// }
+// else {
+//   canvasWidth = stepX * Math.round(canvasWidth / stepX)
+// }
 
-canvas.width = canvasWidth
-canvasHeight = stepY * Math.round(canvasHeight / stepY)
-canvas.height = canvasHeight
+// canvas.width = canvasWidth
+// canvasHeight = stepY * Math.round(canvasHeight / stepY)
+// canvas.height = canvasHeight
 
 
 /************************************ */
 /************************************ */
 // Функция для рисования нового поля
 
-function startField() {
-  ctx.beginPath()
-  ctx.strokeStyle = 'white'
+// function startField() {
+//   ctx.beginPath()
+//   ctx.strokeStyle = 'white'
 
-  for (let i = 0; i <= canvasWidth; i = i + stepX) {
-    ctx.moveTo(i, 0)
-    ctx.lineTo(i, canvasHeight)
+//   for (let i = 0; i <= canvasWidth; i = i + stepX) {
+//     ctx.moveTo(i, 0)
+//     ctx.lineTo(i, canvasHeight)
 
-    // Проверяем, является ли текущий ряд центральным рядом по вертикали
-    if (i === lineBox.upX - stepX/2 || i === lineBox.downX - stepX/2) {
-      ctx.fillStyle = '#ddc8ac'
-      ctx.fillRect(i, 0, stepX, canvasHeight)
-    }
-  }
+//     // Проверяем, является ли текущий ряд центральным рядом по вертикали
+//     if (i === lineBox.upX - stepX/2 || i === lineBox.downX - stepX/2) {
+//       ctx.fillStyle = '#ddc8ac'
+//       ctx.fillRect(i, 0, stepX, canvasHeight)
+//     }
+//   }
 
-  for (let i = 0; i <= canvasHeight; i = i + stepY) {
-    ctx.moveTo(0, i)
-    ctx.lineTo(canvasWidth, i)
+//   for (let i = 0; i <= canvasHeight; i = i + stepY) {
+//     ctx.moveTo(0, i)
+//     ctx.lineTo(canvasWidth, i)
 
-    if (i === centerYbox*stepX) {
-      // ctx.fillStyle = 'red'
-      ctx.fillStyle = '#ddc8ac'
-      // ctx.fillStyle = '#dabd97'
-      // ctx.fillStyle = '#dec8aa'
-      ctx.fillRect(lineBox.upX - stepX/2, i, lineBox.downX - lineBox.upX + stepX, stepY )
-    }
-  }
+//     if (i === centerYbox*stepX) {
+//       // ctx.fillStyle = 'red'
+//       ctx.fillStyle = '#ddc8ac'
+//       // ctx.fillStyle = '#dabd97'
+//       // ctx.fillStyle = '#dec8aa'
+//       ctx.fillRect(lineBox.upX - stepX/2, i, lineBox.downX - lineBox.upX + stepX, stepY )
+//     }
+//   }
 
-  ctx.stroke()
-  ctx.closePath()
+//   ctx.stroke()
+//   ctx.closePath()
 
-  drawTriangle(canvasWidth - stepX, centerYbox * stepY + stepY / 2, canvasWidth - stepX*3, centerYbox * stepY - stepY / 2, canvasWidth - stepX*3, centerYbox * stepY + 1.5*stepY)
-  drawTriangle(stepX, centerYbox * stepY + stepY / 2, stepX*3, centerYbox * stepY - stepY / 2, stepX*3, centerYbox * stepY + 1.5*stepY)
-  drawTriangle(centerXbox * stepX + stepX / 2, canvasHeight - stepY, centerXbox * stepX - stepX / 2, canvasHeight - 3*stepY, centerXbox * stepX + 3*stepX/2, canvasHeight - 3*stepY)
-  drawTriangle(centerXbox * stepX + stepX / 2, stepY, centerXbox * stepX - stepX / 2, 3*stepY, centerXbox * stepX + 3*stepX/2, 3*stepY)
+//   drawTriangle(canvasWidth - stepX, centerYbox * stepY + stepY / 2, canvasWidth - stepX*3, centerYbox * stepY - stepY / 2, canvasWidth - stepX*3, centerYbox * stepY + 1.5*stepY)
+//   drawTriangle(stepX, centerYbox * stepY + stepY / 2, stepX*3, centerYbox * stepY - stepY / 2, stepX*3, centerYbox * stepY + 1.5*stepY)
+//   drawTriangle(centerXbox * stepX + stepX / 2, canvasHeight - stepY, centerXbox * stepX - stepX / 2, canvasHeight - 3*stepY, centerXbox * stepX + 3*stepX/2, canvasHeight - 3*stepY)
+//   drawTriangle(centerXbox * stepX + stepX / 2, stepY, centerXbox * stepX - stepX / 2, 3*stepY, centerXbox * stepX + 3*stepX/2, 3*stepY)
 
-}
+// }
 
 
 /******* Создаю класс для работы с Local Storage ***************************** */
@@ -399,22 +419,6 @@ function isObjectEmpty(obj) {
 //   return Object.keys(obj).length === 0;
 // }
 
-/************************************ */
-/************************************ */
-
-// Для избежания дублирования кода рисования треугольников
-
-function drawTriangle(x1, y1, x2, y2, x3, y3) {
-  ctx.beginPath()
-  ctx.fillStyle = '#ddc8ac'
-  // ctx.fillStyle = 'red'
-  ctx.moveTo(x1, y1)
-  ctx.lineTo(x2, y2)
-  ctx.lineTo(x3, y3)
-  ctx.fill()
-  ctx.closePath()
-}
-
 
 /*********************************************** */
 // Функция очистки поля
@@ -451,31 +455,31 @@ let food = {
 }
 
 /****************************************************************** */
-let snake = []
-snake[0] = {
-  x: evenOddCenter(canvasWidth, stepX) + 1,
-  y: evenOddCenter(canvasHeight, stepY) + 1
-}
+// let snake = []
+// snake[0] = {
+//   x: evenOddCenter(canvasWidth, stepX) + 1,
+//   y: evenOddCenter(canvasHeight, stepY) + 1
+// }
 
 /**** Запоминаю центр и центральные ячейки******************************* */
-let centerX = snake[0].x
-let centerY = snake[0].y
+// let centerX = snake[0].x
+// let centerY = snake[0].y
 
-let centerXbox = Math.floor(centerX / stepX)
-let centerYbox = Math.floor(centerY / stepY)
+// let centerXbox = Math.floor(centerX / stepX)
+// let centerYbox = Math.floor(centerY / stepY)
 
-let lineBox = {
-  upX: lineEvent(canvasWidth, stepX)*stepX + stepX/2,
-  downX: canvasWidth - (lineEvent(canvasWidth, stepX)*stepX) - stepX/2,
-  centerY: evenOddCenter(canvasHeight, stepY) + stepY/2
-}
+// let lineBox = {
+//   upX: lineEvent(canvasWidth, stepX)*stepX + stepX/2,
+//   downX: canvasWidth - (lineEvent(canvasWidth, stepX)*stepX) - stepX/2,
+//   centerY: evenOddCenter(canvasHeight, stepY) + stepY/2
+// }
 
 /************************************** */
 
-function lineEvent (canvasHeight, stepY) {
-  let result
-  return result = Math.round(canvasHeight / 4/stepY)
-}
+// function lineEvent (canvasHeight, stepY) {
+//   let result
+//   return result = Math.round(canvasHeight / 4/stepY)
+// }
 
 /**************************************************************** */
 /**************************************************************** */
@@ -776,17 +780,6 @@ function moveSnake(event) {
   changeDirection = false;
 }
 
-
-
-/******************************************************************* */
-
-// функция для поиска координат центральной ячейки
-function evenOddCenter (canvasWidth, stepX) {
-  let result = (canvasWidth/stepX)
-  if (result % 2 !== 0) {return Math.floor((canvasWidth - stepX) / 2)}
-  else {return (Math.floor(canvasWidth/2) - stepX)}
-
-}
 
 /******Для отображения картинки **************************************** */
 
