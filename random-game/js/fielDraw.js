@@ -1,5 +1,6 @@
 
-import { ctx, canvasWidth, canvasHeight, lineBox, stepX, stepY, centerXbox, centerYbox } from "./variables.js";
+import { ctx, canvasWidth, canvasHeight, lineBox, step, centerXbox, centerYbox } from "./variables.js";
+// import { ctx, canvasWidth, canvasHeight, lineBox, stepX, stepY, centerXbox, centerYbox } from "./variables.js";
 
 /***** Треугольники на поле */
 
@@ -27,6 +28,10 @@ function drawTriangle(x1, y1, x2, y2, x3, y3, borderColor = null, borderWidth = 
 
 
 function startField() {
+
+  const stepX = step.stepX
+  const stepY = step.stepY
+
   ctx.beginPath()
   ctx.strokeStyle = 'white'
 

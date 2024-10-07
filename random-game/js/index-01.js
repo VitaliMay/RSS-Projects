@@ -1,7 +1,9 @@
 
 // подключаю модуль
 import { signatureScore } from "./score.js";
-import { canvas, ctx, canvasWidth, canvasHeight, stepX, stepY, imgSizeX, imgSizeY, snake, updateSnake, lineBox, evenOddCenter } from "./variables.js";
+import { canvas, ctx, canvasWidth, canvasHeight, step, snake, updateSnake, lineBox, evenOddCenter } from "./variables.js";
+// import { canvas, ctx, canvasWidth, canvasHeight, step, imgSizeX, imgSizeY, snake, updateSnake, lineBox, evenOddCenter } from "./variables.js";
+// import { canvas, ctx, canvasWidth, canvasHeight, step, stepX, stepY, imgSizeX, imgSizeY, snake, updateSnake, lineBox, evenOddCenter, stepX } from "./variables.js";
 import { drawTriangle, startField } from "./fielDraw.js";
 
 signatureScore ()
@@ -29,176 +31,11 @@ const body = document.querySelector('body');
 const fon = document.querySelector('.fon');
 const modalLogin = document.querySelector('.modal-login')
 
+/**************************************************** */
 
-fon.addEventListener('click', closeMenu);
-
-function closeMenu() {
-  body.classList.remove('lock');
-  fon.classList.remove('work');
-  modalLogin.classList.remove('modal-login--active')
-  startNew()
-}
-
-function testOpenModal() {
-  modalLogin.classList.add('modal-login--active')
-  body.classList.add('lock');
-  fon.classList.add('work');
-}
-
-// ловлю все крестики в модалках
-const modalBtnCross = [...document.querySelectorAll('.modal-btn-cross')]
-
-modalBtnCross.forEach(function(item) {
-  item.addEventListener('click',function() {
-    if (!flagCup) {
-      startNew()
-    }
-    fon.classList.remove('work');
-    closeMenuSetting()
-  })
-})
-
-let flagCup = false;
-
-
-// у настроек не должна запускаться новая игра
-const modalSetting = document.querySelector('.modal-setting')
-const modalRules = document.querySelector('.modal-rules')
-
-const fonSetting = document.querySelector('.fon--setting')
-
-const modalBtnCrossSetting = [...document.querySelectorAll('.modal-btn-cross--setting')]
-modalBtnCrossSetting.forEach(function(item) {
-  item.addEventListener('click',function() {
-    closeMenuSetting()
-
-  })
-})
-
-
-btnSetting.addEventListener('click', function () {
-  direction = 'stop'
-  testOpenModalSetting()
-})
-
-btnRules.addEventListener('click', function () {
-  direction = 'stop'
-  openModalRules()
-})
-
-fonSetting.addEventListener('click', closeMenuSetting);
-
-function closeMenuSetting() {
-  body.classList.remove('lock');
-  fonSetting.classList.remove('work');
-
-  modalSetting.classList.remove('modal-setting--active')
-  modalRules.classList.remove('modal-rules--active')
-
-  modalLogin.classList.remove('modal-login--active')
-  flagCup = false
-}
-
-function testOpenModalSetting() {
-  modalSetting.classList.add('modal-setting--active')
-  body.classList.add('lock');
-  fonSetting.classList.add('work');
-}
-
-function openModalRules() {
-  modalRules.classList.add('modal-rules--active')
-  body.classList.add('lock');
-  fonSetting.classList.add('work');
-  
-}
-
-const modalScoreNumber = Array.from(document.querySelectorAll('.modal-score-line__number'))
-const modalScoreResult = Array.from(document.querySelectorAll('.modal-score-line__results'))
-const modalMaxCurrentSpeed = document.querySelector('.maxCurrentSpeed')
-
-const modalTotalScore = document.querySelector('.totalScore')
-
-
-/*********************************************** */
-
-let gameScore = 0
-let immunityScore = 0
-let gameSpeed = 390
-
-if (testInput.value > 390) testInput.value = 390;
-if (testInput.value < 60) testInput.value = 60;
-
-let gameSpeedInput = 450 - testInput.value
-
-speedScoreHtml.textContent = `${60} / ${450 - gameSpeedInput}`
-
-/******** Старт ******************************** */
-/******** Старт ******************************** */
-
-start.addEventListener('click', function () {
-  closeMenuSetting()
-  startNew()
-
-})
-
-function startNew() {
-
-  direction = null
-  prevDirection = null
-
-  gameScore = 0
-  gameScoreHtml.textContent = `Score`
-
-  immunityScore = 0
-  immunityScoreHtml.textContent = `0`
-
-  gameSpeed = 390
-  if (testInput.value > 390) testInput.value = 390;
-  if (testInput.value < 60) testInput.value = 60;
-  gameSpeedInput = 450 - testInput.value
-
-  speedScoreHtml.textContent = `${60} / ${450 - gameSpeedInput}`
-
-  musicBase.playbackRate = 0.8; // восстанавливаю скорость
-  musicBase.currentTime = 0; // начинаю воспроизведение с начала
-  musicBase.pause()
-
-  food = {
-    x: Math.floor((Math.random()*canvasWidth/stepX))*stepX + 1, // 15 (+1 нужен чтобы не цеплять линию разметки)
-    y: Math.floor((Math.random()*canvasHeight/stepY))*stepY + 1 // 11
-  }
-  
-  /************** с модулем так не работает */
-  // snake = []
-  // snake[0] = {
-  //   x: evenOddCenter(canvasWidth, stepX) + 1,
-  //   y: evenOddCenter(canvasHeight, stepY) + 1
-  // }
-
-  // Обновляю snake в через модуль variables
-
-  // let newSnake = [];
-  // newSnake[0] = {
-  //   x: evenOddCenter(canvasWidth, stepX) + 1,
-  //   y: evenOddCenter(canvasHeight, stepY) + 1
-  // };
-
-  // // Обновление snake с помощью функции updateSnake()
-  // updateSnake(newSnake);
-
-  // Еще вариант очистить без присвоения
-  snake.length = 0
-  snake[0] = {
-    x: evenOddCenter(canvasWidth, stepX) + 1,
-    y: evenOddCenter(canvasHeight, stepY) + 1
-  }
-
-
-  /*************************************** */
-
-  clearInterval(startPicture);
-  startPicture = setInterval(drawPicture, gameSpeed) 
-}
+let direction = null;
+let prevDirection = null;
+let changeDirection = false;
 
 
 /**** Музыка ******************************************* */
@@ -252,36 +89,249 @@ function soundOnOff() {
 }
 
 /******************************************************** */
-/******************************************************** */
+/**** food */
+/**** food */
+
+let foodArrImg = [
+  './assets/img/fly-02-48.png',
+  './assets/img/fly-01-48.png',
+  './assets/img/bird-48.png',
+  './assets/img/frog-48.png'
+]
+
+let foodImg = new Image();
+let foodIndex = Math.floor(foodArrImg.length * Math.random())
+foodImg.src = foodArrImg[foodIndex]
 
 
-// получаю ширину и высоту canvas
-// let canvasWidth = canvas.clientWidth;
-// let canvasHeight = canvas.clientHeight
+let food = {
+  x: Math.floor((Math.random()*canvasWidth/step.stepX))*step.stepX + 1, // 15 (+1 нужен чтобы не цеплять линию разметки)
+  y: Math.floor((Math.random()*canvasHeight/step.stepY))*step.stepY + 1 // 11
+  // x: Math.floor((Math.random()*canvasWidth/stepX))*stepX + 1, // 15 (+1 нужен чтобы не цеплять линию разметки)
+  // y: Math.floor((Math.random()*canvasHeight/stepY))*stepY + 1 // 11
+}
+
+/****************************************************************** */
+/******Для отображения картинки ************* */
+
+let startPicture = null 
+
+/****************************************************************** */
+
+fon.addEventListener('click', closeMenu);
+
+function closeMenu() {
+  body.classList.remove('lock');
+  fon.classList.remove('work');
+  modalLogin.classList.remove('modal-login--active')
+  startNew()
+}
+
+function testOpenModal() {
+  modalLogin.classList.add('modal-login--active')
+  body.classList.add('lock');
+  fon.classList.add('work');
+}
+
+// ловлю все крестики в модалках
+const modalBtnCross = [...document.querySelectorAll('.modal-btn-cross')]
+
+modalBtnCross.forEach(function(item) {
+  item.addEventListener('click',function() {
+    if (!flagCup) {
+      startNew()
+    }
+    fon.classList.remove('work');
+    closeMenuSetting()
+  })
+})
+
+let flagCup = false;
 
 
-/*****Рисую поле для игры************************************ */
-/************************************************************ */
+// у настроек не должна запускаться новая игра
+const modalSetting = document.querySelector('.modal-setting')
+const modalRules = document.querySelector('.modal-rules')
 
-// let stepX = 31;
-// let stepY = 31;
-// const step = 31 // пока рисую квадраты, потенциально буду менять размер при адаптации
+const fonSetting = document.querySelector('.fon--setting')
 
-// let imgSizeX = stepX-2 // надо уменьшить картинку, чтобы очистка не цепляла линии разметки
-// let imgSizeY = stepY-2 // надо уменьшить картинку, чтобы очистка не цепляла линии разметки
+const modalBtnCrossSetting = [...document.querySelectorAll('.modal-btn-cross--setting')]
 
-// ставлю размер поля в зависимость от stepX или stepY
+modalBtnCrossSetting.forEach(function(item) {
+  item.addEventListener('click',function() {
+    closeMenuSetting()
+
+  })
+})
+
+
+btnSetting.addEventListener('click', function () {
+  direction = 'stop'
+  testOpenModalSetting()
+})
+
+btnRules.addEventListener('click', function () {
+  direction = 'stop'
+  openModalRules()
+})
+
+fonSetting.addEventListener('click', closeMenuSetting);
+
+function closeMenuSetting() {
+  body.classList.remove('lock');
+  fonSetting.classList.remove('work');
+
+  modalSetting.classList.remove('modal-setting--active')
+  modalRules.classList.remove('modal-rules--active')
+
+  modalLogin.classList.remove('modal-login--active')
+  flagCup = false
+}
+
+function testOpenModalSetting() {
+  modalSetting.classList.add('modal-setting--active')
+  body.classList.add('lock');
+  fonSetting.classList.add('work');
+}
+
+function openModalRules() {
+  modalRules.classList.add('modal-rules--active')
+  body.classList.add('lock');
+  fonSetting.classList.add('work');
+  
+}
+
+const modalScoreNumber = Array.from(document.querySelectorAll('.modal-score-line__number'))
+const modalScoreResult = Array.from(document.querySelectorAll('.modal-score-line__results'))
+const modalMaxCurrentSpeed = document.querySelector('.maxCurrentSpeed')
+
+const modalTotalScore = document.querySelector('.totalScore')
+
+
+/*********************************************** */
+/***        старт игры */
+
+let gameScore = 0
+let immunityScore = 0
+let gameSpeed = 390
+
+let gameSpeedInput = 450 - testInput.value
+
+startNew()
+
+/******** Старт ******************************** */
+/******** Старт ******************************** */
+
+start.addEventListener('click', function () {
+  closeMenuSetting()
+  startNew()
+
+})
+
+function startNew() {
+
+  direction = null
+  prevDirection = null
+
+  const stepX = step.stepX
+  const stepY = step.stepY
+
+  gameScore = 0
+  gameScoreHtml.textContent = `Score`
+
+  immunityScore = 0
+  immunityScoreHtml.textContent = `0`
+
+  gameSpeed = 390
+  if (testInput.value > 390) testInput.value = 390;
+  if (testInput.value < 60) testInput.value = 60;
+  gameSpeedInput = 450 - testInput.value
+
+  speedScoreHtml.textContent = `${60} / ${450 - gameSpeedInput}`
+
+  musicBase.playbackRate = 0.8; // восстанавливаю скорость
+  musicBase.currentTime = 0; // начинаю воспроизведение с начала
+  musicBase.pause()
+
+  food = {
+    x: Math.floor((Math.random()*canvasWidth/stepX))*stepX + 1, // 15 (+1 нужен чтобы не цеплять линию разметки)
+    y: Math.floor((Math.random()*canvasHeight/stepY))*stepY + 1 // 11
+  }
+  
+  /************** с модулем так не работает */
+  // snake = []
+  // snake[0] = {
+  //   x: evenOddCenter(canvasWidth, stepX) + 1,
+  //   y: evenOddCenter(canvasHeight, stepY) + 1
+  // }
+
+  // Обновляю snake в через модуль variables
+
+  // let newSnake = [];
+  // newSnake[0] = {
+  //   x: evenOddCenter(canvasWidth, stepX) + 1,
+  //   y: evenOddCenter(canvasHeight, stepY) + 1
+  // };
+
+  // // Обновление snake с помощью функции updateSnake()
+  // updateSnake(newSnake);
+
+  // Еще вариант очистить без присвоения
+  snake.length = 0
+  snake[0] = {
+    x: evenOddCenter(canvasWidth, stepX) + 1,
+    y: evenOddCenter(canvasHeight, stepY) + 1
+  }
+
+  /*************************************** */
+
+  clearInterval(startPicture);
+  startPicture = setInterval(drawPicture, gameSpeed) 
+}
 
 
 /******************************************************************* */
 /******************************************************************* */
 //  Пока без адаптации
 
-// let screenWidth = screen.width
-// let screenHeight = screen.height
+// window.addEventListener('resize', function() {
+//     let screenWidth = screen.availWidth
+//     let screenHeight = screen.availHeight
 
-// // let screenWidth = screen.availWidth
-// // let screenHeight = screen.availHeight
+//     if (screenWidth < 700){
+//       step.stepX = 26
+//       step.stepY = 26
+//       imgSizeX = step.stepX-2 // надо уменьшить картинку, чтобы очистка не цепляла линии разметки
+//       imgSizeY = step.stepY-2 
+
+//       let windowHeight = screenHeight;
+//       let headerHeight = document.querySelector('.header').clientHeight
+//       canvasWidth = step.stepX * Math.round(screenWidth*0.9 / step.stepX)
+//       canvasHeight = step.stepY * Math.round((windowHeight - headerHeight)*0.8 / step.stepY)
+//       }
+//     else if (screenWidth < 880) {
+//       canvasWidth = step.stepX * Math.round(screenWidth*0.9 / step.stepX)
+  
+//       canvasHeight = step.stepY * Math.round(screenHeight*0.7 / step.stepY)
+//     }
+//     else {
+//       canvasWidth = step.stepX * Math.round(canvasWidth / step.stepX)
+//     }
+
+//     canvas.width = canvasWidth
+//     canvasHeight = step.stepY * Math.round(canvasHeight / step.stepY)
+//     canvas.height = canvasHeight
+// });
+
+/******************************************************************* */
+
+//  Пока без адаптации
+
+// // let screenWidth = screen.width
+// // let screenHeight = screen.height
+
+// let screenWidth = screen.availWidth
+// let screenHeight = screen.availHeight
 
 // if (screenWidth < 700){
 //   stepX = 26
@@ -306,49 +356,6 @@ function soundOnOff() {
 // canvas.width = canvasWidth
 // canvasHeight = stepY * Math.round(canvasHeight / stepY)
 // canvas.height = canvasHeight
-
-
-/************************************ */
-/************************************ */
-// Функция для рисования нового поля
-
-// function startField() {
-//   ctx.beginPath()
-//   ctx.strokeStyle = 'white'
-
-//   for (let i = 0; i <= canvasWidth; i = i + stepX) {
-//     ctx.moveTo(i, 0)
-//     ctx.lineTo(i, canvasHeight)
-
-//     // Проверяем, является ли текущий ряд центральным рядом по вертикали
-//     if (i === lineBox.upX - stepX/2 || i === lineBox.downX - stepX/2) {
-//       ctx.fillStyle = '#ddc8ac'
-//       ctx.fillRect(i, 0, stepX, canvasHeight)
-//     }
-//   }
-
-//   for (let i = 0; i <= canvasHeight; i = i + stepY) {
-//     ctx.moveTo(0, i)
-//     ctx.lineTo(canvasWidth, i)
-
-//     if (i === centerYbox*stepX) {
-//       // ctx.fillStyle = 'red'
-//       ctx.fillStyle = '#ddc8ac'
-//       // ctx.fillStyle = '#dabd97'
-//       // ctx.fillStyle = '#dec8aa'
-//       ctx.fillRect(lineBox.upX - stepX/2, i, lineBox.downX - lineBox.upX + stepX, stepY )
-//     }
-//   }
-
-//   ctx.stroke()
-//   ctx.closePath()
-
-//   drawTriangle(canvasWidth - stepX, centerYbox * stepY + stepY / 2, canvasWidth - stepX*3, centerYbox * stepY - stepY / 2, canvasWidth - stepX*3, centerYbox * stepY + 1.5*stepY)
-//   drawTriangle(stepX, centerYbox * stepY + stepY / 2, stepX*3, centerYbox * stepY - stepY / 2, stepX*3, centerYbox * stepY + 1.5*stepY)
-//   drawTriangle(centerXbox * stepX + stepX / 2, canvasHeight - stepY, centerXbox * stepX - stepX / 2, canvasHeight - 3*stepY, centerXbox * stepX + 3*stepX/2, canvasHeight - 3*stepY)
-//   drawTriangle(centerXbox * stepX + stepX / 2, stepY, centerXbox * stepX - stepX / 2, 3*stepY, centerXbox * stepX + 3*stepX/2, 3*stepY)
-
-// }
 
 
 /******* Создаю класс для работы с Local Storage ***************************** */
@@ -435,63 +442,24 @@ ctx.beginPath()
 const snakeImg = new Image();
 snakeImg.src = './assets/img/snakeHead-01-48.png'
 
-/*************************************************************** */
-
-let foodArrImg = [
-  './assets/img/fly-02-48.png',
-  './assets/img/fly-01-48.png',
-  './assets/img/bird-48.png',
-  './assets/img/frog-48.png'
-]
-
-let foodImg = new Image();
-let foodIndex = Math.floor(foodArrImg.length * Math.random())
-foodImg.src = foodArrImg[foodIndex]
-
-
-let food = {
-  x: Math.floor((Math.random()*canvasWidth/stepX))*stepX + 1, // 15 (+1 нужен чтобы не цеплять линию разметки)
-  y: Math.floor((Math.random()*canvasHeight/stepY))*stepY + 1 // 11
-}
-
-/****************************************************************** */
-// let snake = []
-// snake[0] = {
-//   x: evenOddCenter(canvasWidth, stepX) + 1,
-//   y: evenOddCenter(canvasHeight, stepY) + 1
-// }
-
-/**** Запоминаю центр и центральные ячейки******************************* */
-// let centerX = snake[0].x
-// let centerY = snake[0].y
-
-// let centerXbox = Math.floor(centerX / stepX)
-// let centerYbox = Math.floor(centerY / stepY)
-
-// let lineBox = {
-//   upX: lineEvent(canvasWidth, stepX)*stepX + stepX/2,
-//   downX: canvasWidth - (lineEvent(canvasWidth, stepX)*stepX) - stepX/2,
-//   centerY: evenOddCenter(canvasHeight, stepY) + stepY/2
-// }
-
-/************************************** */
-
-// function lineEvent (canvasHeight, stepY) {
-//   let result
-//   return result = Math.round(canvasHeight / 4/stepY)
-// }
 
 /**************************************************************** */
 /**************************************************************** */
 
 function drawPicture() {
+  const stepX = step.stepX
+  const stepY = step.stepY
+
   clearField()
   startField()
-  ctx.drawImage(foodImg, food.x, food.y, imgSizeX, imgSizeY);
+  ctx.drawImage(foodImg, food.x, food.y, step.imgSizeX, step.imgSizeY);
+  // ctx.drawImage(foodImg, food.x, food.y, imgSizeX, imgSizeY);
 
   for (let i = 0; i < snake.length; i += 1) {
-    if (i === 0 ) {ctx.drawImage(snakeImg, (snake[0].x), (snake[0].y), imgSizeX, imgSizeY); }
-    else {drawRoundedRectangle(ctx, snake[i].x, snake[i].y, imgSizeX, imgSizeY, 7, '#597059');}
+    if (i === 0 ) {ctx.drawImage(snakeImg, (snake[0].x), (snake[0].y), step.imgSizeX, step.imgSizeY); }
+    // if (i === 0 ) {ctx.drawImage(snakeImg, (snake[0].x), (snake[0].y), imgSizeX, imgSizeY); }
+    else {drawRoundedRectangle(ctx, snake[i].x, snake[i].y, step.imgSizeX, step.imgSizeY, 7, '#597059');}
+    // else {drawRoundedRectangle(ctx, snake[i].x, snake[i].y, imgSizeX, imgSizeY, 7, '#597059');}
   }
 
   let snakeHeadX = snake[0].x
@@ -536,8 +504,10 @@ function drawPicture() {
   }
 
   /****************************************** */
+  // console.log(`sX=${snakeHeadX} fX=${food.x} sY=${snakeHeadY} fY=${food.y}`)
 
-  if (snakeHeadX === food.x && snakeHeadY === food.y) {
+  if (isDifferenceInRange(snakeHeadX, food.x) && isDifferenceInRange(snakeHeadY, food.y)) {
+  // if (snakeHeadX === food.x && snakeHeadY === food.y) {
     musicFood.play()
     gameScore = gameScore + 1
     gameScoreHtml.textContent = `${gameScore}`
@@ -591,6 +561,15 @@ function drawPicture() {
 }
 
 /************************************************* */
+/* После выхода змейки за границы поля иногда происходит сбой координат в 1px     */
+/* и змейка не видит еду */
+/* пробую решить задав право на ошибку координат в 2px     */
+
+function isDifferenceInRange(value1, value2) {
+  return Math.abs(value1 - value2) <= 2;
+}
+
+/************************************************* */
 
 const btnCup = document.querySelector('.btn_Cup')
 const modalNoCup = document.querySelectorAll('.modal-title--noCup')
@@ -640,6 +619,9 @@ function modalScoreLocal(gameSpeedInput) {
 
 
 function checkBorder(snakeHeadX, snakeHeadY) {
+  const stepX = step.stepX
+  const stepY = step.stepY
+
   if (Math.abs(snake[0].y - snakeHeadY) > stepY || Math.abs(snake[0].x - snakeHeadX) > stepX) {
     return true; // Змейка побывала за пределами поля
   }
@@ -700,9 +682,7 @@ document.addEventListener("keydown", moveSnake)
 canvas.addEventListener("click", moveSnake)
 
 canvas.addEventListener("touchstart", moveSnake, { passive: true });
-let direction;
-let prevDirection
-let changeDirection = false;
+
 
 function moveSnake(event) {
 
@@ -780,10 +760,6 @@ function moveSnake(event) {
   changeDirection = false;
 }
 
-
-/******Для отображения картинки **************************************** */
-
-let startPicture = setInterval(drawPicture, gameSpeed) 
 
 /******************************************************* */
 // Прямоугольник с закругленными углами
