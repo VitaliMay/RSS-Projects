@@ -8,9 +8,7 @@
     <link rel="stylesheet" href="./css/normalize.css">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="icon" href="./assets/svg/GR_favicon.ico">
-    <script defer src="./index.js"></script>
-    <script defer src="./burger.js"></script>
-    <script defer src="./card-popup.js"></script>
+    <!-- <script defer src="./index.js"></script> -->
 </head>
 <body>
     <div class="wrapper">
@@ -20,25 +18,15 @@
                     <div class="header__inner">
 
                         <div class="fon"></div>
-                        <div class="modal-wrapper">
-                            <!-- <button class="button button--arrow">
-                                &times;
-                            </button> -->
-                            <button class="button button--arrow">
-                                &#10006;
-                            </button>
-                            <div class="modal">
-                            </div>
-                        </div>
 
                         <a href="#">
-                            <div class="logo">
-                                <div class="logo__title">
+                            <div class="logo logo--nolink">
+                                <h1 class="logo__title">
                                     Cozy&nbsp;House
-                                </div>
-                                <div class="logo__subtitle">
+                                </h1>
+                                <span class="logo__subtitle">
                                     Shelter&nbsp;for&nbsp;pets&nbsp;in&nbsp;Boston
-                                </div>
+                                </span>
                             </div>
                         </a>
 
@@ -55,7 +43,7 @@
                                         href="#">About&nbsp;the&nbsp;shelter</a>
                                 </li>
                                 <li class="menu__list-item">
-                                    <a class="menu__list-link" href="index2.html" target="_blank">Our&nbsp;pets</a>
+                                    <a class="menu__list-link" href="index2.html">Our&nbsp;pets</a>
                                 </li>
                                 <li class="menu__list-item">
                                     <a class="menu__list-link" href="#help">Help&nbsp;the&nbsp;shelter</a>
@@ -66,13 +54,12 @@
                     </div>
                 </div>
             </header>
-            <!-- <div class="wrapper"> -->
 
             <section class="not-only">
                 <div class="container">
                     <div class="not-only__inner">
                         <div class="start-content">
-                            <h1 class="start-content__title">Not only people need&nbsp;a&nbsp;house</h1>
+                            <h2 class="start-content__title">Not only people need&nbsp;a&nbsp;house</h2>
                             <p class="start-content__text">We offer to give a chance to a little and nice puppy with
                                 an
                                 extremely wide
@@ -118,42 +105,33 @@
                         <h2 class="title title--our-friends">Our friends who
                             are&nbsp;looking for a house</h2>
                         <div class="slider">
-                            
-                            <div class="slider__inner">
-                                <div class="card card--001">
-                                    <div class="photo photo--card-01"></div>
-                                    <h4 class="title-card">Katrine</h4>
-                                    <button class="button button--card">Learn more</button>
-                                </div>
-                                <div class="card card--002">
-                                    <div class="photo photo--card-02"></div>
-                                    <h4 class="title-card">Jennifer</h4>
-                                    <button class="button button--card">Learn more</button>
-                                </div>
-                                <div class="card card--003">
-                                    <div class="photo photo--card-03"></div>
-                                    <h4 class="title-card">Woody</h4>
-                                    <button class="button button--card">Learn more</button>
-                                </div>
-                            </div>
-                            
 
-                            <div class="slider__button-container">
-                                <button class="button button--arrow">
-                                    <svg width="14" height="6" viewBox="0 0 14 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M14 2V4H3V6L0 3L3 0V2H14Z" fill="#292929" />
-                                    </svg>
-                                </button>
-                                <button class="button button--arrow">
-                                    <svg width="14" height="6" viewBox="0 0 14 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M0 4V2L11 2V0L14 3L11 6V4L0 4Z" fill="#292929" />
-                                    </svg>
-                                </button>
+                            <button class="button button--arrow slider__btn slider__btn--order-01">
+                                <svg width="14" height="6" viewBox="0 0 14 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path class="button__svg--arrow" d="M14 2V4H3V6L0 3L3 0V2H14Z" fill="#292929" />
+                                </svg>
+                            </button>
+
+                            <div class="slider-container">
+
+                                <div class="slider__inner">
+                                    <div class="slider-strip">
+
+                                    </div>
+                                </div>
+
                             </div>
+
+                            <button class="button button--arrow slider__btn slider__btn--order-02">
+                                <svg class="button__svg" width="14" height="6" viewBox="0 0 14 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <!-- <path d="M0 4V2L11 2V0L14 3L11 6V4L0 4Z" fill="#CDCDCD" /> -->
+                                    <path  class="button__svg--arrow" d="M0 4V2L11 2V0L14 3L11 6V4L0 4Z" fill="#292929" />
+                                </svg>
+                            </button>
 
                         </div>
 
-                        <form action="index2.html" target="_blank">
+                        <form action="index2.html">
                             <button class="button button--primary">
                                 Get to know the rest
                             </button>
@@ -199,12 +177,10 @@
                                 <h4 class="title-card">Medicines</h4>
                             </li>
                             <li class="help-item">
-                                <!-- <div class="photo help-item__icon-08"></div> -->
                                 <span class="photo help-item__icon-08"></span>
                                 <h4 class="title-card">Collars&nbsp;/&nbsp;leashes</h4>
                             </li>
                             <li class="help-item">
-                                <!-- <div class="photo help-item__icon-09"></div> -->
                                 <span class="photo help-item__icon-09"></span>
                                 <h4 class="title-card">Sleeping&nbsp;areas</h4>
                             </li>
@@ -285,6 +261,8 @@
             </div>
         </footer>
     </div>
-
+    <!-- <script type="module" src="./js/burger.js"></script> -->
+    <script type="module" src="./index.js"></script>
+    <!-- <script type="module" src="./js/burger.js"></script> -->
 </body>
 </html>
