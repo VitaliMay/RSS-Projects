@@ -1,5 +1,7 @@
 
-import { ctx, canvasWidth, canvasHeight, lineBox, step, centerXbox, centerYbox } from "./variables.js";
+import { ctx, canvasObj, lineBox, step, center } from "./variables.js";
+// import { ctx, canvasObj, lineBox, step, centerXbox, centerYbox } from "./variables.js";
+// import { ctx, canvasWidth, canvasHeight, lineBox, step, centerXbox, centerYbox } from "./variables.js";
 // import { ctx, canvasWidth, canvasHeight, lineBox, stepX, stepY, centerXbox, centerYbox } from "./variables.js";
 
 /***** Треугольники на поле */
@@ -31,6 +33,8 @@ function startField() {
 
   const stepX = step.stepX
   const stepY = step.stepY
+  const canvasWidth = canvasObj.canvasWidth
+  const canvasHeight = canvasObj.canvasHeight
 
   ctx.beginPath()
   ctx.strokeStyle = 'white'
@@ -40,32 +44,64 @@ function startField() {
     ctx.lineTo(i, canvasHeight)
 
     // Проверяем, является ли текущий ряд центральным рядом по вертикали
-    if (i === lineBox.upX - stepX/2 || i === lineBox.downX - stepX/2) {
-      ctx.fillStyle = '#ddc8ac'
-      ctx.fillRect(i, 0, stepX, canvasHeight)
-    }
+    // if (i === lineBox.upX - stepX/2 || i === lineBox.downX - stepX/2) {
+    //   ctx.fillStyle = '#ddc8ac'
+    //   ctx.fillRect(i, 0, stepX, canvasHeight)
+    // }
 
   }
   for (let i = 0; i <= canvasHeight; i = i + stepY) {
     ctx.moveTo(0, i)
     ctx.lineTo(canvasWidth, i)
 
-    if (i === centerYbox * stepX) {
-      ctx.fillStyle = '#ddc8ac'
-      ctx.fillRect(lineBox.upX - stepX/2, i, lineBox.downX - lineBox.upX + stepX, stepY )
-    }
+    // if (i === centerYbox * stepX) {
+    //   ctx.fillStyle = '#ddc8ac'
+    //   ctx.fillRect(lineBox.upX - stepX/2, i, lineBox.downX - lineBox.upX + stepX, stepY )
+    // }
   }
 
   ctx.stroke()
   ctx.closePath()
 
 
-  drawTriangle(canvasWidth - stepX, centerYbox * stepY + stepY / 2, canvasWidth - stepX*3, centerYbox * stepY - stepY / 2, canvasWidth - stepX*3, centerYbox * stepY + 1.5*stepY, 'brown')
-  drawTriangle(stepX, centerYbox * stepY + stepY / 2, stepX*3, centerYbox * stepY - stepY / 2, stepX*3, centerYbox * stepY + 1.5*stepY, 'brown')
-  drawTriangle(centerXbox * stepX + stepX / 2, canvasHeight - stepY, centerXbox * stepX - stepX / 2, canvasHeight - 3*stepY, centerXbox * stepX + 3*stepX/2, canvasHeight - 3*stepY, 'brown')
-  drawTriangle(centerXbox * stepX + stepX / 2, stepY, centerXbox * stepX - stepX / 2, 3*stepY, centerXbox * stepX + 3*stepX/2, 3*stepY, 'brown')
+  // право
+  drawTriangle(canvasWidth - stepX, center.centerYbox * stepY + stepY / 2, canvasWidth - stepX*3, center.centerYbox * stepY - stepY / 2, canvasWidth - stepX*3, center.centerYbox * stepY + 1.5*stepY, 'brown')
+  // лево
+  drawTriangle(stepX, center.centerYbox * stepY + stepY / 2, stepX*3, center.centerYbox * stepY - stepY / 2, stepX*3, center.centerYbox * stepY + 1.5*stepY, 'brown')
+  // низ
+  drawTriangle(center.centerXbox * stepX + stepX / 2, canvasHeight - stepY, center.centerXbox * stepX - stepX / 2, canvasHeight - 3*stepY, center.centerXbox * stepX + 3*stepX/2, canvasHeight - 3*stepY, 'brown')
+  // верх
+  drawTriangle(center.centerXbox * stepX + stepX / 2, stepY, center.centerXbox * stepX - stepX / 2, 3*stepY, center.centerXbox * stepX + 3*stepX/2, 3*stepY, 'brown')
+
+  // // право
+  // drawTriangle(canvasWidth - stepX, centerYbox * stepY + stepY / 2, canvasWidth - stepX*3, centerYbox * stepY - stepY / 2, canvasWidth - stepX*3, centerYbox * stepY + 1.5*stepY, 'brown')
+  // // лево
+  // drawTriangle(stepX, centerYbox * stepY + stepY / 2, stepX*3, centerYbox * stepY - stepY / 2, stepX*3, centerYbox * stepY + 1.5*stepY, 'brown')
+  // // низ
+  // drawTriangle(centerXbox * stepX + stepX / 2, canvasHeight - stepY, centerXbox * stepX - stepX / 2, canvasHeight - 3*stepY, centerXbox * stepX + 3*stepX/2, canvasHeight - 3*stepY, 'brown')
+  // // верх
+  // drawTriangle(centerXbox * stepX + stepX / 2, stepY, centerXbox * stepX - stepX / 2, 3*stepY, centerXbox * stepX + 3*stepX/2, 3*stepY, 'brown')
+  
+  // drawTriangle(canvasWidth - stepX, centerYbox * stepY + stepY / 2, canvasWidth - stepX*3, centerYbox * stepY - stepY / 2, canvasWidth - stepX*3, centerYbox * stepY + 1.5*stepY, 'brown')
+  // drawTriangle(stepX, centerYbox * stepY + stepY / 2, stepX*3, centerYbox * stepY - stepY / 2, stepX*3, centerYbox * stepY + 1.5*stepY, 'brown')
+  // drawTriangle(centerXbox * stepX + stepX / 2, canvasHeight - stepY, centerXbox * stepX - stepX / 2, canvasHeight - 3*stepY, centerXbox * stepX + 3*stepX/2, canvasHeight - 3*stepY, 'brown')
+  // drawTriangle(centerXbox * stepX + stepX / 2, stepY, centerXbox * stepX - stepX / 2, 3*stepY, centerXbox * stepX + 3*stepX/2, 3*stepY, 'brown')
+
+  drawDiagonal(canvasWidth, canvasHeight)
 
 }
 
+/***** Рисую диагонали (для замены разметки click и touch) */
+
+function drawDiagonal (canvasWidth, canvasHeight) {
+  ctx.beginPath();
+  ctx.strokeStyle = 'brown';
+  ctx.moveTo(0, 0);
+  ctx.lineTo(canvasWidth, canvasHeight);
+  ctx.moveTo(canvasWidth, 0);
+  ctx.lineTo(0, canvasHeight);
+  ctx.stroke();
+  ctx.closePath();
+}
 
 export { drawTriangle, startField }

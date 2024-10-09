@@ -1,7 +1,8 @@
 
 // подключаю модуль
 import { signatureScore } from "./score.js";
-import { canvas, ctx, canvasWidth, canvasHeight, step, snake, updateSnake, lineBox, evenOddCenter } from "./variables.js";
+import { canvas, ctx, canvasObj, step, snake, updateSnake, lineBox, evenOddCenter, center } from "./variables.js";
+// import { canvas, ctx, canvasWidth, canvasHeight, step, snake, updateSnake, lineBox, evenOddCenter } from "./variables.js";
 // import { canvas, ctx, canvasWidth, canvasHeight, step, imgSizeX, imgSizeY, snake, updateSnake, lineBox, evenOddCenter } from "./variables.js";
 // import { canvas, ctx, canvasWidth, canvasHeight, step, stepX, stepY, imgSizeX, imgSizeY, snake, updateSnake, lineBox, evenOddCenter, stepX } from "./variables.js";
 import { drawTriangle, startField } from "./fielDraw.js";
@@ -105,8 +106,10 @@ foodImg.src = foodArrImg[foodIndex]
 
 
 let food = {
-  x: Math.floor((Math.random()*canvasWidth/step.stepX))*step.stepX + 1, // 15 (+1 нужен чтобы не цеплять линию разметки)
-  y: Math.floor((Math.random()*canvasHeight/step.stepY))*step.stepY + 1 // 11
+  x: Math.floor((Math.random()*canvasObj.canvasWidth/step.stepX))*step.stepX + 1, // 15 (+1 нужен чтобы не цеплять линию разметки)
+  y: Math.floor((Math.random()*canvasObj.canvasHeight/step.stepY))*step.stepY + 1 // 11
+  // x: Math.floor((Math.random()*canvasWidth/step.stepX))*step.stepX + 1, // 15 (+1 нужен чтобы не цеплять линию разметки)
+  // y: Math.floor((Math.random()*canvasHeight/step.stepY))*step.stepY + 1 // 11
   // x: Math.floor((Math.random()*canvasWidth/stepX))*stepX + 1, // 15 (+1 нужен чтобы не цеплять линию разметки)
   // y: Math.floor((Math.random()*canvasHeight/stepY))*stepY + 1 // 11
 }
@@ -235,6 +238,8 @@ function startNew() {
 
   const stepX = step.stepX
   const stepY = step.stepY
+  const canvasWidth = canvasObj.canvasWidth
+  const canvasHeight = canvasObj.canvasHeight
 
   gameScore = 0
   gameScoreHtml.textContent = `Score`
@@ -291,8 +296,59 @@ function startNew() {
 
 
 /******************************************************************* */
+
+function adaptCanv () {
+  // let screenWidth = screen.availWidth
+  // let screenHeight = screen.availHeight
+
+  let screenWidth = screen.width
+  let screenHeight = screen.height
+
+    if (screenWidth < 700){
+      step.stepX = 26
+      step.stepY = 26
+      // imgSizeX = step.stepX-2 // надо уменьшить картинку, чтобы очистка не цепляла линии разметки
+      // imgSizeY = step.stepY-2 
+
+      let windowHeight = screenHeight;
+      let headerHeight = document.querySelector('.header').clientHeight
+
+      canvasObj.canvasWidth = step.stepX * Math.round(screenWidth*0.9 / step.stepX)
+      canvasObj.canvasHeight = step.stepY * Math.round((windowHeight - headerHeight)*0.8 / step.stepY)
+    
+      center.centerX = evenOddCenter(canvasObj.canvasWidth, step.stepX) + 1
+      center.centerY = evenOddCenter(canvasObj.canvasHeight, step.stepY) + 1
+    }
+    else if (screenWidth < 880) {
+      canvasObj.canvasWidth = step.stepX * Math.round(screenWidth*0.9 / step.stepX)
+      canvasObj.canvasHeight = step.stepY * Math.round(screenHeight*0.7 / step.stepY)
+
+      center.centerX = evenOddCenter(canvasObj.canvasWidth, step.stepX) + 1
+      center.centerY = evenOddCenter(canvasObj.canvasHeight, step.stepY) + 1
+
+    }
+    else {
+      canvasObj.canvasWidth = step.stepX * Math.round(canvasObj.canvasWidth / step.stepX)
+
+      center.centerX = evenOddCenter(canvasObj.canvasWidth, step.stepX) + 1
+      center.centerY = evenOddCenter(canvasObj.canvasHeight, step.stepY) + 1
+    }
+
+    canvas.width = canvasObj.canvasWidth
+    canvasObj.canvasHeight = step.stepY * Math.round(canvasObj.canvasHeight / step.stepY)
+    canvas.height = canvasObj.canvasHeight
+}
+
+adaptCanv()
+
 /******************************************************************* */
 //  Пока без адаптации
+
+window.addEventListener('resize', () => {
+  adaptCanv()
+  startField()
+  startNew()
+})
 
 // window.addEventListener('resize', function() {
 //     let screenWidth = screen.availWidth
@@ -301,26 +357,27 @@ function startNew() {
 //     if (screenWidth < 700){
 //       step.stepX = 26
 //       step.stepY = 26
-//       imgSizeX = step.stepX-2 // надо уменьшить картинку, чтобы очистка не цепляла линии разметки
-//       imgSizeY = step.stepY-2 
+//       // imgSizeX = step.stepX-2 // надо уменьшить картинку, чтобы очистка не цепляла линии разметки
+//       // imgSizeY = step.stepY-2 
 
 //       let windowHeight = screenHeight;
 //       let headerHeight = document.querySelector('.header').clientHeight
-//       canvasWidth = step.stepX * Math.round(screenWidth*0.9 / step.stepX)
-//       canvasHeight = step.stepY * Math.round((windowHeight - headerHeight)*0.8 / step.stepY)
-//       }
+
+//       canvasObj.canvasWidth = step.stepX * Math.round(screenWidth*0.9 / step.stepX)
+//       canvasObj.canvasHeight = step.stepY * Math.round((windowHeight - headerHeight)*0.8 / step.stepY)
+//     }
 //     else if (screenWidth < 880) {
-//       canvasWidth = step.stepX * Math.round(screenWidth*0.9 / step.stepX)
+//       canvasObj.canvasWidth = step.stepX * Math.round(screenWidth*0.9 / step.stepX)
   
-//       canvasHeight = step.stepY * Math.round(screenHeight*0.7 / step.stepY)
+//       canvasObj.canvasHeight = step.stepY * Math.round(screenHeight*0.7 / step.stepY)
 //     }
 //     else {
-//       canvasWidth = step.stepX * Math.round(canvasWidth / step.stepX)
+//       canvasObj.canvasWidth = step.stepX * Math.round(canvasObj.canvasWidth / step.stepX)
 //     }
 
-//     canvas.width = canvasWidth
-//     canvasHeight = step.stepY * Math.round(canvasHeight / step.stepY)
-//     canvas.height = canvasHeight
+//     canvas.width = canvasObj.canvasWidth
+//     canvasObj.canvasHeight = step.stepY * Math.round(canvasObj.canvasHeight / step.stepY)
+//     canvas.height = canvasObj.canvasHeight
 // });
 
 /******************************************************************* */
@@ -431,7 +488,7 @@ function isObjectEmpty(obj) {
 // Функция очистки поля
 
 function clearField() {
-  ctx.clearRect(0, 0, canvasWidth, canvasHeight); 
+  ctx.clearRect(0, 0, canvasObj.canvasWidth, canvasObj.canvasHeight); 
     ctx.closePath() 
 }
 
@@ -449,6 +506,8 @@ snakeImg.src = './assets/img/snakeHead-01-48.png'
 function drawPicture() {
   const stepX = step.stepX
   const stepY = step.stepY
+  const canvasWidth = canvasObj.canvasWidth
+  const canvasHeight = canvasObj.canvasHeight
 
   clearField()
   startField()

@@ -2,9 +2,15 @@
 const canvas = document.querySelector('.canvas');
 const ctx = canvas.getContext('2d');
 
+/************************************ */
 // получаю ширину и высоту canvas
-let canvasWidth = canvas.clientWidth;
-let canvasHeight = canvas.clientHeight
+// let canvasWidth = canvas.clientWidth;
+// let canvasHeight = canvas.clientHeight
+
+const canvasObj = {
+  canvasWidth: canvas.clientWidth,
+  canvasHeight: canvas.clientHeight,
+}
 
 /************************************* */
 
@@ -39,8 +45,8 @@ let imgSizeY = step.stepY-2 // надо уменьшить картинку, ч�
 
 let snake = []
 snake[0] = {
-  x: evenOddCenter(canvasWidth, step.stepX) + 1,
-  y: evenOddCenter(canvasHeight, step.stepY) + 1
+  x: evenOddCenter(canvasObj.canvasWidth, step.stepX) + 1,
+  y: evenOddCenter(canvasObj.canvasHeight, step.stepY) + 1
   // x: evenOddCenter(canvasWidth, stepX) + 1,
   // y: evenOddCenter(canvasHeight, stepY) + 1
 }
@@ -56,18 +62,33 @@ function updateVariable(variable, value) {
 /************************************* */
 // Запоминаю центр и центральные ячейки
 
-let centerX = snake[0].x
-let centerY = snake[0].y
+// let centerX = snake[0].x
+// let centerY = snake[0].y
 
-let centerXbox = Math.floor(centerX / step.stepX)
-let centerYbox = Math.floor(centerY / step.stepY)
+const center = {
+  centerX: evenOddCenter(canvasObj.canvasWidth, step.stepX) + 1,
+  centerY: evenOddCenter(canvasObj.canvasHeight, step.stepY) + 1,
+
+  get centerXbox() {
+    return Math.floor(this.centerX / step.stepX)
+  },
+  get centerYbox() {
+    return Math.floor(this.centerY / step.stepY)
+  },
+
+}
+
+// let centerXbox = Math.floor(center.centerX / step.stepX)
+// let centerYbox = Math.floor(center.centerY / step.stepY)
+// let centerXbox = Math.floor(centerX / step.stepX)
+// let centerYbox = Math.floor(centerY / step.stepY)
 // let centerXbox = Math.floor(centerX / stepX)
 // let centerYbox = Math.floor(centerY / stepY)
 
 let lineBox = {
-  upX: lineEvent(canvasWidth, step.stepX)*step.stepX + step.stepX/2,
-  downX: canvasWidth - (lineEvent(canvasWidth, step.stepX)*step.stepX) - step.stepX/2,
-  centerY: evenOddCenter(canvasHeight, step.stepY) + step.stepY/2
+  upX: lineEvent(canvasObj.canvasWidth, step.stepX)*step.stepX + step.stepX/2,
+  downX: canvasObj.canvasWidth - (lineEvent(canvasObj.canvasWidth, step.stepX)*step.stepX) - step.stepX/2,
+  centerY: evenOddCenter(canvasObj.canvasHeight, step.stepY) + step.stepY/2
   // upX: lineEvent(canvasWidth, stepX)*stepX + stepX/2,
   // downX: canvasWidth - (lineEvent(canvasWidth, stepX)*stepX) - stepX/2,
   // centerY: evenOddCenter(canvasHeight, stepY) + stepY/2
@@ -91,5 +112,7 @@ function evenOddCenter (canvasWidth, stepX) {
 
 /************************************* */
 
-export { canvas, ctx, canvasWidth, canvasHeight, lineBox, step, imgSizeX, imgSizeY, snake, updateSnake, centerXbox, centerYbox, evenOddCenter }
+export { canvas, ctx, canvasObj, lineBox, step, imgSizeX, imgSizeY, snake, updateSnake, evenOddCenter, center }
+// export { canvas, ctx, canvasObj, lineBox, step, imgSizeX, imgSizeY, snake, updateSnake, centerXbox, centerYbox, evenOddCenter, center }
+// export { canvas, ctx, canvasWidth, canvasHeight, lineBox, step, imgSizeX, imgSizeY, snake, updateSnake, centerXbox, centerYbox, evenOddCenter }
 // export { canvas, ctx, canvasWidth, canvasHeight, lineBox, step, stepX, stepY, imgSizeX, imgSizeY, snake, updateSnake, centerXbox, centerYbox, evenOddCenter }
