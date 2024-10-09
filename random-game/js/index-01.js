@@ -220,7 +220,9 @@ let gameSpeed = 390
 
 let gameSpeedInput = 450 - testInput.value
 
+adaptCanv()
 startNew()
+// startField()
 
 /******** Старт ******************************** */
 /******** Старт ******************************** */
@@ -339,15 +341,15 @@ function adaptCanv () {
     canvas.height = canvasObj.canvasHeight
 }
 
-adaptCanv()
+// adaptCanv()
 
 /******************************************************************* */
 //  Пока без адаптации
 
 window.addEventListener('resize', () => {
   adaptCanv()
-  startField()
   startNew()
+  startField()
 })
 
 // window.addEventListener('resize', function() {
