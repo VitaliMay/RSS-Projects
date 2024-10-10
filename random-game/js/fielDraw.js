@@ -95,7 +95,9 @@ function startField() {
 
 function drawDiagonal (canvasWidth, canvasHeight) {
   ctx.beginPath();
-  ctx.strokeStyle = 'brown';
+  ctx.strokeStyle = 'white';
+  // ctx.strokeStyle = 'green';
+  // ctx.strokeStyle = 'brown';
   ctx.moveTo(0, 0);
   ctx.lineTo(canvasWidth, canvasHeight);
   ctx.moveTo(canvasWidth, 0);

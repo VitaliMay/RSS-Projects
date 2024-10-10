@@ -1,11 +1,14 @@
 
 // подключаю модуль
 import { signatureScore } from "./score.js";
-import { canvas, ctx, canvasObj, step, snake, updateSnake, lineBox, evenOddCenter, center } from "./variables.js";
+import { canvas, ctx, canvasObj, step, snake, updateSnake, lineBox, evenOddCenter, center, optionsTriangle } from "./variables.js";
+// import { canvas, ctx, canvasObj, step, snake, updateSnake, lineBox, evenOddCenter, center, optionsUpTriangle, optionsRightTriangle, optionsDownTriangle, optionsLeftTriangle, optionsTriangle } from "./variables.js";
+// import { canvas, ctx, canvasObj, step, snake, updateSnake, lineBox, evenOddCenter, center, optionsUpTriangle, optionsRightTriangle, optionsDownTriangle, optionsLeftTriangle, optionsTriangle, optionsTriangle } from "./variables.js";
 // import { canvas, ctx, canvasWidth, canvasHeight, step, snake, updateSnake, lineBox, evenOddCenter } from "./variables.js";
 // import { canvas, ctx, canvasWidth, canvasHeight, step, imgSizeX, imgSizeY, snake, updateSnake, lineBox, evenOddCenter } from "./variables.js";
 // import { canvas, ctx, canvasWidth, canvasHeight, step, stepX, stepY, imgSizeX, imgSizeY, snake, updateSnake, lineBox, evenOddCenter, stepX } from "./variables.js";
 import { drawTriangle, startField } from "./fielDraw.js";
+import { isPointInTriangle } from "./elementUtils.js";
 
 signatureScore ()
 
@@ -339,6 +342,9 @@ function adaptCanv () {
     canvas.width = canvasObj.canvasWidth
     canvasObj.canvasHeight = step.stepY * Math.round(canvasObj.canvasHeight / step.stepY)
     canvas.height = canvasObj.canvasHeight
+
+    
+    // console.log(optionsRightTriangle)
 }
 
 // adaptCanv()
@@ -752,7 +758,12 @@ function moveSnake(event) {
 
 	if (codeArr.indexOf(event.code) >= 0) event.preventDefault();
 
-  if (event.code === codeArr[0] || event.code === codeArr[1] || event.code === codeArr[2] || event.code === codeArr[3] || (event.offsetY <= lineBox.centerY && event.offsetX > lineBox.upX && event.offsetX < lineBox.downX))  {
+  // const optionsTriangle = optionsTriangle(canvasObj)
+
+  if (event.code === codeArr[0] || event.code === codeArr[1] || event.code === codeArr[2] || event.code === codeArr[3] || (isPointInTriangle(optionsTriangle(canvasObj).up, event.offsetX, event.offsetY)))  {
+  // if (event.code === codeArr[0] || event.code === codeArr[1] || event.code === codeArr[2] || event.code === codeArr[3] || (isPointInTriangle(optionsTriangle.up, event.offsetX, event.offsetY)))  {
+  // if (event.code === codeArr[0] || event.code === codeArr[1] || event.code === codeArr[2] || event.code === codeArr[3] || (isPointInTriangle(optionsUpTriangle, event.offsetX, event.offsetY)))  {
+  // if (event.code === codeArr[0] || event.code === codeArr[1] || event.code === codeArr[2] || event.code === codeArr[3] || (event.offsetY <= lineBox.centerY && event.offsetX > lineBox.upX && event.offsetX < lineBox.downX))  {
   // if (event.code === codeArr[0] || event.code === codeArr[1] || event.code === codeArr[2] || event.offsetY <= lineBox.upY ) {
     if (direction === 'stop') { 
       direction = 'stop'
@@ -763,7 +774,10 @@ function moveSnake(event) {
     }
   }
 
-  if (event.code === codeArr[4] || event.code === codeArr[5] || event.code === codeArr[6] || event.code === codeArr[7] || event.offsetX >= lineBox.downX) {
+  if (event.code === codeArr[4] || event.code === codeArr[5] || event.code === codeArr[6] || event.code === codeArr[7] || (isPointInTriangle(optionsTriangle(canvasObj).right, event.offsetX, event.offsetY))) {
+  // if (event.code === codeArr[4] || event.code === codeArr[5] || event.code === codeArr[6] || event.code === codeArr[7] || (isPointInTriangle(optionsTriangle.right, event.offsetX, event.offsetY))) {
+  // if (event.code === codeArr[4] || event.code === codeArr[5] || event.code === codeArr[6] || event.code === codeArr[7] || (isPointInTriangle(optionsRightTriangle, event.offsetX, event.offsetY))) {
+  // if (event.code === codeArr[4] || event.code === codeArr[5] || event.code === codeArr[6] || event.code === codeArr[7] || event.offsetX >= lineBox.downX) {
 
     if (direction === 'stop') {
       direction = 'stop'
@@ -774,7 +788,10 @@ function moveSnake(event) {
     }
   }
 
-  if (event.code === codeArr[8] || event.code === codeArr[9] || event.code === codeArr[10] || event.code === codeArr[11] || (event.offsetY > lineBox.centerY && event.offsetX > lineBox.upX && event.offsetX < lineBox.downX) ) {
+  if (event.code === codeArr[8] || event.code === codeArr[9] || event.code === codeArr[10] || event.code === codeArr[11] || (isPointInTriangle(optionsTriangle(canvasObj).down, event.offsetX, event.offsetY)) ) {
+  // if (event.code === codeArr[8] || event.code === codeArr[9] || event.code === codeArr[10] || event.code === codeArr[11] || (isPointInTriangle(optionsTriangle.down, event.offsetX, event.offsetY)) ) {
+  // if (event.code === codeArr[8] || event.code === codeArr[9] || event.code === codeArr[10] || event.code === codeArr[11] || (isPointInTriangle(optionsDownTriangle, event.offsetX, event.offsetY)) ) {
+  // if (event.code === codeArr[8] || event.code === codeArr[9] || event.code === codeArr[10] || event.code === codeArr[11] || (event.offsetY > lineBox.centerY && event.offsetX > lineBox.upX && event.offsetX < lineBox.downX) ) {
 
     if (direction === 'stop') {
       direction = 'stop'
@@ -785,7 +802,10 @@ function moveSnake(event) {
     }
   }
 
-  if (event.code === codeArr[12] || event.code === codeArr[13] || event.code === codeArr[14] || event.code === codeArr[15] || (event.offsetX <= lineBox.upX)) {
+  if (event.code === codeArr[12] || event.code === codeArr[13] || event.code === codeArr[14] || event.code === codeArr[15] || (isPointInTriangle(optionsTriangle(canvasObj).left, event.offsetX, event.offsetY))) {
+  // if (event.code === codeArr[12] || event.code === codeArr[13] || event.code === codeArr[14] || event.code === codeArr[15] || (isPointInTriangle(optionsTriangle.left, event.offsetX, event.offsetY))) {
+  // if (event.code === codeArr[12] || event.code === codeArr[13] || event.code === codeArr[14] || event.code === codeArr[15] || (isPointInTriangle(optionsLeftTriangle, event.offsetX, event.offsetY))) {
+  // if (event.code === codeArr[12] || event.code === codeArr[13] || event.code === codeArr[14] || event.code === codeArr[15] || (event.offsetX <= lineBox.upX)) {
 
     if (direction === 'stop') { 
       direction = 'stop'
