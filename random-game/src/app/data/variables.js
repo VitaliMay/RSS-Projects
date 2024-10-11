@@ -4,8 +4,6 @@ const ctx = canvas.getContext('2d');
 
 /************************************ */
 // получаю ширину и высоту canvas
-// let canvasWidth = canvas.clientWidth;
-// let canvasHeight = canvas.clientHeight
 
 const canvasObj = {
   canvasWidth: canvas.clientWidth,
@@ -13,9 +11,6 @@ const canvasObj = {
 }
 
 /************************************* */
-
-// let stepX = 31;
-// let stepY = 31;
 
 const step = {
   stepX: 31,
@@ -47,16 +42,11 @@ let snake = []
 snake[0] = {
   x: evenOddCenter(canvasObj.canvasWidth, step.stepX) + 1,
   y: evenOddCenter(canvasObj.canvasHeight, step.stepY) + 1
-  // x: evenOddCenter(canvasWidth, stepX) + 1,
-  // y: evenOddCenter(canvasHeight, stepY) + 1
 }
 
 // функция для обновления snake в других модулях
 function updateSnake(newSnake) {
   snake = newSnake;
-}
-function updateVariable(variable, value) {
-  variable = value;
 }
 
 /************************************* */
@@ -138,6 +128,7 @@ let lineBox = {
 /**    Обновляю  координаты полей (треугольников) после изменения размера convas и => canvasObj*/
 
 function optionsTriangle(canvasObj) {
+
   const optionsUpTriangle = {
     x1: canvasObj.canvasWidth / 2, // x координата центра
     y1: canvasObj.canvasHeight / 2, // y координата центра
@@ -146,7 +137,7 @@ function optionsTriangle(canvasObj) {
     x3: canvasObj.canvasWidth,
     y3: 0,
   }
-  
+
   const optionsRightTriangle = {
     x1: canvasObj.canvasWidth / 2, // x координата центра
     y1: canvasObj.canvasHeight / 2, // y координата центра
@@ -155,7 +146,7 @@ function optionsTriangle(canvasObj) {
     x3: canvasObj.canvasWidth,
     y3: canvasObj.canvasHeight,
   }
-  
+
   const optionsDownTriangle = {
     x1: canvasObj.canvasWidth / 2, // x координата центра
     y1: canvasObj.canvasHeight / 2, // y координата центра
@@ -164,7 +155,7 @@ function optionsTriangle(canvasObj) {
     x3: 0,
     y3: canvasObj.canvasHeight,
   }
-  
+
   const optionsLeftTriangle = {
     x1: canvasObj.canvasWidth / 2, // x координата центра
     y1: canvasObj.canvasHeight / 2, // y координата центра
@@ -180,15 +171,11 @@ function optionsTriangle(canvasObj) {
     down: optionsDownTriangle,
     left: optionsLeftTriangle,
   }
+
   return optionsTriangle;
 }
 
 /*********************************************************** */
-
-
-
-
-/************************************************** */
 
 function lineEvent (canvasHeight, stepY) {
   let result
@@ -207,7 +194,3 @@ function evenOddCenter (canvasWidth, stepX) {
 /************************************* */
 
 export { canvas, ctx, canvasObj, lineBox, step, imgSizeX, imgSizeY, snake, updateSnake, evenOddCenter, center, optionsTriangle }
-// export { canvas, ctx, canvasObj, lineBox, step, imgSizeX, imgSizeY, snake, updateSnake, evenOddCenter, center, optionsUpTriangle, optionsRightTriangle, optionsDownTriangle, optionsLeftTriangle, optionsTriangle }
-// export { canvas, ctx, canvasObj, lineBox, step, imgSizeX, imgSizeY, snake, updateSnake, centerXbox, centerYbox, evenOddCenter, center }
-// export { canvas, ctx, canvasWidth, canvasHeight, lineBox, step, imgSizeX, imgSizeY, snake, updateSnake, centerXbox, centerYbox, evenOddCenter }
-// export { canvas, ctx, canvasWidth, canvasHeight, lineBox, step, stepX, stepY, imgSizeX, imgSizeY, snake, updateSnake, centerXbox, centerYbox, evenOddCenter }

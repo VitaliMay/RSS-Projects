@@ -7,10 +7,9 @@
   <title>Random-Game VitaliMay</title>
 	<link href="https://fonts.googleapis.com/css?family=Inter:100,200,300,regular,500,600,700,800,900" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Forum:regular" rel="stylesheet">
-	<link rel="stylesheet" href="./css/normalize.css">
-  <link rel="stylesheet" href="./css/style.css">
-  <link rel="icon" href="./assets/svg/GR_favicon.ico">
-	<!-- <script defer type="module" src="./js/index.js"></script> -->
+	<link rel="stylesheet" href="./src/styles/normalize.css">
+  <link rel="stylesheet" href="./src/styles/style.css">
+  <link rel="icon" href="./src/assets/svg/GR_favicon.ico">
 </head>
 <body>
 	<div class="wrapper">
@@ -42,11 +41,11 @@
 		</header>
 
 		<main class="main">
-			<audio class="baseMusic" src="./assets/audio/Snake-muzyka-06-2.mp3" loop></audio>
-			<audio class="foodMusic" src="./assets/audio/Snake-am-15.mp3" ></audio>
-			<audio class="tailMusic" src="./assets/audio/Snake-am-16.mp3" ></audio>
-			<audio class="borderMusic" src="./assets/audio/Snake-wall-09.mp3" ></audio>
-			<audio class="stopMusic" src="./assets/audio/Snake-stop-01.mp3" ></audio>
+			<audio class="baseMusic" src="./src/assets/audio/Snake-muzyka-06-2.mp3" loop></audio>
+			<audio class="foodMusic" src="./src/assets/audio/Snake-am-15.mp3" ></audio>
+			<audio class="tailMusic" src="./src/assets/audio/Snake-am-16.mp3" ></audio>
+			<audio class="borderMusic" src="./src/assets/audio/Snake-wall-09.mp3" ></audio>
+			<audio class="stopMusic" src="./src/assets/audio/Snake-stop-01.mp3" ></audio>
 
 			<canvas class="canvas" width="713" height="528"></canvas>
 
@@ -57,11 +56,11 @@
 			<div class="footer-container">
 
 				<a class="footer-container__github" target="_blank" href="https://github.com/VitaliMay">
-					<img class="footer-link" src="./assets/svg/github.svg" alt="Github Icon" height="35">
+					<img class="footer-link" src="./src/assets/svg/github.svg" alt="Github Icon" height="35">
 				</a>
 				<p class="footer-container__copy">&copy; 2024</p>
 				<a target="_blank" href="https://rs.school/courses/javascript-preschool-ru">
-					<img class="footer-link" src="./assets/svg/rs_school_js.svg" alt="Rsschool Icon" height="25">
+					<img class="footer-link" src="./src/assets/svg/rs_school_js.svg" alt="Rsschool Icon" height="25">
 				</a>
 
 			</div>
@@ -73,9 +72,7 @@
 
 		<div class="modal modal-login">
 			<button class="modal-btn-cross">&#10006;</button>
-			<!-- <h2 class="modal-title modal-title--position"></h2> -->
 			<h2 class="modal-title modal-title--position modal-title--noCup">Game Over</h2>
-			<!-- <h2 class="modal-title modal-title--position"> <span class="totalScore"></span></h2> -->
 			<h2 class="modal-title modal-title--position modal-title--noCup">Total Score is <span class="totalScore"></span></h2>
 			<h3 class="modal-title modal-title--position">Your best 10 results</h3>
 			<h4 class="modal-title modal-title--position">При максимальной скорости в <span class="maxCurrentSpeed"></span> тараканов в час</h4>
@@ -197,7 +194,6 @@
 		</div>
 
 	</div>
-	<script type="module" src="./js/index-01.js"></script>
-	<!-- <script type="module" src="./js/index.js"></script> -->
+	<script type="module" src="./src/app/app.js"></script>
 </body>
 </html>

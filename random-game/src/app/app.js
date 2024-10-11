@@ -1,20 +1,14 @@
 
 // подключаю модуль
 import { signatureScore } from "./score.js";
-import { canvas, ctx, canvasObj, step, snake, updateSnake, lineBox, evenOddCenter, center, optionsTriangle } from "./variables.js";
-// import { canvas, ctx, canvasObj, step, snake, updateSnake, lineBox, evenOddCenter, center, optionsUpTriangle, optionsRightTriangle, optionsDownTriangle, optionsLeftTriangle, optionsTriangle } from "./variables.js";
-// import { canvas, ctx, canvasObj, step, snake, updateSnake, lineBox, evenOddCenter, center, optionsUpTriangle, optionsRightTriangle, optionsDownTriangle, optionsLeftTriangle, optionsTriangle, optionsTriangle } from "./variables.js";
-// import { canvas, ctx, canvasWidth, canvasHeight, step, snake, updateSnake, lineBox, evenOddCenter } from "./variables.js";
-// import { canvas, ctx, canvasWidth, canvasHeight, step, imgSizeX, imgSizeY, snake, updateSnake, lineBox, evenOddCenter } from "./variables.js";
-// import { canvas, ctx, canvasWidth, canvasHeight, step, stepX, stepY, imgSizeX, imgSizeY, snake, updateSnake, lineBox, evenOddCenter, stepX } from "./variables.js";
-import { drawTriangle, startField } from "./fielDraw.js";
-import { isPointInTriangle } from "./elementUtils.js";
+import { canvas, ctx, canvasObj, step, snake, updateSnake, lineBox, evenOddCenter, center, optionsTriangle } from "./data/variables.js";
+import { drawTriangle, startField } from "./components/fielDraw.js";
+// import { drawTriangle, startField } from "./fielDraw.js";
+import { isPointInTriangle } from "./utils/elementUtils.js";
 
 signatureScore ()
 
 /********************************************* */
-// const canvas = document.querySelector('.canvas');
-// const ctx = canvas.getContext('2d');
 
 const start = document.querySelector('.color-test')
 
@@ -40,6 +34,12 @@ const modalLogin = document.querySelector('.modal-login')
 let direction = null;
 let prevDirection = null;
 let changeDirection = false;
+
+/************************************************** */
+// чтобы не появлялось контекстное меню при длительном таче
+body.addEventListener('contextmenu', function (event) {
+  event.preventDefault();
+});
 
 
 /**** Музыка ******************************************* */
@@ -70,8 +70,8 @@ musicTail.volume = 0.8;
 // let flagSound = true  // не хочу проверять наличие класса у btnSound
 
 btnSound.addEventListener('click', soundOnOff)
-btnSound.addEventListener("touchstart", soundOnOff, { passive: true });
-btnSound.addEventListener("touchend", soundOnOff, { passive: true });
+// btnSound.addEventListener("touchstart", soundOnOff, { passive: true });
+// btnSound.addEventListener("touchend", soundOnOff, { passive: true });
 
 function soundOnOff() {
   btnSound.classList.toggle('btn_Sound--mute')
@@ -97,10 +97,10 @@ function soundOnOff() {
 /**** food */
 
 let foodArrImg = [
-  './assets/img/fly-02-48.png',
-  './assets/img/fly-01-48.png',
-  './assets/img/bird-48.png',
-  './assets/img/frog-48.png'
+  './src/assets/img/fly-02-48.png',
+  './src/assets/img/fly-01-48.png',
+  './src/assets/img/bird-48.png',
+  './src/assets/img/frog-48.png'
 ]
 
 let foodImg = new Image();
@@ -343,14 +343,11 @@ function adaptCanv () {
     canvasObj.canvasHeight = step.stepY * Math.round(canvasObj.canvasHeight / step.stepY)
     canvas.height = canvasObj.canvasHeight
 
-    
-    // console.log(optionsRightTriangle)
 }
 
-// adaptCanv()
 
 /******************************************************************* */
-//  Пока без адаптации
+//  Для адаптации
 
 window.addEventListener('resize', () => {
   adaptCanv()
@@ -358,75 +355,12 @@ window.addEventListener('resize', () => {
   startField()
 })
 
-// window.addEventListener('resize', function() {
-//     let screenWidth = screen.availWidth
-//     let screenHeight = screen.availHeight
-
-//     if (screenWidth < 700){
-//       step.stepX = 26
-//       step.stepY = 26
-//       // imgSizeX = step.stepX-2 // надо уменьшить картинку, чтобы очистка не цепляла линии разметки
-//       // imgSizeY = step.stepY-2 
-
-//       let windowHeight = screenHeight;
-//       let headerHeight = document.querySelector('.header').clientHeight
-
-//       canvasObj.canvasWidth = step.stepX * Math.round(screenWidth*0.9 / step.stepX)
-//       canvasObj.canvasHeight = step.stepY * Math.round((windowHeight - headerHeight)*0.8 / step.stepY)
-//     }
-//     else if (screenWidth < 880) {
-//       canvasObj.canvasWidth = step.stepX * Math.round(screenWidth*0.9 / step.stepX)
-  
-//       canvasObj.canvasHeight = step.stepY * Math.round(screenHeight*0.7 / step.stepY)
-//     }
-//     else {
-//       canvasObj.canvasWidth = step.stepX * Math.round(canvasObj.canvasWidth / step.stepX)
-//     }
-
-//     canvas.width = canvasObj.canvasWidth
-//     canvasObj.canvasHeight = step.stepY * Math.round(canvasObj.canvasHeight / step.stepY)
-//     canvas.height = canvasObj.canvasHeight
-// });
-
-/******************************************************************* */
-
-//  Пока без адаптации
-
-// // let screenWidth = screen.width
-// // let screenHeight = screen.height
-
-// let screenWidth = screen.availWidth
-// let screenHeight = screen.availHeight
-
-// if (screenWidth < 700){
-//   stepX = 26
-//   stepY = 26
-//   imgSizeX = stepX-2 // надо уменьшить картинку, чтобы очистка не цепляла линии разметки
-//   imgSizeY = stepY-2 
-
-//   let windowHeight = screenHeight;
-//   let headerHeight = document.querySelector('.header').clientHeight
-//   canvasWidth = stepX * Math.round(screenWidth*0.9 / stepX)
-//   canvasHeight = stepY * Math.round((windowHeight - headerHeight)*0.8 / stepY)
-// }
-// else if (screenWidth < 880) {
-//   canvasWidth = stepX * Math.round(screenWidth*0.9 / stepX)
-  
-//   canvasHeight = stepY * Math.round(screenHeight*0.7 / stepY)
-// }
-// else {
-//   canvasWidth = stepX * Math.round(canvasWidth / stepX)
-// }
-
-// canvas.width = canvasWidth
-// canvasHeight = stepY * Math.round(canvasHeight / stepY)
-// canvas.height = canvasHeight
-
 
 /******* Создаю класс для работы с Local Storage ***************************** */
 /******* Создаю класс для работы с Local Storage ***************************** */
 
 class MemoryStore {
+
   constructor() {
     this.localKey = 'VitaliMay_Snake_scoreTable'
   }
@@ -463,7 +397,7 @@ class MemoryStore {
       else {
         memoryLocal[gameSpeed] = [gameScore]
       }
-    }  
+    }
     else  {
       memoryLocal[gameSpeed] = [gameScore]
     }
@@ -497,7 +431,7 @@ function isObjectEmpty(obj) {
 
 function clearField() {
   ctx.clearRect(0, 0, canvasObj.canvasWidth, canvasObj.canvasHeight); 
-    ctx.closePath() 
+    ctx.closePath()
 }
 
 
@@ -505,7 +439,7 @@ function clearField() {
 
 ctx.beginPath()
 const snakeImg = new Image();
-snakeImg.src = './assets/img/snakeHead-01-48.png'
+snakeImg.src = './src/assets/img/snakeHead-01-48.png'
 
 
 /**************************************************************** */
