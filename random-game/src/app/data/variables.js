@@ -1,4 +1,9 @@
 
+const body = document.querySelector('body');
+
+
+/************************************ */
+
 const canvas = document.querySelector('.canvas');
 const ctx = canvas.getContext('2d');
 
@@ -37,6 +42,10 @@ let imgSizeY = step.stepY-2 // надо уменьшить картинку, ч�
 
 
 /************************************* */
+/****  snake       */
+
+const snakeImg = new Image();
+snakeImg.src = './src/assets/img/snakeHead-01-48.png'
 
 let snake = []
 snake[0] = {
@@ -47,6 +56,49 @@ snake[0] = {
 // функция для обновления snake в других модулях
 function updateSnake(newSnake) {
   snake = newSnake;
+}
+
+// Прямоугольник с закругленными углами
+
+function drawRoundedRectangle(ctx, x, y, width, height, borderRadius, color) {
+  ctx.beginPath();
+  ctx.moveTo(x + borderRadius, y);
+  ctx.lineTo(x + width - borderRadius, y);
+  ctx.quadraticCurveTo(x + width, y, x + width, y + borderRadius);
+  ctx.lineTo(x + width, y + height - borderRadius);
+  ctx.quadraticCurveTo(x + width, y + height, x + width - borderRadius, y + height);
+  ctx.lineTo(x + borderRadius, y + height);
+  ctx.quadraticCurveTo(x, y + height, x, y + height - borderRadius);
+  ctx.lineTo(x, y + borderRadius);
+  ctx.quadraticCurveTo(x, y, x + borderRadius, y);
+  ctx.fillStyle = color;
+  ctx.fill();
+}
+
+/************************************* */
+/****  food       */
+
+const foodArrImg = [
+  './src/assets/img/fly-02-48.png',
+  './src/assets/img/fly-01-48.png',
+  './src/assets/img/bird-48.png',
+  './src/assets/img/frog-48.png'
+]
+
+const foodImg = new Image();
+// let foodIndex = Math.floor(foodArrImg.length * Math.random())
+// foodImg.src = foodArrImg[foodIndex]
+foodImg.src = foodSrc()
+
+const food = {
+  x: Math.floor((Math.random()*canvasObj.canvasWidth/step.stepX))*step.stepX + 1, // 15 (+1 нужен чтобы не цеплять линию разметки)
+  y: Math.floor((Math.random()*canvasObj.canvasHeight/step.stepY))*step.stepY + 1 // 11
+}
+
+function foodSrc () {
+  const foodIndex = Math.floor(foodArrImg.length * Math.random())
+  const src = foodArrImg[foodIndex]
+  return src
 }
 
 /************************************* */
@@ -193,4 +245,4 @@ function evenOddCenter (canvasWidth, stepX) {
 
 /************************************* */
 
-export { canvas, ctx, canvasObj, lineBox, step, imgSizeX, imgSizeY, snake, updateSnake, evenOddCenter, center, optionsTriangle }
+export { body, canvas, ctx, canvasObj, lineBox, step, imgSizeX, imgSizeY, snake, snakeImg, drawRoundedRectangle, updateSnake, food, foodImg, foodSrc, evenOddCenter, center, optionsTriangle }

@@ -1,10 +1,13 @@
 
-// подключаю модуль
 import { signatureScore } from "./score.js";
-import { canvas, ctx, canvasObj, step, snake, updateSnake, lineBox, evenOddCenter, center, optionsTriangle } from "./data/variables.js";
+import { body, canvas, ctx, canvasObj, step, snake, snakeImg, drawRoundedRectangle, updateSnake, food, foodImg, foodSrc, lineBox, evenOddCenter, center, optionsTriangle } from "./data/variables.js";
 import { drawTriangle, startField } from "./components/fielDraw.js";
-// import { drawTriangle, startField } from "./fielDraw.js";
-import { isPointInTriangle } from "./utils/elementUtils.js";
+import { isDifferenceInRange, isPointInTriangle } from "./utils/elementUtils.js";
+import { MemoryStore } from "./utils/storageUtils.js";
+import './eventHandlers/contextmenuHandler.js' // слушатель
+import { musicBase, musicFood, musicTail, musicBorder, musicStop } from "./eventHandlers/musicHandler.js";
+import './eventHandlers/musicHandler.js'  // слушатель
+import { adaptCanv } from "./utils/adaptationUtils.js";
 
 signatureScore ()
 
@@ -16,7 +19,7 @@ const gameScoreHtml = document.querySelector('.title')
 const immunityScoreHtml = document.querySelector('.stat__score--immunity')
 const speedScoreHtml = document.querySelector('.stat__score--speed')
 
-const btnSound = document.querySelector('.btn_Sound')
+// const btnSound = document.querySelector('.btn_Sound')
 const btnRules = document.querySelector('.btn_Rules')
 const btnSetting = document.querySelector('.btn_Setting')
 const btnStop = document.querySelector('.btn_Stop')
@@ -25,7 +28,7 @@ const testInput = document.querySelector('.testInput')
 
 
 /**************************************************** */
-const body = document.querySelector('body');
+// const body = document.querySelector('body');
 const fon = document.querySelector('.fon');
 const modalLogin = document.querySelector('.modal-login')
 
@@ -34,88 +37,6 @@ const modalLogin = document.querySelector('.modal-login')
 let direction = null;
 let prevDirection = null;
 let changeDirection = false;
-
-/************************************************** */
-// чтобы не появлялось контекстное меню при длительном таче
-body.addEventListener('contextmenu', function (event) {
-  event.preventDefault();
-});
-
-
-/**** Музыка ******************************************* */
-/**** Музыка ******************************************* */
-
-const musicBase = document.querySelector('.baseMusic')
-musicBase.pause()
-// Устанавливаю уровень звука (от 0 до 1)
-musicBase.volume = 0.3;
-musicBase.playbackRate = 0.8;
-
-const musicFood = document.querySelector('.foodMusic')
-musicFood.pause()
-musicFood.volume = 0.8; 
-
-const musicBorder = document.querySelector('.borderMusic')
-musicBorder.pause()
-musicBorder.volume = 0.8; 
-
-const musicStop = document.querySelector('.stopMusic')
-musicStop.pause()
-musicStop.volume = 0.8; 
-
-const musicTail = document.querySelector('.tailMusic')
-musicTail.pause()
-musicTail.volume = 0.8; 
-
-// let flagSound = true  // не хочу проверять наличие класса у btnSound
-
-btnSound.addEventListener('click', soundOnOff)
-// btnSound.addEventListener("touchstart", soundOnOff, { passive: true });
-// btnSound.addEventListener("touchend", soundOnOff, { passive: true });
-
-function soundOnOff() {
-  btnSound.classList.toggle('btn_Sound--mute')
-
-  if (btnSound.classList.contains('btn_Sound--mute')) {
-    musicBase.volume = 0;
-    musicFood.volume = 0; 
-    musicBorder.volume = 0; 
-    musicTail.volume = 0;
-    musicStop.volume = 0; 
-  }
-  else {
-    musicBase.volume = 0.3;
-    musicFood.volume = 0.8; 
-    musicBorder.volume = 0.8; 
-    musicTail.volume = 0.8; 
-    musicStop.volume = 0.8; 
-  }
-}
-
-/******************************************************** */
-/**** food */
-/**** food */
-
-let foodArrImg = [
-  './src/assets/img/fly-02-48.png',
-  './src/assets/img/fly-01-48.png',
-  './src/assets/img/bird-48.png',
-  './src/assets/img/frog-48.png'
-]
-
-let foodImg = new Image();
-let foodIndex = Math.floor(foodArrImg.length * Math.random())
-foodImg.src = foodArrImg[foodIndex]
-
-
-let food = {
-  x: Math.floor((Math.random()*canvasObj.canvasWidth/step.stepX))*step.stepX + 1, // 15 (+1 нужен чтобы не цеплять линию разметки)
-  y: Math.floor((Math.random()*canvasObj.canvasHeight/step.stepY))*step.stepY + 1 // 11
-  // x: Math.floor((Math.random()*canvasWidth/step.stepX))*step.stepX + 1, // 15 (+1 нужен чтобы не цеплять линию разметки)
-  // y: Math.floor((Math.random()*canvasHeight/step.stepY))*step.stepY + 1 // 11
-  // x: Math.floor((Math.random()*canvasWidth/stepX))*stepX + 1, // 15 (+1 нужен чтобы не цеплять линию разметки)
-  // y: Math.floor((Math.random()*canvasHeight/stepY))*stepY + 1 // 11
-}
 
 /****************************************************************** */
 /******Для отображения картинки ************* */
@@ -166,7 +87,6 @@ const modalBtnCrossSetting = [...document.querySelectorAll('.modal-btn-cross--se
 modalBtnCrossSetting.forEach(function(item) {
   item.addEventListener('click',function() {
     closeMenuSetting()
-
   })
 })
 
@@ -175,6 +95,7 @@ btnSetting.addEventListener('click', function () {
   direction = 'stop'
   testOpenModalSetting()
 })
+
 
 btnRules.addEventListener('click', function () {
   direction = 'stop'
@@ -204,7 +125,6 @@ function openModalRules() {
   modalRules.classList.add('modal-rules--active')
   body.classList.add('lock');
   fonSetting.classList.add('work');
-  
 }
 
 const modalScoreNumber = Array.from(document.querySelectorAll('.modal-score-line__number'))
@@ -225,7 +145,6 @@ let gameSpeedInput = 450 - testInput.value
 
 adaptCanv()
 startNew()
-// startField()
 
 /******** Старт ******************************** */
 /******** Старт ******************************** */
@@ -233,7 +152,6 @@ startNew()
 start.addEventListener('click', function () {
   closeMenuSetting()
   startNew()
-
 })
 
 function startNew() {
@@ -263,88 +181,18 @@ function startNew() {
   musicBase.currentTime = 0; // начинаю воспроизведение с начала
   musicBase.pause()
 
-  food = {
-    x: Math.floor((Math.random()*canvasWidth/stepX))*stepX + 1, // 15 (+1 нужен чтобы не цеплять линию разметки)
-    y: Math.floor((Math.random()*canvasHeight/stepY))*stepY + 1 // 11
-  }
-  
-  /************** с модулем так не работает */
-  // snake = []
-  // snake[0] = {
-  //   x: evenOddCenter(canvasWidth, stepX) + 1,
-  //   y: evenOddCenter(canvasHeight, stepY) + 1
-  // }
+  food.x = Math.floor((Math.random()*canvasWidth/stepX))*stepX + 1, // 15 (+1 нужен чтобы не цеплять линию разметки)
+  food.y =  Math.floor((Math.random()*canvasHeight/stepY))*stepY + 1 // 11
 
-  // Обновляю snake в через модуль variables
-
-  // let newSnake = [];
-  // newSnake[0] = {
-  //   x: evenOddCenter(canvasWidth, stepX) + 1,
-  //   y: evenOddCenter(canvasHeight, stepY) + 1
-  // };
-
-  // // Обновление snake с помощью функции updateSnake()
-  // updateSnake(newSnake);
-
-  // Еще вариант очистить без присвоения
   snake.length = 0
   snake[0] = {
     x: evenOddCenter(canvasWidth, stepX) + 1,
     y: evenOddCenter(canvasHeight, stepY) + 1
   }
 
-  /*************************************** */
-
   clearInterval(startPicture);
   startPicture = setInterval(drawPicture, gameSpeed) 
 }
-
-
-/******************************************************************* */
-
-function adaptCanv () {
-  // let screenWidth = screen.availWidth
-  // let screenHeight = screen.availHeight
-
-  let screenWidth = screen.width
-  let screenHeight = screen.height
-
-    if (screenWidth < 700){
-      step.stepX = 26
-      step.stepY = 26
-      // imgSizeX = step.stepX-2 // надо уменьшить картинку, чтобы очистка не цепляла линии разметки
-      // imgSizeY = step.stepY-2 
-
-      let windowHeight = screenHeight;
-      let headerHeight = document.querySelector('.header').clientHeight
-
-      canvasObj.canvasWidth = step.stepX * Math.round(screenWidth*0.9 / step.stepX)
-      canvasObj.canvasHeight = step.stepY * Math.round((windowHeight - headerHeight)*0.8 / step.stepY)
-    
-      center.centerX = evenOddCenter(canvasObj.canvasWidth, step.stepX) + 1
-      center.centerY = evenOddCenter(canvasObj.canvasHeight, step.stepY) + 1
-    }
-    else if (screenWidth < 880) {
-      canvasObj.canvasWidth = step.stepX * Math.round(screenWidth*0.9 / step.stepX)
-      canvasObj.canvasHeight = step.stepY * Math.round(screenHeight*0.7 / step.stepY)
-
-      center.centerX = evenOddCenter(canvasObj.canvasWidth, step.stepX) + 1
-      center.centerY = evenOddCenter(canvasObj.canvasHeight, step.stepY) + 1
-
-    }
-    else {
-      canvasObj.canvasWidth = step.stepX * Math.round(canvasObj.canvasWidth / step.stepX)
-
-      center.centerX = evenOddCenter(canvasObj.canvasWidth, step.stepX) + 1
-      center.centerY = evenOddCenter(canvasObj.canvasHeight, step.stepY) + 1
-    }
-
-    canvas.width = canvasObj.canvasWidth
-    canvasObj.canvasHeight = step.stepY * Math.round(canvasObj.canvasHeight / step.stepY)
-    canvas.height = canvasObj.canvasHeight
-
-}
-
 
 /******************************************************************* */
 //  Для адаптации
@@ -355,94 +203,18 @@ window.addEventListener('resize', () => {
   startField()
 })
 
-
-/******* Создаю класс для работы с Local Storage ***************************** */
-/******* Создаю класс для работы с Local Storage ***************************** */
-
-class MemoryStore {
-
-  constructor() {
-    this.localKey = 'VitaliMay_Snake_scoreTable'
-  }
-
-  getScore() {
-    const localScoreTable  = localStorage.getItem(this.localKey)   // узнаю,что хранится в Local Storage
-
-    if (isObjectEmpty(localScoreTable)) { // если что-то есть
-      return JSON.parse(localScoreTable)
-    }
-    else {
-      return {}
-    }
-  }
-
-  putScore(gameSpeed, gameScore) {
-    let memoryLocal = this.getScore()
-    if (isObjectEmpty(memoryLocal)) {
-      if (gameSpeed in memoryLocal) {
-      // if (memoryLocal.hasOwnProperty(gameSpeed)) {
-        let gameSpeedMemoryLength = memoryLocal[gameSpeed].length
-        if (gameSpeedMemoryLength < 10) {
-          memoryLocal[gameSpeed].push(gameScore)
-          memoryLocal[gameSpeed] = memoryLocal[gameSpeed].sort((a, b) => b - a);
-        }
-        else {
-          if (gameScore > memoryLocal[gameSpeed][gameSpeedMemoryLength-1]) {
-            memoryLocal[gameSpeed].pop()
-            memoryLocal[gameSpeed].push(gameScore)
-            memoryLocal[gameSpeed] = memoryLocal[gameSpeed].sort((a, b) => b - a);
-          }
-        }
-      }
-      else {
-        memoryLocal[gameSpeed] = [gameScore]
-      }
-    }
-    else  {
-      memoryLocal[gameSpeed] = [gameScore]
-    }
-
-    localStorage.setItem(this.localKey, JSON.stringify(memoryLocal))
-  }
-}
+/******* Создаю объект для работы с Local Storage ***************************** */
 
 const memoryLocalTest = new MemoryStore()
-
-
-/************************************ */
-/************************************ */
-
-function isObjectEmpty(obj) {
-  for (let key in obj) {
-    if (obj.hasOwnProperty(key)) {
-      return true; // Если есть хотя бы один ключ, объект считается не пустым
-    }
-  }
-  return false; // Если нет ни одного ключа, объект считается пустым
-}
-
-// function isObjectEmpty(obj) {
-//   return Object.keys(obj).length === 0;
-// }
-
 
 /*********************************************** */
 // Функция очистки поля
 
 function clearField() {
   ctx.clearRect(0, 0, canvasObj.canvasWidth, canvasObj.canvasHeight); 
-    ctx.closePath()
+  ctx.closePath()
 }
 
-
-/******Проверяю пути к фоткам*************************************** */
-
-ctx.beginPath()
-const snakeImg = new Image();
-snakeImg.src = './src/assets/img/snakeHead-01-48.png'
-
-
-/**************************************************************** */
 /**************************************************************** */
 
 function drawPicture() {
@@ -454,13 +226,10 @@ function drawPicture() {
   clearField()
   startField()
   ctx.drawImage(foodImg, food.x, food.y, step.imgSizeX, step.imgSizeY);
-  // ctx.drawImage(foodImg, food.x, food.y, imgSizeX, imgSizeY);
 
   for (let i = 0; i < snake.length; i += 1) {
     if (i === 0 ) {ctx.drawImage(snakeImg, (snake[0].x), (snake[0].y), step.imgSizeX, step.imgSizeY); }
-    // if (i === 0 ) {ctx.drawImage(snakeImg, (snake[0].x), (snake[0].y), imgSizeX, imgSizeY); }
     else {drawRoundedRectangle(ctx, snake[i].x, snake[i].y, step.imgSizeX, step.imgSizeY, 7, '#597059');}
-    // else {drawRoundedRectangle(ctx, snake[i].x, snake[i].y, imgSizeX, imgSizeY, 7, '#597059');}
   }
 
   let snakeHeadX = snake[0].x
@@ -504,17 +273,12 @@ function drawPicture() {
     gameScoreHtml.textContent = `${gameScore}`
   }
 
-  /****************************************** */
-  // console.log(`sX=${snakeHeadX} fX=${food.x} sY=${snakeHeadY} fY=${food.y}`)
-
   if (isDifferenceInRange(snakeHeadX, food.x) && isDifferenceInRange(snakeHeadY, food.y)) {
-  // if (snakeHeadX === food.x && snakeHeadY === food.y) {
     musicFood.play()
     gameScore = gameScore + 1
     gameScoreHtml.textContent = `${gameScore}`
     immunityScore = immunityScore + 1
-    foodIndex = Math.floor(foodArrImg.length * Math.random())
-    foodImg.src = foodArrImg[foodIndex]
+    foodImg.src = foodSrc()
 
     if (gameSpeed > gameSpeedInput) {
       clearInterval(startPicture);
@@ -523,10 +287,8 @@ function drawPicture() {
       musicBase.playbackRate = musicBase.playbackRate + 0.05; // ускоряю музыку
     }
 
-    food = {
-      x: Math.floor((Math.random()*canvasWidth/stepX))*stepX + 1, 
-      y: Math.floor((Math.random()*canvasHeight/stepY))*stepY + 1 
-    }
+    food.x = Math.floor((Math.random()*canvasWidth/stepX))*stepX + 1, 
+    food.y = Math.floor((Math.random()*canvasHeight/stepY))*stepY + 1 
 
     immunityScoreHtml.textContent = `${immunityScore}`
     speedScoreHtml.textContent = `${450-gameSpeed} / ${450 - gameSpeedInput}`
@@ -562,15 +324,6 @@ function drawPicture() {
 }
 
 /************************************************* */
-/* После выхода змейки за границы поля иногда происходит сбой координат в 1px     */
-/* и змейка не видит еду */
-/* пробую решить задав право на ошибку координат в 2px     */
-
-function isDifferenceInRange(value1, value2) {
-  return Math.abs(value1 - value2) <= 2;
-}
-
-/************************************************* */
 
 const btnCup = document.querySelector('.btn_Cup')
 const modalNoCup = document.querySelectorAll('.modal-title--noCup')
@@ -586,7 +339,6 @@ btnCup.addEventListener('click', () => {
   modalScoreLocal(gameSpeedInput)
 })
 
-
 /*********************************************** */
 /*********************************************** */
 
@@ -594,7 +346,6 @@ function modalScoreLocal(gameSpeedInput) {
   let gameKeySpeedInput = 450-gameSpeedInput
   let modalScoreText = memoryLocalTest.getScore()
   let modalScoreTextArr = modalScoreText[gameKeySpeedInput]
-
   // console.log(`Массив из локал ${modalScoreTextArr}`)
 
   modalMaxCurrentSpeed.textContent = gameKeySpeedInput
@@ -614,10 +365,8 @@ function modalScoreLocal(gameSpeedInput) {
   }
 }
 
-
 /*********************************************** */
 /*********************************************** */
-
 
 function checkBorder(snakeHeadX, snakeHeadY) {
   const stepX = step.stepX
@@ -632,7 +381,6 @@ function checkBorder(snakeHeadX, snakeHeadY) {
 
 /*********************************************** */
 /*********************************************** */
-
 
 function checkTail(snakeArr, snakeHead) {
   return snakeArr.slice(1).some(item => item.x === snakeHead.x && item.y === snakeHead.y && direction !== 'stop')
@@ -669,13 +417,33 @@ function stopSnake() {
 
 /**************************************** */
 
-const codeArr = [
-  'ArrowUp', 'Numpad8', 'Digit8', 'KeyW', 
-  'ArrowRight', 'Numpad6', 'Digit6', 'KeyD', 
-  'ArrowDown', 'Numpad2', 'Digit2', 'KeyS', 
-  'ArrowLeft', 'Numpad4', 'Digit4', 'KeyA',
-  'Space'
-]
+// const codeArr = [
+//   'ArrowUp', 'Numpad8', 'Digit8', 'KeyW', 
+//   'ArrowRight', 'Numpad6', 'Digit6', 'KeyD', 
+//   'ArrowDown', 'Numpad2', 'Digit2', 'KeyS', 
+//   'ArrowLeft', 'Numpad4', 'Digit4', 'KeyA',
+//   'Space'
+// ]
+
+const codeDirObj = {
+  'ArrowUp': 'up',
+  'Numpad8': 'up',
+  'Digit8': 'up',
+  'KeyW': 'up',
+  'ArrowRight': 'right',
+  'Numpad6': 'right',
+  'Digit6': 'right',
+  'KeyD': 'right',
+  'ArrowDown': 'down',
+  'Numpad2': 'down',
+  'Digit2': 'down',
+  'KeyS': 'down',
+  'ArrowLeft': 'left',
+  'Numpad4': 'left',
+  'Digit4': 'left',
+  'KeyA': 'left',
+  'Space': 'stop',
+}
 
 
 document.addEventListener("keydown", moveSnake)
@@ -690,71 +458,31 @@ function moveSnake(event) {
   if (changeDirection) return;
   changeDirection = true;
 
-	if (codeArr.indexOf(event.code) >= 0) event.preventDefault();
+  if (event.code in codeDirObj) {event.preventDefault()}
 
-  // const optionsTriangle = optionsTriangle(canvasObj)
+  const oppositeDir = {
+    'up': 'down',
+    'right': 'left',
+    'down': 'up',
+    'left': 'right',
+  };
 
-  if (event.code === codeArr[0] || event.code === codeArr[1] || event.code === codeArr[2] || event.code === codeArr[3] || (isPointInTriangle(optionsTriangle(canvasObj).up, event.offsetX, event.offsetY)))  {
-  // if (event.code === codeArr[0] || event.code === codeArr[1] || event.code === codeArr[2] || event.code === codeArr[3] || (isPointInTriangle(optionsTriangle.up, event.offsetX, event.offsetY)))  {
-  // if (event.code === codeArr[0] || event.code === codeArr[1] || event.code === codeArr[2] || event.code === codeArr[3] || (isPointInTriangle(optionsUpTriangle, event.offsetX, event.offsetY)))  {
-  // if (event.code === codeArr[0] || event.code === codeArr[1] || event.code === codeArr[2] || event.code === codeArr[3] || (event.offsetY <= lineBox.centerY && event.offsetX > lineBox.upX && event.offsetX < lineBox.downX))  {
-  // if (event.code === codeArr[0] || event.code === codeArr[1] || event.code === codeArr[2] || event.offsetY <= lineBox.upY ) {
-    if (direction === 'stop') { 
-      direction = 'stop'
-    }
-    else if (prevDirection !== 'down') {
-      direction = 'up';
-      prevDirection = direction
-    }
-  }
-
-  if (event.code === codeArr[4] || event.code === codeArr[5] || event.code === codeArr[6] || event.code === codeArr[7] || (isPointInTriangle(optionsTriangle(canvasObj).right, event.offsetX, event.offsetY))) {
-  // if (event.code === codeArr[4] || event.code === codeArr[5] || event.code === codeArr[6] || event.code === codeArr[7] || (isPointInTriangle(optionsTriangle.right, event.offsetX, event.offsetY))) {
-  // if (event.code === codeArr[4] || event.code === codeArr[5] || event.code === codeArr[6] || event.code === codeArr[7] || (isPointInTriangle(optionsRightTriangle, event.offsetX, event.offsetY))) {
-  // if (event.code === codeArr[4] || event.code === codeArr[5] || event.code === codeArr[6] || event.code === codeArr[7] || event.offsetX >= lineBox.downX) {
-
-    if (direction === 'stop') {
-      direction = 'stop'
-    }
-    else if (prevDirection !== 'left') {
-      direction = 'right';
-      prevDirection = direction
+  for (const key in oppositeDir) {
+    if (codeDirObj[event.code] === key || (isPointInTriangle(optionsTriangle(canvasObj)[key], event.offsetX, event.offsetY)))  {
+      if (direction === 'stop') {
+        direction = 'stop'
+      } else if ( prevDirection !== oppositeDir[key]){
+        direction = key;
+        prevDirection = direction
+      }
     }
   }
 
-  if (event.code === codeArr[8] || event.code === codeArr[9] || event.code === codeArr[10] || event.code === codeArr[11] || (isPointInTriangle(optionsTriangle(canvasObj).down, event.offsetX, event.offsetY)) ) {
-  // if (event.code === codeArr[8] || event.code === codeArr[9] || event.code === codeArr[10] || event.code === codeArr[11] || (isPointInTriangle(optionsTriangle.down, event.offsetX, event.offsetY)) ) {
-  // if (event.code === codeArr[8] || event.code === codeArr[9] || event.code === codeArr[10] || event.code === codeArr[11] || (isPointInTriangle(optionsDownTriangle, event.offsetX, event.offsetY)) ) {
-  // if (event.code === codeArr[8] || event.code === codeArr[9] || event.code === codeArr[10] || event.code === codeArr[11] || (event.offsetY > lineBox.centerY && event.offsetX > lineBox.upX && event.offsetX < lineBox.downX) ) {
-
-    if (direction === 'stop') {
-      direction = 'stop'
-    }
-    else if (prevDirection !== 'up') {
-      direction = 'down';
-      prevDirection = direction
-    }
-  }
-
-  if (event.code === codeArr[12] || event.code === codeArr[13] || event.code === codeArr[14] || event.code === codeArr[15] || (isPointInTriangle(optionsTriangle(canvasObj).left, event.offsetX, event.offsetY))) {
-  // if (event.code === codeArr[12] || event.code === codeArr[13] || event.code === codeArr[14] || event.code === codeArr[15] || (isPointInTriangle(optionsTriangle.left, event.offsetX, event.offsetY))) {
-  // if (event.code === codeArr[12] || event.code === codeArr[13] || event.code === codeArr[14] || event.code === codeArr[15] || (isPointInTriangle(optionsLeftTriangle, event.offsetX, event.offsetY))) {
-  // if (event.code === codeArr[12] || event.code === codeArr[13] || event.code === codeArr[14] || event.code === codeArr[15] || (event.offsetX <= lineBox.upX)) {
-
-    if (direction === 'stop') { 
-      direction = 'stop'
-    }
-    else if (prevDirection !== 'right') {
-      direction = 'left';
-      prevDirection = direction
-    }
-  }
-  if (event.code === codeArr[16]) {
+  if (codeDirObj[event.code] === 'stop') {
     if (direction === 'stop' && prevDirection == undefined) {
       direction = null
 
       gameScoreHtml.textContent = `${gameScore}`
-      // console.log('Первый раз')
     }
     else if (direction === 'stop') { // ловлю нажатие в самом начале игры
       direction = prevDirection
@@ -764,37 +492,16 @@ function moveSnake(event) {
     }
   }
 
-  /********************************* */
   if (immunityScore < 0) {
     direction = null;
     prevDirection = null;
     changeDirection = false;
   }
-  /********************************** */
 
   changeDirection = false;
 }
 
 
-/******************************************************* */
-// Прямоугольник с закругленными углами
-
-function drawRoundedRectangle(ctx, x, y, width, height, borderRadius, color) {
-  ctx.beginPath();
-  ctx.moveTo(x + borderRadius, y);
-  ctx.lineTo(x + width - borderRadius, y);
-  ctx.quadraticCurveTo(x + width, y, x + width, y + borderRadius);
-  ctx.lineTo(x + width, y + height - borderRadius);
-  ctx.quadraticCurveTo(x + width, y + height, x + width - borderRadius, y + height);
-  ctx.lineTo(x + borderRadius, y + height);
-  ctx.quadraticCurveTo(x, y + height, x, y + height - borderRadius);
-  ctx.lineTo(x, y + borderRadius);
-  ctx.quadraticCurveTo(x, y, x + borderRadius, y);
-  ctx.fillStyle = color;
-  ctx.fill();
-}
-
-/************************************************* */
 /************************************************* */
 /* Убираю возможность нажать на цифры */
 
@@ -813,7 +520,4 @@ function numPreventDefolt(event) {
 	if (arrNumPreventDefolt.indexOf(event.code) >= 0) event.preventDefault()
 }
 
-
-/************************************* */
-/************************************* */
 

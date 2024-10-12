@@ -51,75 +51,6 @@ function removeAllChild(element) {
   }
 }
 
-
-/*********************************************************************** */
-
-// window.addEventListener('resize', function() {
-//    if (window.innerWidth >= 767.9 && menu.classList.contains("open")) {
-//       closeMenu()
-//    }
-
-//    const newWidth = window.innerWidth;
-//    if (newWidth > 1100.9 && currentWidth <= 1100.9) {
-
-//       flagCurrentPage = calculationFlagCurrentPage(paginationArrCurrent, paginationArr, flagCurrentPage)
-
-
-//       paginationArrCurrent = [...paginationArr]
-//       currentWidth = newWidth;
-
-//       removeAllChild(sliderStripPage)
-
-//       generatePagePets(paginationArrCurrent[flagCurrentPage], sliderStripPage)
-//       buttonPaginationCurrentPage.textContent = `${flagCurrentPage + 1}`
-//    }
-//    if (newWidth <= 1100.9 && newWidth > 659.9 && (currentWidth > 1100.9 || currentWidth <= 659.9)) {
-
-//       flagCurrentPage = calculationFlagCurrentPage(paginationArrCurrent, paginationArrTablet, flagCurrentPage)
-
-//       paginationArrCurrent = [...paginationArrTablet]
-//       // console.log('средний размер')
-//       currentWidth = newWidth;
-
-//       // flagCurrentPage = 0
-//       removeAllCard(sliderStripPage)
-//       generatePagePets(paginationArrCurrent[flagCurrentPage], sliderStripPage)
-//       buttonPaginationCurrentPage.textContent = `${flagCurrentPage + 1}`
-//    }
-//    if (newWidth <= 659.9 && currentWidth > 659.9) {
-
-//       flagCurrentPage = calculationFlagCurrentPage(paginationArrCurrent, paginationArrMobile, flagCurrentPage)
-
-//       paginationArrCurrent = [...paginationArrMobile]
-//       currentWidth = newWidth;
-//       // console.log('малый размер')
-
-//       // flagCurrentPage = 0
-//       removeAllChild(sliderStripPage)
-//       generatePagePets(paginationArrCurrent[flagCurrentPage], sliderStripPage)
-//       buttonPaginationCurrentPage.textContent = `${flagCurrentPage + 1}`
-//    }
-
-
-//    setPaginationState (flagCurrentPage, buttonPaginationArr)
-
-// });
-
-/*********************************************************************** */
-
-function isObjectEmpty(obj) {
-  for (let key in obj) {
-    if (obj.hasOwnProperty(key)) {
-      return true; // Если есть хотя бы один ключ, объект считается не пустым
-    }
-  }
-  return false; // Если нет ни одного ключа, объект считается пустым
-}
-
-// function isObjectEmpty(obj) {
-//   return Object.keys(obj).length === 0;
-// }
-
 /*********************************************************************** */
 
 /* После выхода змейки за границы поля иногда происходит сбой координат в 1px     */
@@ -148,4 +79,4 @@ function isPointInTriangle(options, x, y) {
 }
 
 
-export { isPointInTriangle }
+export { isDifferenceInRange, isPointInTriangle }
