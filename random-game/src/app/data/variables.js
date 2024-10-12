@@ -176,56 +176,56 @@ let lineBox = {
 // }
 
 
-/*********************************************************** */
-/**    Обновляю  координаты полей (треугольников) после изменения размера convas и => canvasObj*/
+// /*********************************************************** */
+// /**    Обновляю  координаты полей (треугольников) после изменения размера convas и => canvasObj*/
 
-function optionsTriangle(canvasObj) {
+// function optionsTriangle(canvasObj) {
 
-  const optionsUpTriangle = {
-    x1: canvasObj.canvasWidth / 2, // x координата центра
-    y1: canvasObj.canvasHeight / 2, // y координата центра
-    x2: 0,
-    y2: 0,
-    x3: canvasObj.canvasWidth,
-    y3: 0,
-  }
+//   const optionsUpTriangle = {
+//     x1: canvasObj.canvasWidth / 2, // x координата центра
+//     y1: canvasObj.canvasHeight / 2, // y координата центра
+//     x2: 0,
+//     y2: 0,
+//     x3: canvasObj.canvasWidth,
+//     y3: 0,
+//   }
 
-  const optionsRightTriangle = {
-    x1: canvasObj.canvasWidth / 2, // x координата центра
-    y1: canvasObj.canvasHeight / 2, // y координата центра
-    x2: canvasObj.canvasWidth,
-    y2: 0,
-    x3: canvasObj.canvasWidth,
-    y3: canvasObj.canvasHeight,
-  }
+//   const optionsRightTriangle = {
+//     x1: canvasObj.canvasWidth / 2, // x координата центра
+//     y1: canvasObj.canvasHeight / 2, // y координата центра
+//     x2: canvasObj.canvasWidth,
+//     y2: 0,
+//     x3: canvasObj.canvasWidth,
+//     y3: canvasObj.canvasHeight,
+//   }
 
-  const optionsDownTriangle = {
-    x1: canvasObj.canvasWidth / 2, // x координата центра
-    y1: canvasObj.canvasHeight / 2, // y координата центра
-    x2: canvasObj.canvasWidth,
-    y2: canvasObj.canvasHeight,
-    x3: 0,
-    y3: canvasObj.canvasHeight,
-  }
+//   const optionsDownTriangle = {
+//     x1: canvasObj.canvasWidth / 2, // x координата центра
+//     y1: canvasObj.canvasHeight / 2, // y координата центра
+//     x2: canvasObj.canvasWidth,
+//     y2: canvasObj.canvasHeight,
+//     x3: 0,
+//     y3: canvasObj.canvasHeight,
+//   }
 
-  const optionsLeftTriangle = {
-    x1: canvasObj.canvasWidth / 2, // x координата центра
-    y1: canvasObj.canvasHeight / 2, // y координата центра
-    x2: 0,
-    y2: canvasObj.canvasHeight,
-    x3: 0,
-    y3: 0,
-  }
+//   const optionsLeftTriangle = {
+//     x1: canvasObj.canvasWidth / 2, // x координата центра
+//     y1: canvasObj.canvasHeight / 2, // y координата центра
+//     x2: 0,
+//     y2: canvasObj.canvasHeight,
+//     x3: 0,
+//     y3: 0,
+//   }
 
-  const optionsTriangle = {
-    up: optionsUpTriangle,
-    right: optionsRightTriangle,
-    down: optionsDownTriangle,
-    left: optionsLeftTriangle,
-  }
+//   const optionsTriangle = {
+//     up: optionsUpTriangle,
+//     right: optionsRightTriangle,
+//     down: optionsDownTriangle,
+//     left: optionsLeftTriangle,
+//   }
 
-  return optionsTriangle;
-}
+//   return optionsTriangle;
+// }
 
 /*********************************************************** */
 
@@ -245,4 +245,5 @@ function evenOddCenter (canvasWidth, stepX) {
 
 /************************************* */
 
-export { body, canvas, ctx, canvasObj, lineBox, step, imgSizeX, imgSizeY, snake, snakeImg, drawRoundedRectangle, updateSnake, food, foodImg, foodSrc, evenOddCenter, center, optionsTriangle }
+export { body, canvas, ctx, canvasObj, lineBox, step, imgSizeX, imgSizeY, snake, snakeImg, drawRoundedRectangle, updateSnake, food, foodImg, foodSrc, evenOddCenter, center, }
+// export { body, canvas, ctx, canvasObj, lineBox, step, imgSizeX, imgSizeY, snake, snakeImg, drawRoundedRectangle, updateSnake, food, foodImg, foodSrc, evenOddCenter, center, optionsTriangle }

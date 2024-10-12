@@ -1,6 +1,7 @@
 
 import { signatureScore } from "./score.js";
-import { body, canvas, ctx, canvasObj, step, snake, snakeImg, drawRoundedRectangle, updateSnake, food, foodImg, foodSrc, lineBox, evenOddCenter, center, optionsTriangle } from "./data/variables.js";
+import { body, canvas, ctx, canvasObj, step, snake, snakeImg, drawRoundedRectangle, updateSnake, food, foodImg, foodSrc, lineBox, evenOddCenter, center } from "./data/variables.js";
+// import { body, canvas, ctx, canvasObj, step, snake, snakeImg, drawRoundedRectangle, updateSnake, food, foodImg, foodSrc, lineBox, evenOddCenter, center, optionsTriangle } from "./data/variables.js";
 import { drawTriangle, startField } from "./components/fielDraw.js";
 import { isDifferenceInRange, isPointInTriangle } from "./utils/elementUtils.js";
 import { MemoryStore } from "./utils/storageUtils.js";
@@ -8,6 +9,7 @@ import './eventHandlers/contextmenuHandler.js' // слушатель
 import { musicBase, musicFood, musicTail, musicBorder, musicStop } from "./eventHandlers/musicHandler.js";
 import './eventHandlers/musicHandler.js'  // слушатель
 import { adaptCanv } from "./utils/adaptationUtils.js";
+import { directionData, optionsTriangle } from "./data/moveData.js";
 
 signatureScore ()
 
@@ -417,35 +419,6 @@ function stopSnake() {
 
 /**************************************** */
 
-// const codeArr = [
-//   'ArrowUp', 'Numpad8', 'Digit8', 'KeyW', 
-//   'ArrowRight', 'Numpad6', 'Digit6', 'KeyD', 
-//   'ArrowDown', 'Numpad2', 'Digit2', 'KeyS', 
-//   'ArrowLeft', 'Numpad4', 'Digit4', 'KeyA',
-//   'Space'
-// ]
-
-const codeDirObj = {
-  'ArrowUp': 'up',
-  'Numpad8': 'up',
-  'Digit8': 'up',
-  'KeyW': 'up',
-  'ArrowRight': 'right',
-  'Numpad6': 'right',
-  'Digit6': 'right',
-  'KeyD': 'right',
-  'ArrowDown': 'down',
-  'Numpad2': 'down',
-  'Digit2': 'down',
-  'KeyS': 'down',
-  'ArrowLeft': 'left',
-  'Numpad4': 'left',
-  'Digit4': 'left',
-  'KeyA': 'left',
-  'Space': 'stop',
-}
-
-
 document.addEventListener("keydown", moveSnake)
 
 canvas.addEventListener("click", moveSnake)
@@ -458,14 +431,9 @@ function moveSnake(event) {
   if (changeDirection) return;
   changeDirection = true;
 
-  if (event.code in codeDirObj) {event.preventDefault()}
+  const { codeDirObj, oppositeDir } = directionData
 
-  const oppositeDir = {
-    'up': 'down',
-    'right': 'left',
-    'down': 'up',
-    'left': 'right',
-  };
+  if (event.code in codeDirObj) {event.preventDefault()}
 
   for (const key in oppositeDir) {
     if (codeDirObj[event.code] === key || (isPointInTriangle(optionsTriangle(canvasObj)[key], event.offsetX, event.offsetY)))  {

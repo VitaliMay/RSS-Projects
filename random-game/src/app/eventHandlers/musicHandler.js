@@ -1,9 +1,18 @@
 /**** Музыка ******************************************* */
 /**** Музыка ******************************************* */
 
+const srcSound = {
+  baseMusic: './src/assets/audio/Snake-muzyka-06-2.mp3',
+  foodMusic: './src/assets/audio/Snake-am-15.mp3',
+  borderMusic: './src/assets/audio/Snake-wall-09.mp3',
+  stopMusic: './src/assets/audio/Snake-stop-01.mp3',
+  tailMusic: './src/assets/audio/Snake-am-16.mp3',
+}
+
 // const musicBase = document.querySelector('.baseMusic')
 const musicBase = new Audio();
-musicBase.src = "./src/assets/audio/Snake-muzyka-06-2.mp3"
+musicBase.src = srcSound.baseMusic
+// musicBase.src = "./src/assets/audio/Snake-muzyka-06-2.mp3"
 
 
 musicBase.pause()
@@ -13,25 +22,29 @@ musicBase.playbackRate = 0.8;
 
 // const musicFood = document.querySelector('.foodMusic')
 const musicFood = new Audio();
-musicFood.src = "./src/assets/audio/Snake-am-15.mp3"
+musicFood.src = srcSound.foodMusic
+// musicFood.src = "./src/assets/audio/Snake-am-15.mp3"
 musicFood.pause()
 musicFood.volume = 0.8; 
 
 // const musicBorder = document.querySelector('.borderMusic')
 const musicBorder = new Audio();
-musicBorder.src = "./src/assets/audio/Snake-wall-09.mp3"
+musicBorder.src = srcSound.borderMusic
+// musicBorder.src = "./src/assets/audio/Snake-wall-09.mp3"
 musicBorder.pause()
 musicBorder.volume = 0.8; 
 
 // const musicStop = document.querySelector('.stopMusic')
 const musicStop = new Audio();
-musicStop.src = "./src/assets/audio/Snake-stop-01.mp3"
+musicStop.src = srcSound.stopMusic
+// musicStop.src = "./src/assets/audio/Snake-stop-01.mp3"
 musicStop.pause()
 musicStop.volume = 0.8; 
 
 // const musicTail = document.querySelector('.tailMusic')
 const musicTail = new Audio();
-musicTail.src = "./src/assets/audio/Snake-am-16.mp3"
+musicTail.src = srcSound.tailMusic
+// musicTail.src = "./src/assets/audio/Snake-am-16.mp3"
 musicTail.pause()
 musicTail.volume = 0.8; 
 
