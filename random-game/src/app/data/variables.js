@@ -37,9 +37,6 @@ const step = {
 
 let imgSizeX = step.stepX-2 // надо уменьшить картинку, чтобы очистка не цепляла линии разметки
 let imgSizeY = step.stepY-2 // надо уменьшить картинку, чтобы очистка не цепляла линии разметки
-// let imgSizeX = stepX-2 // надо уменьшить картинку, чтобы очистка не цепляла линии разметки
-// let imgSizeY = stepY-2 // надо уменьшить картинку, чтобы очистка не цепляла линии разметки
-
 
 /************************************* */
 /****  start var       */
@@ -56,8 +53,6 @@ const startVar = {
   gameSpeedInput: 0,
 
 }
-
-
 
 
 /************************************* */
@@ -123,9 +118,6 @@ function foodSrc () {
 /************************************* */
 // Запоминаю центр и центральные ячейки
 
-// let centerX = snake[0].x
-// let centerY = snake[0].y
-
 const center = {
   centerX: evenOddCenter(canvasObj.canvasWidth, step.stepX) + 1,
   centerY: evenOddCenter(canvasObj.canvasHeight, step.stepY) + 1,
@@ -139,112 +131,11 @@ const center = {
 
 }
 
-// let centerXbox = Math.floor(center.centerX / step.stepX)
-// let centerYbox = Math.floor(center.centerY / step.stepY)
-// let centerXbox = Math.floor(centerX / step.stepX)
-// let centerYbox = Math.floor(centerY / step.stepY)
-// let centerXbox = Math.floor(centerX / stepX)
-// let centerYbox = Math.floor(centerY / stepY)
-
 let lineBox = {
   upX: lineEvent(canvasObj.canvasWidth, step.stepX)*step.stepX + step.stepX/2,
   downX: canvasObj.canvasWidth - (lineEvent(canvasObj.canvasWidth, step.stepX)*step.stepX) - step.stepX/2,
   centerY: evenOddCenter(canvasObj.canvasHeight, step.stepY) + step.stepY/2
-  // upX: lineEvent(canvasWidth, stepX)*stepX + stepX/2,
-  // downX: canvasWidth - (lineEvent(canvasWidth, stepX)*stepX) - stepX/2,
-  // centerY: evenOddCenter(canvasHeight, stepY) + stepY/2
 }
-
-/************************************************** */
-/***  Координаты полей (треугольников) для клика и тача */
-
-// const optionsUpTriangle = {
-//   x1: canvasObj.canvasWidth / 2, // x координата центра
-//   y1: canvasObj.canvasHeight / 2, // y координата центра
-//   x2: 0,
-//   y2: 0,
-//   x3: canvasObj.canvasWidth,
-//   y3: 0,
-// }
-
-// const optionsRightTriangle = {
-//   x1: canvasObj.canvasWidth / 2, // x координата центра
-//   y1: canvasObj.canvasHeight / 2, // y координата центра
-//   x2: canvasObj.canvasWidth,
-//   y2: 0,
-//   x3: canvasObj.canvasWidth,
-//   y3: canvasObj.canvasHeight,
-// }
-
-// const optionsDownTriangle = {
-//   x1: canvasObj.canvasWidth / 2, // x координата центра
-//   y1: canvasObj.canvasHeight / 2, // y координата центра
-//   x2: canvasObj.canvasWidth,
-//   y2: canvasObj.canvasHeight,
-//   x3: 0,
-//   y3: canvasObj.canvasHeight,
-// }
-
-// const optionsLeftTriangle = {
-//   x1: canvasObj.canvasWidth / 2, // x координата центра
-//   y1: canvasObj.canvasHeight / 2, // y координата центра
-//   x2: 0,
-//   y2: canvasObj.canvasHeight,
-//   x3: 0,
-//   y3: 0,
-// }
-
-
-// /*********************************************************** */
-// /**    Обновляю  координаты полей (треугольников) после изменения размера convas и => canvasObj*/
-
-// function optionsTriangle(canvasObj) {
-
-//   const optionsUpTriangle = {
-//     x1: canvasObj.canvasWidth / 2, // x координата центра
-//     y1: canvasObj.canvasHeight / 2, // y координата центра
-//     x2: 0,
-//     y2: 0,
-//     x3: canvasObj.canvasWidth,
-//     y3: 0,
-//   }
-
-//   const optionsRightTriangle = {
-//     x1: canvasObj.canvasWidth / 2, // x координата центра
-//     y1: canvasObj.canvasHeight / 2, // y координата центра
-//     x2: canvasObj.canvasWidth,
-//     y2: 0,
-//     x3: canvasObj.canvasWidth,
-//     y3: canvasObj.canvasHeight,
-//   }
-
-//   const optionsDownTriangle = {
-//     x1: canvasObj.canvasWidth / 2, // x координата центра
-//     y1: canvasObj.canvasHeight / 2, // y координата центра
-//     x2: canvasObj.canvasWidth,
-//     y2: canvasObj.canvasHeight,
-//     x3: 0,
-//     y3: canvasObj.canvasHeight,
-//   }
-
-//   const optionsLeftTriangle = {
-//     x1: canvasObj.canvasWidth / 2, // x координата центра
-//     y1: canvasObj.canvasHeight / 2, // y координата центра
-//     x2: 0,
-//     y2: canvasObj.canvasHeight,
-//     x3: 0,
-//     y3: 0,
-//   }
-
-//   const optionsTriangle = {
-//     up: optionsUpTriangle,
-//     right: optionsRightTriangle,
-//     down: optionsDownTriangle,
-//     left: optionsLeftTriangle,
-//   }
-
-//   return optionsTriangle;
-// }
 
 /*********************************************************** */
 
@@ -265,4 +156,3 @@ function evenOddCenter (canvasWidth, stepX) {
 /************************************* */
 
 export { body, canvas, ctx, canvasObj, lineBox, step, imgSizeX, imgSizeY, snake, snakeImg, drawRoundedRectangle, updateSnake, food, foodImg, foodSrc, evenOddCenter, center, startVar }
-// export { body, canvas, ctx, canvasObj, lineBox, step, imgSizeX, imgSizeY, snake, snakeImg, drawRoundedRectangle, updateSnake, food, foodImg, foodSrc, evenOddCenter, center, optionsTriangle }

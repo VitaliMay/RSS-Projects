@@ -17,35 +17,10 @@ signatureScore ()
 
 const { start, gameScoreHtml, immunityScoreHtml, speedScoreHtml, btnRules, btnSetting, btnStop, testInput, fon, modalLogin, modalSetting, modalRules, fonSetting, modalBtnCross, modalBtnCrossSetting } = varDOM;
 
-// const start = document.querySelector('.color-test')
+let startPicture = null
+let gameSpeedInput = 450 - testInput.value
 
-// const gameScoreHtml = document.querySelector('.title')
-// const immunityScoreHtml = document.querySelector('.stat__score--immunity')
-// const speedScoreHtml = document.querySelector('.stat__score--speed')
-
-// const btnRules = document.querySelector('.btn_Rules')
-// const btnSetting = document.querySelector('.btn_Setting')
-// const btnStop = document.querySelector('.btn_Stop')
-
-// const testInput = document.querySelector('.testInput')
-
-
-/**************************************************** */
-// const fon = document.querySelector('.fon');
-// const modalLogin = document.querySelector('.modal-login')
-
-/**************************************************** */
-
-// let direction = null;
-// let prevDirection = null;
-// let changeDirection = false;
-
-/****************************************************************** */
-/******Для отображения картинки ************* */
-
-let startPicture = null 
-
-/****************************************************************** */
+/********************************************* */
 
 fon.addEventListener('click', closeMenu);
 
@@ -62,9 +37,6 @@ function testOpenModal() {
   fon.classList.add('work');
 }
 
-// ловлю все крестики в модалках
-// const modalBtnCross = [...document.querySelectorAll('.modal-btn-cross')]
-
 modalBtnCross.forEach(function(item) {
   item.addEventListener('click',function() {
     const { flagCup } = startVar;
@@ -76,18 +48,6 @@ modalBtnCross.forEach(function(item) {
   })
 })
 
-/************************************ */
-// let flagCup = false;
-/************************************ */
-
-// у настроек не должна запускаться новая игра
-// const modalSetting = document.querySelector('.modal-setting')
-// const modalRules = document.querySelector('.modal-rules')
-
-// const fonSetting = document.querySelector('.fon--setting')
-
-// const modalBtnCrossSetting = [...document.querySelectorAll('.modal-btn-cross--setting')]
-
 modalBtnCrossSetting.forEach(function(item) {
   item.addEventListener('click',function() {
     closeMenuSetting()
@@ -97,14 +57,12 @@ modalBtnCrossSetting.forEach(function(item) {
 
 btnSetting.addEventListener('click', function () {
   startVar.direction = 'stop'
-  // direction = 'stop'
   testOpenModalSetting()
 })
 
 
 btnRules.addEventListener('click', function () {
   startVar.direction = 'stop'
-  // direction = 'stop'
   openModalRules()
 })
 
@@ -119,7 +77,6 @@ function closeMenuSetting() {
 
   modalLogin.classList.remove('modal-login--active')
   startVar.flagCup = false
-  // flagCup = false
 }
 
 function testOpenModalSetting() {
@@ -143,18 +100,8 @@ const modalTotalScore = document.querySelector('.totalScore')
 
 /*********************************************** */
 /***        старт игры */
-
-// let gameScore = 0
-// let immunityScore = 0
-// let gameSpeed = 390
-
-let gameSpeedInput = 450 - testInput.value
-
 adaptCanv()
 startNew()
-
-/******** Старт ******************************** */
-/******** Старт ******************************** */
 
 start.addEventListener('click', function () {
   closeMenuSetting()
@@ -164,8 +111,6 @@ start.addEventListener('click', function () {
 function startNew() {
 
   startVar.direction = null
-  // direction = null
-  // prevDirection = null
   startVar.prevDirection = null
 
   const stepX = step.stepX
@@ -174,11 +119,9 @@ function startNew() {
   const canvasHeight = canvasObj.canvasHeight
 
   startVar.gameScore = 0
-  // gameScore = 0
   gameScoreHtml.textContent = `Score`
 
   startVar.immunityScore = 0
-  // immunityScore = 0
   immunityScoreHtml.textContent = `0`
 
   startVar.gameSpeed = 390
@@ -204,7 +147,6 @@ function startNew() {
 
   clearInterval(startPicture);
   startPicture = setInterval(drawPicture, startVar.gameSpeed) 
-  // startPicture = setInterval(drawPicture, gameSpeed) 
 }
 
 /******************************************************************* */
@@ -254,28 +196,24 @@ function drawPicture() {
     snakeHeadY = (snakeHeadY - stepY + canvasHeight) % canvasHeight;
     musicBase.play()
     gameScoreHtml.textContent = `${startVar.gameScore}`
-    // gameScoreHtml.textContent = `${gameScore}`
   }
 
   if (direction === 'right') {
     snakeHeadX = (snakeHeadX + stepX) % canvasWidth;
     musicBase.play()
     gameScoreHtml.textContent = `${startVar.gameScore}`
-    // gameScoreHtml.textContent = `${gameScore}`
   }
 
   if (direction === 'down') {
     snakeHeadY = (snakeHeadY + stepY) % canvasHeight;
     musicBase.play()
     gameScoreHtml.textContent = `${startVar.gameScore}`
-    // gameScoreHtml.textContent = `${gameScore}`
   }
 
   if (direction === 'left') { 
     snakeHeadX = (snakeHeadX - stepX + canvasWidth) % canvasWidth;
     musicBase.play()
     gameScoreHtml.textContent = `${startVar.gameScore}`
-    // gameScoreHtml.textContent = `${gameScore}`
   }
 
   if (direction === 'stop') {
@@ -289,29 +227,20 @@ function drawPicture() {
     musicBorder.play()
     startVar.immunityScore = startVar.immunityScore - 2
     immunityScoreHtml.textContent = `${startVar.immunityScore}`
-    // immunityScore = immunityScore - 2
-    // immunityScoreHtml.textContent = `${immunityScore}`
     gameScoreHtml.textContent = `${startVar.gameScore}`
-    // gameScoreHtml.textContent = `${gameScore}`
   }
 
   if (isDifferenceInRange(snakeHeadX, food.x) && isDifferenceInRange(snakeHeadY, food.y)) {
     musicFood.play()
     startVar.gameScore = startVar.gameScore + 1
     gameScoreHtml.textContent = `${startVar.gameScore}`
-    // gameScore = gameScore + 1
-    // gameScoreHtml.textContent = `${gameScore}`
     startVar.immunityScore = startVar.immunityScore + 1
-    // immunityScore = immunityScore + 1
     foodImg.src = foodSrc()
 
     if (startVar.gameSpeed > gameSpeedInput) {
-    // if (gameSpeed > gameSpeedInput) {
       clearInterval(startPicture);
       startVar.gameSpeed = startVar.gameSpeed - 30;
-      // gameSpeed = gameSpeed - 30;
       startPicture = setInterval(drawPicture, startVar.gameSpeed);
-      // startPicture = setInterval(drawPicture, gameSpeed);
       musicBase.playbackRate = musicBase.playbackRate + 0.05; // ускоряю музыку
     }
 
@@ -319,9 +248,7 @@ function drawPicture() {
     food.y = Math.floor((Math.random()*canvasHeight/stepY))*stepY + 1 
 
     immunityScoreHtml.textContent = `${startVar.immunityScore}`
-    // immunityScoreHtml.textContent = `${immunityScore}`
     speedScoreHtml.textContent = `${450 - startVar.gameSpeed} / ${450 - gameSpeedInput}`
-    // speedScoreHtml.textContent = `${450-gameSpeed} / ${450 - gameSpeedInput}`
   }
   else {
     snake.pop()
@@ -338,19 +265,14 @@ function drawPicture() {
     musicTail.play()
     startVar.immunityScore = startVar.immunityScore - 6
     immunityScoreHtml.textContent = `${startVar.immunityScore}`
-    // immunityScore = immunityScore - 6
-    // immunityScoreHtml.textContent = `${immunityScore}`
   }
 
   if (startVar.immunityScore < 0) {
-  // if (immunityScore < 0) {
-
     musicBase.pause()
     clearInterval(startPicture);
     musicStop.play()
     closeMenuSetting()
     memoryLocalTest.putScore(450-gameSpeedInput, startVar.gameScore)
-    // memoryLocalTest.putScore(450-gameSpeedInput, gameScore)
     modalNoCup.forEach( item => item.classList.remove('modal-title--noCup-active'))
     modalScoreLocal(gameSpeedInput)
     testOpenModal()
@@ -364,14 +286,12 @@ const modalNoCup = document.querySelectorAll('.modal-title--noCup')
 
 btnCup.addEventListener('click', () => {
   startVar.flagCup = true;
-  // flagCup = true;
   modalNoCup.forEach( item => item.classList.add('modal-title--noCup-active'))
 
   modalLogin.classList.add('modal-login--active')
   body.classList.add('lock');
   fonSetting.classList.add('work');
   startVar.direction = 'stop'
-  // direction = 'stop'
   modalScoreLocal(gameSpeedInput)
 })
 
@@ -382,11 +302,9 @@ function modalScoreLocal(gameSpeedInput) {
   let gameKeySpeedInput = 450-gameSpeedInput
   let modalScoreText = memoryLocalTest.getScore()
   let modalScoreTextArr = modalScoreText[gameKeySpeedInput]
-  // console.log(`Массив из локал ${modalScoreTextArr}`)
 
   modalMaxCurrentSpeed.textContent = gameKeySpeedInput
   modalTotalScore.textContent = `${startVar.gameScore}`
-  // modalTotalScore.textContent = `${gameScore}`
 
   // сначала нужно очистить предыдущую модалку
   for (let i = 0; i < modalScoreNumber.length; i += 1) {
@@ -440,14 +358,9 @@ btnStop.addEventListener("click", stopSnake);
 
 function stopSnake() {
   if (startVar.direction === 'stop' && startVar.prevDirection == undefined) {
-  // if (startVar.direction === 'stop' && prevDirection == undefined) {
-  // if (direction === 'stop' && prevDirection == undefined) {
-    // direction = null
     startVar.direction = null
 
     gameScoreHtml.textContent = `${startVar.gameScore}`
-    // gameScoreHtml.textContent = `${gameScore}`
-    // console.log('Первый раз')
   }
   else if (startVar.direction === 'stop') { 
     startVar.direction = startVar.prevDirection
@@ -455,12 +368,6 @@ function stopSnake() {
   else {
     startVar.direction = 'stop';
   }
-  // else if (direction === 'stop') { 
-  //   direction = prevDirection
-  // }
-  // else {
-  //   direction = 'stop';
-  // }
 }
 
 /**************************************** */
@@ -476,8 +383,6 @@ function moveSnake(event) {
 
   if (startVar.changeDirection) return;
   startVar.changeDirection = true;
-  // if (changeDirection) return;
-  // changeDirection = true;
 
   const { codeDirObj, oppositeDir } = directionData
 
@@ -497,47 +402,29 @@ function moveSnake(event) {
         startVar.direction = key;
         startVar.prevDirection = startVar.direction
       }
-      // if (direction === 'stop') {
-      //   direction = 'stop'
-      // } else if ( prevDirection !== oppositeDir[key]){
-      //   direction = key;
-      //   prevDirection = direction
-      // }
     }
   }
 
   if (codeDirObj[event.code] === 'stop') {
     if (startVar.direction === 'stop' && startVar.prevDirection == undefined) {
       startVar.direction = null
-    // if (direction === 'stop' && prevDirection == undefined) {
-    //   direction = null
 
       gameScoreHtml.textContent = `${startVar.gameScore}`
-      // gameScoreHtml.textContent = `${gameScore}`
     }
     else if (startVar.direction === 'stop') { // ловлю нажатие в самом начале игры
-    // else if (direction === 'stop') { // ловлю нажатие в самом начале игры
       startVar.direction = startVar.prevDirection
-      // direction = prevDirection
     }
     else {
       startVar.direction = 'stop';
-      // direction = 'stop';
     }
   }
 
   if (startVar.immunityScore < 0) {
-  // if (immunityScore < 0) {
     startVar.direction = null;
-    // direction = null;
-    // prevDirection = null;
     startVar.prevDirection = null;
-    // startVar.changeDirection = false;
-    // changeDirection = false;
   }
 
   startVar.changeDirection = false;
-  // changeDirection = false;
 }
 
 
