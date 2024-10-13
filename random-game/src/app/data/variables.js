@@ -42,6 +42,25 @@ let imgSizeY = step.stepY-2 // надо уменьшить картинку, ч�
 
 
 /************************************* */
+/****  start var       */
+
+const startVar = {
+  direction: null,
+  prevDirection: null,
+  changeDirection: false,
+  startPicture: null,
+  flagCup: false,
+  gameScore: 0,
+  immunityScore: 0,
+  gameSpeed: 390,
+  gameSpeedInput: 0,
+
+}
+
+
+
+
+/************************************* */
 /****  snake       */
 
 const snakeImg = new Image();
@@ -245,5 +264,5 @@ function evenOddCenter (canvasWidth, stepX) {
 
 /************************************* */
 
-export { body, canvas, ctx, canvasObj, lineBox, step, imgSizeX, imgSizeY, snake, snakeImg, drawRoundedRectangle, updateSnake, food, foodImg, foodSrc, evenOddCenter, center, }
+export { body, canvas, ctx, canvasObj, lineBox, step, imgSizeX, imgSizeY, snake, snakeImg, drawRoundedRectangle, updateSnake, food, foodImg, foodSrc, evenOddCenter, center, startVar }
 // export { body, canvas, ctx, canvasObj, lineBox, step, imgSizeX, imgSizeY, snake, snakeImg, drawRoundedRectangle, updateSnake, food, foodImg, foodSrc, evenOddCenter, center, optionsTriangle }
