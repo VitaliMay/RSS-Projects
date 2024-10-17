@@ -1,0 +1,481 @@
+// @import 'normalize';
+
+@import 'global';
+
+
+/***********************************************/
+
+:root {
+  // --background-primary: rgb(80, 80, 80);
+  --background-primary: linear-gradient(rgb(0, 0, 0), rgba(255, 255, 255, 0.5));
+  --color-shadow: rgba(0, 0, 0, 0.25);
+  --color-shadow-line: rgba(0, 0, 0, 0.533);
+  --color-active: coral;
+  --color-light: rgb(255, 255, 255);
+  --color-dark: rgb(0, 0, 0);
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url("../assets/fonts/Roboto-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/***********************************************/
+
+.wrapper {
+  margin: 0 auto;
+
+  // background-image: url(../assets/img/lemonade.png);
+  background-image: url(../assets/img/Lzy-cover02.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  // backdrop-filter: blur(50px);
+
+  // filter: blur(10px);
+  transition: all 0.7s;
+
+  font-family: 'Roboto';
+  font-size: 12px;
+  font-weight: 700;
+
+  color: var(--color-light);
+  // color: rgb(255, 255, 255);
+}
+
+
+.main {
+  width: 100%;
+  height: 100%;
+
+//   margin: 0 auto;
+
+//   background-image: url(../assets/img/lemonade.png);
+//   background-size: cover;
+//   background-repeat: no-repeat;
+  backdrop-filter: blur(10px);
+
+//   filter: blur(10px);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.player-container {
+
+  box-shadow: 10px 10px 40px -2px var(--color-shadow);
+  // box-shadow: 10px 10px 40px -2px rgba(0, 0, 0, 0.25);
+
+  padding: 10px;
+
+  width: 100%;
+  max-width: 600px;
+
+  @media screen and (max-height: 699.8px) {
+    max-width: 450px;
+  }
+  @media screen and (max-height: 519.8px) {
+    max-width: 370px;
+  }
+  @media screen and (max-height: 449.8px){
+    max-width: 600px;
+  }
+
+  // height: 400px;
+
+
+  // background-image: url(../assets/img/Lzy-cover02.jpg);
+  background-position: center;
+  // background-size: cover;
+  background-size: contain;
+  background-repeat: no-repeat;
+  transition: all 0.7s;
+
+
+  // border: solid 2px red;
+  border-radius: 5px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  justify-content: end;
+
+  row-gap: 10px;
+}
+
+/**********************************************/
+/**********************************************/
+/****** Сохраняю пропорции блока с картинкой ****************************************/
+
+.cover {
+  width: 100%; /* здесь можно установить любую нужную ширину */
+}
+
+.cover-inner {
+  position: relative;
+  height: 0;
+  border: none;
+}
+
+.cover-content {
+  transition: all 0.7s;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  // background: #eee;
+
+  background-image: url(../assets/img/Lzy-cover02.jpg);
+  // background-position: center;
+  background-position: top;
+  background-size: cover;
+  // background-size: contain;
+  background-repeat: no-repeat;
+
+  border-radius: 5px;
+
+  // border: solid 2px green;
+  box-shadow: 10px 10px 40px -2px var(--color-shadow);
+  // box-shadow: 10px 10px 40px -2px rgba(0, 0, 0, 0.25);
+}
+
+.cover-inner--ratio {
+  padding-top: 75%; /* 100% ширины делим на 4 и умножаем на 3 */
+
+  @media screen and (max-height: 449.8px){
+    padding-top: 0;
+  }
+}
+
+.cover-hidden {
+  padding-top: 0;
+}
+
+/***********************************************/
+/***********************************************/
+/***********************************************/
+
+.player {
+  padding: 10px;
+  box-shadow: 10px 10px 40px -2px var(--color-shadow);
+  // box-shadow: 10px 10px 40px -2px rgba(0, 0, 0, 0.25);
+
+  background: var(--background-primary);
+  // background-image: linear-gradient(#000000, #ffffff);
+  // background-color: var(--background-primary);
+  // background-color: rgb(80, 80, 80);
+  border-radius: 5px;
+  overflow: hidden;
+
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  justify-content: end;
+
+  row-gap: 10px;
+}
+
+/***********************************************/
+
+.info-screen {
+  // background-color: burlywood;
+
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  transition: all 2s;
+}
+
+.title {
+  width: 80%;
+}
+.setting {
+  // background-color: tomato;
+  // width: 20%;
+  flex-shrink: 0;
+}
+
+.hidden {
+  opacity: 0;
+  // transition: opacitty 1s ease;
+
+  transform: scale(1.5);
+	transition: transform ease-in-out .5s, opacity ease-in-out .5s;
+}
+
+.title-singer {
+  // opacity: 0.9;
+  // transition: opacitty 1s ease;
+  // transition: all 1s ease;
+
+  transition: transform ease-in-out .5s, opacity ease-in-out .5s;
+  opacity: 1;
+	transform: scale(1);
+}
+
+
+/***********************************************/
+
+.btn-container {
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn {
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+
+  background-size: contain;
+
+  transition: all 0.4s;
+
+  @media (hover: hover) {
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.15);
+    }
+  }
+
+  &--play {
+    width: 60px;
+    height: 60px;
+    // border-radius: 50%;
+    // background-image: url("http://simpleicon.com/wp-content/uploads/play1.png");
+    background-image: url("../assets/svg/play.png");
+
+    transition: all 0.4s;
+
+    @media (hover: hover) {
+      &:active {
+        transform: scale(0.9);
+      }
+    }
+  }
+
+  &--prev {
+    background-image: url("../assets/svg/backward.png");
+    transition: all 0.4s;
+
+    @media (hover: hover) {
+      &:active {
+        transform: scale(0.9);
+      }
+    }
+
+  }
+
+  &--next {
+    background-image: url("../assets/svg/forward.png");
+    transition: all 0.4s;
+
+    @media (hover: hover) {
+      &:active {
+        transform: scale(0.9);
+      }
+    }
+  }
+
+  &--repeatOne {
+    background-image: url("../assets/svg/icon-repeatOne-60.png");
+    transition: all 0.4s;
+    width: 30px;
+    height: 30px;
+    border-radius: 0%;
+
+    @media (hover: hover) {
+      &:active {
+        transform: scale(0.9);
+      }
+    }
+  }
+
+  &--repeat {
+    background-image: url("../assets/svg/icons-repeat-60.png");
+    transition: all 0.4s;
+    width: 30px;
+    height: 30px;
+    border-radius: 0%;
+
+    @media (hover: hover) {
+      &:active {
+        transform: scale(0.9);
+      }
+    }
+  }
+
+  &--mix {
+    background-image: url("../assets/svg/icons-mix-60.png");
+    transition: all 0.4s;
+    width: 30px;
+    height: 30px;
+    border-radius: 0%;
+
+    @media (hover: hover) {
+      &:active {
+        transform: scale(0.9);
+      }
+    }
+  }
+
+
+}
+
+
+
+.pause {  
+  // background-image: url("http://simpleicon.com/wp-content/uploads/pause.png");
+  background-image: url("../assets/svg/pause.png");
+  // filter : hue-rotate(180deg);
+
+  opacity: 80%;
+  // transition: visibility 2s, opacity 2s;
+
+  transition: all 0.4s;
+  transform: scale(1);
+}
+
+
+/***********************************************************/
+
+.time-screen {
+  // background-color: cadetblue;
+
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  row-gap: 4px;
+}
+
+.time-info {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.time-line {
+  padding: 2px 0;
+  background: var(--color-light);
+  // background: white;
+  width: 100%;
+  height: 10px;
+  position: relative;
+  cursor: pointer;
+  box-shadow: 0 2px 10px 0 var(--color-shadow-line);
+  // box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.533);
+
+  border-radius: 5px;
+}
+
+.time-progress {
+  background: var(--color-active);
+  // background: coral;
+  width: 0%;
+  height: 100%;
+  transition: 0.3s;
+  border-radius: 5px;
+}
+
+/***********************************************************/
+
+.footer {
+  background: var(--background-primary);
+  // background-image: linear-gradient(#000000, #ffffff);
+  // background-color: var(--background-primary);
+  // background-color: rgb(80, 80, 80);
+  box-shadow: 10px 10px 40px -2px var(--color-shadow);
+  // box-shadow: 10px 10px 40px -2px rgba(0, 0, 0, 0.25);
+
+
+  // backdrop-filter: none;
+
+  // filter: blur(1px);
+  opacity: 0.8;
+
+  /****************************************************/
+  /** Для адаптации-ротации, если высота меньше ширины */
+  display: flex;
+
+  @media screen and (max-height: 699.8px) and (max-width: 1023.8px){
+    // display: none;
+    position: fixed;
+    width: 100%;
+  }
+}
+
+.footer-container {
+
+  margin: 0 auto;
+  width: 100%;
+  // max-width: 600px;
+  // max-width: 1440px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+
+  font-family: 'Roboto';
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-light);
+  // color: rgb(255, 255, 255);
+  // background-color: rgb(80, 80, 80);
+}
+
+
+.github-visit {
+  margin-left: 10px;
+}
+
+.github {
+  display: flex;
+  align-items: center;
+}
+
+
+@media (hover: hover) {
+  .github :hover{
+    text-decoration: underline;
+  }
+}
+
+
+.footer-link {
+  transition: 0.3s;
+  opacity: 70%;
+}
+
+@media (hover: hover) {
+  .footer-link:hover {
+    transform: scale(1.2);
+    opacity: 100%;
+  }
+}
+
+
+.footer-container__copy {
+  color: var(--color-dark);
+  // color: rgb(0, 0, 0);
+  margin-left: 25px;
+}
+
+
+
+
+
