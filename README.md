@@ -11,3 +11,6 @@ https://vitalimay.github.io/RSS-Projects/audio-player/
 
 ### Minesweeper
 https://vitalimay.github.io/RSS-Projects/minesweeper/
+
+### Library
+https://vitalimay.github.io/RSS-Projects/library/
