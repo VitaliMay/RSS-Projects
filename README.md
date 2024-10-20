@@ -17,3 +17,7 @@ https://vitalimay.github.io/RSS-Projects/minesweeper/
 
 ### Library
 https://vitalimay.github.io/RSS-Projects/library/
+
+### Hangman
+https://vitalimay.github.io/RSS-Projects/hangman/
+
