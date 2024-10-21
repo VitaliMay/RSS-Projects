@@ -1,5 +1,8 @@
 # RSS-Projects
 
+### Random-Game
+https://vitalimay.github.io/RSS-Projects/random-game/
+
 ### Coffee-House
 https://vitalimay.github.io/RSS-Projects/coffee-house/
 
@@ -20,4 +23,3 @@ https://vitalimay.github.io/RSS-Projects/library/
 
 ### Hangman
 https://vitalimay.github.io/RSS-Projects/hangman/
-
