@@ -138,7 +138,7 @@ body {
   width: 100%;
   max-width: 1980px;
   height: 100%;
-  padding: 20px;
+  padding: 120px 20px 20px 20px;
   -webkit-backdrop-filter: blur(10px);
           backdrop-filter: blur(10px);
   display: flex;
@@ -270,7 +270,8 @@ body {
 /*********************************************************/
 .header {
   width: 100%;
-  position: relative;
+  position: fixed;
+  z-index: 4;
   background: var(--background-primary);
   box-shadow: 10px 10px 40px -2px var(--color-shadow);
   font-family: "Roboto";
