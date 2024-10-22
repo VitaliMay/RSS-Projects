@@ -67,7 +67,7 @@
   max-width: 1980px;
   height: 100%;
 
-  padding: 20px;
+  padding: 120px 20px 20px 20px;
 
   // накладываю на wrapper заблюренную картинку
   backdrop-filter: blur(10px);
@@ -218,7 +218,9 @@
 /*********************************************************/
 .header {
   width: 100%;
-  position: relative;
+  // position: relative;
+  position: fixed;
+  z-index: 4;
 
   background: var(--background-primary);
   box-shadow: 10px 10px 40px -2px var(--color-shadow);
