@@ -1,6 +1,10 @@
 
 const accessKey = 'AgIOi8YzpBhcLPxcfuRxOgz8rB0kBz01guzjO1JH2Kk'
 
+// const accessKey = 'wSEvY-mEibQueTI6OUJSEt3kWPxmWbTC8wFcO2Nt1UM'
+// const accessKey = '-by89pWOdAk-jL5Ikj5s5H71jwmtdjwwIxbbvt48jek'
+// const accessKey = 'ZonB7b_vXu0a6vyGTASgwWQ64lVNHm44wdwTM-fz5x8'
+
 const Authentication = `https://api.unsplash.com/photos/?client_id=${accessKey}`
 
 // const input = document.querySelector('.header-input')

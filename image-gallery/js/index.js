@@ -9,11 +9,17 @@ const input = document.querySelector('.header-input')
 const inputText = document.querySelector('.header-input__text');
 const clearButton = document.querySelector('.header-input__clear');
 
+const infoBlock = document.querySelector('.info')
+const openPages = document.querySelector('.info-page--current')
+const totalPages = document.querySelector('.info-page--total')
+const btnShowMore = document.querySelector('.info-page--btn-showMore')
+
 // let startFoto = false;
 let numPage = 1
 let perPage = 24
 
 let searchDefolt = null
+
 
 // Для рандома первой страницы
 const searchDefoltArr = ['random', 'roman', 'carrier', 'submit', 'no', 'repo', 'yes', 'sea', 'some', 'may', 'ocean', 'strange', 'gorgeous', 'fool', 'stupid', 'search']
@@ -38,16 +44,44 @@ getFoto(startUrl)
 
 /*********************************************************************************************** */
 
+function searchRequestFn (numPage) {
+  const search = input.value
+  const lang = select.value
+  const searchRequest =  `https://api.unsplash.com/search/photos?query=${search}&per_page=${perPage}&page=${numPage}&lang=${lang}&client_id=${arrInfo[0]}`
+  return searchRequest
+}
+
+/*********************************************************************************************** */
+
 form.addEventListener('submit', (event) => {
   event.preventDefault(); // чтобы не перегружало страницу
-  let search = input.value
-  let lang = select.value
+  // let search = input.value
+  // let lang = select.value
+  numPage = 1
 
-  let searchRequest = `https://api.unsplash.com/search/photos?query=${search}&per_page=${perPage}&page=${numPage}&lang=${lang}&client_id=${arrInfo[0]}`
+  // let searchRequest = `https://api.unsplash.com/search/photos?query=${search}&per_page=${perPage}&page=${numPage}&lang=${lang}&client_id=${arrInfo[0]}`
+  const searchRequest = searchRequestFn (numPage)
+
+  removeAllCard(main)
   getFoto(searchRequest)
+
+  openPages.textContent = numPage
   // input.value = ''  // не по ТЗ
   inputText.focus();
+
+
 })
+
+/*********************************************************************************************** */
+
+btnShowMore.addEventListener('click', showMoreFn)
+
+function showMoreFn () {
+ numPage += 1
+ const searchRequest = searchRequestFn (numPage)
+ getFoto(searchRequest)
+ openPages.textContent = numPage
+}
 
 /*********************************************************************************************** */
 
@@ -87,7 +121,7 @@ async function getFoto(url) {
     const data = await response.json();
     // console.log('data', data)
 
-    removeAllCard(main)
+    // removeAllCard(main)
 
     if ('errors' in data) {
       main.append(createEl({classes: ['error-div'], text: data.errors[0]}));
@@ -106,15 +140,26 @@ async function getFoto(url) {
           elemLinkContent.style.backgroundImage = `url(${fotoUrlSmall})`
 
         }
+
+        if (input.value) { // определяю что это не первоначальная загрузка
+          infoBlock.classList.add('info--active')
+          totalPages.textContent = data.total_pages
+        }
+
+
       } else {
         main.append(createEl({classes: ['error-div'], text: textMessageArr[select.value]}))
+        infoBlock.classList.remove('info--active')
       }
     }
   }
   catch (error) {
     removeAllCard(main)
     const errorMessage = `${error}\n${errorMessageArr[select.value]}`
+    // поправить чтобы при исчерпании лимита не стирались открытые фото
+    // main.prepend(createEl({classes: ['error-div'], text: errorMessage}))
     main.append(createEl({classes: ['error-div'], text: errorMessage}))
+    infoBlock.classList.remove('info--active')
   }
 }
 
