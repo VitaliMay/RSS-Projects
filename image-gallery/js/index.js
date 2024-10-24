@@ -22,7 +22,8 @@ let searchDefolt = null
 
 
 // Для рандома первой страницы
-const searchDefoltArr = ['random', 'roman', 'carrier', 'submit', 'no', 'repo', 'yes', 'sea', 'some', 'may', 'ocean', 'strange', 'gorgeous', 'fool', 'stupid', 'search']
+const searchDefoltArr = ['random', 'roman', 'no', 'repo', 'sea', 'cloud', 'may', 'ocean', 'strange', 'abstract', 'mountain', 'sky', 'ground', 'fire', 'water', 'sand', 'air', 'art']
+// const searchDefoltArr = ['random', 'roman', 'carrier', 'submit', 'no', 'repo', 'yes', 'sea', 'some', 'may', 'ocean', 'strange', 'gorgeous', 'fool', 'stupid', 'search', 'abstract']
 const randomIndexDefoltArr = Math.floor(Math.random() * (searchDefoltArr.length - 1 - 0 + 1)) + 0;
 searchDefolt = searchDefoltArr[randomIndexDefoltArr]
 
