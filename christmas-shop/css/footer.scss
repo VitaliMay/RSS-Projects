@@ -1,0 +1,53 @@
+
+.footer {
+  width: 100%;
+  background: var(--background-primary);
+  box-shadow: 10px 10px 40px -2px var(--color-shadow);
+
+  font-family: 'Roboto';
+  font-size: 12px;
+  font-weight: 700;
+
+  opacity: 0.8;
+}
+
+.footer-container {
+
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1230px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+
+}
+
+.github-visit {  // закоментировано в html
+  margin-left: 10px;
+}
+
+.footer-container__github {
+  display: flex;
+  align-items: center;
+}
+
+.footer-container__github:hover{
+  text-decoration: underline;
+}
+
+.footer-link {
+  transition: 0.3s;
+  opacity: 70%;
+}
+
+.footer-link:hover {
+  transform: scale(1.2);
+  opacity: 100%;
+}
+
+.footer-container__copy {
+  color: var(--color-dark);
+  margin-left: 25px;
+}
