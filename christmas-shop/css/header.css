@@ -1,0 +1,22 @@
+.header {
+  width: 100%;
+  min-height: 65px;
+  position: fixed;
+  z-index: 4;
+  background: var(--background-primary);
+  box-shadow: 10px 10px 40px -2px var(--color-shadow);
+  font-size: 20px;
+  font-weight: 700;
+  opacity: 0.8;
+}
+
+.title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--color-light);
+  opacity: 0.2;
+  cursor: default;
+  z-index: -1;
+}/*# sourceMappingURL=header.css.map */
