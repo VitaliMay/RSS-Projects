@@ -1,0 +1,237 @@
+.color-preview {
+  width: 100px;
+  height: 100px;
+  border: solid black 2px;
+  /* background-color: hsl(0, 14%, 97%); */
+  /* filter: hue-rotate(0deg); */
+}
+
+.carBlock {
+  max-width: 100%;
+  background-color: lightgray;
+  padding: 10px;
+  /* padding-left: 100px; */
+  margin: 10px;
+}
+
+.buttomBlock {
+  display: flex;
+  flex-direction: column;
+  -moz-column-gap: 10px;
+       column-gap: 10px;
+  margin: 10px;
+  background-color: bisque;
+}
+
+.changeCarButtomBlock {
+  display: flex;
+  /* gap: 10px; */
+  -moz-column-gap: 10px;
+       column-gap: 10px;
+  margin: 10px;
+  background-color: bisque;
+}
+
+.deleteCarButtom,
+.selectCarButtom {
+  display: block;
+  cursor: pointer;
+  box-sizing: border-box;
+  border: solid 4px rgb(22, 24, 22);
+  border-radius: 5px;
+  background-color: rgb(95, 98, 95);
+  color: rgb(219, 211, 211);
+  padding: 10px;
+}
+
+.addCarButtom {
+  /* width: 100px;
+  height: 100px; */
+  display: block;
+  pointer-events: none;
+  box-sizing: border-box;
+  border: solid 4px green;
+  background-color: rgb(76, 79, 76);
+  color: rgb(240, 9, 9);
+  padding: 10px;
+  /* padding-left: 100px; */
+  /* margin: 10px; */
+}
+.addCarButtom-model {
+  background-color: inherit;
+  padding: 10px;
+  cursor: default;
+}
+
+.createCarButtom {
+  display: block;
+  cursor: pointer;
+  box-sizing: border-box;
+  border: solid 4px rgb(203, 163, 55);
+  border-radius: 5px;
+  background-color: rgb(221, 194, 119);
+  padding: 10px;
+}
+
+.create100CarsButton {
+  display: block;
+  cursor: pointer;
+  box-sizing: border-box;
+  border: solid 4px rgb(203, 163, 55);
+  border-radius: 5px;
+  background-color: rgb(221, 194, 119);
+  width: 100%;
+  max-width: 130px;
+  padding: 10px;
+}
+
+.allCarsStartButton {
+  display: block;
+  cursor: pointer;
+  box-sizing: border-box;
+  border: solid 4px rgb(64, 176, 12);
+  border-radius: 5px;
+  background-color: rgb(157, 225, 140);
+  width: 100%;
+  max-width: 130px;
+  padding: 10px;
+}
+
+.allCarsStopButton {
+  display: block;
+  cursor: pointer;
+  box-sizing: border-box;
+  border: solid 4px rgb(218, 72, 40);
+  border-radius: 5px;
+  background-color: rgb(237, 145, 122);
+  width: 100%;
+  max-width: 130px;
+  padding: 10px;
+}
+
+.newCarBlock {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  background-color: lightgray;
+  padding: 10px;
+  margin: 10px;
+}
+.newCarBlock__topDiv {
+  display: inline-flex;
+  -moz-column-gap: 10px;
+       column-gap: 10px;
+  margin: 0 10 10 10;
+  background-color: bisque;
+}
+.newCarBlock__lowDiv {
+  display: flex;
+  -moz-column-gap: 10px;
+       column-gap: 10px;
+  margin: 0 10 10 10;
+  background-color: rgb(206, 189, 162);
+}
+
+.engineButtomBlock {
+  display: flex;
+  -moz-column-gap: 10px;
+       column-gap: 10px;
+}
+
+.engineButtomDrive {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(191, 244, 153);
+  border-radius: 5px;
+  width: 30px;
+  height: 40px;
+}
+
+.engineButtomStop {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(191, 244, 153);
+  border-radius: 5px;
+  width: 30px;
+  height: 40px;
+}
+
+.trackBlock {
+  background-color: lightgray;
+  border-bottom: dashed 4px rgb(243, 236, 236);
+  width: 100%;
+  padding-left: 5px;
+  position: relative;
+}
+.trackBlock__carImg {
+  display: block;
+  position: absolute;
+  will-change: transform;
+  transform: translate(0px, -11px);
+}
+
+.engineAnimation {
+  animation: verticalAnimation 0.4s infinite linear;
+  pointer-events: none;
+  background-color: inherit;
+}
+
+@keyframes verticalAnimation {
+  from {
+    transform: rotateX(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.formColorModel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  -moz-column-gap: 20px;
+       column-gap: 20px;
+}
+
+.inactive {
+  pointer-events: none;
+}
+
+.color-changer {
+  width: 40px;
+  height: 40px;
+}
+
+.blockInputColor {
+  padding-top: 20px;
+}
+
+.model-changer {
+  height: 30px;
+  width: 130px;
+}
+
+.blockInputModel {
+  padding-top: 20px;
+}
+
+.previewCarDiv {
+  border-style: none;
+  overflow: visible;
+  text-transform: none;
+  padding: 0;
+  background-color: inherit;
+  cursor: pointer;
+  transition: 0.4s;
+}
+.previewCarDiv:hover {
+  scale: 1.15;
+  transition: 0.4s;
+}
+.previewCarDiv:active {
+  scale: 0.9;
+  transition: 0.4s;
+}/*# sourceMappingURL=style.css.map */
