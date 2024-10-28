@@ -1,0 +1,95 @@
+
+
+/***** mixins ***********************************************************************/
+/***** mixins ***********************************************************************/
+
+// :root {
+//   --font-family: "Montserrat", sans-serif;
+//   --second-family: "Allura", sans-serif;
+//   --third-family: "SF Pro", sans-serif;
+// }
+
+@mixin header-1 {
+  font-family: Montserrat;
+  font-size: 32px;
+  font-weight: 600;
+  line-height:  150%;
+  letter-spacing:  0.18em;
+  text-transform: uppercase;
+}
+
+@mixin header-2 {
+  font-family: Montserrat;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 152%;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+@mixin header-3 {
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 152%;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+@mixin header-4 {
+  font-family: Montserrat;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 130%;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+@mixin paragraph {
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 400;
+  line-height:  148%;
+}
+
+@mixin action-large {
+  font-family: Montserrat;
+  font-size: 24px;
+  font-weight: 600;
+  line-height:  152%;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+@mixin action-small {
+  font-family: Montserrat;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 130%;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+@mixin caption {
+  font-family: Allura;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 100%;
+  letter-spacing: 0.05em;
+}
+
+@mixin slider-text {
+  font-family: Montserrat;
+  font-size: 80px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+
+
+
+
+
+
+
+

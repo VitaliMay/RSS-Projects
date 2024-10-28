@@ -1,25 +1,28 @@
+
+/***** footer ***********************************************************************/
+/***** footer ***********************************************************************/
+
 .footer {
   width: 100%;
-  background: var(--background-primary);
-  box-shadow: 10px 10px 40px -2px var(--color-shadow);
-  font-family: "Roboto";
-  font-size: 12px;
-  font-weight: 700;
+  background: $background-primary;
+  box-shadow: 10px 10px 40px -2px $color-shadow;
+
+  @include caption;
+
   opacity: 0.8;
 }
 
 .footer-container {
+
   margin: 0 auto;
   width: 100%;
   max-width: 1230px;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 15px;
-}
 
-.github-visit {
-  margin-left: 10px;
 }
 
 .footer-container__github {
@@ -27,7 +30,7 @@
   align-items: center;
 }
 
-.footer-container__github:hover {
+.footer-container__github:hover{
   text-decoration: underline;
 }
 
@@ -42,6 +45,6 @@
 }
 
 .footer-container__copy {
-  color: var(--color-dark);
+  color: $color-dark;
   margin-left: 25px;
-}/*# sourceMappingURL=footer.css.map */
+}

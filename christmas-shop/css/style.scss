@@ -1,8 +1,9 @@
-@import 'normalize';
-@import 'global';
-@import 'variables';
-@import 'header';
-@import 'footer';
+@import './global/normalize';
+@import './global/variables';
+@import './global/mixins';
+@import './global/global';
+@import './header/header';
+@import './footer/footer'
 
 
 

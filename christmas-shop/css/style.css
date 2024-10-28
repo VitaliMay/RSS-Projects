@@ -309,7 +309,10 @@ template {
   display: none;
 }
 
-/******** global *****************************************************/
+/***** variables ***********************************************************************/
+/***** variables ***********************************************************************/
+/***** mixins ***********************************************************************/
+/***** mixins ***********************************************************************/
 /******** global *****************************************************/
 /******** global *****************************************************/
 /* сбрасываю, то что может мешать */
@@ -364,6 +367,21 @@ button {
   border: solid 2px blue; /*чтобы увидеть кнопку*/
 }
 
+@font-face {
+  font-family: "Montserrat";
+  src: url("../../assets/fonts/Montserrat/Montserrat-Regular.ttf");
+  font-weight: 400;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../../assets/fonts/Montserrat/Montserrat-SemiBold.ttf");
+  font-weight: 600;
+}
+@font-face {
+  font-family: "Allura";
+  src: url("../../assets/fonts/Allura/Allura-Regular.ttf");
+  font-weight: 400;
+}
 /***************************************************************/
 /***************************************************************/
 * {
@@ -404,50 +422,86 @@ body {
   flex: 0 0 auto;
 }
 
-:root {
-  --background-primary: linear-gradient(rgb(0, 0, 0), rgba(255, 255, 255, 0.7));
-  --background-message: linear-gradient(rgb(0, 0, 0), rgba(255, 255, 255, 0.7));
-  --background-seach: rgb(196, 195, 194, 0.7);
-  --color-shadow: rgba(0, 0, 0, 0.25);
-  --color-shadow-line: rgba(0, 0, 0, 0.533);
-  --color-active: coral;
-  --color-light: rgb(255, 255, 255);
-  --color-dark: rgb(0, 0, 0);
-  --color-border: rgb(60, 60, 60);
-  --color-border-hover: rgb(172 172 172);
-  --color-border-focus: rgb(150 208 183);
-}
-
+/***** header ***********************************************************************/
+/***** header ***********************************************************************/
 .header {
   width: 100%;
-  min-height: 65px;
-  position: fixed;
-  z-index: 4;
-  background: var(--background-primary);
-  box-shadow: 10px 10px 40px -2px var(--color-shadow);
-  font-size: 20px;
-  font-weight: 700;
-  opacity: 0.8;
+  background-color: antiquewhite;
 }
 
-.title {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: var(--color-light);
-  opacity: 0.2;
-  cursor: default;
-  z-index: -1;
+.header-container {
+  width: 100%;
+  max-width: 1440px;
+  padding: 0 8px;
+  background-color: greenyellow;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  -moz-column-gap: 8px;
+       column-gap: 8px;
 }
 
+.logo {
+  border-radius: 12px;
+  padding: 8px 20px;
+  width: 141px;
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  -moz-column-gap: 8px;
+       column-gap: 8px;
+  cursor: pointer;
+  background: rgb(236, 243, 248);
+}
+.logo__text {
+  font-family: Montserrat;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 130%;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: rgb(24, 28, 41);
+}
+
+.menu__list {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  -moz-column-gap: 8px;
+       column-gap: 8px;
+}
+.menu__list-link {
+  font-family: Montserrat;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 130%;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: rgb(24, 28, 41);
+  border-radius: 12px;
+  padding: 12px 20px;
+  background: rgb(236, 243, 248);
+  transition: all 0.6s;
+}
+.menu__list-link:hover {
+  color: rgb(255, 70, 70);
+  background: rgba(255, 70, 70, 0.1);
+  transition: all 0.6s;
+}
+
+/***** footer ***********************************************************************/
+/***** footer ***********************************************************************/
 .footer {
   width: 100%;
-  background: var(--background-primary);
-  box-shadow: 10px 10px 40px -2px var(--color-shadow);
-  font-family: "Roboto";
-  font-size: 12px;
-  font-weight: 700;
+  background: linear-gradient(rgb(0, 0, 0), rgba(255, 255, 255, 0.7));
+  box-shadow: 10px 10px 40px -2px rgba(0, 0, 0, 0.25);
+  font-family: Allura;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 100%;
+  letter-spacing: 0.05em;
   opacity: 0.8;
 }
 
@@ -459,10 +513,6 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 15px;
-}
-
-.github-visit {
-  margin-left: 10px;
 }
 
 .footer-container__github {
@@ -485,6 +535,6 @@ body {
 }
 
 .footer-container__copy {
-  color: var(--color-dark);
+  color: rgb(0, 0, 0);
   margin-left: 25px;
 }/*# sourceMappingURL=style.css.map */
