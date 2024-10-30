@@ -6,6 +6,7 @@
   width: 100%;
   
   background-color: antiquewhite;
+  // background: $static-white;
 }
 
 .header-container {
@@ -38,7 +39,8 @@
   // cursor: url(../../assets/img/pointinghand.svg), pointer;
   // cursor: pointer;
 
-  background: $content-background;
+  // background: $content-background;
+  background: $static-white;
 
   &__text {
     @include action-small;
@@ -63,7 +65,7 @@
     border-radius: 4px;
     padding: 12px 20px;
 
-    background: $content-background;
+    background: $static-white;
 
     transition: all 0.6s;
 
