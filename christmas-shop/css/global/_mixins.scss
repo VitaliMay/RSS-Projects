@@ -9,6 +9,14 @@
 //   --third-family: "SF Pro", sans-serif;
 // }
 
+////////  cursor
+
+@mixin custom-cursor {
+  cursor: url(../../assets/img/pointinghand.svg), pointer;
+}
+
+////////  fonts
+
 @mixin header-1 {
   font-family: Montserrat;
   font-size: 32px;

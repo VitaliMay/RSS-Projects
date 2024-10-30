@@ -354,6 +354,8 @@ a {
   text-decoration: none;
   /*чтобы наследовали цвет родителя*/
   color: inherit;
+  /*чтобы везде не прописывать вместо дефолтного*/
+  cursor: url(../../assets/img/pointinghand.svg), pointer;
 }
 
 button {
@@ -432,7 +434,7 @@ body {
 .header-container {
   width: 100%;
   max-width: 1440px;
-  padding: 0 8px;
+  padding: 12px 8px;
   background-color: greenyellow;
   margin: 0 auto;
   display: flex;
@@ -443,7 +445,7 @@ body {
 }
 
 .logo {
-  border-radius: 12px;
+  border-radius: 4px;
   padding: 8px 20px;
   width: 141px;
   height: 40px;
@@ -452,7 +454,7 @@ body {
   align-items: center;
   -moz-column-gap: 8px;
        column-gap: 8px;
-  cursor: pointer;
+  cursor: url(../../assets/img/pointinghand.svg), pointer;
   background: rgb(236, 243, 248);
 }
 .logo__text {
@@ -463,6 +465,9 @@ body {
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: rgb(24, 28, 41);
+}
+.logo:hover {
+  border-radius: 12px;
 }
 
 .menu__list {
@@ -480,7 +485,7 @@ body {
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: rgb(24, 28, 41);
-  border-radius: 12px;
+  border-radius: 4px;
   padding: 12px 20px;
   background: rgb(236, 243, 248);
   transition: all 0.6s;
@@ -489,52 +494,225 @@ body {
   color: rgb(255, 70, 70);
   background: rgba(255, 70, 70, 0.1);
   transition: all 0.6s;
+  border-radius: 12px;
+}
+
+@media screen and (max-width: 767.9px) {
+  .menu {
+    position: fixed;
+    right: -100%;
+    top: 0;
+    bottom: 0;
+    opacity: 6;
+    transition: all 0.6s;
+    z-index: 16;
+    background-color: #292929;
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+}
+
+@media screen and (max-width: 767.9px) {
+  .menu__list {
+    flex-direction: column;
+  }
+}
+
+.burger-button {
+  z-index: 30;
+  width: 44px;
+  height: 44px;
+  border-radius: 100px;
+  border: 1px solid #665F55;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.4s;
+  flex-shrink: 0;
+  position: relative;
+  display: none;
+}
+@media screen and (max-width: 767.9px) {
+  .burger-button {
+    display: flex;
+  }
+}
+@media (hover: hover) {
+  .burger-button:hover {
+    background-color: #665F55;
+    transition: 0.4s all;
+    cursor: url(../../assets/img/pointinghand.svg), pointer;
+  }
+  .burger-button:hover .burger-button__cross {
+    background-color: #E1D4C9;
+    transition: 0.6s all;
+  }
+}
+.burger-button:active {
+  transform: scale(0.9);
+  transition: all 0.4s;
+}
+.burger-button:active .burger-button__cross--01 {
+  transform: translateY(0px) rotate(-45deg);
+  transition: 0.4s all;
+}
+.burger-button:active .burger-button__cross--02 {
+  transform: translateY(0px) rotate(45deg);
+  transition: 0.4s all;
+}
+
+.burger-button__cross {
+  width: 18px;
+  height: 2px;
+  background-color: #403F3D;
+  border-radius: 1.5px;
+  transition: 0.4s all;
+}
+
+.burger-button__cross--01 {
+  position: absolute;
+  transform: translateY(-4px);
+  transition: 0.4s all;
+}
+
+.burger-button__cross--02 {
+  position: absolute;
+  transform: translateY(4px);
+  transition: 0.4s all;
+}
+
+.burger-button.rotade .burger-button__cross--01 {
+  transform: translateY(0px) rotate(-45deg);
+  transition: 0.4s all;
+}
+.burger-button.rotade .burger-button__cross--02 {
+  transform: translateY(0px) rotate(45deg);
+  transition: 0.4s all;
 }
 
 /***** footer ***********************************************************************/
 /***** footer ***********************************************************************/
 .footer {
   width: 100%;
-  background: linear-gradient(rgb(0, 0, 0), rgba(255, 255, 255, 0.7));
-  box-shadow: 10px 10px 40px -2px rgba(0, 0, 0, 0.25);
+  background: rgb(255, 255, 255);
+  color: rgb(24, 28, 41);
+}
+
+.footer-container {
+  width: 100%;
+  max-width: 1440px;
+  padding: 60px 8px;
+  background: rgb(255, 255, 255);
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  row-gap: 60px;
+}
+
+.footer-card-box {
+  width: 100%;
+  max-width: 1276px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.footer-card {
+  flex: 1 1 330px;
+  max-width: 100%;
+  padding: 20px 20px;
+  border-radius: 20px;
+  background: rgb(236, 243, 248);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 12px;
+  transition: all 0.6s;
+}
+@media screen and (max-width: 800px) {
+  .footer-card {
+    flex-basis: 380px;
+  }
+}
+@media screen and (max-width: 700px) {
+  .footer-card {
+    flex-basis: 330px;
+  }
+}
+.footer-card:hover {
+  transition: all 0.6s;
+  color: rgb(255, 70, 70);
+}
+.footer-card__action {
+  font-family: Montserrat;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 152%;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.footer-card__title {
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 152%;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.footer-container-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 20px;
+}
+
+.footer-social {
+  display: flex;
+  -moz-column-gap: 12px;
+       column-gap: 12px;
+}
+.footer-social__link {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.footer-social__img {
+  transition: all 0.6s;
+}
+.footer-social__link:hover .footer-social__img {
+  stroke: rgb(255, 70, 70);
+  transition: all 0.6s;
+}
+
+.footer-text {
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 148%;
+  cursor: default;
+}
+
+.footer-caption {
   font-family: Allura;
   font-size: 24px;
   font-weight: 400;
   line-height: 100%;
   letter-spacing: 0.05em;
-  opacity: 0.8;
+  transition: all 0.6s;
 }
-
-.footer-container {
-  margin: 0 auto;
-  width: 100%;
-  max-width: 1230px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px;
-}
-
-.footer-container__github {
-  display: flex;
-  align-items: center;
-}
-
-.footer-container__github:hover {
-  text-decoration: underline;
-}
-
-.footer-link {
-  transition: 0.3s;
-  opacity: 70%;
-}
-
-.footer-link:hover {
-  transform: scale(1.2);
-  opacity: 100%;
-}
-
-.footer-container__copy {
-  color: rgb(0, 0, 0);
-  margin-left: 25px;
+.footer-caption:hover {
+  transition: all 0.6s;
+  color: rgb(255, 70, 70);
 }/*# sourceMappingURL=style.css.map */
