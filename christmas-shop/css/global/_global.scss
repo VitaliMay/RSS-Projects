@@ -2,7 +2,6 @@
 
 /******** global *****************************************************/
 /******** global *****************************************************/
-/******** global *****************************************************/
 /* сбрасываю, то что может мешать */
 
 *,
@@ -43,6 +42,9 @@ a{
   text-decoration: none;
   /*чтобы наследовали цвет родителя*/
   color: inherit;
+
+  /*чтобы везде не прописывать вместо дефолтного*/
+  @include custom-cursor;
 }
 
 button {
@@ -58,11 +60,23 @@ button {
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 
-// @font-face {
-//   font-family: 'Roboto';
-//   src: url("../assets/fonts/Roboto-Regular.ttf");
-//   font-weight: 400;
-// }
+@font-face {
+  font-family: 'Montserrat';
+  src: url("../../assets/fonts/Montserrat/Montserrat-Regular.ttf");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url("../../assets/fonts/Montserrat/Montserrat-SemiBold.ttf");
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'Allura';
+  src: url("../../assets/fonts/Allura/Allura-Regular.ttf");
+  font-weight: 400;
+}
 
 // @font-face {
 //   font-family: 'Roboto';
@@ -109,7 +123,8 @@ body {
 	flex-direction: column;
 	min-height: 100vh;
 
-  background-color: tomato;
+  background-color: $background-body;
+  // background-color: tomato;
 
 }
 
