@@ -594,11 +594,11 @@ body {
 }
 
 .hero {
+  margin: 0 auto;
   width: 100%;
   max-width: 1440px;
   border-radius: 20px 20px 0px 0px;
   padding: 60px 8px;
-  margin: 0 auto;
   background-color: rgb(255, 70, 70);
   background-image: url(../assets/img/bg-ball.png), url(../assets/img/bg-snow.png);
   background-repeat: no-repeat, no-repeat;
@@ -653,6 +653,99 @@ body {
   color: rgb(24, 28, 41);
   background-color: rgb(255, 255, 255);
   transition: all 0.6s;
+}
+
+.about {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1440px;
+  padding: 60px 8px;
+  background-color: rgb(255, 70, 70);
+  background-image: url(../assets/img/bg-snow.png);
+  background-repeat: no-repeat;
+  background-clip: border-box;
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.about-container {
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 1276px;
+  background-color: rgb(255, 255, 255);
+}
+
+.about-content-box {
+  width: 100%;
+  flex: 1 1 256px;
+  padding: 0px 60px;
+  background-color: antiquewhite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@media screen and (max-width: 670px) {
+  .about-content-box {
+    padding: 0px 20px;
+  }
+}
+
+.about-content {
+  background-color: yellowgreen;
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  padding: 60px 0px;
+  max-width: 518px;
+  width: 100%;
+}
+.about-content__caption {
+  max-width: 426px;
+  color: rgb(255, 70, 70);
+  font-family: Allura;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 100%;
+  letter-spacing: 0.05em;
+  background-color: aqua;
+}
+.about-content__title {
+  font-family: Montserrat;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 152%;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  max-width: 426px;
+  background-color: aqua;
+}
+.about-content__paragraph {
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 148%;
+  max-width: 426px;
+  background-color: aqua;
+}
+
+.about-img {
+  overflow: hidden;
+  border-radius: 20px;
+  background-image: url(../assets/img/about-santa.png);
+  background-repeat: no-repeat;
+  background-clip: border-box;
+  background-position: center;
+  width: 100%;
+  max-width: 638px;
+  height: 528px;
+  flex: 1 0 256px;
 }
 
 /***** footer ***********************************************************************/
