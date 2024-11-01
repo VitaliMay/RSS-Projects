@@ -1041,6 +1041,121 @@ body {
   color: rgb(255, 67, 247);
 }
 
+.cta-section {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1440px;
+  border-radius: 0px 0px 20px 20px;
+  padding: 60px 8px;
+  background-color: rgb(255, 70, 70);
+  background-image: url(../../assets/img/bg-forest.png), url(../assets/img/bg-snow.png);
+  background-repeat: no-repeat, no-repeat;
+  background-clip: border-box, border-box;
+  background-position: center, center;
+  background-size: cover, cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cta-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 1276px;
+  padding: 60px 0px;
+}
+
+.cta-content {
+  max-width: 430px;
+  padding: 60px 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 20px;
+  color: rgb(255, 255, 255);
+  text-align: center;
+}
+.cta-content__title {
+  font-family: Montserrat;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 152%;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.cta-content__btn {
+  font-family: Montserrat;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 130%;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 20px 32px;
+  background-color: rgb(24, 28, 41);
+  border-radius: 20px;
+  max-width: 237px;
+  transition: all 0.6s;
+}
+.cta-content__btn:hover {
+  color: rgb(24, 28, 41);
+  background-color: rgb(255, 255, 255);
+  transition: all 0.6s;
+}
+
+.timer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 8px;
+}
+.timer-container__caption {
+  font-family: Allura;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 100%;
+  letter-spacing: 0.05em;
+}
+
+.timer {
+  background-color: rgba(255, 255, 255, 0.4);
+  padding: 8px 12px 12px 12px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.timer__box {
+  width: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.timer__item {
+  font-family: Montserrat;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 152%;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.timer__date {
+  font-family: Montserrat;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 130%;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.timer__separator {
+  width: 1px;
+  height: 20px;
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
 /***** footer ***********************************************************************/
 /***** footer ***********************************************************************/
 .footer {
