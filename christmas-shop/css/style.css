@@ -426,16 +426,20 @@ body {
 /***** header ***********************************************************************/
 /***** header ***********************************************************************/
 .header {
+  margin: 0 auto;
   width: 100%;
+  max-width: 1440px;
+  padding: 12px 8px;
   background-color: antiquewhite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .header-container {
   width: 100%;
-  max-width: 1440px;
-  padding: 12px 8px;
+  max-width: 1276px;
   background-color: greenyellow;
-  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -672,13 +676,13 @@ body {
 }
 
 .about-container {
+  width: 100%;
+  max-width: 1276px;
   border-radius: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  width: 100%;
-  max-width: 1276px;
   background-color: rgb(255, 255, 255);
 }
 
@@ -773,6 +777,7 @@ body {
   justify-content: center;
   align-items: center;
   color: rgb(255, 255, 255);
+  row-gap: 20px;
 }
 
 .slider-content {
@@ -804,7 +809,7 @@ body {
   flex-direction: column;
   justify-content: center;
   width: 100%;
-  row-gap: 12px;
+  row-gap: 20px;
 }
 .slider__screen {
   background-color: aquamarine;
@@ -1048,7 +1053,7 @@ body {
   border-radius: 0px 0px 20px 20px;
   padding: 60px 8px;
   background-color: rgb(255, 70, 70);
-  background-image: url(../../assets/img/bg-forest.png), url(../assets/img/bg-snow.png);
+  background-image: url(../assets/img/bg-forest.png), url(../assets/img/bg-snow.png);
   background-repeat: no-repeat, no-repeat;
   background-clip: border-box, border-box;
   background-position: center, center;
@@ -1235,7 +1240,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  row-gap: 20px;
+  row-gap: 12px;
 }
 
 .footer-social {

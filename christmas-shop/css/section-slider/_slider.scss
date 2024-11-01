@@ -41,6 +41,8 @@
 
   color: $static-white;
 
+  row-gap: 20px;
+
   // background-color: $static-white;
   // flex: 1 0 0;
 }
@@ -73,7 +75,7 @@
   // align-items: center;
 
   // align-items: stretch;
-  row-gap: 12px;
+  row-gap: 20px;
 
   &__screen {
     // width: 100vw;
