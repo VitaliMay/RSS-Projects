@@ -41,6 +41,8 @@
 
   color: $static-white;
 
+  row-gap: 20px;
+
   // background-color: $static-white;
   // flex: 1 0 0;
 }
@@ -73,7 +75,7 @@
   // align-items: center;
 
   // align-items: stretch;
-  row-gap: 12px;
+  row-gap: 20px;
 
   &__screen {
     // width: 100vw;
@@ -150,13 +152,35 @@
 
   @include custom-cursor;
 
+  transition: all 0.6s;
+
+  & .slider-btn__img {
+    stroke: $static-white;
+    transition: all 0.6s;
+  }
+
+  &:hover {
+    transition: all 0.6s;
+    background-color: $static-white;
+  }
+
+  &:hover .slider-btn__img {
+    stroke: $primary;
+    transition: all 0.6s;
+  }
+
   &[disabled] {
     border: solid 1px $static-white-40;
     cursor: not-allowed;
+    // pointer-events: none;
   }
 
   &[disabled] .slider-btn__img {
     stroke: $static-white-40;
   }
 
+  &[disabled]:hover {
+    border: solid 1px $static-white-40;
+    background: inherit;
+  }
 }

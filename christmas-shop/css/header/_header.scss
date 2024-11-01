@@ -3,20 +3,26 @@
 /***** header ***********************************************************************/
 
 .header {
-  width: 100%;
-  
-  background-color: antiquewhite;
-  // background: $static-white;
-}
-
-.header-container {
+  margin: 0 auto;
   width: 100%;
   max-width: 1440px;
 
   padding: 12px 8px;
+  background-color: antiquewhite;
+  // background: $static-white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header-container {
+  width: 100%;
+  max-width: 1276px;
+
+  // padding: 12px 8px;
 
   background-color: greenyellow;
-  margin: 0 auto;
+  // margin: 0 auto;
 
   display: flex;
   justify-content: space-between;
