@@ -1,4 +1,11 @@
+// import { timerContentWriter } from "./js/timer.js";
+import { timerInit } from "./js/timer.js";
 
+timerInit ()
+
+
+
+/************************************************** */
 
 const score = `
 Merry Christmas!
@@ -14,3 +21,5 @@ function signatureScore () {
 
 
 signatureScore ()
+
+
