@@ -39,6 +39,7 @@ function timerContentWriter () {
 }
 
 function timerInit () {
+  timerContentWriter() // чтобы сразу сработало
   setInterval(timerContentWriter, 1000);
 }
 

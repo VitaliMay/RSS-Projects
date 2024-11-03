@@ -8,8 +8,8 @@
   max-width: 1440px;
 
   padding: 12px 8px;
-  background-color: antiquewhite;
-  // background: $static-white;
+  // background-color: antiquewhite;
+  background: $static-white;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -21,7 +21,7 @@
 
   // padding: 12px 8px;
 
-  background-color: greenyellow;
+  // background-color: greenyellow;
   // margin: 0 auto;
 
   display: flex;
@@ -77,6 +77,11 @@
 
     &[disabled] {
       pointer-events: none;
+
+      color: $primary;
+      background: $primary-10;
+      transition: all 0.6s;
+      border-radius: 12px;
     }
 
     &:hover {
@@ -91,7 +96,7 @@
 ////////////////////////////////////////////////////////////////////
 
 .menu {
-  @media screen and (max-width: 767.9px) {
+  @media screen and (max-width: 768.9px) {
     position: fixed;
     right: -100%;
     top: 0;
@@ -117,7 +122,7 @@
 }
 
 .menu__list {
-  @media screen and (max-width: 767.9px) {
+  @media screen and (max-width: 768.9px) {
     flex-direction: column;
   }
 }
@@ -126,10 +131,10 @@
 
 .burger-button {
   z-index: 30;
-  width: 44px;
-  height: 44px;
-  border-radius: 100px;
-  border: 1px solid #665F55;
+  width: 40px;
+  height: 40px;
+  // border-radius: 100px;
+  border: 1px solid $static-white;
 
   justify-content: center;
   align-items: center;
@@ -138,20 +143,20 @@
   position: relative;
   display: none;
 
-  @media screen and (max-width: 767.9px) {
+  @media screen and (max-width: 768.9px) {
     display: flex;
   }
 
   @media (hover: hover) {
     &:hover {
-      background-color: #665F55;
+      // background-color: #665F55;
       transition: 0.4s all;
 
       @include custom-cursor;
       // cursor: pointer;
     }
     &:hover .burger-button__cross {
-      background-color: #E1D4C9;
+      // background-color: #E1D4C9;
       transition: 0.6s all;
     }
   }
@@ -174,9 +179,9 @@
 ////////////////////////  рисую кнопку /////////////////////////////////
 
 .burger-button__cross {
-  width: 18px;
+  width: 20px;
   height: 2px;
-  background-color: #403F3D;
+  background-color: $dark;
   border-radius: 1.5px;
   transition: 0.4s all;
 
