@@ -31,6 +31,7 @@ const timerNewYearInterval = () => timerNewYear(newNextYear)
 
 function timerContentWriter () {
   const { seconds, minutes, hours, days } = timerNewYearInterval ();
+  if (!daysDoc) return;  // если нет переменных функция не работает
   daysDoc.textContent = `${days}`
   hoursDoc.textContent = `${hours}`
   minutesDoc.textContent = `${minutes}`

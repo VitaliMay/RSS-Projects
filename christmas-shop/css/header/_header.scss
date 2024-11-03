@@ -75,6 +75,10 @@
 
     transition: all 0.6s;
 
+    &[disabled] {
+      pointer-events: none;
+    }
+
     &:hover {
       color: $primary;
       background: $primary-10;

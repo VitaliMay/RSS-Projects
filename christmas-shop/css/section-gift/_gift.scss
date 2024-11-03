@@ -1,0 +1,41 @@
+
+.gift-section {
+
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1440px;
+
+  padding: 60px 8px;
+
+  border-radius: 20px;
+
+  background-color: $primary;
+  background-image: url(../assets/img/bg-garland.png);
+  background-repeat: no-repeat;
+  background-clip: border-box;
+  background-position: top;
+  background-size: 100%;
+  // background-size: contain;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  overflow: hidden;
+}
+
+.gift-content {
+  width: 100%;
+  max-width: 470px; // чтобы перестраивалось по макету
+  padding: 0 40px;  // чтобы перестраивалось по макету
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+
+  &__title {
+    @include header-1;
+  }
+}
