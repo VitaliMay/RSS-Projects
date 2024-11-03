@@ -62,33 +62,36 @@ button {
 
 @font-face {
   font-family: 'Montserrat';
-  src: url("../assets/fonts/Montserrat-Regular.ttf");
+  src: url("../assets/fonts/montserrat/Montserrat-Regular.woff2") format('woff2'),
+       url("../assets/fonts/montserrat/Montserrat-Regular.woff") format('woff'),
+       url("../assets/fonts/montserrat/Montserrat-Regular.ttf") format('truetype');
+  font-style: normal;
   font-weight: 400;
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'Montserrat';
-  src: url("../assets/fonts/Montserrat-SemiBold.ttf");
+  src: url("../assets/fonts/montserrat/Montserrat-SemiBold.woff2") format('woff2'),
+       url("../assets/fonts/montserrat/Montserrat-SemiBold.woff") format('woff'),
+       url("../assets/fonts/montserrat/Montserrat-SemiBold.ttf") format('truetype');
+  font-style: normal;
   font-weight: 600;
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'Allura';
-  src: url("../assets/fonts/Allura-Regular.ttf");
+  src: url("../assets/fonts/allura/Allura-Regular.woff2") format('woff2'),
+       url("../assets/fonts/allura/Allura-Regular.woff") format('woff'),
+       url("../assets/fonts/allura/Allura-Regular.ttf") format('truetype');
+  // src: url("../assets/fonts/Allura-Regular.ttf");
+  font-style: normal;
   font-weight: 400;
+  font-display: swap;
 }
 
-// @font-face {
-//   font-family: 'Roboto';
-//   src: url("../assets/fonts/Roboto-Bold.ttf");
-//   font-weight: 700;
-// }
-
-// @font-face {
-//   font-family: 'Roboto';
-//   src: url("../assets/fonts/Roboto-Italic.ttf");
-//   font-weight: 500;
-// }
+// @ff
 
 /***************************************************************/
 /***************************************************************/
