@@ -54,14 +54,14 @@
     padding: 0px 20px;
   }
 
-  background-color: antiquewhite;
+  // background-color: antiquewhite;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .about-content {
-  background-color: yellowgreen;
+  // background-color: yellowgreen;
 
   display: flex;
   flex-direction: column;
@@ -75,17 +75,17 @@
     color: $primary;
     @include caption;
 
-    background-color: aqua;
+    // background-color: aqua;
   }
   &__title {
     @include header-2;
     max-width: 426px;
-    background-color: aqua;
+    // background-color: aqua;
   }
   &__paragraph {
     @include paragraph;
     max-width: 426px;
-    background-color: aqua;
+    // background-color: aqua;
   }
 }
 
