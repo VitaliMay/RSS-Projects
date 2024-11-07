@@ -141,7 +141,8 @@
 }
 
 
-.gift-card[data-card="work"]  {
+// .gift-card[data-card="work"]  {
+.gift-card[data-card="for_work"]  {
   & .gift-card__img {
     background-image: url(../assets/img/gift-for-work.png);
   }
@@ -150,7 +151,7 @@
   }
 }
 
-.gift-card[data-card="health"]  {
+.gift-card[data-card="for_health"]  {
   & .gift-card__img {
     background-image: url(../assets/img/gift-for-health.png);
   }
@@ -159,7 +160,7 @@
   }
 }
 
-.gift-card[data-card="harmony"]  {
+.gift-card[data-card="for_harmony"]  {
   & .gift-card__img {
     background-image: url(../assets/img/gift-for-harmony.png);
   }
