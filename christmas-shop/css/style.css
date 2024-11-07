@@ -498,7 +498,7 @@ body {
   background: rgb(255, 255, 255);
   transition: all 0.6s;
 }
-.menu__list-link[disabled] {
+.menu__list-link--disabled {
   pointer-events: none;
   color: rgb(255, 70, 70);
   background: rgba(255, 70, 70, 0.1);
@@ -855,13 +855,13 @@ body {
   background-image: url(../assets/img/slider-snowman.png);
 }
 .slider__item-img--02 {
-  background-image: url(../../assets/img/slider-christmas-trees.png);
+  background-image: url(../assets/img/slider-christmas-trees.png);
 }
 .slider__item-img--03 {
-  background-image: url(../../assets/img/slider-christmas-tree-ball.png);
+  background-image: url(../assets/img/slider-christmas-tree-ball.png);
 }
 .slider__item-img--04 {
-  background-image: url(../../assets/img/slider-fairytale-house.png);
+  background-image: url(../assets/img/slider-fairytale-house.png);
 }
 
 .slider-btn {
@@ -1028,24 +1028,24 @@ body {
   color: rgb(255, 70, 70);
 }
 
-.gift-card[data-card=work] .gift-card__img {
+.gift-card[data-card=for_work] .gift-card__img {
   background-image: url(../assets/img/gift-for-work.png);
 }
-.gift-card[data-card=work] .gift-card__category {
+.gift-card[data-card=for_work] .gift-card__category {
   color: rgb(67, 97, 255);
 }
 
-.gift-card[data-card=health] .gift-card__img {
+.gift-card[data-card=for_health] .gift-card__img {
   background-image: url(../assets/img/gift-for-health.png);
 }
-.gift-card[data-card=health] .gift-card__category {
+.gift-card[data-card=for_health] .gift-card__category {
   color: rgb(6, 164, 79);
 }
 
-.gift-card[data-card=harmony] .gift-card__img {
+.gift-card[data-card=for_harmony] .gift-card__img {
   background-image: url(../assets/img/gift-for-harmony.png);
 }
-.gift-card[data-card=harmony] .gift-card__category {
+.gift-card[data-card=for_harmony] .gift-card__category {
   color: rgb(255, 67, 247);
 }
 
