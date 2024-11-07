@@ -11,14 +11,15 @@ const dataIndexPP = [1, 13, 0, 2, 12, 26, 14, 25, 15, 3, 24, 27]
 const dataIndexBestPP = [1, 15, 3, 27]
 
 // чтобы не шафлить data буду шафлить индексы
-// const dataIndexArr = new Array(data.length).fill(0).map((item, i) => item = i);
-const dataIndexArr = [...Array(data.length).keys()]
+// const dataIndexArrAll = new Array(data.length).fill(0).map((item, i) => item = i);
+const dataIndexArrAll = [...Array(data.length).keys()]
 
 
 const cardBaseOptions = {
   classes: ['gift-card'],
   attributes: {
-    'data-card': 'work',
+    'data-card': 'for_work',
+    'data-index': '01',
   },
 }
 
@@ -72,7 +73,8 @@ function сreatCard (index, dataIndexArr, parentCard) {
     cardContentTitleOptions.text = data[indexPP].name
     const category = data[indexPP].category
     cardContentCategoryOptions.text = category
-    cardBaseOptions.attributes = { 'data-card': `${getCategoryFromString(category)}`}
+    cardBaseOptions.attributes = { 'data-card': `${getCategoryFromString(category)}`,
+                                   'data-index': `${indexPP}`}
 
     const cardContentTitle = createEl(cardContentTitleOptions)
     const cardContentCategory = createEl(cardContentCategoryOptions)
@@ -129,4 +131,4 @@ function testCreatCard (dataIndexArr, parentCard) {
 //   }
 // }
 
-export { testCreatCard, dataIndexArr, dataIndexPP, dataIndexBestPP, giftCardContainer, bestGiftCardContainer, }
+export { testCreatCard, dataIndexArrAll, dataIndexPP, dataIndexBestPP, giftCardContainer, bestGiftCardContainer, }
