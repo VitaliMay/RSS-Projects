@@ -84,12 +84,15 @@
       border-radius: 12px;
     }
 
-    &:hover {
-      color: $primary;
-      background: $primary-10;
-      transition: all 0.6s;
-      border-radius: 12px;
+    @media (hover: hover) {
+      &:hover {
+        color: $primary;
+        background: $primary-10;
+        transition: all 0.6s;
+        border-radius: 12px;
+      }
     }
+
   }
 }
 

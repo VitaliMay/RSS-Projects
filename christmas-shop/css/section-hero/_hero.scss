@@ -16,7 +16,8 @@
 
   // background-size: contain;
   background-color: $primary;
-  background-image: url(../assets/img/bg-ball.png), url(../assets/img/bg-snow.png);
+  // background-image: url(../assets/img/bg-ball.png), url(../assets/img/bg-snow.png);
+  background-image: url(../assets/img/bg-ball.webp), url(../assets/img/bg-snow.webp);
   background-repeat: no-repeat, no-repeat;
   background-clip: border-box, border-box;
   background-position: center, center;
@@ -59,11 +60,14 @@
     transition: all 0.6s;
   }
 
-  &__btn:hover {
-    color: $dark;
-    background-color: $static-white;
-    transition: all 0.6s;
+  @media (hover: hover) {
+    &__btn:hover {
+      color: $dark;
+      background-color: $static-white;
+      transition: all 0.6s;
+    }
   }
+
 }
 
 

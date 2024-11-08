@@ -14,6 +14,29 @@ const dataIndexBestPP = [1, 15, 3, 27]
 // const dataIndexArrAll = new Array(data.length).fill(0).map((item, i) => item = i);
 const dataIndexArrAll = [...Array(data.length).keys()]
 
+/******************************************************** */
+function dataIndexArrCreater (data) {
+  const dataIndexArrWork = []
+  const dataIndexArrHealth = []
+  const dataIndexArrHarmony = []
+  data.forEach((item, index) => {
+    if (getCategoryFromString(item.category) === "for_work") dataIndexArrWork.push(index);
+    if (getCategoryFromString(item.category) === "for_health") dataIndexArrHealth.push(index);
+    if (getCategoryFromString(item.category) === "for_harmony") dataIndexArrHarmony.push(index);
+    // if (item.category === "For Work") dataIndexArrWork.push(index);
+    // if (item.category === "For Health") dataIndexArrHealth.push(index);
+    // if (item.category === "For Harmony") dataIndexArrHarmony.push(index);
+  })
+  return {dataIndexArrWork, dataIndexArrHealth, dataIndexArrHarmony,}
+}
+
+const {dataIndexArrWork, dataIndexArrHealth, dataIndexArrHarmony} = dataIndexArrCreater(data)
+// console.log(dataIndexArrWork)
+// console.log(dataIndexArrHealth)
+// console.log(dataIndexArrHarmony)
+
+/******************************************************** */
+
 
 const cardBaseOptions = {
   classes: ['gift-card'],

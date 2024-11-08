@@ -159,15 +159,19 @@
     transition: all 0.6s;
   }
 
-  &:hover {
-    transition: all 0.6s;
-    background-color: $static-white;
+  @media (hover: hover) {
+    &:hover {
+      transition: all 0.6s;
+      background-color: $static-white;
+    }
+  
+    &:hover .slider-btn__img {
+      stroke: $primary;
+      transition: all 0.6s;
+    }
   }
 
-  &:hover .slider-btn__img {
-    stroke: $primary;
-    transition: all 0.6s;
-  }
+
 
   &[disabled] {
     border: solid 1px $static-white-40;
@@ -179,8 +183,11 @@
     stroke: $static-white-40;
   }
 
-  &[disabled]:hover {
-    border: solid 1px $static-white-40;
-    background: inherit;
+  @media (hover: hover) {
+    &[disabled]:hover {
+      border: solid 1px $static-white-40;
+      background: inherit;
+    }
   }
+
 }
