@@ -7,6 +7,8 @@ const hoursDoc = document.querySelector('.timer__item--hour')
 const minutesDoc = document.querySelector('.timer__item--minute')
 const secondsDoc = document.querySelector('.timer__item--second')
 
+const titleArrDoc = [...document.querySelectorAll('.timer__date')]
+
 const currentYear = new Date().getFullYear();
 const newNextYear = new Date(currentYear + 1, 0, 1, 0, 0, 0, 0)
 
@@ -14,6 +16,26 @@ const newNextYear = new Date(currentYear + 1, 0, 1, 0, 0, 0, 0)
 // console.log(newNextYear.toString()); // Вывод в локальном часовом поясе
 // console.log(newNextYear.toLocaleString()); // Вывод в более удобном формате
 
+/************************************************** */
+
+
+
+const timerTitleWriter = (days, hours, minutes, seconds) => {
+
+  const timeItem = [
+    { single: 'day', plural: 'days', value: days },
+    { single: 'hour', plural: 'hours', value: hours },
+    { single: 'minute', plural: 'minutes', value: minutes },
+    { single: 'second', plural: 'seconds', value: seconds }
+  ];
+
+  timeItem.forEach((item, index) => {
+    titleArrDoc[index].textContent = item.value === 1 ? item.single : item.plural;
+  });
+}
+
+
+/************************************************** */
 
 function timerNewYear(newNextYear) {
   const currentTime = Date.now();
@@ -36,6 +58,18 @@ function timerContentWriter () {
   hoursDoc.textContent = `${hours}`
   minutesDoc.textContent = `${minutes}`
   secondsDoc.textContent = `${seconds}`
+
+  // if (seconds === 1) {
+  //   titleArrDoc[3].textContent = 'second'
+  // } else { titleArrDoc[3].textContent = 'seconds' }
+
+  // titleArrDoc[0].textContent = (days === 1) ? 'day' : 'days'
+  // titleArrDoc[1].textContent = (hours === 1) ? 'hour' : 'hours'
+  // titleArrDoc[2].textContent = (minutes === 1) ? 'minute' : 'minutes'
+  // titleArrDoc[3].textContent = (seconds === 1) ? 'second' : 'seconds'
+
+  timerTitleWriter(days, hours, minutes, seconds)
+
 }
 
 function timerInit () {

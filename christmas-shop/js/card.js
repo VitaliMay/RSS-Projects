@@ -11,14 +11,38 @@ const dataIndexPP = [1, 13, 0, 2, 12, 26, 14, 25, 15, 3, 24, 27]
 const dataIndexBestPP = [1, 15, 3, 27]
 
 // чтобы не шафлить data буду шафлить индексы
-// const dataIndexArr = new Array(data.length).fill(0).map((item, i) => item = i);
-const dataIndexArr = [...Array(data.length).keys()]
+// const dataIndexArrAll = new Array(data.length).fill(0).map((item, i) => item = i);
+const dataIndexArrAll = [...Array(data.length).keys()]
+
+/******************************************************** */
+function dataIndexArrCreater (data) {
+  const dataIndexArrWork = []
+  const dataIndexArrHealth = []
+  const dataIndexArrHarmony = []
+  data.forEach((item, index) => {
+    if (getCategoryFromString(item.category) === "for_work") dataIndexArrWork.push(index);
+    if (getCategoryFromString(item.category) === "for_health") dataIndexArrHealth.push(index);
+    if (getCategoryFromString(item.category) === "for_harmony") dataIndexArrHarmony.push(index);
+    // if (item.category === "For Work") dataIndexArrWork.push(index);
+    // if (item.category === "For Health") dataIndexArrHealth.push(index);
+    // if (item.category === "For Harmony") dataIndexArrHarmony.push(index);
+  })
+  return {dataIndexArrWork, dataIndexArrHealth, dataIndexArrHarmony,}
+}
+
+const {dataIndexArrWork, dataIndexArrHealth, dataIndexArrHarmony} = dataIndexArrCreater(data)
+// console.log(dataIndexArrWork)
+// console.log(dataIndexArrHealth)
+// console.log(dataIndexArrHarmony)
+
+/******************************************************** */
 
 
 const cardBaseOptions = {
   classes: ['gift-card'],
   attributes: {
-    'data-card': 'work',
+    'data-card': 'for_work',
+    'data-index': '01',
   },
 }
 
@@ -72,7 +96,8 @@ function сreatCard (index, dataIndexArr, parentCard) {
     cardContentTitleOptions.text = data[indexPP].name
     const category = data[indexPP].category
     cardContentCategoryOptions.text = category
-    cardBaseOptions.attributes = { 'data-card': `${getCategoryFromString(category)}`}
+    cardBaseOptions.attributes = { 'data-card': `${getCategoryFromString(category)}`,
+                                   'data-index': `${indexPP}`}
 
     const cardContentTitle = createEl(cardContentTitleOptions)
     const cardContentCategory = createEl(cardContentCategoryOptions)
@@ -129,4 +154,4 @@ function testCreatCard (dataIndexArr, parentCard) {
 //   }
 // }
 
-export { testCreatCard, dataIndexArr, dataIndexPP, dataIndexBestPP, giftCardContainer, bestGiftCardContainer, }
+export { testCreatCard, dataIndexArrAll, dataIndexPP, dataIndexBestPP, giftCardContainer, bestGiftCardContainer, }
