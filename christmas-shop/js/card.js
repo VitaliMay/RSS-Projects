@@ -55,13 +55,13 @@ const cardContentOptions = {
 }
 
 const cardContentCategoryOptions = {
-  tag: 'h4',
+  tag: 'h3',
   classes: ['gift-card__category'],
   text: 'For work',
 }
 
 const cardContentTitleOptions = {
-  tag: 'h3',
+  tag: 'h4',
   classes: ['gift-card__title'],
   text: 'Console.log Guru',
 }
