@@ -1,5 +1,5 @@
 
-import { createEl, removeAllChild } from "./elementUtils.js";
+import { createEl, removeAllChild, shuffleArray } from "./elementUtils.js";
 import { data } from "./data.js"
 
 const giftCardContainer = document.querySelector('.gift')
@@ -13,16 +13,23 @@ const dataIndexBestPP = [1, 15, 3, 27]
 // чтобы не шафлить data буду шафлить индексы
 // const dataIndexArrAll = new Array(data.length).fill(0).map((item, i) => item = i);
 const dataIndexArrAll = [...Array(data.length).keys()]
+const dataIndexArrAllShuffle = shuffleArray(dataIndexArrAll)
 
 /******************************************************** */
-function dataIndexArrCreater (data) {
+function dataIndexArrCreater (data, dataIndexArrAllShuffle) {
   const dataIndexArrWork = []
   const dataIndexArrHealth = []
   const dataIndexArrHarmony = []
-  data.forEach((item, index) => {
-    if (getCategoryFromString(item.category) === "for_work") dataIndexArrWork.push(index);
-    if (getCategoryFromString(item.category) === "for_health") dataIndexArrHealth.push(index);
-    if (getCategoryFromString(item.category) === "for_harmony") dataIndexArrHarmony.push(index);
+  dataIndexArrAllShuffle.forEach((item) => {
+    if (getCategoryFromString(data[item].category) === "for_work") dataIndexArrWork.push(item);
+    if (getCategoryFromString(data[item].category) === "for_health") dataIndexArrHealth.push(item);
+    if (getCategoryFromString(data[item].category) === "for_harmony") dataIndexArrHarmony.push(item);
+
+  // data.forEach((item, index) => {
+    // if (getCategoryFromString(item.category) === "for_work") dataIndexArrWork.push(index);
+    // if (getCategoryFromString(item.category) === "for_health") dataIndexArrHealth.push(index);
+    // if (getCategoryFromString(item.category) === "for_harmony") dataIndexArrHarmony.push(index);
+    
     // if (item.category === "For Work") dataIndexArrWork.push(index);
     // if (item.category === "For Health") dataIndexArrHealth.push(index);
     // if (item.category === "For Harmony") dataIndexArrHarmony.push(index);
@@ -30,10 +37,12 @@ function dataIndexArrCreater (data) {
   return {dataIndexArrWork, dataIndexArrHealth, dataIndexArrHarmony,}
 }
 
-const {dataIndexArrWork, dataIndexArrHealth, dataIndexArrHarmony} = dataIndexArrCreater(data)
-// console.log(dataIndexArrWork)
-// console.log(dataIndexArrHealth)
-// console.log(dataIndexArrHarmony)
+const {dataIndexArrWork, dataIndexArrHealth, dataIndexArrHarmony} = dataIndexArrCreater(data, dataIndexArrAllShuffle)
+// const {dataIndexArrWork, dataIndexArrHealth, dataIndexArrHarmony} = dataIndexArrCreater(data)
+console.log(dataIndexArrAllShuffle)
+console.log(dataIndexArrWork)
+console.log(dataIndexArrHealth)
+console.log(dataIndexArrHarmony)
 
 /******************************************************** */
 
@@ -154,4 +163,4 @@ function testCreatCard (dataIndexArr, parentCard) {
 //   }
 // }
 
-export { testCreatCard, dataIndexArrAll, dataIndexPP, dataIndexBestPP, giftCardContainer, bestGiftCardContainer, }
+export { testCreatCard, dataIndexArrAll, dataIndexArrAllShuffle, dataIndexPP, dataIndexBestPP, giftCardContainer, bestGiftCardContainer, }
