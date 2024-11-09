@@ -418,6 +418,8 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  width: 1440px;
+  margin: 0 auto;
 }
 
 /* чтобы прижать футер к низу страницы*/
@@ -766,7 +768,7 @@ body {
   max-width: 1440px;
   padding: 60px 8px;
   background-color: rgb(255, 70, 70);
-  background-image: url(../assets/img/bg-snow.png);
+  background-image: url(../assets/img/bg-snow.webp);
   background-repeat: no-repeat;
   background-clip: border-box;
   background-position: center;
@@ -856,16 +858,16 @@ body {
   background-size: cover;
 }
 .slider__item-img--01 {
-  background-image: url(../assets/img/slider-snowman.png);
+  background-image: url(../assets/img/slider-snowman.webp);
 }
 .slider__item-img--02 {
-  background-image: url(../assets/img/slider-christmas-trees.png);
+  background-image: url(../assets/img/slider-christmas-trees.webp);
 }
 .slider__item-img--03 {
-  background-image: url(../assets/img/slider-christmas-tree-ball.png);
+  background-image: url(../assets/img/slider-christmas-tree-ball.webp);
 }
 .slider__item-img--04 {
-  background-image: url(../assets/img/slider-fairytale-house.png);
+  background-image: url(../assets/img/slider-fairytale-house.webp);
 }
 
 .slider-btn {
@@ -914,7 +916,7 @@ body {
   max-width: 1440px;
   padding: 60px 8px;
   background-color: rgb(255, 70, 70);
-  background-image: url(../assets/img/bg-snow.png);
+  background-image: url(../assets/img/bg-snow.webp);
   background-repeat: no-repeat;
   background-clip: border-box;
   background-position: center;
@@ -1066,7 +1068,7 @@ body {
   padding: 60px 8px;
   border-radius: 20px;
   background-color: rgb(255, 70, 70);
-  background-image: url(../assets/img/bg-garland.png);
+  background-image: url(../assets/img/bg-garland.webp);
   background-repeat: no-repeat;
   background-clip: border-box;
   background-position: top;
@@ -1177,7 +1179,7 @@ body {
   border-radius: 0px 0px 20px 20px;
   padding: 60px 8px;
   background-color: rgb(255, 70, 70);
-  background-image: url(../assets/img/bg-forest.png), url(../assets/img/bg-snow.png);
+  background-image: url(../assets/img/bg-forest.webp), url(../assets/img/bg-snow.webp);
   background-repeat: no-repeat, no-repeat;
   background-clip: border-box, border-box;
   background-position: center, center;
