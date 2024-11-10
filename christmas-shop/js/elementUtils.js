@@ -75,8 +75,24 @@ function getRandomInteger(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+/*********************************************************************** */
+// Функция рандомного массива индексоа в диапазоне
 
-export {createEl, removeAllChild, shuffleArray}
+function getRandomIntegerArr(min, max, length) {
+
+  const randomArr = new Set(); // Set для уникальности
+
+  const getRandomInteger = () => Math.floor(Math.random() * (max - min + 1)) + min;
+
+  while (randomArr.size < length) { // Генерируем до тех пор, пока не достигнута нужная длина
+    const randomDigit = getRandomInteger();
+    randomArr.add(randomDigit); // Set не допустит дублирования
+  }
+
+  return [...randomArr]; // Преобразуем Set обратно в массив
+}
+
+export {createEl, removeAllChild, shuffleArray, getRandomIntegerArr}
 
 
 // function shuffle(previousArr, slicePre, sliceCurr) {

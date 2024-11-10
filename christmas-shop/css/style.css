@@ -418,8 +418,6 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  width: 1440px;
-  margin: 0 auto;
 }
 
 /* чтобы прижать футер к низу страницы*/
@@ -429,6 +427,11 @@ body {
 
 .footer {
   flex: 0 0 auto;
+}
+
+/* убираю скролл */
+body.lock {
+  overflow: hidden;
 }
 
 /***** header ***********************************************************************/
@@ -455,6 +458,8 @@ body {
 }
 
 .logo {
+  position: relative;
+  z-index: 40;
   border-radius: 4px;
   padding: 8px 20px;
   width: 141px;
@@ -474,7 +479,7 @@ body {
   line-height: 130%;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: rgb(24, 28, 41);
+  color: #181c29;
 }
 .logo:hover {
   border-radius: 12px;
@@ -486,19 +491,31 @@ body {
   align-items: center;
   -moz-column-gap: 8px;
        column-gap: 8px;
+  row-gap: 8px;
 }
 .menu__list-link {
+  display: block;
   font-family: Montserrat;
   font-size: 12px;
   font-weight: 600;
   line-height: 130%;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: rgb(24, 28, 41);
+  color: #181c29;
   border-radius: 4px;
   padding: 12px 20px;
   background: rgb(255, 255, 255);
   transition: all 0.6s;
+}
+@media screen and (max-width: 768.9px) {
+  .menu__list-link {
+    font-family: Montserrat;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 152%;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
 }
 .menu__list-link--disabled {
   pointer-events: none;
@@ -516,8 +533,12 @@ body {
   }
 }
 
+.menu {
+  background: rgb(255, 255, 255);
+}
 @media screen and (max-width: 768.9px) {
   .menu {
+    padding-top: 50px;
     position: fixed;
     right: -100%;
     top: 0;
@@ -525,8 +546,8 @@ body {
     opacity: 6;
     transition: all 0.6s;
     z-index: 16;
-    background-color: #292929;
     height: 100vh;
+    width: 100vw;
     overflow-x: hidden;
     overflow-y: auto;
     display: flex;
@@ -535,10 +556,15 @@ body {
     flex-shrink: 0;
   }
 }
+.menu.open {
+  right: 0;
+  transition: all 0.6s;
+}
 
 @media screen and (max-width: 768.9px) {
   .menu__list {
     flex-direction: column;
+    flex-shrink: 0;
   }
 }
 
@@ -583,8 +609,8 @@ body {
 
 .burger-button__cross {
   width: 20px;
-  height: 2px;
-  background-color: rgb(24, 28, 41);
+  height: 1px;
+  background-color: #181c29;
   border-radius: 1.5px;
   transition: 0.4s all;
 }
@@ -661,14 +687,14 @@ body {
   letter-spacing: 0.05em;
   text-transform: uppercase;
   padding: 20px 32px;
-  background-color: rgb(24, 28, 41);
+  background-color: #181c29;
   border-radius: 20px;
   max-width: 237px;
   transition: all 0.6s;
 }
 @media (hover: hover) {
   .hero-content__btn:hover {
-    color: rgb(24, 28, 41);
+    color: #181c29;
     background-color: rgb(255, 255, 255);
     transition: all 0.6s;
   }
@@ -1015,7 +1041,7 @@ body {
   line-height: 130%;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: rgb(24, 28, 41);
+  color: #181c29;
 }
 .gift-card__title {
   font-family: Montserrat;
@@ -1025,7 +1051,7 @@ body {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   transition: all 0.6s;
-  color: rgb(24, 28, 41);
+  color: #181c29;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
@@ -1225,14 +1251,14 @@ body {
   letter-spacing: 0.05em;
   text-transform: uppercase;
   padding: 20px 32px;
-  background-color: rgb(24, 28, 41);
+  background-color: #181c29;
   border-radius: 20px;
   max-width: 237px;
   transition: all 0.6s;
 }
 @media (hover: hover) {
   .cta-content__btn:hover {
-    color: rgb(24, 28, 41);
+    color: #181c29;
     background-color: rgb(255, 255, 255);
     transition: all 0.6s;
   }
@@ -1294,7 +1320,7 @@ body {
 .footer {
   width: 100%;
   background: rgb(255, 255, 255);
-  color: rgb(24, 28, 41);
+  color: #181c29;
 }
 
 .footer-container {
