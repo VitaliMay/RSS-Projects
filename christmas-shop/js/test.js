@@ -23,12 +23,12 @@ function getRandomIntegerArr(min, max, length) {
 
   const getRandomInteger = () => Math.floor(Math.random() * (max - min + 1)) + min;
 
-  while (randomArr.size < length) { // Генерируем до тех пор, пока не достигнута нужная длина
+  while (randomArr.size < length) { // Кручу, пока не достигнута нужная длина
     const randomDigit = getRandomInteger();
     randomArr.add(randomDigit); // Set не допустит дублирования
   }
 
-  return [...randomArr]; // Преобразуем Set обратно в массив
+  return [...randomArr]; //  Set обратно в массив
 }
 
 const randomArr = getRandomIntegerArr(0, 36, 4)

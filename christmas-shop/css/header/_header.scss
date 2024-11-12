@@ -34,6 +34,8 @@
   position: relative; /////////////////
   z-index: 40; /////////////////
 
+  color: $primary; // для цвета иконки SVG так как установил fill="currentColor"
+
   border-radius: 4px;
   padding: 8px 20px;
   width: 141px;
@@ -59,7 +61,17 @@
   &:hover {
     border-radius: 12px;
   }
+
 }
+
+// игры с SVG
+// .logo__img {
+//   transition: color 0.3s; /* Добавлено плавное изменение цвета */
+// }
+// .logo:hover {
+//   color: green; /* Изменение цвета иконки при наведении */
+// }
+
 
 .menu__list {
   display: flex;

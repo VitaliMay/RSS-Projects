@@ -28,12 +28,12 @@ function closeMenu() {
     body.classList.remove('lock');
     // fon.classList.remove('work');
 
-  if (modalPopup) {
-      modalPopup.classList.remove('modal--active')
-      setTimeout(function() {
-          modalPopup.remove()
-      }, 400);
-  }
+  // if (modalPopup) {
+  //     modalPopup.classList.remove('modal--active')
+  //     setTimeout(function() {
+  //         modalPopup.remove()
+  //     }, 400);
+  // }
 }
 
 
