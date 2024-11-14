@@ -3,9 +3,10 @@ import { timerInit } from "./js/timer.js";
 import { signatureScore } from "./js/score.js";
 import { data } from "./js/data.js";
 import { getRandomIntegerArr } from "./js/elementUtils.js";
-import { testCreatCard, dataIndexArrAll, dataIndexArrAllShuffle, dataIndexPP, dataIndexBestPP, giftCardContainer, bestGiftCardContainer } from "./js/card.js";
+import { createAllCards, dataIndexArrAll, dataIndexArrAllShuffle, dataIndexPP, dataIndexBestPP, giftCardContainer, bestGiftCardContainer } from "./js/card.js";
 import { burgerButton } from "./js/burger.js";
 import { modalContainer } from "./js/modal.js";
+import { tabContainer } from "./js/tabs.js";
 
 timerInit ()
 
@@ -21,8 +22,8 @@ document.addEventListener("DOMContentLoaded", function() {
   // testCreatCard(dataIndexArrAll, giftCardContainer)
   // testCreatCard(dataIndexArrAllShuffle, giftCardContainer)
   const randomGiftIndexArr = getRandomIntegerArr(0, data.length - 1, 4)
-  testCreatCard(randomGiftIndexArr, bestGiftCardContainer)
-  testCreatCard(dataIndexArrAllShuffle, giftCardContainer)
+  createAllCards(randomGiftIndexArr, bestGiftCardContainer)
+  createAllCards(dataIndexArrAllShuffle, giftCardContainer)
 
 });
 

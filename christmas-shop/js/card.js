@@ -119,7 +119,7 @@ function сreatCard (index, dataIndexArr, parentCard) {
 }
 
 
-function testCreatCard (dataIndexArr, parentCard) {
+function createAllCards (dataIndexArr, parentCard) {
 
   if (!parentCard) {
     return; // Если элемент не найден, выход из функции
@@ -163,4 +163,4 @@ function testCreatCard (dataIndexArr, parentCard) {
 //   }
 // }
 
-export { testCreatCard, dataIndexArrAll, dataIndexArrAllShuffle, dataIndexPP, dataIndexBestPP, giftCardContainer, bestGiftCardContainer, }
+export { createAllCards, dataIndexArrAll, dataIndexArrAllShuffle, dataIndexArrWork, dataIndexArrHealth, dataIndexArrHarmony, dataIndexPP, dataIndexBestPP, giftCardContainer, bestGiftCardContainer, }
