@@ -1,14 +1,12 @@
 
 .modal-container {
   position: fixed;
-  z-index: 60; // Чтобы перекрыть кнопку и лого
 
   width: 100vw;
   height: 100vh;
 
   padding: 0px 8px;
 
-  // background: rgba(6, 164, 79, 0.10);
   background: rgba(24, 28, 41, 0.80);
 
   display: flex;
@@ -20,6 +18,31 @@
   }
 
   overflow-y: auto;
+
+  ///////////////////////////////
+  //  скрываю
+
+  z-index: 0;
+
+  opacity: 0;
+  transform: scale(0); 
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  pointer-events: none; // Игнорируем события, когда окно скрыто
+
+  &--active {
+    z-index: 60; // Чтобы перекрыть кнопку и лого
+    // visibility: visible;
+    // opacity: 1;
+    // transition: visibility 0.8s, opacity 0.8s;
+    // transition: all 2s linear;
+    // transform: translate(-50%, -50%) scale(1);
+
+    opacity: 1;   // Полная видимость
+    transform: scale(1);  // Восстановление начального размера
+    pointer-events: auto; // Включаем события, когда окно активно
+
+  }
+
 }
 
 
@@ -27,20 +50,7 @@
   width: 100%;
   max-width: 400px;
 
-
-  // align-self: start;
-
-
-  // position: absolute;
-  // top: 50%; /* Позиция по вертикали */
-  // left: 50%; /* Позиция по горизонтали */
-  // transform: translate(-50%, -50%); /* Центрируем элемент */
-
-
-  // max-height: 110vh;
   overflow-y: auto;
-  // height: 342px;
-  // flex-shrink: 0;
 
   display: flex;
   flex-direction: column;
@@ -50,10 +60,6 @@
 
   border-radius: 20px;
   background: $content-background;
-
-  // overflow: hidden;
-
-  @include custom-cursor;
 
   &__img {
     width: 100%;
@@ -76,8 +82,6 @@
     background-color: $static-white;
     border-radius: 20px 20px 0px 0px;
     padding: 20px 20px;
-    // width: 270px;
-    // height: 112px;
 
     width: 100%;
     flex-grow: 1;
@@ -98,8 +102,6 @@
     transition: all 0.6s;
     color: $dark;
 
-    // width: 270px;
-    // height: 49px;
 
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -109,12 +111,12 @@
     text-overflow: ellipsis;
   }
 
-  @media (hover: hover) {
-    &:hover .modal__title {
-      transition: all 0.6s;
-      color: $primary;
-    }
-  }
+  // @media (hover: hover) {
+  //   &:hover .modal__title {
+  //     transition: all 0.6s;
+  //     color: $primary;
+  //   }
+  // }
 
   &__description {
     @include paragraph;
@@ -131,7 +133,7 @@
       color: $tag-purple;
     }
   }
-  
+
   .modal[data-card="for_health"]  {
     & .modal__img {
       background-image: url(../assets/img/gift-for-health.png);
@@ -140,7 +142,7 @@
       color: $tag-green;
     }
   }
-  
+
   .modal[data-card="for_harmony"]  {
     & .modal__img {
       background-image: url(../assets/img/gift-for-harmony.png);
@@ -196,94 +198,115 @@
   }
 
   &__stars-item {
-    color: $primary;
+    color: $primary-10;
   }
 
   &__stars-item--active {
-    color: yellowgreen;
+    color: $primary;;
   }
 
 }
 
-
 ////////////////////////////////////////////////////////////////////
 
 .button-cross {
-  z-index: 30;
   width: 40px;
   height: 40px;
-  // border-radius: 100px;
-  border: 1px solid $static-white;
+  border: none;
+  // border: 1px solid $static-white;
 
+  display: flex;
   justify-content: center;
   align-items: center;
-  transition: all 0.4s;
+  flex-direction: column;
+
   flex-shrink: 0;
   position: relative;
 
-  display: flex;
 
   @media (hover: hover) {
     &:hover {
-      // background-color: #665F55;
-      transition: 0.4s all;
 
       @include custom-cursor;
       // cursor: pointer;
     }
-    &:hover .button-cross__item {
-      // background-color: #E1D4C9;
-      transition: 0.6s all;
-    }
   }
 
-  &:active {
-    transform: scale(0.9);
-    transition: all 0.4s;
-
-    & .button-cross__item--01 {
-      transform: translateY(0px) rotate(-45deg);
-      transition: 0.4s all;
-    }
-    & .button-cross__item--02 {
-      transform: translateY(0px) rotate(45deg);
-      transition: 0.4s all;
-    }
-  }
+  // &:active {
+  //   // transform: scale(0.9);
+  //   transition: all 0.4s;
+  //   }
+  // }
 }
 
 ////////////////////////  рисую кнопку /////////////////////////////////
 
 .button-cross__item {
-  width: 20px;
-  height: 1px;
+  width: 30px;
+  height: 2px;
   background-color: $dark;
   border-radius: 1.5px;
-  transition: 0.4s all;
-
 }
 
-.button-cross__item--01 {
-  position: absolute;
-  transform: translateY(-4px);
-  transition: 0.4s all;
+/*****************************************/
+/* Анимация при появлении в крестик */
+
+.modal-container.modal-container--active  .button-cross__item--01 {
+  animation: rotateLine1 0.8s forwards;
+  animation-delay: 0.4s;
 }
-.button-cross__item--02 {
-  position: absolute;
-  transform: translateY(4px);
-  transition: 0.4s all;
+.modal-container.modal-container--active  .button-cross__item--02 {
+  animation: rotateLine2 0.8s forwards;
+  animation-delay: 0.4s;
 }
 
-//////////////   заставляю кнопку работать при клике   //////////////////////////////
-
-.button-cross.rotade {
-  & .button-cross__item--01 {
-    transform: translateY(0px) rotate(-45deg);
-    transition: 0.4s all;
+@keyframes rotateLine1 {
+  0% {
+    transform: translate(0%, 0%) rotate(0deg);
   }
-  & .button-cross__item--02 {
-    transform: translateY(0px) rotate(45deg);
-    transition: 0.4s all;
+  100% {
+    transform: translate(0%, 0%) rotate(45deg);
   }
 }
 
+@keyframes rotateLine2 {
+  0% {
+    transform: translate(0%, -2px) rotate(0deg);
+  }
+  100% {
+    transform: translate(0%, -2px) rotate(-45deg);
+  }
+}
+
+
+// .button-cross__item--01 {
+//   transform: translate(0%, 0%) rotate(45deg);
+//   background-color: red;
+// }
+// .button-cross__item--02 {
+//   transform: translate(0%, -1px) rotate(-45deg);
+//   background-color: blue;
+// }
+
+
+// .modal-hidden {
+
+
+//   // transform: translate(-50%, -50%);
+//   // visibility: hidden;
+//   // opacity: 0;
+//   // transition: visibility 0.4s, opacity 0.4s;
+
+//   transition: all 0.4s linear;
+//   transform: translate(-50%, -50%) scale(0);
+
+//   &--active {
+//     z-index: 40; // чтобы перекрыть лого и бургер-баттон
+//     // visibility: visible;
+//     // opacity: 1;
+//     // transition: visibility 0.8s, opacity 0.8s;
+
+//     transition: all 0.4s linear;
+//     transform: translate(-50%, -50%) scale(1);
+//   }
+// }

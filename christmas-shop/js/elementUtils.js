@@ -92,7 +92,18 @@ function getRandomIntegerArr(min, max, length) {
   return [...randomArr]; // Преобразуем Set обратно в массив
 }
 
-export {createEl, removeAllChild, shuffleArray, getRandomIntegerArr}
+/*********************************************************************** */
+// Функция для написания строки с большой буквы
+
+function toUpperFirstLetter (str) {
+  if (!str) return '';
+  const strLowerCase = str.trim().toLowerCase()
+  return strLowerCase.charAt(0).toUpperCase() + strLowerCase.slice(1);
+}
+
+
+
+export {createEl, removeAllChild, shuffleArray, getRandomIntegerArr, toUpperFirstLetter}
 
 
 // function shuffle(previousArr, slicePre, sliceCurr) {

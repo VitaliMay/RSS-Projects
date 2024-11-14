@@ -17,20 +17,50 @@ const dataIndex4El = dataIndex.slice(dataIndex.length-4, dataIndex.length)
 //   return randomArr;
 // }
 
-function getRandomIntegerArr(min, max, length) {
+// function getRandomIntegerArr(min, max, length) {
 
-  const randomArr = new Set(); // Set для уникальности
+//   const randomArr = new Set(); // Set для уникальности
 
-  const getRandomInteger = () => Math.floor(Math.random() * (max - min + 1)) + min;
+//   const getRandomInteger = () => Math.floor(Math.random() * (max - min + 1)) + min;
 
-  while (randomArr.size < length) { // Кручу, пока не достигнута нужная длина
-    const randomDigit = getRandomInteger();
-    randomArr.add(randomDigit); // Set не допустит дублирования
+//   while (randomArr.size < length) { // Кручу, пока не достигнута нужная длина
+//     const randomDigit = getRandomInteger();
+//     randomArr.add(randomDigit); // Set не допустит дублирования
+//   }
+
+//   return [...randomArr]; //  Set обратно в массив
+// }
+
+// const randomArr = getRandomIntegerArr(0, 36, 4)
+
+// console.log(randomArr)
+
+/******************************************************** */
+
+function createSuperpowersContent (dataSuperpowers) {
+  const superpowersItem = []
+  for ( const key in dataSuperpowers) {
+    // const keyTitle = key.charAt(0).toUpperCase() + key.trim().toLowerCase().slice(1)
+    // superpowersItem.push(keyTitle)
+    superpowersItem.push(toUpperFirstLetter(key))
   }
 
-  return [...randomArr]; //  Set обратно в массив
+  return superpowersItem
 }
 
-const randomArr = getRandomIntegerArr(0, 36, 4)
+function toUpperFirstLetter (str) {
+  if (!str) return '';
+  const strLowerCase = str.trim().toLowerCase()
+  return strLowerCase.charAt(0).toUpperCase() + strLowerCase.slice(1);
+}
 
-console.log(randomArr)
+const superpowers = {
+  "live": "+300",
+  "create": "+200",
+  "love": "+300",
+  "dream": "+200",
+}
+
+
+console.log(createSuperpowersContent(superpowers))
+

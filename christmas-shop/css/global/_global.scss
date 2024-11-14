@@ -148,6 +148,10 @@ body {
 /* убираю скролл */
 body.lock {
   overflow: hidden;
+
+  @media (hover: hover) {
+    margin-right: 17px; // чтобы не дёргалось при открытии модалки
+  }
 }
 
 

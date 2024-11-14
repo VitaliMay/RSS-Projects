@@ -5,6 +5,7 @@ import { data } from "./js/data.js";
 import { getRandomIntegerArr } from "./js/elementUtils.js";
 import { testCreatCard, dataIndexArrAll, dataIndexArrAllShuffle, dataIndexPP, dataIndexBestPP, giftCardContainer, bestGiftCardContainer } from "./js/card.js";
 import { burgerButton } from "./js/burger.js";
+import { modalContainer } from "./js/modal.js";
 
 timerInit ()
 

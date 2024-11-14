@@ -433,6 +433,11 @@ body {
 body.lock {
   overflow: hidden;
 }
+@media (hover: hover) {
+  body.lock {
+    margin-right: 17px;
+  }
+}
 
 /***** header ***********************************************************************/
 /***** header ***********************************************************************/
@@ -1447,7 +1452,6 @@ body.lock {
 
 .modal-container {
   position: fixed;
-  z-index: 60;
   width: 100vw;
   height: 100vh;
   padding: 0px 8px;
@@ -1456,11 +1460,22 @@ body.lock {
   justify-content: center;
   align-items: center;
   overflow-y: auto;
+  z-index: 0;
+  opacity: 0;
+  transform: scale(0);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  pointer-events: none;
 }
 @media screen and (max-height: 510px) {
   .modal-container {
     align-items: flex-start;
   }
+}
+.modal-container--active {
+  z-index: 60;
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
 }
 
 .modal {
@@ -1473,7 +1488,6 @@ body.lock {
   justify-content: center;
   border-radius: 20px;
   background: rgb(236, 243, 248);
-  cursor: url(../assets/img/pointinghand.svg), pointer;
 }
 .modal__img {
   width: 100%;
@@ -1521,12 +1535,6 @@ body.lock {
   line-clamp: 2;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-@media (hover: hover) {
-  .modal:hover .modal__title {
-    transition: all 0.6s;
-    color: rgb(255, 70, 70);
-  }
 }
 .modal__description {
   font-family: Montserrat;
@@ -1604,71 +1612,61 @@ body.lock {
        column-gap: 8px;
 }
 .superpowers-item__stars-item {
-  color: rgb(255, 70, 70);
+  color: rgba(255, 70, 70, 0.1);
 }
 .superpowers-item__stars-item--active {
-  color: yellowgreen;
+  color: rgb(255, 70, 70);
 }
 
 .button-cross {
-  z-index: 30;
   width: 40px;
   height: 40px;
-  border: 1px solid rgb(255, 255, 255);
+  border: none;
+  display: flex;
   justify-content: center;
   align-items: center;
-  transition: all 0.4s;
+  flex-direction: column;
   flex-shrink: 0;
   position: relative;
-  display: flex;
 }
 @media (hover: hover) {
   .button-cross:hover {
-    transition: 0.4s all;
     cursor: url(../assets/img/pointinghand.svg), pointer;
   }
-  .button-cross:hover .button-cross__item {
-    transition: 0.6s all;
-  }
-}
-.button-cross:active {
-  transform: scale(0.9);
-  transition: all 0.4s;
-}
-.button-cross:active .button-cross__item--01 {
-  transform: translateY(0px) rotate(-45deg);
-  transition: 0.4s all;
-}
-.button-cross:active .button-cross__item--02 {
-  transform: translateY(0px) rotate(45deg);
-  transition: 0.4s all;
 }
 
 .button-cross__item {
-  width: 20px;
-  height: 1px;
+  width: 30px;
+  height: 2px;
   background-color: #181c29;
   border-radius: 1.5px;
-  transition: 0.4s all;
 }
 
-.button-cross__item--01 {
-  position: absolute;
-  transform: translateY(-4px);
-  transition: 0.4s all;
+/*****************************************/
+/* Анимация при появлении в крестик */
+.modal-container.modal-container--active .button-cross__item--01 {
+  animation: rotateLine1 0.8s forwards;
+  animation-delay: 0.4s;
 }
 
-.button-cross__item--02 {
-  position: absolute;
-  transform: translateY(4px);
-  transition: 0.4s all;
+.modal-container.modal-container--active .button-cross__item--02 {
+  animation: rotateLine2 0.8s forwards;
+  animation-delay: 0.4s;
 }
 
-.button-cross.rotade .button-cross__item--01 {
-  transform: translateY(0px) rotate(-45deg);
-  transition: 0.4s all;
+@keyframes rotateLine1 {
+  0% {
+    transform: translate(0%, 0%) rotate(0deg);
+  }
+  100% {
+    transform: translate(0%, 0%) rotate(45deg);
+  }
 }
-.button-cross.rotade .button-cross__item--02 {
-  transform: translateY(0px) rotate(45deg);
-  transition: 0.4s all;
+@keyframes rotateLine2 {
+  0% {
+    transform: translate(0%, -2px) rotate(0deg);
+  }
+  100% {
+    transform: translate(0%, -2px) rotate(-45deg);
+  }
 }/*# sourceMappingURL=style.css.map */
