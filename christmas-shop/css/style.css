@@ -856,6 +856,7 @@ body.lock {
 .slider__screen {
   align-self: flex-start;
   display: flex;
+  width: 100%;
 }
 .slider__controls {
   align-self: flex-end;
@@ -876,6 +877,7 @@ body.lock {
   font-weight: 600;
   text-transform: uppercase;
   transform: translateX(0px);
+  transition: transform 1s;
 }
 
 .slider__item-img {

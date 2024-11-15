@@ -88,6 +88,7 @@
 
     display: flex;
     // overflow: hidden;
+    width: 100%; // чтобы можно было расчитать стартовый отступ слева
   }
 
   &__controls {
@@ -111,6 +112,8 @@
   @include slider-text;
 
   transform: translateX(0px);
+
+  transition: transform 1s;
 }
 
 .slider__item-img {

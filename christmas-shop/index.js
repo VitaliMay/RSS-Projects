@@ -6,6 +6,7 @@ import { getRandomIntegerArr } from "./js/elementUtils.js";
 import { createAllCards, dataIndexArrAll, dataIndexArrAllShuffle, dataIndexPP, dataIndexBestPP, giftCardContainer, bestGiftCardContainer } from "./js/card.js";
 import { burgerButton } from "./js/burger.js";
 import { modalContainer } from "./js/modal.js";
+import { sliderControls } from "./js/slider.js";
 import { tabContainer } from "./js/tabs.js";
 import { scrollBtn } from "./js/scroll.js";
 
