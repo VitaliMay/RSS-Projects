@@ -7,6 +7,7 @@ import { createAllCards, dataIndexArrAll, dataIndexArrAllShuffle, dataIndexPP, d
 import { burgerButton } from "./js/burger.js";
 import { modalContainer } from "./js/modal.js";
 import { tabContainer } from "./js/tabs.js";
+import { scrollBtn } from "./js/scroll.js";
 
 timerInit ()
 

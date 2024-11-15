@@ -1204,6 +1204,39 @@ body.lock {
   width: 100%;
 }
 
+/********************************************************************/
+.scroll-btn {
+  position: fixed;
+  z-index: 0;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.8s, opacity 0.8s;
+  pointer-events: none;
+  right: 8px;
+  bottom: 8px;
+  display: flex;
+  width: 56px;
+  height: 56px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100px;
+  border: 1px solid rgb(255, 70, 70);
+  background: rgb(255, 255, 255);
+}
+@media (hover: hover) {
+  .scroll-btn:hover {
+    cursor: url(../assets/img/pointinghand.svg), pointer;
+  }
+}
+
+.scroll-btn.scroll-btn--visible {
+  z-index: 10;
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0.8s, opacity 0.8s;
+  pointer-events: all;
+}
+
 .cta-section {
   margin: 0 auto;
   width: 100%;
