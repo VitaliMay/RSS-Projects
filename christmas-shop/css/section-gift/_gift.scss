@@ -141,6 +141,12 @@
   transition: visibility 0.8s, opacity 0.8s;
   pointer-events: none;
 
+  color: $primary;
+
+  &__img--up {
+    transform: rotate(-90deg);
+  }
+
   @media (hover: hover) {
     &:hover {
       @include custom-cursor;

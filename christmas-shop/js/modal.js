@@ -1,9 +1,10 @@
+
 import { createEl, removeAllChild, shuffleArray, toUpperFirstLetter } from "./elementUtils.js";
 import { data } from "./data.js"
 import { bestGiftCardContainer, giftCardContainer } from "./card.js";
 
-const modalContainer = document.querySelector('.modal-container')
 const body = document.querySelector('body')
+const modalContainer = document.querySelector('.modal-container')
 
 const modal = document.querySelector('.modal')
 const modalCategory = modal.querySelector('.modal__category')
@@ -159,6 +160,7 @@ modalContainer.addEventListener('click', function (event) {
     body.classList.remove('lock')
   }
 })
+
 
 export { modalContainer }
 
