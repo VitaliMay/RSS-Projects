@@ -877,7 +877,7 @@ body.lock {
   font-weight: 600;
   text-transform: uppercase;
   transform: translateX(0px);
-  transition: transform 1s;
+  transition: transform 0.8s ease-in-out;
 }
 
 .slider__item-img {
