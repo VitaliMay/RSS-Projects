@@ -9,6 +9,10 @@
 
   background-color: $primary;
   background-image: url(../assets/img/bg-snow.webp);
+  @supports not (background-image: url(../assets/img/bg-snow.webp)) {
+    background-image: url(../assets/img/bg-snow.png);
+  }
+
   // background-image: url(../assets/img/bg-snow.png);
   background-repeat: no-repeat;
   background-clip: border-box;

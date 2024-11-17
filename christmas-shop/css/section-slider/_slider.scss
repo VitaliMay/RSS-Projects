@@ -7,22 +7,17 @@
 
   padding: 60px 8px;
 
-  // height: 300px;
-  // background-image: url(../../assets/img/bg-ball.png), url(../../assets/img/bg-snow.png);
-
-  // background-repeat: no-repeat;
-  // // background-position: top;
-  // // background-clip: border-box;
-
-  // background-size: contain;
   background-color: $primary;
   // background-image: url(../assets/img/bg-snow.png);
   background-image: url(../assets/img/bg-snow.webp);
+  @supports not (background-image: url(../assets/img/bg-snow.webp)) {
+    background-image: url(../assets/img/bg-snow.png);
+  }
+
   background-repeat: no-repeat;
   background-clip: border-box;
   background-position: center;
   background-size: cover;
-  // background-size: contain, contain;
 
   display: flex;
   justify-content: center;
@@ -133,20 +128,29 @@
   // background-size: contain;
 
   &--01 {
-    // background-image: url(../assets/img/slider-snowman.png);
     background-image: url(../assets/img/slider-snowman.webp);
+    @supports not (background-image: url(../assets/img/slider-snowman.webp)) {
+      background-image: url(../assets/img/slider-snowman.png);
+    }
   }
   &--02 {
-    // background-image: url(../assets/img/slider-christmas-trees.png);
     background-image: url(../assets/img/slider-christmas-trees.webp);
+    @supports not (background-image: url(../assets/img/slider-christmas-trees.webp)) {
+      background-image: url(../assets/img/slider-christmas-trees.png);
+    }
   }
   &--03 {
-    // background-image: url(../assets/img/slider-christmas-tree-ball.png);
     background-image: url(../assets/img/slider-christmas-tree-ball.webp);
+    // background-image: url(../assets/img/slider-christmas-tree-ball.avif);
+    @supports not (background-image: url(../assets/img/slider-christmas-tree-ball.webp)) {
+      background-image: url(../assets/img/slider-christmas-tree-ball.png);
+    }
   }
   &--04 {
-    // background-image: url(../assets/img/slider-fairytale-house.png);
     background-image: url(../assets/img/slider-fairytale-house.webp);
+    @supports not (background-image: url(../assets/img/slider-fairytale-house.webp)) {
+      background-image: url(../assets/img/slider-fairytale-house.png);
+    }
   }
 }
 

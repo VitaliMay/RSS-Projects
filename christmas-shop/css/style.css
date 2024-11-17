@@ -658,6 +658,11 @@ body.lock {
   justify-content: center;
   align-items: center;
 }
+@supports not (background-image: url(../assets/img/bg-ball.webp)) {
+  .hero {
+    background-image: url(../assets/img/bg-ball.png), url(../assets/img/bg-snow.png);
+  }
+}
 
 .hero-content {
   max-width: 430px;
@@ -712,7 +717,7 @@ body.lock {
   max-width: 1440px;
   padding: 60px 8px;
   background-color: rgb(255, 70, 70);
-  background-image: url(../assets/img/bg-snow.png);
+  background-image: url(../assets/img/bg-snow.webp);
   background-repeat: no-repeat;
   background-clip: border-box;
   background-position: center;
@@ -720,6 +725,11 @@ body.lock {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+@supports not (background-image: url(../assets/img/bg-snow.webp)) {
+  .about {
+    background-image: url(../assets/img/bg-snow.png);
+  }
 }
 
 .about-container {
@@ -784,7 +794,7 @@ body.lock {
 .about-img {
   overflow: hidden;
   border-radius: 20px;
-  background-image: url(../assets/img/about-santa.png);
+  background-image: url(../assets/img/about-santa.avif);
   background-repeat: no-repeat;
   background-clip: border-box;
   background-position: center;
@@ -792,6 +802,11 @@ body.lock {
   max-width: 638px;
   height: 528px;
   flex: 1 0 256px;
+}
+@supports not (background-image: url(../assets/img/about-santa.avif)) {
+  .about-img {
+    background-image: url(../assets/img/about-santa.png);
+  }
 }
 
 .slider-section {
@@ -809,6 +824,11 @@ body.lock {
   justify-content: center;
   align-items: center;
   overflow: hidden;
+}
+@supports not (background-image: url(../assets/img/bg-snow.webp)) {
+  .slider-section {
+    background-image: url(../assets/img/bg-snow.png);
+  }
 }
 
 .slider-container {
@@ -894,14 +914,34 @@ body.lock {
 .slider__item-img--01 {
   background-image: url(../assets/img/slider-snowman.webp);
 }
+@supports not (background-image: url(../assets/img/slider-snowman.webp)) {
+  .slider__item-img--01 {
+    background-image: url(../assets/img/slider-snowman.png);
+  }
+}
 .slider__item-img--02 {
   background-image: url(../assets/img/slider-christmas-trees.webp);
+}
+@supports not (background-image: url(../assets/img/slider-christmas-trees.webp)) {
+  .slider__item-img--02 {
+    background-image: url(../assets/img/slider-christmas-trees.png);
+  }
 }
 .slider__item-img--03 {
   background-image: url(../assets/img/slider-christmas-tree-ball.webp);
 }
+@supports not (background-image: url(../assets/img/slider-christmas-tree-ball.webp)) {
+  .slider__item-img--03 {
+    background-image: url(../assets/img/slider-christmas-tree-ball.png);
+  }
+}
 .slider__item-img--04 {
   background-image: url(../assets/img/slider-fairytale-house.webp);
+}
+@supports not (background-image: url(../assets/img/slider-fairytale-house.webp)) {
+  .slider__item-img--04 {
+    background-image: url(../assets/img/slider-fairytale-house.png);
+  }
 }
 
 .slider-btn {
@@ -955,6 +995,11 @@ body.lock {
   justify-content: center;
   align-items: center;
   overflow: hidden;
+}
+@supports not (background-image: url(../assets/img/bg-snow.webp)) {
+  .bestGift-section {
+    background-image: url(../assets/img/bg-snow.png);
+  }
 }
 
 .bestGift-container {
@@ -1108,6 +1153,11 @@ body.lock {
   align-items: center;
   overflow: hidden;
 }
+@supports not (background-image: url(../assets/img/bg-garland.webp)) {
+  .gift-section {
+    background-image: url(../assets/img/bg-garland.png);
+  }
+}
 
 .gift-container {
   width: 100%;
@@ -1254,6 +1304,11 @@ body.lock {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+@supports not (background-image: url(../assets/img/bg-forest.webp)) {
+  .cta-section {
+    background-image: url(../assets/img/bg-forest.png), url(../assets/img/bg-snow.png);
+  }
 }
 
 .cta-container {

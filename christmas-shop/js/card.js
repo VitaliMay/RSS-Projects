@@ -48,6 +48,7 @@ console.log(dataIndexArrHarmony)
 
 
 const cardBaseOptions = {
+  tag: 'article',
   classes: ['gift-card'],
   attributes: {
     'data-card': 'for_work',
@@ -64,13 +65,14 @@ const cardContentOptions = {
 }
 
 const cardContentCategoryOptions = {
-  tag: 'h3',
+  // tag: 'h3',
   classes: ['gift-card__category'],
-  text: 'For work',
+  // text: 'For work',
 }
 
 const cardContentTitleOptions = {
-  tag: 'h4',
+  // tag: 'h4',
+  tag: 'h3',
   classes: ['gift-card__title'],
   text: 'Console.log Guru',
 }

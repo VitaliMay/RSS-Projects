@@ -7,7 +7,14 @@
 	<meta name="description" content="Merry Christmas. Gift yourself the magic of new possibilities and Happy New Year. Best Gifts	especially for you.">
   <title>Christmas-shop VitaliMay</title>
 	<link rel="stylesheet" href="./css/style.css">
-  <link rel="icon" href="./assets/img/GR_favicon.ico">
+  <!-- <link rel="icon" href="./assets/img/GR__favicon_min.jpg"> -->
+  <link rel="icon" href="./assets/img/GR__favicon_min.png">
+  <!-- <link rel="icon" href="./assets/img/GR_favicon.ico"> -->
+
+	<link rel="preload" href="./assets/img/bg-ball.webp" as="image">
+	<link rel="preload" href="./assets/img/bg-snow.webp" as="image">
+	<link rel="preload" href="./assets/img/bg-forest.webp" as="image">
+
 </head>
 <body>
 
@@ -36,7 +43,7 @@
 		<header class="header">
 			<div class="header-container">
 
-				<a class="logo">
+				<a class="logo" href="#no_scroll">
 
 					<svg class="logo__img" width="24" height="24">
 						<use href="#logo__img-symbol"></use>
@@ -159,7 +166,7 @@
 
 					<div class="bestGift">
 
-						<div class="gift-card" data-card="for_work">
+						<!-- <div class="gift-card" data-card="for_work">
 							<div class="gift-card__img">
 							</div>
 							<div class="gift-card__content">
@@ -193,7 +200,7 @@
 								<h4 class="gift-card__category">For harmony</h4>
 								<h3 class="gift-card__title">Spontaneous Coding Philosopher</h3>
 							</div>
-						</div>
+						</div> -->
 
 					</div>
 
@@ -250,17 +257,45 @@
 				<div class="footer-card-box">
 
 					<a href="tel:+375-29-111-22-33" class="footer-card">
-						<img src="./assets/img/footer-santa-claus.svg" alt="santa-claus_img">
+						<picture>
+							<source srcset="../assets/img/footer-santa-claus.webp" type="image/webp">
+							<source srcset="../assets/img/footer-santa-claus.png" type="image/png">
+							<source srcset="../assets/img/footer-santa-claus.svg" type="image/svg+xml">
+							<img src="./assets/img/footer-santa-claus.webp" width="80" height="80" alt="santa-claus_img">
+						</picture>
+
 						<span class="footer-card__action">+375 (29) 111-22-33</span>
 						<h3	class="footer-card__title">Call Us</h3>
 					</a>
+
+
+			<!-- <a href="tel:+375-29-111-22-33" class="footer-card">
+						<img src="./assets/img/footer-santa-claus.webp" width="80" height="80" alt="santa-claus_img">
+						<span class="footer-card__action">+375 (29) 111-22-33</span>
+						<h3	class="footer-card__title">Call Us</h3>
+					</a> -->
+
+
 					<a href="https://maps.app.goo.gl/4jo3nu6FscGKHKLMA" target="_blank" rel="noreferrer noopener" class="footer-card">
-						<img src="./assets/img/footer-christmas-tree.svg" alt="christmas-tree_img">
+						<picture>
+							<source srcset="../assets/img/footer-christmas-tree.webp" type="image/webp">
+							<source srcset="../assets/img/footer-christmas-tree.png" type="image/png">
+							<source srcset="../assets/img/footer-christmas-tree.svg" type="image/svg+xml">
+							<img src="./assets/img/footer-christmas-tree.webp" width="80" height="80" alt="christmas-tree_img">
+						</picture>
+
 						<span class="footer-card__action">Magic forest</span>
 						<h3	class="footer-card__title">meet us</h3>
 					</a>
+
 					<a class="footer-card" href="mailto:gifts@magic.com" target="_blank" rel="noopener noreferrer">
-						<img src="./assets/img/footer-snake.svg" alt="snake_img">
+						<picture>
+							<source srcset="../assets/img/footer-snake.webp" type="image/webp">
+							<source srcset="../assets/img/footer-snake.png" type="image/png">
+							<source srcset="../assets/img/footer-snake.svg" type="image/svg+xml">
+							<img src="./assets/img/footer-snake.webp" width="80" height="80" alt="snake_img">
+						</picture>
+
 						<span class="footer-card__action">gifts@magic.com</span>
 						<h3	class="footer-card__title">write us</h3>
 					</a>
@@ -318,10 +353,10 @@
 
 		<div class="modal-container">
 
-			<div class="modal" data-card="for_work">
+			<article class="modal" data-card="for_work">
 				<div class="modal__img">
 
-					<button type="button" class="button-cross" aria-label="button-cross">
+					<button type="button" class="button-cross" aria-label="button-close">
 						<span class="button-cross__item button-cross__item--01"></span>
 						<span class="button-cross__item button-cross__item--02"></span>
 					</button>
@@ -338,7 +373,7 @@
 
 					</div>
 				</div>
-			</div>
+			</article>
 		</div>
 
 	</div>
