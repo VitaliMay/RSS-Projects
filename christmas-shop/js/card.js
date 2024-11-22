@@ -37,12 +37,16 @@ function dataIndexArrCreater (data, dataIndexArrAllShuffle) {
   return {dataIndexArrWork, dataIndexArrHealth, dataIndexArrHarmony,}
 }
 
-const {dataIndexArrWork, dataIndexArrHealth, dataIndexArrHarmony} = dataIndexArrCreater(data, dataIndexArrAllShuffle)
-// const {dataIndexArrWork, dataIndexArrHealth, dataIndexArrHarmony} = dataIndexArrCreater(data)
-console.log(dataIndexArrAllShuffle)
-console.log(dataIndexArrWork)
-console.log(dataIndexArrHealth)
-console.log(dataIndexArrHarmony)
+// Для ПП
+const {dataIndexArrWork, dataIndexArrHealth, dataIndexArrHarmony} = dataIndexArrCreater(data, dataIndexPP)
+
+// const {dataIndexArrWork, dataIndexArrHealth, dataIndexArrHarmony} = dataIndexArrCreater(data, dataIndexArrAllShuffle)
+
+// console.log(dataIndexArrAllShuffle)
+console.log('All', dataIndexPP)
+console.log('work', dataIndexArrWork)
+console.log('health', dataIndexArrHealth)
+console.log('harmony', dataIndexArrHarmony)
 
 /******************************************************** */
 

@@ -1,5 +1,5 @@
 
-import { createAllCards, dataIndexArrAll, dataIndexArrAllShuffle, dataIndexArrWork, dataIndexArrHealth, dataIndexArrHarmony, giftCardContainer, } from "./card.js";
+import { createAllCards, dataIndexArrAll, dataIndexPP, dataIndexArrAllShuffle, dataIndexArrWork, dataIndexArrHealth, dataIndexArrHarmony, giftCardContainer, } from "./card.js";
 
 const tabContainer = document.querySelector('.gift-tab-container')
 const tabsAll = document.querySelectorAll('.tab')
@@ -9,7 +9,8 @@ if (tabContainer) {
 }
 
 const categoryObjIndexArr = {
-  'all': dataIndexArrAllShuffle,
+  // 'all': dataIndexArrAllShuffle,
+  'all': dataIndexPP,
   'for_work': dataIndexArrWork,
   'for_health': dataIndexArrHealth,
   'for_harmony': dataIndexArrHarmony,
