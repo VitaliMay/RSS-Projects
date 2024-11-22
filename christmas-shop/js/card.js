@@ -37,17 +37,22 @@ function dataIndexArrCreater (data, dataIndexArrAllShuffle) {
   return {dataIndexArrWork, dataIndexArrHealth, dataIndexArrHarmony,}
 }
 
-const {dataIndexArrWork, dataIndexArrHealth, dataIndexArrHarmony} = dataIndexArrCreater(data, dataIndexArrAllShuffle)
-// const {dataIndexArrWork, dataIndexArrHealth, dataIndexArrHarmony} = dataIndexArrCreater(data)
-console.log(dataIndexArrAllShuffle)
-console.log(dataIndexArrWork)
-console.log(dataIndexArrHealth)
-console.log(dataIndexArrHarmony)
+// Для ПП
+const {dataIndexArrWork, dataIndexArrHealth, dataIndexArrHarmony} = dataIndexArrCreater(data, dataIndexPP)
+
+// const {dataIndexArrWork, dataIndexArrHealth, dataIndexArrHarmony} = dataIndexArrCreater(data, dataIndexArrAllShuffle)
+
+// console.log(dataIndexArrAllShuffle)
+console.log('All', dataIndexPP)
+console.log('work', dataIndexArrWork)
+console.log('health', dataIndexArrHealth)
+console.log('harmony', dataIndexArrHarmony)
 
 /******************************************************** */
 
 
 const cardBaseOptions = {
+  tag: 'article',
   classes: ['gift-card'],
   attributes: {
     'data-card': 'for_work',
@@ -64,13 +69,14 @@ const cardContentOptions = {
 }
 
 const cardContentCategoryOptions = {
-  tag: 'h3',
+  // tag: 'h3',
   classes: ['gift-card__category'],
-  text: 'For work',
+  // text: 'For work',
 }
 
 const cardContentTitleOptions = {
-  tag: 'h4',
+  // tag: 'h4',
+  tag: 'h3',
   classes: ['gift-card__title'],
   text: 'Console.log Guru',
 }
@@ -119,7 +125,7 @@ function сreatCard (index, dataIndexArr, parentCard) {
 }
 
 
-function testCreatCard (dataIndexArr, parentCard) {
+function createAllCards (dataIndexArr, parentCard) {
 
   if (!parentCard) {
     return; // Если элемент не найден, выход из функции
@@ -163,4 +169,4 @@ function testCreatCard (dataIndexArr, parentCard) {
 //   }
 // }
 
-export { testCreatCard, dataIndexArrAll, dataIndexArrAllShuffle, dataIndexPP, dataIndexBestPP, giftCardContainer, bestGiftCardContainer, }
+export { createAllCards, dataIndexArrAll, dataIndexArrAllShuffle, dataIndexArrWork, dataIndexArrHealth, dataIndexArrHarmony, dataIndexPP, dataIndexBestPP, giftCardContainer, bestGiftCardContainer, }

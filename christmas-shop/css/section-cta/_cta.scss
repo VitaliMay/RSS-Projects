@@ -7,17 +7,13 @@
   border-radius: 0px 0px 20px 20px;
   padding: 60px 8px;
 
-  
-  // background-image: url(../../assets/img/bg-ball.png), url(../../assets/img/bg-snow.png);
-
-  // background-repeat: no-repeat;
-  // // background-position: top;
-  // // background-clip: border-box;
-
-  // background-size: contain;
   background-color: $primary;
   background-image: url(../assets/img/bg-forest.webp), url(../assets/img/bg-snow.webp);
+  @supports not (background-image: url(../assets/img/bg-forest.webp)) {
+    background-image: url(../assets/img/bg-forest.png), url(../assets/img/bg-snow.png);
+  }
   // background-image: url(../assets/img/bg-forest.png), url(../assets/img/bg-snow.png);
+
   background-repeat: no-repeat, no-repeat;
   background-clip: border-box, border-box;
   background-position: center, center;

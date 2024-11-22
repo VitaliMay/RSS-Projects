@@ -68,6 +68,7 @@ function timerContentWriter () {
   // titleArrDoc[2].textContent = (minutes === 1) ? 'minute' : 'minutes'
   // titleArrDoc[3].textContent = (seconds === 1) ? 'second' : 'seconds'
 
+  // По ТЗ не надо
   timerTitleWriter(days, hours, minutes, seconds)
 
 }
