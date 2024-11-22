@@ -411,6 +411,7 @@ html {
 
 body {
   height: 100%;
+  background-color: white;
 }
 
 /* чтобы прижать футер к низу страницы*/
@@ -418,8 +419,6 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  width: 1440px;
-  margin: 0 auto;
 }
 
 /* чтобы прижать футер к низу страницы*/
@@ -429,6 +428,16 @@ body {
 
 .footer {
   flex: 0 0 auto;
+}
+
+/* убираю скролл */
+body.lock {
+  overflow: hidden;
+}
+@media (hover: hover) {
+  body.lock {
+    margin-right: 17px;
+  }
 }
 
 /***** header ***********************************************************************/
@@ -455,6 +464,9 @@ body {
 }
 
 .logo {
+  position: relative;
+  z-index: 40;
+  color: rgb(255, 70, 70);
   border-radius: 4px;
   padding: 8px 20px;
   width: 141px;
@@ -474,7 +486,7 @@ body {
   line-height: 130%;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: rgb(24, 28, 41);
+  color: #181c29;
 }
 .logo:hover {
   border-radius: 12px;
@@ -486,19 +498,31 @@ body {
   align-items: center;
   -moz-column-gap: 8px;
        column-gap: 8px;
+  row-gap: 8px;
 }
 .menu__list-link {
+  display: block;
   font-family: Montserrat;
   font-size: 12px;
   font-weight: 600;
   line-height: 130%;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: rgb(24, 28, 41);
+  color: #181c29;
   border-radius: 4px;
   padding: 12px 20px;
   background: rgb(255, 255, 255);
   transition: all 0.6s;
+}
+@media screen and (max-width: 768.9px) {
+  .menu__list-link {
+    font-family: Montserrat;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 152%;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
 }
 .menu__list-link--disabled {
   pointer-events: none;
@@ -516,8 +540,12 @@ body {
   }
 }
 
+.menu {
+  background: rgb(255, 255, 255);
+}
 @media screen and (max-width: 768.9px) {
   .menu {
+    padding-top: 50px;
     position: fixed;
     right: -100%;
     top: 0;
@@ -525,8 +553,8 @@ body {
     opacity: 6;
     transition: all 0.6s;
     z-index: 16;
-    background-color: #292929;
     height: 100vh;
+    width: 100vw;
     overflow-x: hidden;
     overflow-y: auto;
     display: flex;
@@ -535,10 +563,15 @@ body {
     flex-shrink: 0;
   }
 }
+.menu.open {
+  right: 0;
+  transition: all 0.6s;
+}
 
 @media screen and (max-width: 768.9px) {
   .menu__list {
     flex-direction: column;
+    flex-shrink: 0;
   }
 }
 
@@ -583,8 +616,8 @@ body {
 
 .burger-button__cross {
   width: 20px;
-  height: 2px;
-  background-color: rgb(24, 28, 41);
+  height: 1px;
+  background-color: #181c29;
   border-radius: 1.5px;
   transition: 0.4s all;
 }
@@ -626,6 +659,11 @@ body {
   justify-content: center;
   align-items: center;
 }
+@supports not (background-image: url(../assets/img/bg-ball.webp)) {
+  .hero {
+    background-image: url(../assets/img/bg-ball.png), url(../assets/img/bg-snow.png);
+  }
+}
 
 .hero-content {
   max-width: 430px;
@@ -661,14 +699,14 @@ body {
   letter-spacing: 0.05em;
   text-transform: uppercase;
   padding: 20px 32px;
-  background-color: rgb(24, 28, 41);
+  background-color: #181c29;
   border-radius: 20px;
   max-width: 237px;
   transition: all 0.6s;
 }
 @media (hover: hover) {
   .hero-content__btn:hover {
-    color: rgb(24, 28, 41);
+    color: #181c29;
     background-color: rgb(255, 255, 255);
     transition: all 0.6s;
   }
@@ -680,7 +718,7 @@ body {
   max-width: 1440px;
   padding: 60px 8px;
   background-color: rgb(255, 70, 70);
-  background-image: url(../assets/img/bg-snow.png);
+  background-image: url(../assets/img/bg-snow.webp);
   background-repeat: no-repeat;
   background-clip: border-box;
   background-position: center;
@@ -688,6 +726,11 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+@supports not (background-image: url(../assets/img/bg-snow.webp)) {
+  .about {
+    background-image: url(../assets/img/bg-snow.png);
+  }
 }
 
 .about-container {
@@ -752,7 +795,7 @@ body {
 .about-img {
   overflow: hidden;
   border-radius: 20px;
-  background-image: url(../assets/img/about-santa.png);
+  background-image: url(../assets/img/about-santa.avif);
   background-repeat: no-repeat;
   background-clip: border-box;
   background-position: center;
@@ -760,6 +803,11 @@ body {
   max-width: 638px;
   height: 528px;
   flex: 1 0 256px;
+}
+@supports not (background-image: url(../assets/img/about-santa.avif)) {
+  .about-img {
+    background-image: url(../assets/img/about-santa.png);
+  }
 }
 
 .slider-section {
@@ -777,6 +825,11 @@ body {
   justify-content: center;
   align-items: center;
   overflow: hidden;
+}
+@supports not (background-image: url(../assets/img/bg-snow.webp)) {
+  .slider-section {
+    background-image: url(../assets/img/bg-snow.png);
+  }
 }
 
 .slider-container {
@@ -824,6 +877,7 @@ body {
 .slider__screen {
   align-self: flex-start;
   display: flex;
+  width: 100%;
 }
 .slider__controls {
   align-self: flex-end;
@@ -844,6 +898,7 @@ body {
   font-weight: 600;
   text-transform: uppercase;
   transform: translateX(0px);
+  transition: transform 0.8s ease-in-out;
 }
 
 .slider__item-img {
@@ -860,14 +915,34 @@ body {
 .slider__item-img--01 {
   background-image: url(../assets/img/slider-snowman.webp);
 }
+@supports not (background-image: url(../assets/img/slider-snowman.webp)) {
+  .slider__item-img--01 {
+    background-image: url(../assets/img/slider-snowman.png);
+  }
+}
 .slider__item-img--02 {
   background-image: url(../assets/img/slider-christmas-trees.webp);
+}
+@supports not (background-image: url(../assets/img/slider-christmas-trees.webp)) {
+  .slider__item-img--02 {
+    background-image: url(../assets/img/slider-christmas-trees.png);
+  }
 }
 .slider__item-img--03 {
   background-image: url(../assets/img/slider-christmas-tree-ball.webp);
 }
+@supports not (background-image: url(../assets/img/slider-christmas-tree-ball.webp)) {
+  .slider__item-img--03 {
+    background-image: url(../assets/img/slider-christmas-tree-ball.png);
+  }
+}
 .slider__item-img--04 {
   background-image: url(../assets/img/slider-fairytale-house.webp);
+}
+@supports not (background-image: url(../assets/img/slider-fairytale-house.webp)) {
+  .slider__item-img--04 {
+    background-image: url(../assets/img/slider-fairytale-house.png);
+  }
 }
 
 .slider-btn {
@@ -881,32 +956,28 @@ body {
   flex-shrink: 0;
   cursor: url(../assets/img/pointinghand.svg), pointer;
   transition: all 0.6s;
+  color: rgb(255, 255, 255);
 }
-.slider-btn .slider-btn__img {
-  stroke: rgb(255, 255, 255);
-  transition: all 0.6s;
+.slider-btn__img--left {
+  transform: rotate(180deg);
 }
 @media (hover: hover) {
   .slider-btn:hover {
     transition: all 0.6s;
     background-color: rgb(255, 255, 255);
-  }
-  .slider-btn:hover .slider-btn__img {
-    stroke: rgb(255, 70, 70);
-    transition: all 0.6s;
+    color: rgb(255, 70, 70);
   }
 }
 .slider-btn[disabled] {
   border: solid 1px rgba(255, 255, 255, 0.4);
   cursor: not-allowed;
-}
-.slider-btn[disabled] .slider-btn__img {
-  stroke: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.4);
 }
 @media (hover: hover) {
   .slider-btn[disabled]:hover {
     border: solid 1px rgba(255, 255, 255, 0.4);
     background: inherit;
+    color: rgba(255, 255, 255, 0.4);
   }
 }
 
@@ -925,6 +996,11 @@ body {
   justify-content: center;
   align-items: center;
   overflow: hidden;
+}
+@supports not (background-image: url(../assets/img/bg-snow.webp)) {
+  .bestGift-section {
+    background-image: url(../assets/img/bg-snow.png);
+  }
 }
 
 .bestGift-container {
@@ -988,6 +1064,9 @@ body {
   background: rgb(236, 243, 248);
   overflow: hidden;
   cursor: url(../assets/img/pointinghand.svg), pointer;
+  opacity: 0;
+  animation: visibleCard 0.6s forwards;
+  animation-delay: 0.2s;
 }
 .gift-card__img {
   width: 310px;
@@ -1015,7 +1094,7 @@ body {
   line-height: 130%;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: rgb(24, 28, 41);
+  color: #181c29;
 }
 .gift-card__title {
   font-family: Montserrat;
@@ -1025,7 +1104,7 @@ body {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   transition: all 0.6s;
-  color: rgb(24, 28, 41);
+  color: #181c29;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
@@ -1040,6 +1119,14 @@ body {
   }
 }
 
+@keyframes visibleCard {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 .gift-card[data-card=for_work] .gift-card__img {
   background-image: url(../assets/img/gift-for-work.png);
 }
@@ -1077,6 +1164,11 @@ body {
   justify-content: center;
   align-items: center;
   overflow: hidden;
+}
+@supports not (background-image: url(../assets/img/bg-garland.webp)) {
+  .gift-section {
+    background-image: url(../assets/img/bg-garland.png);
+  }
 }
 
 .gift-container {
@@ -1172,6 +1264,43 @@ body {
   width: 100%;
 }
 
+/********************************************************************/
+.scroll-btn {
+  position: fixed;
+  z-index: 0;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.8s, opacity 0.8s;
+  pointer-events: none;
+  color: rgb(255, 70, 70);
+  right: 8px;
+  bottom: 8px;
+  display: flex;
+  width: 56px;
+  height: 56px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100px;
+  border: 1px solid rgb(255, 70, 70);
+  background: rgb(255, 255, 255);
+}
+.scroll-btn__img--up {
+  transform: rotate(-90deg);
+}
+@media (hover: hover) {
+  .scroll-btn:hover {
+    cursor: url(../assets/img/pointinghand.svg), pointer;
+  }
+}
+
+.scroll-btn.scroll-btn--visible {
+  z-index: 10;
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0.8s, opacity 0.8s;
+  pointer-events: all;
+}
+
 .cta-section {
   margin: 0 auto;
   width: 100%;
@@ -1187,6 +1316,11 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+@supports not (background-image: url(../assets/img/bg-forest.webp)) {
+  .cta-section {
+    background-image: url(../assets/img/bg-forest.png), url(../assets/img/bg-snow.png);
+  }
 }
 
 .cta-container {
@@ -1225,14 +1359,14 @@ body {
   letter-spacing: 0.05em;
   text-transform: uppercase;
   padding: 20px 32px;
-  background-color: rgb(24, 28, 41);
+  background-color: #181c29;
   border-radius: 20px;
   max-width: 237px;
   transition: all 0.6s;
 }
 @media (hover: hover) {
   .cta-content__btn:hover {
-    color: rgb(24, 28, 41);
+    color: #181c29;
     background-color: rgb(255, 255, 255);
     transition: all 0.6s;
   }
@@ -1294,7 +1428,7 @@ body {
 .footer {
   width: 100%;
   background: rgb(255, 255, 255);
-  color: rgb(24, 28, 41);
+  color: #181c29;
 }
 
 .footer-container {
@@ -1415,5 +1549,226 @@ body {
   .footer-caption:hover {
     transition: all 0.6s;
     color: rgb(255, 70, 70);
+  }
+}
+
+.modal-container {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  padding: 0px 8px;
+  background: rgba(24, 28, 41, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+  z-index: 0;
+  opacity: 0;
+  transform: scale(0);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  pointer-events: none;
+}
+@media screen and (max-height: 510px) {
+  .modal-container {
+    align-items: flex-start;
+  }
+}
+.modal-container--active {
+  z-index: 60;
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+.modal {
+  width: 100%;
+  max-width: 400px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  background: rgb(236, 243, 248);
+}
+.modal__img {
+  width: 100%;
+  height: 230px;
+  flex-shrink: 0;
+  padding: 12px;
+  display: flex;
+  justify-content: flex-end;
+  background-repeat: no-repeat;
+  background-clip: border-box;
+  background-position: center;
+  background-size: cover;
+}
+.modal__content {
+  background-color: rgb(255, 255, 255);
+  border-radius: 20px 20px 0px 0px;
+  padding: 20px 20px;
+  width: 100%;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+}
+.modal__category {
+  font-family: Montserrat;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 130%;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #181c29;
+}
+.modal__title {
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 152%;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: all 0.6s;
+  color: #181c29;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.modal__description {
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 148%;
+}
+
+.modal[data-card=for_work] .modal__img {
+  background-image: url(../assets/img/gift-for-work.png);
+}
+.modal[data-card=for_work] .modal__category {
+  color: rgb(67, 97, 255);
+}
+
+.modal[data-card=for_health] .modal__img {
+  background-image: url(../assets/img/gift-for-health.png);
+}
+.modal[data-card=for_health] .modal__category {
+  color: rgb(6, 164, 79);
+}
+
+.modal[data-card=for_harmony] .modal__img {
+  background-image: url(../assets/img/gift-for-harmony.png);
+}
+.modal[data-card=for_harmony] .modal__category {
+  color: rgb(255, 67, 247);
+}
+
+.modal__superpowers {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0px 0px 20px 20px;
+  row-gap: 8px;
+  background-color: rgb(255, 255, 255);
+  padding: 0px 20px 20px 20px;
+}
+.modal__superpowers-title {
+  font-family: Montserrat;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 130%;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.superpowers-item {
+  display: flex;
+  align-items: center;
+  -moz-column-gap: 12px;
+       column-gap: 12px;
+}
+.superpowers-item__title {
+  flex-grow: 1;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 148%;
+  text-transform: lowercase;
+}
+.superpowers-item__title::first-letter {
+  text-transform: capitalize;
+}
+.superpowers-item__score {
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 148%;
+  text-transform: uppercase;
+}
+.superpowers-item__stars {
+  display: flex;
+  -moz-column-gap: 8px;
+       column-gap: 8px;
+}
+.superpowers-item__stars-item {
+  color: rgba(255, 70, 70, 0.1);
+}
+.superpowers-item__stars-item--active {
+  color: rgb(255, 70, 70);
+}
+
+.button-cross {
+  width: 40px;
+  height: 40px;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex-shrink: 0;
+  position: relative;
+}
+@media (hover: hover) {
+  .button-cross:hover {
+    cursor: url(../assets/img/pointinghand.svg), pointer;
+  }
+}
+
+.button-cross__item {
+  width: 30px;
+  height: 2px;
+  background-color: #181c29;
+  border-radius: 1.5px;
+}
+
+/*****************************************/
+/* Анимация при появлении в крестик */
+.modal-container.modal-container--active .button-cross__item--01 {
+  animation: rotateLine1 0.8s forwards;
+  animation-delay: 0.4s;
+}
+
+.modal-container.modal-container--active .button-cross__item--02 {
+  animation: rotateLine2 0.8s forwards;
+  animation-delay: 0.4s;
+}
+
+@keyframes rotateLine1 {
+  0% {
+    transform: translate(0%, 0%) rotate(0deg);
+  }
+  100% {
+    transform: translate(0%, 0%) rotate(45deg);
+  }
+}
+@keyframes rotateLine2 {
+  0% {
+    transform: translate(0%, -2px) rotate(0deg);
+  }
+  100% {
+    transform: translate(0%, -2px) rotate(-45deg);
   }
 }/*# sourceMappingURL=style.css.map */

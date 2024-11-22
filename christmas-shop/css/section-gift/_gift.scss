@@ -12,6 +12,10 @@
   background-color: $primary;
   // background-image: url(../assets/img/bg-garland.png);
   background-image: url(../assets/img/bg-garland.webp);
+  @supports not (background-image: url(../assets/img/bg-garland.webp)) {
+    background-image: url(../assets/img/bg-garland.png);
+  }
+
   background-repeat: no-repeat;
   background-clip: border-box;
   background-position: top;
@@ -129,4 +133,49 @@
   // }
 }
 
+/********************************************************************/
+// Кнопка скрола
+
+.scroll-btn {
+  position: fixed;
+  // z-index: -100;  // не действует transition
+  z-index: 0;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.8s, opacity 0.8s;
+  pointer-events: none;
+
+  color: $primary;
+
+  &__img--up {
+    transform: rotate(-90deg);
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      @include custom-cursor;
+    }
+  }
+
+  right: 8px;
+  bottom: 8px;
+
+  display: flex;
+  width: 56px;
+  height: 56px;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 100px;
+  border: 1px solid $primary;
+  background: $static-white;
+}
+
+.scroll-btn.scroll-btn--visible {
+  z-index: 10;  // на всякий случай
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0.8s, opacity 0.8s;
+  pointer-events: all;
+}
 

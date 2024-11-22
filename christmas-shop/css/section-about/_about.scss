@@ -16,7 +16,12 @@
 
   // background-size: contain;
   background-color: $primary;
-  background-image: url(../assets/img/bg-snow.png);
+  background-image: url(../assets/img/bg-snow.webp);
+  @supports not (background-image: url(../assets/img/bg-snow.webp)) {
+    background-image: url(../assets/img/bg-snow.png);
+  }
+
+  // background-image: url(../assets/img/bg-snow.png);
   background-repeat: no-repeat;
   background-clip: border-box;
   background-position: center;
@@ -93,7 +98,13 @@
   overflow: hidden;
   border-radius: 20px;
 
-  background-image: url(../assets/img/about-santa.png);
+  background-image: url(../assets/img/about-santa.avif);
+  @supports not (background-image: url(../assets/img/about-santa.avif)) {
+    background-image: url(../assets/img/about-santa.png);
+  }
+
+  // background-image: url(../assets/img/about-santa.webp);
+  // background-image: url(../assets/img/about-santa.png);
   background-repeat: no-repeat;
   background-clip: border-box;
   background-position: center;
