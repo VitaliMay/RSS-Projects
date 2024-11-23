@@ -116,6 +116,8 @@ html {
 }
 
 body {
+  // min-width: 100vw;
+  // width: 100vw;
 	height: 100%;
   background-color: white; // если вдруг пользователь поменял дефолтные настройки
 }
@@ -127,11 +129,8 @@ body {
 	flex-direction: column;
 	min-height: 100vh;
 
-  // width: 1440px;
-  // margin: 0 auto;
-
-  // background-color: $background-body;
-  // background-color: tomato;
+  max-width: 1440px;
+  margin: 0 auto;
 
 }
 
@@ -140,6 +139,9 @@ body {
 .main {
 	// flex: 1 0 auto;
   flex-grow: 1;
+
+  // background-color: $primary;
+  // border-radius: 20px;
 }
 .footer {
 	flex: 0 0 auto;

@@ -73,6 +73,9 @@
     }
   }
 
+  &__img {
+    display: block;
+  }
 
   &__action {
     @include action-large;

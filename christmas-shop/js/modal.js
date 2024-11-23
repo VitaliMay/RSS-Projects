@@ -125,7 +125,8 @@ function createStars (starsActiveNumber) {
 
 function catchCard (event) {
   const { target } = event
-  const giftCard = target.closest('.gift-card')
+  const giftCard = target.closest('.gift-card__btn')
+  // const giftCard = target.closest('.gift-card')
 
   if (giftCard) {
     const giftCardIndex = giftCard.getAttribute('data-index')
@@ -162,7 +163,7 @@ modalContainer.addEventListener('click', function (event) {
 })
 
 
-export { modalContainer }
+export { modalContainer, body }
 
 
 // setTimeout(function() { // проявляю модалку
