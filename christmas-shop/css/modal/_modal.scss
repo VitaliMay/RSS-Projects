@@ -2,6 +2,8 @@
 .modal-container {
   position: fixed;
 
+  // width: 100dvw;
+  // height: 100dvh;
   width: 100vw;
   height: 100vh;
 
@@ -13,6 +15,7 @@
   justify-content: center;
   align-items: center;
 
+  // @media screen and (max-height: 510px) and (max-height: 100dvh) {
   @media screen and (max-height: 510px){  // чтобы корректно заработал скролл
     align-items: flex-start;
   }
