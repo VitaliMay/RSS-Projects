@@ -56,8 +56,19 @@ const cardBaseOptions = {
   classes: ['gift-card'],
   attributes: {
     'data-card': 'for_work',
-    'data-index': '01',
+    // 'data-index': '01',
   },
+}
+
+const cardBtnOptions = {
+  tag: 'button',
+  classes: ['gift-card__btn'],
+  attributes: {
+    'type': 'button',
+    'aria-label': 'gift card',
+    'data-index': '01',
+    'data-card': 'for_work',
+  }
 }
 
 const cardImgOptions = {
@@ -111,8 +122,16 @@ function сreatCard (index, dataIndexArr, parentCard) {
     cardContentTitleOptions.text = data[indexPP].name
     const category = data[indexPP].category
     cardContentCategoryOptions.text = category
-    cardBaseOptions.attributes = { 'data-card': `${getCategoryFromString(category)}`,
-                                   'data-index': `${indexPP}`}
+    const categoryValid = getCategoryFromString(category)
+
+    cardBaseOptions.attributes = { 'data-card': categoryValid, }
+    // cardBaseOptions.attributes = { 'data-card': `${getCategoryFromString(category)}`, }
+
+    cardBtnOptions.attributes['data-index'] = `${indexPP}`
+    cardBtnOptions.attributes['data-card'] = categoryValid  // дублирование но лень css менять
+    const cardBtn = createEl(cardBtnOptions)
+    // cardBaseOptions.attributes = { 'data-card': `${getCategoryFromString(category)}`,
+    //                                'data-index': `${indexPP}`}
 
     const cardContentTitle = createEl(cardContentTitleOptions)
     const cardContentCategory = createEl(cardContentCategoryOptions)
@@ -120,7 +139,7 @@ function сreatCard (index, dataIndexArr, parentCard) {
     const cardContent = createEl({...cardContentOptions, children: [cardContentCategory, cardContentTitle]})
     const cardImg = createEl(cardImgOptions)
 
-    createEl({...cardBaseOptions, children: [cardImg, cardContent], parent: parentCard,})
+    createEl({...cardBaseOptions, children: [cardImg, cardContent, cardBtn], parent: parentCard,})
     // createEl({...cardBaseOptions, children: [cardImg, cardContent], parent: giftCardContainer,})
 }
 
