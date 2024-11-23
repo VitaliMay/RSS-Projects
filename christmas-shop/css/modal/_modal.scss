@@ -1,7 +1,7 @@
 
 .modal-container {
   position: fixed;
-
+  inset: 0;
   // width: 100dvw;
   // height: 100dvh;
   width: 100vw;
@@ -15,7 +15,6 @@
   justify-content: center;
   align-items: center;
 
-  // @media screen and (max-height: 510px) and (max-height: 100dvh) {
   @media screen and (max-height: 510px){  // чтобы корректно заработал скролл
     align-items: flex-start;
   }
@@ -28,7 +27,7 @@
   z-index: 0;
 
   opacity: 0;
-  transform: scale(0); 
+  transform: scale(0);
   transition: opacity 0.6s ease, transform 0.6s ease;
   pointer-events: none; // Игнорируем события, когда окно скрыто
 

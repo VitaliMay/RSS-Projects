@@ -163,7 +163,7 @@ modalContainer.addEventListener('click', function (event) {
 })
 
 
-export { modalContainer }
+export { modalContainer, body }
 
 
 // setTimeout(function() { // проявляю модалку
