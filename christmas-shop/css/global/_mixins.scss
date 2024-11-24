@@ -93,7 +93,9 @@
   text-transform: uppercase;
 }
 
-
+@mixin cansel-bag {  // чтобы в девтулз не появлялось белых линий
+  box-shadow: 0 2px 0px $primary;
+}
 
 
 

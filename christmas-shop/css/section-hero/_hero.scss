@@ -8,6 +8,9 @@
   padding: 60px 8px;
 
   background-color: $primary;
+  @include cansel-bag;
+  // box-shadow: 0 2px 5px $primary;
+
   // background-image: url(../assets/img/bg-ball.png), url(../assets/img/bg-snow.png);
   background-image: url(../assets/img/bg-ball.webp), url(../assets/img/bg-snow.webp);
   @supports not (background-image: url(../assets/img/bg-ball.webp)) {
