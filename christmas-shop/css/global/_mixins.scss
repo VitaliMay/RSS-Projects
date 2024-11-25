@@ -97,6 +97,9 @@
   box-shadow: 0 2px 0px $primary;
 }
 
+@mixin cansel-color-touch { // убирает синий цвет при таче
+  -webkit-tap-highlight-color: transparent;
+}
 
 
 

@@ -57,16 +57,19 @@
     max-width: 237px;
 
     transition: all 0.6s;
+
+    @include cansel-color-touch;
+    // -webkit-tap-highlight-color: transparent; // убирает синий цвет при таче
   }
 
-  @media (hover: hover) {
+  @media (hover: hover) and (pointer: fine) {
     &__btn:hover {
       color: $dark;
       background-color: $static-white;
       transition: all 0.6s;
     }
-  }
 
+  }
 }
 
 

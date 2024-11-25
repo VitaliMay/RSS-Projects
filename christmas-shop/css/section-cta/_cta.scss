@@ -54,6 +54,8 @@
 
   &__btn {
     @include action-small;
+    @include cansel-color-touch;
+
     padding: 20px 32px;
     background-color: $dark;
     border-radius: 20px;
@@ -62,7 +64,7 @@
     transition: all 0.6s;
   }
 
-  @media (hover: hover) {
+  @media (hover: hover) and (pointer: fine) {
     &__btn:hover {
       color: $dark;
       background-color: $static-white;
