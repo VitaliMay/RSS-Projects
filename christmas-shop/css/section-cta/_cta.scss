@@ -8,6 +8,8 @@
   padding: 60px 8px;
 
   background-color: $primary;
+  // @include cansel-bag-bottom;
+
   background-image: url(../assets/img/bg-forest.webp), url(../assets/img/bg-snow.webp);
   @supports not (background-image: url(../assets/img/bg-forest.webp)) {
     background-image: url(../assets/img/bg-forest.png), url(../assets/img/bg-snow.png);

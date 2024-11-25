@@ -93,8 +93,11 @@
   text-transform: uppercase;
 }
 
-@mixin cansel-bag {  // чтобы в девтулз не появлялось белых линий
+@mixin cansel-bag {  // чтобы в девтулз не появлялось серых линий
   box-shadow: 0 2px 0px $primary;
+}
+@mixin cansel-bag-bottom {  // чтобы в девтулз не появлялось серых линий
+  box-shadow: 0 2px 0px $static-white;
 }
 
 @mixin cansel-color-touch { // убирает синий цвет при таче
