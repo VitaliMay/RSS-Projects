@@ -62,6 +62,7 @@
     border-radius: 12px;
   }
 
+  @include cansel-color-touch;
 }
 
 // игры с SVG
@@ -84,6 +85,7 @@
 
   &-link {
     display: block; /////////
+    @include cansel-color-touch;
 
     @include action-small;
 
@@ -108,7 +110,7 @@
       border-radius: 12px;
     }
 
-    @media (hover: hover) {
+    @media (hover: hover) and (pointer: fine) {
       &:hover {
         color: $primary;
         background: $primary-10;
