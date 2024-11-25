@@ -96,7 +96,7 @@
     padding: 12px 8px;
   }
 
-  @media (hover: hover) {
+  @media (hover: hover) and (pointer: fine) {
     &:hover {
       transition: all 0.6s;
       @include custom-cursor;

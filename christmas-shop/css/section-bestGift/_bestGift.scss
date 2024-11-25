@@ -92,6 +92,7 @@
   overflow: hidden;
 
   @include custom-cursor;
+  @include cansel-color-touch;
 
   &__img {
     width: 310px;
@@ -142,7 +143,7 @@
     text-overflow: ellipsis;
   }
 
-  @media (hover: hover) {
+  @media (hover: hover) and (pointer: fine) {
     &:hover .gift-card__title {
       transition: all 0.6s;
       color: $primary;
@@ -158,6 +159,7 @@
     border: none;
     border-radius: 20px;
     @include custom-cursor;
+    // @include cansel-color-touch;
   }
 }
 

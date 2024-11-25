@@ -4,7 +4,7 @@
 
 .footer {
   width: 100%;
-  
+
   // background-color: antiquewhite;
   background: $static-white;
 
@@ -37,6 +37,10 @@
   justify-content: center;
   flex-wrap: wrap;
   gap: 12px;
+
+  // @media screen and (max-width: 1060.9px) {
+  //   flex-direction: column;;
+  // }
 }
 
 .footer-card {
@@ -45,12 +49,18 @@
   // flex-shrink: 1;
   // flex-basis: 324px;
 
-  @media screen and (max-width: 800px) {
-    flex-basis: 380px;
+  @include cansel-color-touch;
+
+  @media screen and (max-width: 1060.8px) { // для ревьювера
+    flex-basis: 650px;
   }
-  @media screen and (max-width: 700px) {
+  // @media screen and (max-width: 800px) { // вернуть после кросс-чека
+  //   flex-basis: 380px;
+  // }
+  @media screen and (max-width: 670px) {
     flex-basis: 330px;
   }
+  
 
   max-width: 100%;
   padding: 20px 20px;
@@ -64,11 +74,13 @@
   align-items: center;
   row-gap: 12px;
 
-  transition: all 0.6s;
+  transition: color 0.6s;
+  // transition: all 0.6s;
 
-  @media (hover: hover) {
+  @media (hover: hover) and (pointer: fine) {
     &:hover {
-      transition: all 0.6s;
+      transition: color 0.6s;
+      // transition: all 0.6s;
       color: $primary;
     }
   }
@@ -109,13 +121,14 @@
     align-items: center;
 
     // background-color: antiquewhite;
+    @include cansel-color-touch;
   }
 
   &__img {
     transition: all 0.6s;
   }
 
-  @media (hover: hover) {
+  @media (hover: hover) and (pointer: fine) {
     &__link:hover &__img {
       stroke: $primary;
       transition: all 0.6s;
@@ -134,7 +147,7 @@
 
   transition: all 0.6s;
 
-  @media (hover: hover) {
+  @media (hover: hover) and (pointer: fine) {
     &:hover {
       transition: all 0.6s;
       color: $primary;
