@@ -549,13 +549,14 @@ body.lock {
 }
 @media screen and (max-width: 768.9px) {
   .menu {
-    padding-top: 50px;
+    padding-top: 60px;
     position: fixed;
-    right: -100%;
+    right: 0;
     top: 0;
     bottom: 0;
+    transform: translateX(100%);
     opacity: 0;
-    transition: right 0.6s ease, opacity 0.6s linear;
+    transition: transform 0.6s ease, opacity 0.6s linear;
     z-index: 16;
     overflow-x: hidden;
     overflow-y: auto;
@@ -578,9 +579,9 @@ body.lock {
   }
 }
 .menu.open {
-  right: 0;
+  transform: translateX(0%);
   opacity: 1;
-  transition: right 0.6s ease, opacity 0.6s ease-in-out;
+  transition: transform 0.6s ease, opacity 0.6s ease-in-out;
 }
 
 @media screen and (max-width: 768.9px) {
