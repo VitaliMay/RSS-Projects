@@ -8,9 +8,9 @@ import { burgerButton } from "./js/burger.js";
 import { modalContainer, body } from "./js/modal.js";
 import { sliderControls } from "./js/slider.js";
 import { tabContainer } from "./js/tabs.js";
-// import { scrollBtn } from "./js/scroll.js";
+import { scrollBtn } from "./js/scroll.js";
 
-// timerInit ()
+timerInit ()
 
 // отменяю контекстное меню при длинном таче
 body.addEventListener('contextmenu', function (event) {
@@ -18,7 +18,7 @@ body.addEventListener('contextmenu', function (event) {
 });
 
 document.addEventListener("DOMContentLoaded", function() {
-  // timerInit ()
+  timerInit ()
   createAllCards(dataIndexBestPP, bestGiftCardContainer)
   createAllCards(dataIndexPP, giftCardContainer)
 

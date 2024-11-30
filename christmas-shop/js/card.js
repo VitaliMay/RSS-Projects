@@ -106,9 +106,9 @@ function getCategoryFromString(str) {
   const lowerCasedString = str.toLowerCase();
   // Убираю возможные лишние пробелы вокруг
   const trimmedString = lowerCasedString.trim();
-  // Заменяю пробелы на нижнее подчеркивание
-  // const resultString = trimmedString.replace(/^for\s*/, '');
+  // Заменяю пробелы между слов на нижнее подчеркивание
   const resultString = trimmedString.replace(/\s/g, '_');
+  // const resultString = trimmedString.replace(/^for\s*/, '');
 
   return resultString;
 }
