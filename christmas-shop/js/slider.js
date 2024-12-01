@@ -17,9 +17,12 @@ if (sliderControls) {
 
 function sliderControlsRemote (event) {
   const sliderScreenWidth = sliderScreen.offsetWidth
+  // console.log('sliderScreenWidth', sliderScreenWidth)
+  // console.log('previousWidth', previousWidth)
   const sliderFilmWidthHidden = sliderFilm.offsetWidth - sliderScreenWidth
 
-  const isMobile = sliderScreenWidth < 768
+  // const isMobile = sliderScreenWidth <= 768
+  const isMobile = previousWidth <= 768
   const sliderStep = sliderFilmWidthHidden / (isMobile ? 6 : 3)
   const sliderStepError = -sliderStep / 3  // право на ошибку, не хочу считать клики
 
