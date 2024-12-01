@@ -9,8 +9,8 @@ if (tabContainer) {
 }
 
 const categoryObjIndexArr = {
-  // 'all': dataIndexArrAllShuffle,
-  'all': dataIndexPP,
+  'all': dataIndexArrAllShuffle,
+  // 'all': dataIndexPP,
   'for_work': dataIndexArrWork,
   'for_health': dataIndexArrHealth,
   'for_harmony': dataIndexArrHarmony,
