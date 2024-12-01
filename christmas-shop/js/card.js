@@ -1,5 +1,5 @@
 
-import { createEl, removeAllChild, shuffleArray } from "./elementUtils.js";
+import { createEl, removeAllChild, shuffleArray, getRandomIntegerArr } from "./elementUtils.js";
 import { data } from "./data.js"
 
 const giftCardContainer = document.querySelector('.gift')
@@ -38,15 +38,19 @@ function dataIndexArrCreater (data, dataIndexArrAllShuffle) {
 }
 
 // Для ПП
-const {dataIndexArrWork, dataIndexArrHealth, dataIndexArrHarmony} = dataIndexArrCreater(data, dataIndexPP)
+// const {dataIndexArrWork, dataIndexArrHealth, dataIndexArrHarmony} = dataIndexArrCreater(data, dataIndexPP)
 
-// const {dataIndexArrWork, dataIndexArrHealth, dataIndexArrHarmony} = dataIndexArrCreater(data, dataIndexArrAllShuffle)
+const {dataIndexArrWork, dataIndexArrHealth, dataIndexArrHarmony} = dataIndexArrCreater(data, dataIndexArrAllShuffle)
 
-// console.log(dataIndexArrAllShuffle)
-console.log('All', dataIndexPP)
+const randomGiftIndexArr = getRandomIntegerArr(0, data.length - 1, 4)
+
+
+console.log('All', dataIndexArrAllShuffle)
+// console.log('All', dataIndexPP) // для ПП
 console.log('work', dataIndexArrWork)
 console.log('health', dataIndexArrHealth)
 console.log('harmony', dataIndexArrHarmony)
+console.log('Random', randomGiftIndexArr)
 
 /******************************************************** */
 
@@ -106,9 +110,9 @@ function getCategoryFromString(str) {
   const lowerCasedString = str.toLowerCase();
   // Убираю возможные лишние пробелы вокруг
   const trimmedString = lowerCasedString.trim();
-  // Заменяю пробелы на нижнее подчеркивание
-  // const resultString = trimmedString.replace(/^for\s*/, '');
+  // Заменяю пробелы между слов на нижнее подчеркивание
   const resultString = trimmedString.replace(/\s/g, '_');
+  // const resultString = trimmedString.replace(/^for\s*/, '');
 
   return resultString;
 }
@@ -117,7 +121,6 @@ function getCategoryFromString(str) {
 function сreatCard (index, dataIndexArr, parentCard) {
     // const indexPP = index  // нормальный вариант
     const indexPP = dataIndexArr[index]  // вариант для PP
-    // const indexPP = dataIndexPP[index]  // вариант для PP
 
     cardContentTitleOptions.text = data[indexPP].name
     const category = data[indexPP].category
@@ -140,7 +143,6 @@ function сreatCard (index, dataIndexArr, parentCard) {
     const cardImg = createEl(cardImgOptions)
 
     createEl({...cardBaseOptions, children: [cardImg, cardContent, cardBtn], parent: parentCard,})
-    // createEl({...cardBaseOptions, children: [cardImg, cardContent], parent: giftCardContainer,})
 }
 
 
@@ -156,36 +158,12 @@ function createAllCards (dataIndexArr, parentCard) {
   // }
 
   removeAllChild(parentCard)
-  // removeAllChild(giftCardContainer)
 
   dataIndexArr.forEach((_, index) => {
     сreatCard(index, dataIndexArr, parentCard);
   });
 
-  // for( let index = 0; index < dataIndexPP.length; index += 1) {
-  //   сreatCard (index)
-  // }
 }
 
 
-// function testCreatCard () {
-//   removeAllChild(giftCardContainer)
-
-//   for( let i = 0; i < dataIndexPP.length; i += 1) {
-//     let indexPP = dataIndexPP[i]
-//     cardContentTitleOptions.text = data[indexPP].name
-//     const category = data[indexPP].category
-//     cardContentCategoryOptions.text = category
-//     cardBaseOptions.attributes = { 'data-card': `${getCategoryFromString(category)}`}
-
-//     const cardContentTitle = createEl(cardContentTitleOptions)
-//     const cardContentCategory = createEl(cardContentCategoryOptions)
-
-//     const cardContent = createEl({...cardContentOptions, children: [cardContentCategory, cardContentTitle]})
-//     const cardImg = createEl(cardImgOptions)
-
-//     createEl({...cardBaseOptions, children: [cardImg, cardContent], parent: giftCardContainer,})
-//   }
-// }
-
-export { createAllCards, dataIndexArrAll, dataIndexArrAllShuffle, dataIndexArrWork, dataIndexArrHealth, dataIndexArrHarmony, dataIndexPP, dataIndexBestPP, giftCardContainer, bestGiftCardContainer, }
+export { createAllCards, dataIndexArrAll, dataIndexArrAllShuffle, dataIndexArrWork, dataIndexArrHealth, dataIndexArrHarmony, randomGiftIndexArr, dataIndexPP, dataIndexBestPP, giftCardContainer, bestGiftCardContainer, }

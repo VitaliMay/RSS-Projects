@@ -5,7 +5,7 @@ const sliderControls = document.querySelector('.slider__controls')
 const sliderBtnLeft = document.querySelector('.slider-btn--left')
 const sliderBtnRight = document.querySelector('.slider-btn--right')
 
-let sliderPosition = 0
+let sliderPosition = 0  // устанавливаю позицию, можно переквалифицировать в клики
 let previousWidth = window.innerWidth; // для отслеживания ширины экрана (чтобы при изменении высоты не срабатывал risize)
 
 
@@ -17,10 +17,14 @@ if (sliderControls) {
 
 function sliderControlsRemote (event) {
   const sliderScreenWidth = sliderScreen.offsetWidth
+  // console.log('sliderScreenWidth', sliderScreenWidth)
+  // console.log('previousWidth', previousWidth)
   const sliderFilmWidthHidden = sliderFilm.offsetWidth - sliderScreenWidth
 
-  const isMobile = sliderScreenWidth < 768
+  // const isMobile = sliderScreenWidth <= 768
+  const isMobile = previousWidth <= 768
   const sliderStep = sliderFilmWidthHidden / (isMobile ? 6 : 3)
+  const sliderStepError = -sliderStep / 3  // право на ошибку, не хочу считать клики
 
   const { target } = event
 
@@ -33,8 +37,8 @@ function sliderControlsRemote (event) {
 
   sliderFilm.style.transform = `translateX(${sliderPosition}px)`
 
-  sliderBtnLeft.disabled = sliderPosition >= 0
-  sliderBtnRight.disabled = Math.abs(sliderPosition) >= sliderFilmWidthHidden
+  sliderBtnLeft.disabled = sliderPosition >= sliderStepError  // даю право на ошибку в треть шага
+  sliderBtnRight.disabled = Math.abs(sliderPosition) >= sliderFilmWidthHidden + sliderStepError
 
 }
 

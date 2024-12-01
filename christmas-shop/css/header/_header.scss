@@ -102,7 +102,8 @@
     transition: all 0.6s;
 
     &--disabled {
-      pointer-events: none;
+      // pointer-events: none;
+      cursor: default; // бред но по ТЗ надо чтобы меню закрывалось
 
       color: $primary;
       background: $primary-10;
@@ -128,16 +129,19 @@
   background: $static-white;
 
   @media screen and (max-width: 768.9px) {
-    padding-top: 50px; ////////////
+    padding-top: 60px; //////////// 50px нравится больше но по ПП так
 
     position: fixed;
-    right: -100%;
+    // right: -100%;
+    right: 0;
     top: 0;
     bottom: 0;
 
+    transform: translateX(100%);
+
     opacity: 0;
-    // transition: all 0.6s;
-    transition: right 0.6s ease, opacity 0.6s linear;
+    transition: transform 0.6s ease, opacity 0.6s linear;
+    // transition: right 0.6s ease, opacity 0.6s linear;
     // ease, linear, ease-in, ease-out
     z-index: 16;
 
@@ -170,13 +174,13 @@
   }
 
   &.open {
-    right: 0;
+    // right: 0;
+    transform: translateX(0%);
     opacity: 1;
-    // transition: all 0.6s;
-    transition: right 0.6s ease, opacity 0.6s ease-in-out;
+    // transition: right 0.6s ease, opacity 0.6s ease-in-out;
+    transition: transform 0.6s ease, opacity 0.6s ease-in-out;
     // ease, linear, ease-in, ease-out
   }
-
 }
 
 .menu__list {

@@ -16,7 +16,8 @@ function scrollUp () {
 
 function scrollBtnVisible (event) {
   if (window.innerWidth <= 768) { // Проверка ширину окна
-    if (document.documentElement.scrollTop > 64) { // Как только скрылось меню
+    if (document.documentElement.scrollTop > 300) { // По ТЗ
+    // if (document.documentElement.scrollTop > 64) { // Как только скрылось меню
         scrollBtn.classList.add('scroll-btn--visible');
     } else {
         scrollBtn.classList.remove('scroll-btn--visible');
