@@ -1,4 +1,4 @@
-const data = [
+const dataFix = [
   {
     "name": "Bug Magnet",
     "description": "Able to find bugs in code like they were placed there on purpose.",
@@ -432,7 +432,35 @@ const data = [
   }
 ]
 
-export { data }
+// const getData = async () => {
+//   const response = await fetch ('../data.json')
+//   const data = await response.json()
+//   // console.log('data', data)
+//   return data
+// }
+
+// const data = await getData()
+// // console.log(data)
+
+// export { data }
 
 
+let data; // Переменная для хранения данных
+
+const getData = async () => {
+  const response = await fetch('../data.json');
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
+  data = await response.json();
+  return data;
+}
+
+// Новый метод для получения данных и ожидания завершения
+const initializeData = async () => {
+  await getData(); // Ждем завершения загрузки
+  return data; // Возвращаем данные
+};
+
+export { initializeData };
 

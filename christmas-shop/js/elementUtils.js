@@ -25,6 +25,12 @@ function createEl (options) {
   return element
 }
 
+/********************************************************* */
+
+function createSvgEl(rawSvg) {
+  const svg = document.createRange().createContextualFragment(rawSvg);
+  return svg;
+}
 
 /********************************************************* */
 // Удаления у элемента всех дочерних
