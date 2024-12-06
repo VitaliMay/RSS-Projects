@@ -10,9 +10,9 @@ const secondsDoc = document.querySelector('.timer__item--second')
 const titleArrDoc = [...document.querySelectorAll('.timer__date')]
 
 const currentYear = new Date().getFullYear();
-const newNextYear = new Date(Date.UTC(currentYear + 1, 0, 1, 0, 0, 0, 0)) // По ТЗ в UTC+0
+// const newNextYear = new Date(Date.UTC(currentYear + 1, 0, 1, 0, 0, 0, 0)) // По ТЗ в UTC+0
 // newNextYear.setHours(newNextYear.getHours() - 3); // Минское время UTC+3
-// const newNextYear = new Date(currentYear + 1, 0, 1, 0, 0, 0, 0)
+const newNextYear = new Date(currentYear + 1, 0, 1, 0, 0, 0, 0)
 
 // console.log(newNextYear)
 // console.log(newNextYear.toString()); // Вывод в локальном часовом поясе
@@ -70,7 +70,7 @@ function timerContentWriter () {
   // titleArrDoc[3].textContent = (seconds === 1) ? 'second' : 'seconds'
 
   // По ТЗ не надо
-  // timerTitleWriter(days, hours, minutes, seconds)
+  timerTitleWriter(days, hours, minutes, seconds)
 
 }
 

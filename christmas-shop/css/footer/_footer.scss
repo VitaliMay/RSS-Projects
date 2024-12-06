@@ -51,16 +51,16 @@
 
   @include cansel-color-touch;
 
-  @media screen and (max-width: 1060.8px) { // для ревьювера
-    flex-basis: 650px;
-  }
-  // @media screen and (max-width: 800px) { // вернуть после кросс-чека
-  //   flex-basis: 380px;
+  // @media screen and (max-width: 1060.8px) { // для ревьювера
+  //   flex-basis: 650px;
   // }
+  @media screen and (max-width: 800px) { // вернуть после кросс-чека
+    flex-basis: 380px;
+  }
   @media screen and (max-width: 670px) {
     flex-basis: 330px;
   }
-  
+
 
   max-width: 100%;
   padding: 20px 20px;
