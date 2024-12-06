@@ -40,12 +40,16 @@ class DataService {
   }
 
   async getData() {
+    let urlData = '../data.json'
     const pathPage = window.location.pathname
-    console.log(pathPage)
-    let urlData = '/data.json'
-    // if (window.location.pathname !== '/index.html') { // чтобы корректно работало для всех страниц
-    //   urlData = '../data.json'
-    // }
+    const pathPageArrLastEl = pathPage.split('/').slice(-1)
+
+    console.log(pathPage, pathPageArrLastEl)
+
+    if (!pathPageArrLastEl || pathPageArrLastEl === 'index.html') {
+      urlData = './data.json'
+    }
+
     const response = await fetch(`${urlData}`); // Получаем данные
     if (!response.ok) {
       throw new Error('Network response was not ok');
