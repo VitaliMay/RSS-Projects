@@ -6,6 +6,8 @@ import { giftCardContainer, createAllCards, } from "./card.js";
 const tabContainer = document.querySelector('.gift-tab-container')
 const tabsAll = document.querySelectorAll('.tab')
 
+// Для ПП
+// const dataIndexPP = [1, 13, 0, 2, 12, 26, 14, 25, 15, 3, 24, 27]
 
 const initGifts = async () => {
   try {
@@ -16,6 +18,11 @@ const initGifts = async () => {
 
     const { dataIndexArrWork, dataIndexArrHealth, dataIndexArrHarmony } = dataIndexArrCreater(data, dataIndexArrAllShuffle);
 
+    console.log('All', dataIndexArrAllShuffle)
+    // console.log('All', dataIndexPP) // для ПП
+    console.log('work', dataIndexArrWork)
+    console.log('health', dataIndexArrHealth)
+    console.log('harmony', dataIndexArrHarmony)
 
     const categoryObjIndexArr = {
       'all': dataIndexArrAllShuffle,

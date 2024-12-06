@@ -5,6 +5,7 @@ import { initData } from "./data.js"
 const giftCardContainer = document.querySelector('.gift')
 const bestGiftCardContainer = document.querySelector('.bestGift')
 
+// Для ПП
 const dataIndexPP = [1, 13, 0, 2, 12, 26, 14, 25, 15, 3, 24, 27]
 const dataIndexBestPP = [1, 15, 3, 27]
 
@@ -16,6 +17,8 @@ const initBestGifts = async () => {
     // console.log('data', data);
 
     const randomGiftIndexArr = getRandomIntegerArr(0, data.length - 1, 4);
+
+    console.log('Random', randomGiftIndexArr)
 
     // Создание карточек в bestGift
     createAllCards(randomGiftIndexArr, bestGiftCardContainer, data); 
