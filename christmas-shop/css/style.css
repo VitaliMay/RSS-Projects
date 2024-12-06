@@ -407,6 +407,7 @@ html {
 Надо убрать для мобилок*/
 html {
   height: 100.1%;
+  scrollbar-gutter: stable;
 }
 
 body {
@@ -435,11 +436,6 @@ body {
 /* убираю скролл */
 body.lock {
   overflow: hidden;
-}
-@media (hover: hover) {
-  body.lock {
-    margin-right: 17px;
-  }
 }
 
 /***** header ***********************************************************************/

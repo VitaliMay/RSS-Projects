@@ -1,6 +1,6 @@
 
-import { createEl, removeAllChild, shuffleArray, toUpperFirstLetter } from "./elementUtils.js";
-import { data } from "./data.js"
+import { createEl, removeAllChild, toUpperFirstLetter, } from "./elementUtils.js";
+import { initData } from "./data.js"
 import { bestGiftCardContainer, giftCardContainer } from "./card.js";
 
 const body = document.querySelector('body')
@@ -29,10 +29,25 @@ const containers = [bestGiftCardContainer, giftCardContainer];
 // Проходим по каждому элементу в массиве
 containers.forEach(container => {
     if (container) { // если есть на странице - навешиваем обработчик
-        container.addEventListener('click', catchCard);
+        container.addEventListener('click', initModal);
+        // container.addEventListener('click', catchCard);
     }
 });
 
+/**************************************************** */
+/**************************************************** */
+
+async function initModal (event) {
+  try {
+    const data = await initData()
+    catchCard (event, data)
+  }
+  catch (error) {
+    console.error('Error fetching data:', error);
+  }
+}
+
+/**************************************************** */
 /**************************************************** */
 
 const superpowersItemOptions = {
@@ -123,7 +138,7 @@ function createStars (starsActiveNumber) {
 
 /**************************************************** */
 
-function catchCard (event) {
+function catchCard (event, data) {
   const { target } = event
   const giftCard = target.closest('.gift-card__btn')
   // const giftCard = target.closest('.gift-card')

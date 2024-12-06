@@ -1,22 +1,63 @@
 
-// import { createAllCards, dataIndexArrAll, dataIndexPP, dataIndexArrAllShuffle, dataIndexArrWork, dataIndexArrHealth, dataIndexArrHarmony, giftCardContainer, } from "./card.js";
+import { initData } from "./data.js";
+import { shuffleArray, getCategoryFromString, } from "./elementUtils.js";
+import { giftCardContainer, createAllCards, } from "./card.js";
 
 const tabContainer = document.querySelector('.gift-tab-container')
 const tabsAll = document.querySelectorAll('.tab')
 
-if (tabContainer) {
-  tabContainer.addEventListener('click', selectСategory)
+
+const initGifts = async () => {
+  try {
+    const data = await initData(); // Ждем завершения и получения данных
+
+    const dataIndexArrAll = [...Array(data.length).keys()];
+    const dataIndexArrAllShuffle = shuffleArray(dataIndexArrAll);
+
+    const { dataIndexArrWork, dataIndexArrHealth, dataIndexArrHarmony } = dataIndexArrCreater(data, dataIndexArrAllShuffle);
+
+
+    const categoryObjIndexArr = {
+      'all': dataIndexArrAllShuffle,
+      // 'all': dataIndexPP,
+      'for_work': dataIndexArrWork,
+      'for_health': dataIndexArrHealth,
+      'for_harmony': dataIndexArrHarmony,
+    }
+
+    createAllCards(dataIndexArrAllShuffle, giftCardContainer, data)
+
+    if (tabContainer) {
+      tabContainer.addEventListener('click', (event) => {
+        selectСategory(event, categoryObjIndexArr, data);
+      });
+    }
+
+  }
+  catch (error) {
+    console.error('Error fetching data:', error);
+  }
+
 }
 
-const categoryObjIndexArr = {
-  'all': dataIndexArrAllShuffle,
-  // 'all': dataIndexPP,
-  'for_work': dataIndexArrWork,
-  'for_health': dataIndexArrHealth,
-  'for_harmony': dataIndexArrHarmony,
-}
 
-function selectСategory (event) {
+/******************************************************************* */
+
+const dataIndexArrCreater = (data, dataIndexArrAllShuffle) => {
+  const dataIndexArrWork = [];
+  const dataIndexArrHealth = [];
+  const dataIndexArrHarmony = [];
+  dataIndexArrAllShuffle.forEach((item) => {
+    if (getCategoryFromString(data[item].category) === "for_work") dataIndexArrWork.push(item);
+    if (getCategoryFromString(data[item].category) === "for_health") dataIndexArrHealth.push(item);
+    if (getCategoryFromString(data[item].category) === "for_harmony") dataIndexArrHarmony.push(item);
+  });
+  return { dataIndexArrWork, dataIndexArrHealth, dataIndexArrHarmony };
+};
+
+
+function selectСategory (event, categoryObjIndexArr, data) {
+
   const { target } = event
   const tab = target.closest('.tab')
 
@@ -25,10 +66,11 @@ function selectСategory (event) {
     const dataIndexArr = categoryObjIndexArr[tabCategory]
 
     removeActiveClass(tabsAll)
-    createAllCards(dataIndexArr, giftCardContainer)
+    createAllCards(dataIndexArr, giftCardContainer, data)
     tab.classList.add('tab--active')
   }
 }
+
 
 function removeActiveClass (tabs) {
   tabs.forEach(tab => {
@@ -36,4 +78,4 @@ function removeActiveClass (tabs) {
   });
 }
 
-export { tabContainer }
+export { initGifts }

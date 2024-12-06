@@ -1,88 +1,71 @@
 
-import { createEl, removeAllChild, shuffleArray, getRandomIntegerArr } from "./elementUtils.js";
-import { initializeData } from "./data.js"
+import { createEl, removeAllChild, getRandomIntegerArr, getCategoryFromString } from "./elementUtils.js";
+import { initData } from "./data.js"
 
 const giftCardContainer = document.querySelector('.gift')
 const bestGiftCardContainer = document.querySelector('.bestGift')
-
-// console.log('data', data)
 
 const dataIndexPP = [1, 13, 0, 2, 12, 26, 14, 25, 15, 3, 24, 27]
 const dataIndexBestPP = [1, 15, 3, 27]
 
 /************************************************************** */
 
-const init = async () => {
+const initBestGifts = async () => {
   try {
-    const data = await initializeData(); // Ждем завершения и получения данных
-    console.log('data', data);
-
-    const dataIndexArrAll = [...Array(data.length).keys()];
-    const dataIndexArrAllShuffle = shuffleArray(dataIndexArrAll);
-
-    const { dataIndexArrWork, dataIndexArrHealth, dataIndexArrHarmony } = dataIndexArrCreater(data, dataIndexArrAllShuffle);
+    const data = await initData(); // Ждем завершения и получения данных
+    // console.log('data', data);
 
     const randomGiftIndexArr = getRandomIntegerArr(0, data.length - 1, 4);
 
-    // Логирование для проверки
-    console.log('All', dataIndexArrAllShuffle);
-    console.log('work', dataIndexArrWork);
-    console.log('health', dataIndexArrHealth);
-    console.log('harmony', dataIndexArrHarmony);
-    console.log('Random', randomGiftIndexArr);
+    // Создание карточек в bestGift
+    createAllCards(randomGiftIndexArr, bestGiftCardContainer, data); 
 
-    // Создание карточек
-    createAllCards(randomGiftIndexArr, bestGiftCardContainer, data); // Используем одну из категорий для создания карточек
-    // createAllCards(dataIndexArrWork, giftCardContainer); // Используем одну из категорий для создания карточек
   } catch (error) {
     console.error('Error fetching data:', error);
   }
 };
 
-const dataIndexArrCreater = (data, dataIndexArrAllShuffle) => {
-  const dataIndexArrWork = [];
-  const dataIndexArrHealth = [];
-  const dataIndexArrHarmony = [];
-  dataIndexArrAllShuffle.forEach((item) => {
-    if (getCategoryFromString(data[item].category) === "for_work") dataIndexArrWork.push(item);
-    if (getCategoryFromString(data[item].category) === "for_health") dataIndexArrHealth.push(item);
-    if (getCategoryFromString(data[item].category) === "for_harmony") dataIndexArrHarmony.push(item);
-  });
-  return { dataIndexArrWork, dataIndexArrHealth, dataIndexArrHarmony };
-};
-
-init();
 
 /************************************************************** */
 
+function createAllCards (dataIndexArr, parentCard, data) {
 
-// const dataIndexArrAll = [...Array(data.length).keys()]
-// const dataIndexArrAllShuffle = shuffleArray(dataIndexArrAll)
+  if (!parentCard) {
+    return; // Если элемент не найден, выход из функции
+  }
 
-// function dataIndexArrCreater (data, dataIndexArrAllShuffle) {
-//   const dataIndexArrWork = []
-//   const dataIndexArrHealth = []
-//   const dataIndexArrHarmony = []
-//   dataIndexArrAllShuffle.forEach((item) => {
-//     if (getCategoryFromString(data[item].category) === "for_work") dataIndexArrWork.push(item);
-//     if (getCategoryFromString(data[item].category) === "for_health") dataIndexArrHealth.push(item);
-//     if (getCategoryFromString(data[item].category) === "for_harmony") dataIndexArrHarmony.push(item);
+  removeAllChild(parentCard)
 
-//   })
-//   return {dataIndexArrWork, dataIndexArrHealth, dataIndexArrHarmony,}
-// }
+  dataIndexArr.forEach((_, index) => {
+    сreatCard(index, dataIndexArr, parentCard, data);
+  });
 
+}
 
-// const {dataIndexArrWork, dataIndexArrHealth, dataIndexArrHarmony} = dataIndexArrCreater(data, dataIndexArrAllShuffle)
+function сreatCard (index, dataIndexArr, parentCard, data) {
 
-// const randomGiftIndexArr = getRandomIntegerArr(0, data.length - 1, 4)
+  const indexPP = dataIndexArr[index]  // вариант для PP
 
+  cardContentTitleOptions.text = data[indexPP].name
+  const category = data[indexPP].category
+  cardContentCategoryOptions.text = category
+  const categoryValid = getCategoryFromString(category)
 
-// console.log('All', dataIndexArrAllShuffle)
-// console.log('work', dataIndexArrWork)
-// console.log('health', dataIndexArrHealth)
-// console.log('harmony', dataIndexArrHarmony)
-// console.log('Random', randomGiftIndexArr)
+  cardBaseOptions.attributes = { 'data-card': categoryValid, }
+
+  cardBtnOptions.attributes['data-index'] = `${indexPP}`
+  cardBtnOptions.attributes['data-card'] = categoryValid  // дублирование но лень css менять
+  const cardBtn = createEl(cardBtnOptions)
+  const cardContentTitle = createEl(cardContentTitleOptions)
+  const cardContentCategory = createEl(cardContentCategoryOptions)
+
+  const cardContent = createEl({...cardContentOptions, children: [cardContentCategory, cardContentTitle]})
+  const cardImg = createEl(cardImgOptions)
+
+  createEl({...cardBaseOptions, children: [cardImg, cardContent, cardBtn], parent: parentCard,})
+}
+
+/************************************************************* */
 
 
 const cardBaseOptions = {
@@ -123,52 +106,4 @@ const cardContentTitleOptions = {
 }
 
 
-function getCategoryFromString(str) {
-  const lowerCasedString = str.toLowerCase();
-  const trimmedString = lowerCasedString.trim();
-  const resultString = trimmedString.replace(/\s/g, '_');
-
-  return resultString;
-}
-
-
-async function сreatCard (index, dataIndexArr, parentCard, data) {
-    const indexPP = dataIndexArr[index]  // вариант для PP
-
-    cardContentTitleOptions.text = data[indexPP].name
-    const category = await data[indexPP].category
-    cardContentCategoryOptions.text = category
-    const categoryValid = getCategoryFromString(category)
-
-    cardBaseOptions.attributes = { 'data-card': categoryValid, }
-
-    cardBtnOptions.attributes['data-index'] = `${indexPP}`
-    cardBtnOptions.attributes['data-card'] = categoryValid  // дублирование но лень css менять
-    const cardBtn = createEl(cardBtnOptions)
-    const cardContentTitle = createEl(cardContentTitleOptions)
-    const cardContentCategory = createEl(cardContentCategoryOptions)
-
-    const cardContent = createEl({...cardContentOptions, children: [cardContentCategory, cardContentTitle]})
-    const cardImg = createEl(cardImgOptions)
-
-    createEl({...cardBaseOptions, children: [cardImg, cardContent, cardBtn], parent: parentCard,})
-}
-
-function createAllCards (dataIndexArr, parentCard, data) {
-
-  if (!parentCard) {
-    return; // Если элемент не найден, выход из функции
-  }
-
-
-  removeAllChild(parentCard)
-
-  dataIndexArr.forEach((_, index) => {
-    сreatCard(index, dataIndexArr, parentCard);
-  });
-
-}
-
-
-export { createAllCards, dataIndexPP, dataIndexBestPP, giftCardContainer, bestGiftCardContainer, }
-// export { createAllCards, dataIndexArrAll, dataIndexArrAllShuffle, dataIndexArrWork, dataIndexArrHealth, dataIndexArrHarmony, randomGiftIndexArr, dataIndexPP, dataIndexBestPP, giftCardContainer, bestGiftCardContainer, }
+export { initBestGifts, dataIndexPP, dataIndexBestPP, giftCardContainer, bestGiftCardContainer, createAllCards, }

@@ -89,9 +89,20 @@ function toUpperFirstLetter (str) {
   return strLowerCase.charAt(0).toUpperCase() + strLowerCase.slice(1);
 }
 
+/*********************************************************************** */
+// Валидирую строку для однообразия в data атрибуте
+
+function getCategoryFromString(str) {
+  const lowerCasedString = str.toLowerCase();
+  const trimmedString = lowerCasedString.trim();
+  const resultString = trimmedString.replace(/\s/g, '_');
+
+  return resultString;
+}
 
 
-export {createEl, removeAllChild, shuffleArray, getRandomIntegerArr, toUpperFirstLetter}
+
+export {createEl, removeAllChild, shuffleArray, getRandomIntegerArr, toUpperFirstLetter, getCategoryFromString}
 
 
 /* пробую решить задав право на ошибку в 2px     */
