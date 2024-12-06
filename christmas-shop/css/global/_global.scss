@@ -113,6 +113,7 @@ html {
 
 html {
 	height: 100.1%;
+  scrollbar-gutter: stable; // чтобы не дёргалось при открытии модалок
 }
 
 body {
@@ -151,9 +152,9 @@ body {
 body.lock {
   overflow: hidden;
 
-  @media (hover: hover) {
-    margin-right: 17px; // чтобы не дёргалось при открытии модалки
-  }
+  // @media (hover: hover) {
+  //   margin-right: 17px; // чтобы не дёргалось при открытии модалки
+  // }
 }
 
 

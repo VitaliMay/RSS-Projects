@@ -9,6 +9,7 @@ burgerButton.addEventListener("click", function(event) {
   burgerButton.classList.toggle("rotade")
   body.classList.toggle('lock')
   // fon.classList.toggle('work')
+  window.scrollTo({ top: 0, behavior: 'smooth' }) // чтобы крестик не был частично скрыт
 
 })
 

@@ -407,6 +407,7 @@ html {
 Надо убрать для мобилок*/
 html {
   height: 100.1%;
+  scrollbar-gutter: stable;
 }
 
 body {
@@ -435,11 +436,6 @@ body {
 /* убираю скролл */
 body.lock {
   overflow: hidden;
-}
-@media (hover: hover) {
-  body.lock {
-    margin-right: 17px;
-  }
 }
 
 /***** header ***********************************************************************/
@@ -1498,9 +1494,9 @@ body.lock {
   row-gap: 12px;
   transition: color 0.6s;
 }
-@media screen and (max-width: 1060.8px) {
+@media screen and (max-width: 800px) {
   .footer-card {
-    flex-basis: 650px;
+    flex-basis: 380px;
   }
 }
 @media screen and (max-width: 670px) {
