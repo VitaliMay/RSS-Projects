@@ -1,5 +1,5 @@
 
-import { createEl, removeAllChild, toUpperFirstLetter, } from "./elementUtils.js";
+import { createEl, createSvgEl, removeAllChild, toUpperFirstLetter, } from "./elementUtils.js";
 import { initData } from "./data.js"
 import { bestGiftCardContainer, giftCardContainer } from "./card.js";
 
@@ -111,15 +111,39 @@ function createStars (starsActiveNumber) {
 
     const star = createEl(starsOptionsCreate)
 
-    star.insertAdjacentHTML('beforeend', `
+    let svgSpritePath = './assets/img/svgSprite.svg#logo__img-symbol'
+
+    if (giftCardContainer) { // на разных страницах разные пути
+      svgSpritePath = '../assets/img/svgSprite.svg#logo__img-symbol'
+    }
+
+    // Вынес SVG-спрайт в отдельный файл и изменил путь
+    // Т.е. остальные варианты с путями без изменений
+    const svgMarkup = `
       <svg class="logo__img" width="16" height="16">
-        <use href="#logo__img-symbol"></use>
+        <use href="${svgSpritePath}"></use>
       </svg>
-    `);
+    `
+    // const svgMarkup = `
+    //   <svg class="logo__img" width="16" height="16">
+    //     <use href="#logo__img-symbol"></use>
+    //   </svg>
+    // `
+
+    const svgElement = createSvgEl(svgMarkup)
+    star.append(svgElement)
+
+    // Не плохой вариант
+
+    // star.insertAdjacentHTML('beforeend', `
+    //   <svg class="logo__img" width="16" height="16">
+    //     <use href="#logo__img-symbol"></use>
+    //   </svg>
+    // `);
 
     // В данном случае только самого себя путать
 
-    // <use xlink:href="#logo__img-symbol"></use>
+    // <use xlink:href="#logo__img-symbol"></use>  // надо href вместо xlink:href
     // const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     // svg.setAttribute("class", "logo__img");
     // svg.setAttribute("width", "16");

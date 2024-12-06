@@ -26,10 +26,11 @@ function createEl (options) {
 }
 
 /********************************************************* */
+// для SVG
 
-function createSvgEl(rawSvg) {
-  const svg = document.createRange().createContextualFragment(rawSvg);
-  return svg;
+function createSvgEl(svgMarkup) {
+  const svgEl = document.createRange().createContextualFragment(svgMarkup);
+  return svgEl;
 }
 
 /********************************************************* */
@@ -102,7 +103,7 @@ function getCategoryFromString(str) {
 
 
 
-export {createEl, removeAllChild, shuffleArray, getRandomIntegerArr, toUpperFirstLetter, getCategoryFromString}
+export {createEl, createSvgEl, removeAllChild, shuffleArray, getRandomIntegerArr, toUpperFirstLetter, getCategoryFromString}
 
 
 /* пробую решить задав право на ошибку в 2px     */
