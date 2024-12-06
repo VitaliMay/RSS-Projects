@@ -1,5 +1,6 @@
 
-import { initData } from "./data.js";
+import { instanceData } from "./data.js";
+// import { initData } from "./data.js";
 import { shuffleArray, getCategoryFromString, } from "./elementUtils.js";
 import { giftCardContainer, createAllCards, } from "./card.js";
 
@@ -11,7 +12,8 @@ const tabsAll = document.querySelectorAll('.tab')
 
 const initGifts = async () => {
   try {
-    const data = await initData(); // Ждем завершения и получения данных
+    const data = await instanceData.initData(); // Ждем завершения и получения данных
+    // const data = await initData(); // Ждем завершения и получения данных
 
     const dataIndexArrAll = [...Array(data.length).keys()];
     const dataIndexArrAllShuffle = shuffleArray(dataIndexArrAll);

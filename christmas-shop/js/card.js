@@ -1,6 +1,7 @@
 
 import { createEl, removeAllChild, getRandomIntegerArr, getCategoryFromString } from "./elementUtils.js";
-import { initData } from "./data.js"
+import { instanceData as dataSingleton } from "./data.js"
+// import { initData } from "./data.js"
 
 const giftCardContainer = document.querySelector('.gift')
 const bestGiftCardContainer = document.querySelector('.bestGift')
@@ -13,7 +14,8 @@ const dataIndexBestPP = [1, 15, 3, 27]
 
 const initBestGifts = async () => {
   try {
-    const data = await initData(); // Ждем завершения и получения данных
+    const data = await dataSingleton.initData()
+    // const data = await initData(); // Ждем завершения и получения данных
     // console.log('data', data);
 
     const randomGiftIndexArr = getRandomIntegerArr(0, data.length - 1, 4);

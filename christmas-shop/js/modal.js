@@ -1,6 +1,7 @@
 
 import { createEl, createSvgEl, removeAllChild, toUpperFirstLetter, } from "./elementUtils.js";
-import { initData } from "./data.js"
+import { instanceData as dataRename } from "./data.js"
+// import { initData } from "./data.js"
 import { bestGiftCardContainer, giftCardContainer } from "./card.js";
 
 const body = document.querySelector('body')
@@ -39,7 +40,8 @@ containers.forEach(container => {
 
 async function initModal (event) {
   try {
-    const data = await initData()
+    const data = await dataRename.initData()
+    // const data = await initData()
     catchCard (event, data)
   }
   catch (error) {
