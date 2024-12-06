@@ -40,7 +40,12 @@ class DataService {
   }
 
   async getData() {
-    const response = await fetch('../data.json'); // Получаем данные
+    console.log(window.location.pathname)
+    let urlData = './data.json'
+    if (window.location.pathname !== '/index.html') { // чтобы корректно работало для всех страниц
+      urlData = '../data.json'
+    }
+    const response = await fetch(`${urlData}`); // Получаем данные
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
