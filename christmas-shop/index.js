@@ -17,8 +17,8 @@ body.addEventListener('contextmenu', function (event) {
 });
 
 document.addEventListener("DOMContentLoaded", function() {
-  initBestGifts ()
   timerInit ()
+  initBestGifts ()
   initGifts ()
   // createAllCards(dataIndexBestPP, bestGiftCardContainer) // для ПП
   // createAllCards(dataIndexPP, giftCardContainer) // для ПП
