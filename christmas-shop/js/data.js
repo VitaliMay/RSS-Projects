@@ -42,14 +42,14 @@ class DataService {
   async getData() {
     let urlData = '../data.json'
     const pathPage = window.location.pathname
-    const pathPageArrLastEl = pathPage.split('/').slice(-1)
-
-    console.log(pathPage, pathPageArrLastEl)
+    const pathPageArrLastEl = pathPage.split('/').slice(-1)[0]
 
     if (!pathPageArrLastEl || pathPageArrLastEl === 'index.html') {
-      // urlData = './data.json'
-      urlData = 'data.json'
+      urlData = './data.json'
+      // urlData = 'data.json'
     }
+
+    console.log(pathPage, pathPageArrLastEl, urlData)
 
     const response = await fetch(`${urlData}`); // Получаем данные
     if (!response.ok) {
