@@ -46,10 +46,9 @@ class DataService {
 
     if (!pathPageArrLastEl || pathPageArrLastEl === 'index.html') {
       urlData = './data.json'
-      // urlData = 'data.json'
     }
 
-    console.log(pathPage, pathPageArrLastEl, urlData)
+    // console.log(`page=${pathPage}`, ` lastEl=${pathPageArrLastEl}`, ` urlData=${urlData}`)
 
     const response = await fetch(`${urlData}`); // Получаем данные
     if (!response.ok) {
