@@ -42,7 +42,10 @@ function createAllCards (dataIndexArr, parentCard, data) {
   removeAllChild(parentCard)
 
   dataIndexArr.forEach((_, index) => {
-    сreatCard(index, dataIndexArr, parentCard, data);
+    setTimeout(() => {  // для анимации появления
+      сreatCard(index, dataIndexArr, parentCard, data);
+    }, index * 80);
+    // сreatCard(index, dataIndexArr, parentCard, data);
   });
 
 }

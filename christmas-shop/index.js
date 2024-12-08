@@ -2,7 +2,6 @@
 import { timerInit } from "./js/timer.js";
 import { signatureScore } from "./js/score.js";
 import { initBestGifts, dataIndexPP, dataIndexBestPP, giftCardContainer, bestGiftCardContainer } from "./js/card.js";
-// import { createAllCards, dataIndexArrAll, dataIndexArrAllShuffle, dataIndexPP, dataIndexBestPP, giftCardContainer, bestGiftCardContainer } from "./js/card.js";
 import { burgerButton } from "./js/burger.js";
 import { modalContainer, body } from "./js/modal.js";
 import { sliderControls } from "./js/slider.js";
@@ -17,9 +16,13 @@ body.addEventListener('contextmenu', function (event) {
 });
 
 document.addEventListener("DOMContentLoaded", function() {
-  timerInit ()
-  initBestGifts ()
-  initGifts ()
+  if (bestGiftCardContainer) {
+    timerInit ()
+    initBestGifts ()
+  }
+  else {
+    initGifts ()
+  }
   // createAllCards(dataIndexBestPP, bestGiftCardContainer) // для ПП
   // createAllCards(dataIndexPP, giftCardContainer) // для ПП
 
