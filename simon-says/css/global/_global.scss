@@ -1,0 +1,175 @@
+
+
+/******** global *****************************************************/
+/******** global *****************************************************/
+/* сбрасываю, то что может мешать */
+
+*,
+*::after,
+*::before{
+  box-sizing: inherit;
+}
+
+ul[class],
+ol[class] {
+  padding: 0;
+}
+
+body,
+h1,h2,h3,h4,h5,h6,
+p,
+ul,ol,li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+ul[class] {
+  list-style: none;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+a{
+  text-decoration: none;
+  /*чтобы наследовали цвет родителя*/
+  color: inherit;
+
+  /*чтобы везде не прописывать вместо дефолтного*/
+  @include custom-cursor;
+}
+
+button {
+  border: none;
+  outline: none; /*убираю фокус*/
+  background: none;
+  appearance: none; /* Removes platform-specific styling */
+  color: inherit;
+
+  border: solid 2px blue; /*чтобы увидеть кнопку*/
+}
+
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url("../assets/fonts/montserrat/Montserrat-Regular.woff2") format('woff2'),
+       url("../assets/fonts/montserrat/Montserrat-Regular.woff") format('woff'),
+       url("../assets/fonts/montserrat/Montserrat-Regular.ttf") format('truetype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url("../assets/fonts/montserrat/Montserrat-SemiBold.woff2") format('woff2'),
+       url("../assets/fonts/montserrat/Montserrat-SemiBold.woff") format('woff'),
+       url("../assets/fonts/montserrat/Montserrat-SemiBold.ttf") format('truetype');
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Allura';
+  src: url("../assets/fonts/allura/Allura-Regular.woff2") format('woff2'),
+       url("../assets/fonts/allura/Allura-Regular.woff") format('woff'),
+       url("../assets/fonts/allura/Allura-Regular.ttf") format('truetype');
+  // src: url("../assets/fonts/Allura-Regular.ttf");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+// @ff
+
+/***************************************************************/
+/***************************************************************/
+* {
+  box-sizing: border-box;
+}
+
+html {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+
+  font-size: 10px; // для rem
+}
+
+
+/* чтобы прижать футер к низу страницы*/
+/*! чтобы всегда была полоса прокрутки и не дергалось при пиксель перфект. 
+Надо убрать для мобилок*/
+
+html {
+	height: 100.1%;
+}
+
+body {
+  // min-width: 100vw;
+  // width: 100vw;
+	height: 100%;
+  background-color: white; // если вдруг пользователь поменял дефолтные настройки
+}
+
+/* чтобы прижать футер к низу страницы*/
+
+.wrapper {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+
+/* чтобы прижать футер к низу страницы*/
+.main {
+	// flex: 1 0 auto;
+  flex-grow: 1;
+
+  // background-color: $primary;
+  // border-radius: 20px;
+}
+.footer {
+	flex: 0 0 auto;
+}
+
+
+/* убираю скролл */
+body.lock {
+  overflow: hidden;
+
+  @media (hover: hover) {
+    margin-right: 17px; // чтобы не дёргалось при открытии модалки
+  }
+}
+
+
+/* Hidden */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+  outline: 0;
+  outline-offset: 0;
+}
+
