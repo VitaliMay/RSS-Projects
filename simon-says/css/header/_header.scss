@@ -1,0 +1,23 @@
+
+/***** header ***********************************************************************/
+/***** header ***********************************************************************/
+
+h1 {
+  // @include header-1;
+  text-align: center;
+  // margin-top: 40px;
+  padding: 40px 0 10px 0;
+  @include caption;
+  color: $primary;
+}
+
+.check-h2 {
+  text-align: center;
+  padding: 0 0 20px 0;
+  @include caption-check-h2;
+  color: $tag-pink;
+}
+
+/***********************************************
+
+
