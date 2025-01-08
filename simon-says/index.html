@@ -14,7 +14,32 @@
   <script type="module" src="./app.js" crossorigin></script>
 </head>
 <body>
-  <h1>Simon Says</h1>
+	<div class="wrapper">
+		<header class="header">
+      <div class="level">
+        <div class="level__easy level__easy_disabled key">easy</div>
+        <div class="level__medium level__medium_disabled key">medium</div>
+        <div class="level__hard level__hard_active key">hard</div>
+      </div>
+      <div class="start">
+        <h1>Simon Says</h1>
+        <div class="key keyboard-space">Start</div>
+      </div>
+      <div class="info">
+        <div class="info__round key key_info key_info-round">5 round</div>
+        <div class="info__new-game  key key_info">new game</div>
+        <div class="info__repeat  key key_info">Repeat the sequence</div>
+      </div>
+		</header>
+		<main class="main">
+      <input type="text" class="input-text" value="wwwwww" readonly>
+			<div class="keyboard">
+				<div class="keyboard-num"></div>
+				<div class="keyboard-letter"></div>
+        <!-- <div class="key keyboard-space">Start</div> -->
+			</div>
+		</main>
+	</div>
 
 </body>
 </html>

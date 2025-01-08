@@ -1,0 +1,164 @@
+
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+
+  align-items: center;
+}
+
+
+.keyboard-letter {
+  display: flex;
+  column-gap: 10px;
+  row-gap: 10px;
+
+  justify-content: center;
+  flex-wrap: wrap;
+
+  max-width: calc(var(--size-tile)*10 + var(--size-gap)*9);
+  // max-width: calc(var(--size-tile)*10 + 90px);
+}
+
+.keyboard-num {
+  display: flex;
+  column-gap: 10px;
+
+  justify-content: center;
+}
+
+
+.key {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: var(--size-tile);
+  height: var(--size-tile);
+
+  cursor: pointer;
+  border-radius: 5px;
+  text-align: center;
+
+  // border: solid 2px blue;
+
+  @include caption-check-h2;
+  // color: $tag-pink;
+  color: $tag-green;
+  // color: rgb(132, 127, 128);
+
+  background: linear-gradient(to top, #e0e0e0, #ffffff);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.3);
+
+  transition: all 0.3s ease;
+
+  &_info {
+    width: 100%;
+    height: calc(var(--size-tile)/1.5);
+    font-size: 13px;
+
+    @media screen and (max-width: 640px) {
+      height: calc(var(--size-tile)*1)
+    }
+  }
+
+  &_info-round {
+    background: inherit;
+    box-shadow: none;
+    color: $tag-grey;
+    font-size: 18px;
+  }
+}
+
+.key:active {
+  // color: rgb(251, 251, 251);
+  color: $tag-pink;
+
+  // background: linear-gradient(to bottom, rgb(254, 66, 246), rgb(255, 67, 247));
+  background: linear-gradient(to bottom, #e0e0e0, #ffffff);
+  // background: linear-gradient(to bottom, rgb(224, 224, 224), rgb(255, 255, 255));
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2);
+  // transform: translateY(-2px); /* Поднятие кнопки вверх */
+  transform: translateY(2px); /* Нажатие кнопки */
+  
+  @include cansel-color-touch;
+}
+
+
+.keyboard-space {
+  width: 100%;
+  max-width: calc(var(--size-tile)*6);
+  // height: var(--size-tile);
+}
+
+.level,
+.info {
+  // width: 100%;
+  // max-width: calc(var(--size-tile)*10 + 90px);
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+  justify-content: space-around;
+
+}
+
+.info {
+  width: 100%;
+  max-width: calc(var(--size-tile)*3);
+
+  @media screen and (max-width: 640px) {
+    max-width: calc(var(--size-tile)*5);
+  }
+}
+
+.level__easy,
+.level__medium,
+.level__hard {
+  width: 100%;
+  min-width: calc(var(--size-tile)*3);
+  height: calc(var(--size-tile)/1.5);
+  @include caption;
+  font-size: 18px;
+
+  @media screen and (max-width: 640px) {
+    height: calc(var(--size-tile)/1);
+  }
+
+  &_active {
+    // color: $tag-grey;
+    color: $tag-pink;
+
+    background: linear-gradient(to bottom, #e0e0e0, #ffffff);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2);
+    transform: translateY(2px); /* Нажатие кнопки */
+  }
+
+  &_disabled {
+    // color: $tag-grey;
+    color: $tag-white;
+
+    background: linear-gradient(to bottom, rgb(220, 220, 220), rgb(236, 236, 236));
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2);
+    transform: translateY(2px); /* Нажатие кнопки */
+  }
+}
+
+/*************************************/
+
+.input-text {
+  display: block;
+  @include caption-check-h2;
+  color: $tag-grey;
+
+  font-size: 31px;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 360px;
+
+  padding-left: 10px;
+  padding-bottom: 10px;
+
+  // pointer-events: none;
+  border: none;
+  outline: none;
+}

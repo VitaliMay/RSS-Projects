@@ -6,9 +6,11 @@ h1 {
   // @include header-1;
   text-align: center;
   // margin-top: 40px;
-  padding: 40px 0 10px 0;
+  padding: 16px 0 10px 0;
   @include caption;
   color: $primary;
+
+  // max-width: calc(var(--size-tile)*10 + 90px);
 }
 
 .check-h2 {
@@ -16,8 +18,32 @@ h1 {
   padding: 0 0 20px 0;
   @include caption-check-h2;
   color: $tag-pink;
+
+  // width: 100%;
+  min-width: calc(var(--size-tile)*3);
+  background: yellow;
 }
 
-/***********************************************
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 20px;
+}
 
+.start {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  @media screen and (max-width: 640px) {
+    order: 3;
+  }
+}
+
+// .keyboard-num {
+//   display: flex;
+//   column-gap: 10px;
+
+//   justify-content: center;
+// }
 
