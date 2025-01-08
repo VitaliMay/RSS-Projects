@@ -1,0 +1,181 @@
+
+.gift-section {
+
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1440px;
+
+  padding: 60px 8px;
+
+  border-radius: 20px;
+
+  background-color: $primary;
+  // background-image: url(../assets/img/bg-garland.png);
+  background-image: url(../assets/img/bg-garland.webp);
+  @supports not (background-image: url(../assets/img/bg-garland.webp)) {
+    background-image: url(../assets/img/bg-garland.png);
+  }
+
+  background-repeat: no-repeat;
+  background-clip: border-box;
+  background-position: top;
+  background-size: 100%;
+  // background-size: contain;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  overflow: hidden;
+}
+
+.gift-container {
+
+  width: 100%;
+  max-width: 1276px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  row-gap: 20px;
+
+  color: $static-white;
+
+}
+
+.gift-content {
+  width: 100%;
+  max-width: 470px; // чтобы перестраивалось по макету на 768
+  padding: 0 40px;  // чтобы перестраивалось по макету на 768
+
+  @media screen and (max-width: 500px) {
+    padding: 0 0;
+  }
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+
+  &__title {
+    @include header-1;
+  }
+}
+
+.gift-tab-container {
+  display: flex;
+  justify-content: center;
+  column-gap: 8px;
+
+  @media screen and (max-width: 500px) {
+    // width: 100%;
+    // justify-content: space-between;
+    column-gap: 0;
+  }
+}
+
+.tab {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  flex-shrink: 0;
+  border: none;
+  border-radius: 12px;
+  // border: solid 1px inherit;
+  padding: 12px 20px;
+
+  @include action-small;
+
+  transition: all 0.6s;
+
+  @media screen and (max-width: 500px) {
+    padding: 12px 8px;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      transition: all 0.6s;
+      @include custom-cursor;
+
+      // border-radius: 12px;
+      background-color: $static-white-20;
+    }
+  }
+
+
+  &--active {
+    // border-radius: 12px;
+    background-color: $static-white-20;
+    // cursor: default;
+  }
+  &--active:hover {
+    // border-radius: 12px;
+    // background-color: $static-white-20;
+    cursor: default;
+  }
+
+}
+
+.gift {
+  display: flex;
+  justify-content: center;
+  column-gap: 12px;
+  row-gap: 12px;
+  flex-wrap: wrap;
+  width: 100%;
+
+  // @media screen and (max-width: 1320px) {
+  //   max-width: 800px;
+  // }
+}
+
+/********************************************************************/
+// Кнопка скрола
+
+.scroll-btn {
+  position: fixed;
+  // z-index: -100;  // не действует transition
+  z-index: 0;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.8s, opacity 0.8s;
+  pointer-events: none;
+
+  color: $primary;
+
+  &__img--up {
+    transform: rotate(-90deg);
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      @include custom-cursor;
+    }
+  }
+
+  right: 8px;
+  bottom: 8px;
+
+  display: flex;
+  width: 56px;
+  height: 56px;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 100px;
+  border: 1px solid $primary;
+  background: $static-white;
+}
+
+.scroll-btn.scroll-btn--visible {
+  z-index: 10;  // на всякий случай
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0.8s, opacity 0.8s;
+  pointer-events: all;
+}
+
