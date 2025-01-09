@@ -385,7 +385,6 @@ button {
      -moz-appearance: none;
           appearance: none; /* Removes platform-specific styling */
   color: inherit;
-  border: solid 2px blue; /*чтобы увидеть кнопку*/
 }
 
 @font-face {
@@ -481,7 +480,7 @@ body.lock {
 
 /***** header ***********************************************************************/
 /***** header ***********************************************************************/
-h1 {
+.title-h1 {
   text-align: center;
   padding: 16px 0 10px 0;
   font-family: Allura;
@@ -582,6 +581,7 @@ h1 {
   box-shadow: none;
   color: rgb(132, 127, 128);
   font-size: 18px;
+  cursor: default;
 }
 
 .key:active {
@@ -590,6 +590,19 @@ h1 {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2);
   transform: translateY(2px); /* Нажатие кнопки */
   -webkit-tap-highlight-color: transparent;
+}
+.key:active.key_info-round {
+  background: inherit;
+  box-shadow: none;
+  color: rgb(132, 127, 128);
+  font-size: 18px;
+  transform: translateY(0px); /* Убираю Нажатие кнопки */
+}
+.key:active.disabled {
+  background: linear-gradient(to bottom, rgb(220, 220, 220), rgb(236, 236, 236));
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2);
+  transform: translateY(2px); /* Нажатие кнопки */
+  color: rgb(247, 247, 247);
 }
 
 .keyboard-space {
@@ -615,9 +628,7 @@ h1 {
   }
 }
 
-.level__easy,
-.level__medium,
-.level__hard {
+.level__el {
   width: 100%;
   min-width: calc(var(--size-tile) * 3);
   height: calc(var(--size-tile) / 1.5);
@@ -629,27 +640,25 @@ h1 {
   font-size: 18px;
 }
 @media screen and (max-width: 640px) {
-  .level__easy,
-  .level__medium,
-  .level__hard {
+  .level__el {
     height: calc(var(--size-tile) / 1);
   }
 }
-.level__easy_active,
-.level__medium_active,
-.level__hard_active {
+
+.active {
   color: rgb(255, 67, 247);
   background: linear-gradient(to bottom, #e0e0e0, #ffffff);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2);
   transform: translateY(2px); /* Нажатие кнопки */
+  cursor: default;
 }
-.level__easy_disabled,
-.level__medium_disabled,
-.level__hard_disabled {
+
+.disabled {
   color: rgb(247, 247, 247);
   background: linear-gradient(to bottom, rgb(220, 220, 220), rgb(236, 236, 236));
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2);
   transform: translateY(2px); /* Нажатие кнопки */
+  cursor: default;
 }
 
 /*************************************/

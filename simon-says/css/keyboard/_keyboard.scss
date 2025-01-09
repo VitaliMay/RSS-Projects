@@ -67,6 +67,9 @@
     box-shadow: none;
     color: $tag-grey;
     font-size: 18px;
+
+    cursor: default;
+
   }
 }
 
@@ -80,8 +83,26 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2);
   // transform: translateY(-2px); /* Поднятие кнопки вверх */
   transform: translateY(2px); /* Нажатие кнопки */
-  
+
   @include cansel-color-touch;
+
+  // border: solid 2px $tag-pink;
+
+  &.key_info-round {  // отменяю active
+    background: inherit;
+    box-shadow: none;
+    color: $tag-grey;
+    font-size: 18px;
+    transform: translateY(0px); /* Убираю Нажатие кнопки */
+
+  }
+
+  &.disabled {  // отменяю active при disabled
+    background: linear-gradient(to bottom, rgb(220, 220, 220), rgb(236, 236, 236));
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2);
+    transform: translateY(2px); /* Нажатие кнопки */
+    color: $tag-white;
+  }
 }
 
 
@@ -111,9 +132,7 @@
   }
 }
 
-.level__easy,
-.level__medium,
-.level__hard {
+.level__el {
   width: 100%;
   min-width: calc(var(--size-tile)*3);
   height: calc(var(--size-tile)/1.5);
@@ -124,24 +143,61 @@
     height: calc(var(--size-tile)/1);
   }
 
-  &_active {
-    // color: $tag-grey;
-    color: $tag-pink;
-
-    background: linear-gradient(to bottom, #e0e0e0, #ffffff);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2);
-    transform: translateY(2px); /* Нажатие кнопки */
-  }
-
-  &_disabled {
-    // color: $tag-grey;
-    color: $tag-white;
-
-    background: linear-gradient(to bottom, rgb(220, 220, 220), rgb(236, 236, 236));
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2);
-    transform: translateY(2px); /* Нажатие кнопки */
-  }
 }
+
+.active {
+  // color: $tag-grey;
+  color: $tag-pink;
+
+  background: linear-gradient(to bottom, #e0e0e0, #ffffff);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2);
+  transform: translateY(2px); /* Нажатие кнопки */
+
+  cursor: default;
+}
+
+.disabled {
+  // color: $tag-grey;
+  color: $tag-white;
+
+  background: linear-gradient(to bottom, rgb(220, 220, 220), rgb(236, 236, 236));
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2);
+  transform: translateY(2px); /* Нажатие кнопки */
+
+  cursor: default;
+}
+
+// .level__easy,
+// .level__medium,
+// .level__hard {
+//   width: 100%;
+//   min-width: calc(var(--size-tile)*3);
+//   height: calc(var(--size-tile)/1.5);
+//   @include caption;
+//   font-size: 18px;
+
+//   @media screen and (max-width: 640px) {
+//     height: calc(var(--size-tile)/1);
+//   }
+
+//   &_active {
+//     // color: $tag-grey;
+//     color: $tag-pink;
+
+//     background: linear-gradient(to bottom, #e0e0e0, #ffffff);
+//     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2);
+//     transform: translateY(2px); /* Нажатие кнопки */
+//   }
+
+//   &_disabled {
+//     // color: $tag-grey;
+//     color: $tag-white;
+
+//     background: linear-gradient(to bottom, rgb(220, 220, 220), rgb(236, 236, 236));
+//     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2);
+//     transform: translateY(2px); /* Нажатие кнопки */
+//   }
+// }
 
 /*************************************/
 

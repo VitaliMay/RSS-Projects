@@ -2,33 +2,31 @@ import { main, keyboardNum, keyboardLetter } from "./variables.js";
 import { createEl } from "./elementUtils.js";
 
 
-function keyboardNumKey () {
-  for (let i = 1; i <= 10; i += 1) {
-    let keyText = i;
-    if (keyText === 10) keyText = 0;
-    createEl({text: `${keyText}`, classes: ['key'], parent: keyboardNum})
-  }
-}
-
-keyboardNumKey()
-
 /*********************************** */
 
-
+const nums = '1234567890'
 const letters = 'QWERTYUIOPASDFGHJKLZXCVBNM';
-const lettersArr = letters.split('')
-lettersArr.forEach((key, index) => {
-// lettersArr.forEach(key => {
-  // if (key === 'A') {
-  if (index === 10) {
-    createEl({text: `${key}`, styles: {marginLeft: '4px'}, classes: ['key'], parent: keyboardLetter})
-  } else {
-    createEl({text: `${key}`, classes: ['key'], parent: keyboardLetter})
-  }
 
-});
+const keyClassArr = ['key']
+
+
+function createKeyboard (str, classArr, parent) {
+  const strArr = str.split('')
+  strArr.forEach((key, index) => {
+      if (strArr.length > 10 && index === 10) {
+        createEl({text: `${key}`, styles: {marginLeft: '4px'}, classes: classArr, parent: parent})
+      } else {
+        createEl({text: `${key}`, classes: classArr, parent: parent})
+      }
+    });
+}
+
+createKeyboard( nums, keyClassArr, keyboardNum )
+createKeyboard( letters, keyClassArr, keyboardLetter )
+
 
 // keyboardNum.classList.add('visually-hidden')
+// keyboardNum.classList.remove('visually-hidden')
 
 
-export { keyboardNumKey }
+export { createKeyboard }
