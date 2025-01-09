@@ -18,10 +18,14 @@ const levelElOption = {
   parent: levelBlock,
 }
 
-const levelEasy = createEl({...levelElOption, text: 'easy', classes: ['level__el', 'level__el_easy', 'disabled', 'key'],})
-const levelMedium = createEl({...levelElOption, text: 'medium', classes: ['level__el', 'level__el_medium', 'disabled', 'key'],})
-const levelHard = createEl({...levelElOption, text: 'hard', classes: ['level__el', 'level__el_hard', 'active', 'key'],})
+const levelEasy = createEl({...levelElOption, text: 'easy', classes: ['level__el', 'level__el_easy', 'active', 'key'],})
+const levelMedium = createEl({...levelElOption, text: 'medium', classes: ['level__el', 'level__el_medium', 'key'],})
+const levelHard = createEl({...levelElOption, text: 'hard', classes: ['level__el', 'level__el_hard', 'key'],})
+// const levelEasy = createEl({...levelElOption, text: 'easy', classes: ['level__el', 'level__el_easy', 'disabled', 'key'],})
+// const levelMedium = createEl({...levelElOption, text: 'medium', classes: ['level__el', 'level__el_medium', 'disabled', 'key'],})
+// const levelHard = createEl({...levelElOption, text: 'hard', classes: ['level__el', 'level__el_hard', 'active', 'key'],})
 
+const levelArr = [levelEasy, levelMedium, levelHard]
 /************ */
 const startBlock = createEl({ classes: ['start'], parent: header })
 
@@ -41,29 +45,33 @@ const startButton = createEl(startButtonOption)
 
 /************ */
 const info = createEl({ classes: ['info'], parent: header })
+// const info = createEl({ classes: ['info', 'visually-hidden'], parent: header })
 
 const infoRoundOption = {
-  classes: ['info__el', 'info__el_round', 'key', 'key_info', 'key_info-round'],
+  classes: ['info__el', 'info__el_round', 'key', 'key_info', 'key_info-round', 'visually-hidden'],
+  // classes: ['info__el', 'info__el_round', 'key', 'key_info', 'key_info-round'],
   text: '1 round',
   parent: info,
 }
 const infoRound = createEl(infoRoundOption)
 
 const infoNewGameOption = {
-  classes: ['info__el', 'info__el_new-game', 'key', 'key_info'],
+  classes: ['info__el', 'info__el_new-game', 'key', 'key_info', 'visually-hidden'],
+  // classes: ['info__el', 'info__el_new-game', 'key', 'key_info'],
   text: 'new game',
   parent: info,
 }
 const infoNewGame = createEl(infoNewGameOption)
 
 const infoRepeatOption = {
-  classes: ['info__el', 'info__el_repeat', 'key', 'key_info'],
+  classes: ['info__el', 'info__el_repeat', 'key', 'key_info', 'visually-hidden'],
+  // classes: ['info__el', 'info__el_repeat', 'key', 'key_info'],
   text: 'Repeat the sequence',
   parent: info,
 }
 const infoRepeat = createEl(infoRepeatOption)
 
-
+const infoArr = [infoRound, infoNewGame, infoRepeat]
 
 
 /***** MAIN ********* */
@@ -84,12 +92,8 @@ const inputText = createEl(inputTextOption);
 const keyboard = createEl({ classes: ['keyboard'], parent: main})
 
 const keyboardNum = createEl({ classes: ['keyboard-num'], parent: keyboard})
-const keyboardLetter = createEl({ classes: ['keyboard-letter'], parent: keyboard})
+const keyboardLetter = createEl({ classes: ['keyboard-letter', 'visually-hidden'], parent: keyboard})
 
-// const wrapper = document.querySelector('.wrapper')
-// const header = document.querySelector('.header')
-// const main = document.querySelector('.main')
-// const keyboardNum = document.querySelector('.keyboard-num')
-// const keyboardLetter = document.querySelector('.keyboard-letter')
+const keyboardArr = [keyboardNum, keyboardLetter]
 
-export { body, wrapper, header, main, inputText, keyboardNum, keyboardLetter }
+export { body, wrapper, header, main, inputText, keyboardNum, keyboardLetter, keyboardArr, levelBlock, levelEasy, levelMedium, levelHard, levelArr, info, infoArr, startButton}

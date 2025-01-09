@@ -462,22 +462,6 @@ body.lock {
 }
 
 /* Hidden */
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  border: 0;
-  padding: 0;
-  white-space: nowrap;
-  -webkit-clip-path: inset(100%);
-          clip-path: inset(100%);
-  clip: rect(0 0 0 0);
-  overflow: hidden;
-  outline: 0;
-  outline-offset: 0;
-}
-
 /***** header ***********************************************************************/
 /***** header ***********************************************************************/
 .title-h1 {
@@ -565,6 +549,7 @@ body.lock {
   background: linear-gradient(to top, #e0e0e0, #ffffff);
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
 }
 .key_info {
   width: 100%;
@@ -651,6 +636,7 @@ body.lock {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2);
   transform: translateY(2px); /* Нажатие кнопки */
   cursor: default;
+  pointer-events: none;
 }
 
 .disabled {
@@ -659,6 +645,7 @@ body.lock {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2);
   transform: translateY(2px); /* Нажатие кнопки */
   cursor: default;
+  pointer-events: none;
 }
 
 /*************************************/
@@ -679,4 +666,23 @@ body.lock {
   padding-bottom: 10px;
   border: none;
   outline: none;
+}
+
+/*************************************/
+/* Hidden */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  -webkit-clip-path: inset(100%);
+          clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+  outline: 0;
+  outline-offset: 0;
+  pointer-events: none;
 }/*# sourceMappingURL=style.css.map */

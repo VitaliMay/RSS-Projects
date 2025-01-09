@@ -7,16 +7,17 @@ import { createEl } from "./elementUtils.js";
 const nums = '1234567890'
 const letters = 'QWERTYUIOPASDFGHJKLZXCVBNM';
 
-const keyClassArr = ['key']
+const keyClassArr = ['key', 'disabled']
 
+const keysArr = []
 
 function createKeyboard (str, classArr, parent) {
   const strArr = str.split('')
   strArr.forEach((key, index) => {
       if (strArr.length > 10 && index === 10) {
-        createEl({text: `${key}`, styles: {marginLeft: '4px'}, classes: classArr, parent: parent})
+        keysArr.push(createEl({text: `${key}`, styles: {marginLeft: '4px'}, classes: classArr, parent: parent}));
       } else {
-        createEl({text: `${key}`, classes: classArr, parent: parent})
+        keysArr.push(createEl({text: `${key}`, classes: classArr, parent: parent}));
       }
     });
 }
@@ -29,4 +30,4 @@ createKeyboard( letters, keyClassArr, keyboardLetter )
 // keyboardNum.classList.remove('visually-hidden')
 
 
-export { createKeyboard }
+export { createKeyboard, keysArr }
