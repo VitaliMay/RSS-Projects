@@ -26,6 +26,20 @@ const levelHard = createEl({...levelElOption, text: 'hard', classes: ['level__el
 // const levelHard = createEl({...levelElOption, text: 'hard', classes: ['level__el', 'level__el_hard', 'active', 'key'],})
 
 const levelArr = [levelEasy, levelMedium, levelHard]
+
+// const levelKeyboardObj = {
+//   levelEasy: '1234567890',
+//   levelMedium: 'qwertyuiopasdfghjklzxcvbnm',
+//   levelHard: '1234567890qwertyuiopasdfghjklzxcvbnm'
+// }
+
+// Создаю Map, чтобы ключами были созданные елементы
+const levelKeyboardMap = new Map();
+
+levelKeyboardMap.set(levelEasy, '1234567890');
+levelKeyboardMap.set(levelMedium, 'qwertyuiopasdfghjklzxcvbnm');
+levelKeyboardMap.set(levelHard, '1234567890qwertyuiopasdfghjklzxcvbnm');
+
 /************ */
 const startBlock = createEl({ classes: ['start'], parent: header })
 
@@ -83,7 +97,8 @@ const inputTextOption = {
   attributes: {
     type: 'text',
     readonly: true,
-    value: 'qwertyuiopas',
+    value: '',
+    // value: 'qwertyuiopas',
   },
   parent: main,
 }
@@ -96,4 +111,4 @@ const keyboardLetter = createEl({ classes: ['keyboard-letter', 'visually-hidden'
 
 const keyboardArr = [keyboardNum, keyboardLetter]
 
-export { body, wrapper, header, main, inputText, keyboardNum, keyboardLetter, keyboardArr, levelBlock, levelEasy, levelMedium, levelHard, levelArr, info, infoArr, startButton}
+export { body, wrapper, header, main, inputText, keyboardNum, keyboardLetter, keyboardArr, keyboard,  levelBlock, levelEasy, levelMedium, levelHard, levelArr, levelKeyboardMap, info, infoArr, startButton}

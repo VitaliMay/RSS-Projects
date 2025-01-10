@@ -43,7 +43,6 @@ function changeLevel (event) {
     }
   }
 
-
 }
 
 function removeActiveClass (tabs, activeClass) {
@@ -52,18 +51,5 @@ function removeActiveClass (tabs, activeClass) {
   });
 }
 
-
-// addEventListener('click', () => {
-//   level++;
-//   if (level <= maxLevels) {
-//       resetGame();
-//       nextRound();
-//   } else {
-//       showFeedback('Вы завершили игру!', 'success');
-//       startBtn.classList.remove('hidden');
-//       difficultySelect.classList.remove('hidden');
-//       resetLevel();
-//   }
-// });
 
 export { changeLevel }
