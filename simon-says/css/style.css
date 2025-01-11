@@ -639,6 +639,37 @@ body.lock {
   pointer-events: none;
 }
 
+/******************************************/
+/******************************************/
+@keyframes show-button {
+  0% {
+    color: rgb(247, 247, 247);
+    background: linear-gradient(to bottom, rgb(220, 220, 220), rgb(236, 236, 236));
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2);
+    transform: translateY(2px); /* Нажатие кнопки */
+  }
+  50% {
+    color: rgb(255, 67, 247);
+    background: linear-gradient(to top, #e0e0e0, #ffffff);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.3);
+    transform: translateY(0px);
+    border: solid 2px rgb(255, 67, 247);
+  }
+  100% {
+    color: rgb(247, 247, 247);
+    background: linear-gradient(to bottom, rgb(220, 220, 220), rgb(236, 236, 236));
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2);
+    transform: translateY(2px); /* Нажатие кнопки */
+    border: none;
+  }
+}
+.key.active-seq {
+  animation-name: show-button;
+  animation-fill-mode: forwards;
+}
+
+/***********************************************/
+/***********************************************/
 .disabled {
   color: rgb(247, 247, 247);
   background: linear-gradient(to bottom, rgb(220, 220, 220), rgb(236, 236, 236));

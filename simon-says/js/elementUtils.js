@@ -67,18 +67,22 @@ function getRandomInteger(min, max) {
 /*********************************************************************** */
 // Функция рандомного массива индексоа в диапазоне
 
-function getRandomIntegerArr(min, max, length) {
+function getRandomIntegerArr(min, max, length, str) {
 
-  const randomArr = new Set(); // Set для уникальности
+  // const randomArr = new Set(); // Set для уникальности
+  const randomArr = []
 
   const getRandomInteger = () => Math.floor(Math.random() * (max - min + 1)) + min;
 
-  while (randomArr.size < length) { // Генерируем до тех пор, пока не достигнута нужная длина
+  // while (randomArr.size < length) { // Генерируем до тех пор, пока не достигнута нужная длина
+  while (randomArr.length < length) { // Генерируем до тех пор, пока не достигнута нужная длина
     const randomDigit = getRandomInteger();
-    randomArr.add(randomDigit); // Set не допустит дублирования
+    // randomArr.add(randomDigit); // Set не допустит дублирования
+    randomArr.push(str[randomDigit]); // Set не допустит дублирования
   }
 
-  return [...randomArr]; // Преобразуем Set обратно в массив
+  // return [...randomArr]; // Преобразуем Set обратно в массив
+  return randomArr; // Преобразуем Set обратно в массив
 }
 
 /*********************************************************************** */
@@ -92,7 +96,7 @@ function toUpperFirstLetter (str) {
 
 
 
-export {createEl, createSvgEl, removeAllChild, shuffleArray, getRandomIntegerArr, toUpperFirstLetter}
+export {createEl, createSvgEl, removeAllChild, shuffleArray, getRandomInteger, getRandomIntegerArr, toUpperFirstLetter}
 
 
 

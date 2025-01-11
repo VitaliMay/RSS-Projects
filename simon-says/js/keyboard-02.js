@@ -60,15 +60,8 @@ function startsWithAny(eventCodeStr) {
 
 let isKeyPressed = null; // Флаг для отслеживания нажатия клавиши (хранение нажатой клавиши)
 
-document.addEventListener('keydown', logicKeyboard);
+document.addEventListener('keydown', (event) => {
 
-/********************************* */
-// document.removeEventListener('keydown', logicKeyboard);
-/********************************* */
-
-function logicKeyboard (event) {
-
-  
   const el = `${event.code}`;
   const elLastSymb = el.charAt(el.length - 1);
 
@@ -128,8 +121,7 @@ function logicKeyboard (event) {
   if (hasDisabledClass && hasKey && isPresent && !event.repeat) {
     inputText.value += elLastSymb
   }
-
-}
+})
 
 /*************************************************************************** */
 
@@ -151,5 +143,4 @@ document.addEventListener('keyup', (event) => {
 });
 
 
-
-export { createKeyboard, keysArr, logicKeyboard }
+export { createKeyboard, keysArr }

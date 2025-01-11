@@ -3,6 +3,7 @@ import { body, header, keyboardNum } from "./js/variables.js";
 import { createEl } from "./js/elementUtils.js";
 import { createKeyboard } from "./js/keyboard.js";
 import { changeLevel } from "./js/level.js";
+import { createSequence } from "./js/game-logic.js";
 
 // createEl({text: 'Button-Hidden', classes: ['check-h2', 'visually-hidden'], parent: header})
 // createEl({text: 'Button-Hidden', classes: ['check-h2', 'visually-hidden'], parent: header})
