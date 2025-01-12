@@ -1,16 +1,50 @@
 import { levelBlock, levelEasy, levelMedium, levelHard, levelArr, keyboardNum, keyboardLetter, keyboardArr, info, infoArr, startButton, inputText } from "./variables.js";
 import { keysArr } from "./keyboard.js";
-import { createSequence, playSequence, sequence } from "./game-logic.js";
+import { createSequence, playSequence, sequence, repeatSequence, flagRepeatSequence } from "./game-logic.js";
 
 const [infoRound, infoNewGame, infoRepeat] = infoArr;
-console.log(infoRepeat)
+// console.log(infoRepeat)
 
-levelBlock.addEventListener('click', changeLevel)
+const level = { value: 3 };
+// let flagRepeatSequence = true;
+
+infoRound.textContent = `${level.value} round`
+
 startButton.addEventListener('click', startGame)
+levelBlock.addEventListener('click', changeLevel)
+
 infoRepeat.addEventListener('click', repeatSequence)
+infoNewGame.addEventListener('click', startNewGame)
+
+
+function startNewGame () {
+  startButton.classList.remove('visually-hidden')
+  sequence.length = 0  // очищаю последовательность
+  inputText.value = ''
+  // console.log(sequence)
+  inputText.placeholder = ''
+
+  infoArr.forEach(el => {
+    el.classList.add('visually-hidden')
+  })
+
+  levelArr.forEach(el => {
+    if (!el.classList.contains('active')) {
+      el.classList.remove('disabled')
+    }
+  })
+
+  keysArr.forEach(el => {
+    el.classList.add('disabled')
+  })
+
+  flagRepeatSequence.value = true
+}
 
 
 function startGame () {
+  inputText.placeholder = 'remember the sequence'
+
   startButton.classList.add('visually-hidden')
 
   levelArr.forEach(el => {
@@ -23,12 +57,18 @@ function startGame () {
       el.classList.remove('visually-hidden')
   })
 
+  infoArr.forEach((el, index) => {
+    if (index !== 0) { // пропускаю round
+      el.classList.add('disabled')
+    }
+  })
+
   // keysArr.forEach(el => {
   //     el.classList.remove('disabled')
   // })
 
   // inputText.value = createSequence(5).join('')
-  createSequence(5)
+  createSequence(level.value)
 
   setTimeout(() => {
     playSequence();
@@ -44,19 +84,27 @@ function startGame () {
 
   // inputText.value = sequence.join('')
 
-  console.log(sequence.join(''))
+  console.log(`${level.value} round ${sequence.join('')}`)
+
+  flagRepeatSequence.value = true
 }
 
-function repeatSequence () {
-  // console.log(sequence)
-  keysArr.forEach(el => {
-    el.classList.add('disabled')
-  })
+// function repeatSequence () {
+//   if (!flagRepeatSequence) return;
 
-  setTimeout(() => {
-    playSequence();
-  }, 1000);
-}
+//   inputText.placeholder = 'remember the sequence'
+//   // console.log(sequence)
+//   keysArr.forEach(el => {
+//     el.classList.add('disabled')
+//   })
+
+//   setTimeout(() => {
+//     playSequence();
+//   }, 1000);
+
+//   flagRepeatSequence = false;
+//   // infoArr[2].classList.add('disabled')
+// }
 
 /************************************ */
 function changeLevel (event) {

@@ -43,7 +43,7 @@ function typeUserSequence (event) {
 
     inputText.value += dataEl;
     // console.log(`Кнопка ${dataEl}`)
-    console.log(`Длина инпута ${inputText.value.length}`)
+    // console.log(`Длина инпута ${inputText.value.length}`)
   }
 }
 
@@ -66,8 +66,10 @@ document.addEventListener('keydown', logicKeyboard);
 // document.removeEventListener('keydown', logicKeyboard);
 /********************************* */
 
+
 function logicKeyboard (event) {
 
+  keyboard.removeEventListener('click', typeUserSequence) // чтобы нельзя было кликтуть, когда нажата клавиша
   
   const el = `${event.code}`;
   const elLastSymb = el.charAt(el.length - 1);
@@ -94,7 +96,8 @@ function logicKeyboard (event) {
   // console.log(event.code)
   // console.log(el.charAt(el.length - 1))
   // inputText.value += el.charAt(el.length - 1)
-  console.log(elLastSymb, event)
+
+  // console.log(elLastSymb, event)
 
   // Проверяю, есть ли у хотя бы одного элемента класс 'disabled'
   // Если есть, значит клава в рабочем состоянии
@@ -105,7 +108,7 @@ function logicKeyboard (event) {
   const activeElement = levelArr.find(el => el.classList.contains('active'));
 
   // Получаю набор символов, соотв. уровню
-  console.log(levelKeyboardMap.get(activeElement));
+  // console.log(levelKeyboardMap.get(activeElement));
   const levelKeyboardStr = levelKeyboardMap.get(activeElement).toUpperCase();
 
   // Проверяю наличие символа в строке-клавиатуре
@@ -136,8 +139,10 @@ function logicKeyboard (event) {
 // Убираю визуализацию нажатия клавиатуры
 document.addEventListener('keyup', (event) => {
 
-    const el = `${event.code}`;
-    const elLastSymb = el.charAt(el.length - 1);
+  keyboard.addEventListener('click', typeUserSequence) // возвращаю возможность клика по клаве
+
+  const el = `${event.code}`;
+  const elLastSymb = el.charAt(el.length - 1);
 
   if (isKeyPressed === elLastSymb) {
     isKeyPressed = null; // Обнуляю нажатую клавишу после отпускания
