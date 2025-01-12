@@ -1,5 +1,6 @@
 import { main, keyboardNum, keyboardLetter, keyboard, inputText, levelArr, levelKeyboardMap } from "./variables.js";
 import { createEl } from "./elementUtils.js";
+import { userSequence, checkUserSequence } from "./game-logic.js";
 
 
 /*********************************** */
@@ -42,8 +43,12 @@ function typeUserSequence (event) {
     const dataEl = keyEl.getAttribute('data-key')
 
     inputText.value += dataEl;
+
+    userSequence.value = inputText.value
     // console.log(`Кнопка ${dataEl}`)
     // console.log(`Длина инпута ${inputText.value.length}`)
+
+    checkUserSequence()
   }
 }
 
@@ -130,8 +135,13 @@ function logicKeyboard (event) {
 
   if (hasDisabledClass && hasKey && isPresent && !event.repeat) {
     inputText.value += elLastSymb
+
+    userSequence.value = inputText.value
+
+    checkUserSequence()
   }
 
+  // console.log(userSequence)
 }
 
 /*************************************************************************** */

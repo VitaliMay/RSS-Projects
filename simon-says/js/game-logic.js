@@ -1,10 +1,11 @@
-import { levelArr, levelKeyboardMap, inputText, infoArr } from "./variables.js";
+import { levelArr, levelKeyboardMap, inputText, infoArr, nextButton } from "./variables.js";
 import { shuffleArray, getRandomIntegerArr } from "./elementUtils.js";
 import { keysArr, logicKeyboard } from "./keyboard.js";
+import { level } from "./level.js";
 // import { keysArr, logicKeyboard, disableKeyboard, activeKeyboard } from "./keyboard.js";
 
 let sequence = []
-let userSequence = []
+const userSequence = { value: '' }
 const flagRepeatSequence = { value: true };
 // let flagRepeatSequence = true;
 
@@ -96,6 +97,7 @@ function repeatSequence () {
   if (!flagRepeatSequence) return;
 
   inputText.placeholder = 'remember the sequence'
+  inputText.value = ''
   // console.log(sequence)
   keysArr.forEach(el => {
     el.classList.add('disabled')
@@ -109,5 +111,51 @@ function repeatSequence () {
   // infoArr[2].classList.add('disabled')
 }
 
+/****************************************** */
 
-export { createSequence, sequence, playSequence, repeatSequence, flagRepeatSequence }
+function checkUserSequence() {
+  const {value} = userSequence;
+  const currentIndex = value.length - 1;
+
+  // Сравниваю инпут с последовательностью
+  if (value[currentIndex].toLowerCase() !== sequence[currentIndex].toLowerCase()) {
+
+      inputText.value = `Lose. Game over`
+
+      keysArr.forEach(el => {
+        el.classList.add('disabled')
+      })
+
+      infoArr[2].classList.add('visually-hidden')
+      return
+  }
+
+  // Проверяю, завершена ли последовательность
+  if (value.length === sequence.length) {
+
+    nextButton.classList.remove('visually-hidden')
+    // infoArr[2].classList.add('disabled')
+    infoArr[2].classList.add('visually-hidden')
+
+    keysArr.forEach(el => {
+      el.classList.add('disabled')
+    })
+
+    // ограничение на количество раундов
+    if (level.value === 5) {
+      level.value = 1;
+      inputText.value = `You win! Hooray!`
+      infoArr[0].textContent = '';  // убираю текст записи раундов
+      infoArr[0].classList.add('visually-hidden')
+      nextButton.classList.add('visually-hidden')
+      return
+    }
+    inputText.value = `win. Next round ${level.value + 1}`
+  }
+
+}
+
+/****************************************** */
+
+
+export { createSequence, sequence, playSequence, repeatSequence, flagRepeatSequence, userSequence, checkUserSequence }

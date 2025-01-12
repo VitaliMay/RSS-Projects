@@ -1,11 +1,11 @@
-import { levelBlock, levelEasy, levelMedium, levelHard, levelArr, keyboardNum, keyboardLetter, keyboardArr, info, infoArr, startButton, inputText } from "./variables.js";
+import { levelBlock, levelEasy, levelMedium, levelHard, levelArr, keyboardNum, keyboardLetter, keyboardArr, info, infoArr, startButton, nextButton, inputText } from "./variables.js";
 import { keysArr } from "./keyboard.js";
 import { createSequence, playSequence, sequence, repeatSequence, flagRepeatSequence } from "./game-logic.js";
 
 const [infoRound, infoNewGame, infoRepeat] = infoArr;
 // console.log(infoRepeat)
 
-const level = { value: 3 };
+const level = { value: 1 };
 // let flagRepeatSequence = true;
 
 infoRound.textContent = `${level.value} round`
@@ -16,8 +16,38 @@ levelBlock.addEventListener('click', changeLevel)
 infoRepeat.addEventListener('click', repeatSequence)
 infoNewGame.addEventListener('click', startNewGame)
 
+nextButton.addEventListener('click', startNextRound)
+
+
+function startNextRound () {
+  level.value += 1
+  infoRound.textContent = `${level.value}/5 round`
+
+  nextButton.classList.add('visually-hidden')
+
+  infoRepeat.classList.remove('visually-hidden')
+  infoRepeat.classList.remove('disabled')
+
+  flagRepeatSequence.value = true
+
+  keysArr.forEach(el => {
+    el.classList.add('disabled')
+  })
+
+  inputText.value = ''
+  inputText.placeholder = 'remember the sequence'
+
+  createSequence(level.value)
+  console.log(`${level.value} round ${sequence.join('')}`)
+
+  setTimeout(() => {
+    playSequence();
+  }, 1000);
+}
+
 
 function startNewGame () {
+  nextButton.classList.add('visually-hidden')
   startButton.classList.remove('visually-hidden')
   sequence.length = 0  // очищаю последовательность
   inputText.value = ''
@@ -43,6 +73,9 @@ function startNewGame () {
 
 
 function startGame () {
+  level.value = 1;
+  infoRound.textContent = `${level.value}/5 round`
+
   inputText.placeholder = 'remember the sequence'
 
   startButton.classList.add('visually-hidden')
@@ -136,4 +169,4 @@ function removeActiveClass (tabs, activeClass) {
 }
 
 
-export { changeLevel }
+export { changeLevel, level }

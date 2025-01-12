@@ -57,6 +57,17 @@ const startButtonOption = {
 const startButton = createEl(startButtonOption)
 // const startButton = createEl({ tag: 'button', text: 'Start', classes: ['key', 'keyboard-space'], parent: startBlock })
 
+// const nextButtonOption = {
+//   tag: 'button',
+//   text: 'Next',
+//   classes: ['key', 'keyboard-space', 'visually-hidden'],
+//   attributes: {
+//     type: 'button',
+//   },
+//   parent: startBlock,
+// }
+// const nextButton = createEl(nextButtonOption)
+
 /************ */
 const info = createEl({ classes: ['info'], parent: header })
 // const info = createEl({ classes: ['info', 'visually-hidden'], parent: header })
@@ -88,6 +99,18 @@ const infoRepeat = createEl(infoRepeatOption)
 const infoArr = [infoRound, infoNewGame, infoRepeat]
 
 
+const nextButtonOption = {
+    tag: 'button',
+    text: 'Next',
+    classes: ['info__el', 'key', 'key_info', 'visually-hidden'],
+    attributes: {
+      type: 'button',
+    },
+    parent: info,
+  }
+  const nextButton = createEl(nextButtonOption)
+
+
 /***** MAIN ********* */
 const main = createEl({ tag: 'main', classes: ['main'], parent: wrapper})
 
@@ -111,4 +134,4 @@ const keyboardLetter = createEl({ classes: ['keyboard-letter', 'visually-hidden'
 
 const keyboardArr = [keyboardNum, keyboardLetter]
 
-export { body, wrapper, header, main, inputText, keyboardNum, keyboardLetter, keyboardArr, keyboard,  levelBlock, levelEasy, levelMedium, levelHard, levelArr, levelKeyboardMap, info, infoArr, startButton}
+export { body, wrapper, header, main, inputText, keyboardNum, keyboardLetter, keyboardArr, keyboard,  levelBlock, levelEasy, levelMedium, levelHard, levelArr, levelKeyboardMap, info, infoArr, startButton, nextButton}
