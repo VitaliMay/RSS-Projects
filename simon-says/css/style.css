@@ -494,6 +494,12 @@ body.lock {
   justify-content: space-between;
   padding-bottom: 20px;
 }
+@media screen and (max-width: 480px) {
+  .header {
+    flex-direction: column;
+    row-gap: 20px;
+  }
+}
 
 .start {
   display: flex;
@@ -527,7 +533,9 @@ body.lock {
   display: flex;
   -moz-column-gap: 10px;
        column-gap: 10px;
+  row-gap: 10px;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .key {
@@ -702,6 +710,11 @@ body.lock {
   padding-bottom: 10px;
   border: none;
   outline: none;
+}
+@media screen and (max-width: 480px) {
+  .input-text {
+    font-size: 26px;
+  }
 }
 .input-text::-moz-placeholder {
   font-size: 16px;

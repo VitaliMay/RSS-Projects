@@ -38,7 +38,7 @@ function startNextRound () {
   inputText.placeholder = 'remember the sequence'
 
   createSequence(level.value)
-  console.log(`${level.value} round ${sequence.join('')}`)
+  console.log(`${level.value} round ${sequence.join('').toUpperCase()}`)
 
   setTimeout(() => {
     playSequence();
@@ -117,7 +117,7 @@ function startGame () {
 
   // inputText.value = sequence.join('')
 
-  console.log(`${level.value} round ${sequence.join('')}`)
+  console.log(`${level.value} round ${sequence.join('').toUpperCase()}`)
 
   flagRepeatSequence.value = true
 }

@@ -8,6 +8,7 @@
 }
 
 
+// .keyboard-num,
 .keyboard-letter {
   display: flex;
   column-gap: 10px;
@@ -26,8 +27,10 @@
 .keyboard-num {
   display: flex;
   column-gap: 10px;
+  row-gap: 10px;
 
   justify-content: center;
+  flex-wrap: wrap;
 
   // transition: opacity 0.8s ease; /* Плавный переход для opacity */
   // opacity: 1; /* для плавного появления */
@@ -241,6 +244,10 @@
   margin: 0 auto;
   width: 100%;
   max-width: 360px;
+
+  @media screen and (max-width: 480px) {
+    font-size: 26px;
+  }
 
   padding-left: 10px;
   padding-bottom: 10px;
