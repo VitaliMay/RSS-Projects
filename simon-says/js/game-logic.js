@@ -120,6 +120,8 @@ function checkUserSequence() {
   // Сравниваю инпут с последовательностью
   if (value[currentIndex].toLowerCase() !== sequence[currentIndex].toLowerCase()) {
 
+    if (!flagRepeatSequence.value) {
+
       inputText.value = `Lose. Game over`
 
       keysArr.forEach(el => {
@@ -128,6 +130,13 @@ function checkUserSequence() {
 
       infoArr[2].classList.add('visually-hidden')
       return
+    } else {
+      inputText.value = `Error. Try again`
+
+      keysArr.forEach(el => {
+        el.classList.add('disabled')
+      })
+    }
   }
 
   // Проверяю, завершена ли последовательность
