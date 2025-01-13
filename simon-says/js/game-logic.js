@@ -117,12 +117,14 @@ function checkUserSequence() {
   const {value} = userSequence;
   const currentIndex = value.length - 1;
 
+
   // Сравниваю инпут с последовательностью
   if (value[currentIndex].toLowerCase() !== sequence[currentIndex].toLowerCase()) {
 
     if (!flagRepeatSequence.value) {
 
       inputText.value = `Lose. Game over`
+      document.removeEventListener('keydown', logicKeyboard);
 
       keysArr.forEach(el => {
         el.classList.add('disabled')
@@ -132,6 +134,7 @@ function checkUserSequence() {
       return
     } else {
       inputText.value = `Error. Try again`
+      document.removeEventListener('keydown', logicKeyboard);
 
       keysArr.forEach(el => {
         el.classList.add('disabled')
@@ -154,12 +157,16 @@ function checkUserSequence() {
     if (level.value === 5) {
       level.value = 1;
       inputText.value = `You win! Hooray!`
+      document.removeEventListener('keydown', logicKeyboard);
+
       infoArr[0].textContent = '';  // убираю текст записи раундов
       infoArr[0].classList.add('visually-hidden')
       nextButton.classList.add('visually-hidden')
       return
     }
+
     inputText.value = `win. Next round ${level.value + 1}`
+    document.removeEventListener('keydown', logicKeyboard);
   }
 
 }
