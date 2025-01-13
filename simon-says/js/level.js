@@ -3,10 +3,8 @@ import { keysArr } from "./keyboard.js";
 import { createSequence, playSequence, sequence, repeatSequence, flagRepeatSequence } from "./game-logic.js";
 
 const [infoRound, infoNewGame, infoRepeat] = infoArr;
-// console.log(infoRepeat)
 
 const level = { value: 1 };
-// let flagRepeatSequence = true;
 
 infoRound.textContent = `${level.value} round`
 
@@ -51,7 +49,6 @@ function startNewGame () {
   startButton.classList.remove('visually-hidden')
   sequence.length = 0  // очищаю последовательность
   inputText.value = ''
-  // console.log(sequence)
   inputText.placeholder = ''
 
   infoArr.forEach(el => {
@@ -91,53 +88,22 @@ function startGame () {
   })
 
   infoArr.forEach((el, index) => {
-    if (index !== 0) { // пропускаю round
+    if (index !== 0) { // пропускаю infoRound
       el.classList.add('disabled')
     }
   })
 
-  // keysArr.forEach(el => {
-  //     el.classList.remove('disabled')
-  // })
-
-  // inputText.value = createSequence(5).join('')
   createSequence(level.value)
 
   setTimeout(() => {
     playSequence();
   }, 1000);
 
-  // playSequence()
-
-  // setTimeout(() => {
-  //   keysArr.forEach(el => {
-  //     el.classList.remove('disabled')
-  //   })
-  // }, 1000);
-
-  // inputText.value = sequence.join('')
-
   console.log(`${level.value} round ${sequence.join('').toUpperCase()}`)
 
   flagRepeatSequence.value = true
 }
 
-// function repeatSequence () {
-//   if (!flagRepeatSequence) return;
-
-//   inputText.placeholder = 'remember the sequence'
-//   // console.log(sequence)
-//   keysArr.forEach(el => {
-//     el.classList.add('disabled')
-//   })
-
-//   setTimeout(() => {
-//     playSequence();
-//   }, 1000);
-
-//   flagRepeatSequence = false;
-//   // infoArr[2].classList.add('disabled')
-// }
 
 /************************************ */
 function changeLevel (event) {
@@ -161,6 +127,10 @@ function changeLevel (event) {
   }
 
 }
+
+
+/************************************* */
+// Перекинуть в утилс и поприменять везде
 
 function removeActiveClass (tabs, activeClass) {
   tabs.forEach(tab => {

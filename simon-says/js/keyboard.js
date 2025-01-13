@@ -19,13 +19,10 @@ function createKeyboard (str, classArr, parent) {
         const keyEl = createEl({text: `${key}`, styles: {marginLeft: '4px'}, classes: classArr, parent: parent})
         keyEl.setAttribute('data-key', key.toLowerCase())
         keysArr.push(keyEl);
-        // keysArr.push(createEl({text: `${key}`, styles: {marginLeft: '4px'}, classes: classArr, parent: parent}));
-        // keysArr.push(createEl({text: `${key}`, styles: {marginLeft: '4px'}, classes: classArr, parent: parent}));
       } else {
         const keyEl = createEl({text: `${key}`, classes: classArr, parent: parent});
         keyEl.setAttribute('data-key', key.toLowerCase())
         keysArr.push(keyEl);
-        // keysArr.push(createEl({text: `${key}`, classes: classArr, parent: parent}));
       }
     });
 }
@@ -45,8 +42,6 @@ function typeUserSequence (event) {
     inputText.value += dataEl;
 
     userSequence.value = inputText.value
-    // console.log(`Кнопка ${dataEl}`)
-    // console.log(`Длина инпута ${inputText.value.length}`)
 
     checkUserSequence()
   }
@@ -68,14 +63,14 @@ let isKeyPressed = null; // Флаг для отслеживания нажат�
 document.addEventListener('keydown', logicKeyboard);
 
 /********************************* */
+// не придумал ничего лучше как заставить клаву не работать
 // document.removeEventListener('keydown', logicKeyboard);
 /********************************* */
 
-
 function logicKeyboard (event) {
 
-  keyboard.removeEventListener('click', typeUserSequence) // чтобы нельзя было кликтуть, когда нажата клавиша
-  
+  keyboard.removeEventListener('click', typeUserSequence) // чтобы нельзя было кликнуть, когда нажата клавиша
+
   const el = `${event.code}`;
   const elLastSymb = el.charAt(el.length - 1);
 
@@ -95,43 +90,27 @@ function logicKeyboard (event) {
     isKeyPressed = elLastSymb
   }
 
-  // const el = `${event.code}`;
-  // const elLastSymb = el.charAt(el.length - 1);
-  // console.log(typeof el)
-  // console.log(event.code)
-  // console.log(el.charAt(el.length - 1))
-  // inputText.value += el.charAt(el.length - 1)
-
-  // console.log(elLastSymb, event)
-
   // Проверяю, есть ли у хотя бы одного элемента класс 'disabled'
   // Если есть, значит клава в рабочем состоянии
   const hasDisabledClass = levelArr.some(el => el.classList.contains('disabled'));
-
 
   // Нахожу активный уровень
   const activeElement = levelArr.find(el => el.classList.contains('active'));
 
   // Получаю набор символов, соотв. уровню
-  // console.log(levelKeyboardMap.get(activeElement));
   const levelKeyboardStr = levelKeyboardMap.get(activeElement).toUpperCase();
 
   // Проверяю наличие символа в строке-клавиатуре
   const isPresent = levelKeyboardStr.includes(elLastSymb);
 
-  // console.log(isPresent)
-
   // Нахожу соотв. еl в нарисованой клаве
   if (hasKey) {
-    // event.repeat = false;
 
     const foundKey = keysArr.find(el => el.getAttribute('data-key').toUpperCase() === elLastSymb);
     if (foundKey) {
       foundKey.classList.add('active')
     }
   }
-
-  // event.repeat повтор нажатой клавиши
 
   if (hasDisabledClass && hasKey && isPresent && !event.repeat) {
     inputText.value += elLastSymb
@@ -141,7 +120,6 @@ function logicKeyboard (event) {
     checkUserSequence()
   }
 
-  // console.log(userSequence)
 }
 
 /*************************************************************************** */
@@ -164,7 +142,6 @@ document.addEventListener('keyup', (event) => {
   }
 
 });
-
 
 
 export { createKeyboard, keysArr, logicKeyboard }

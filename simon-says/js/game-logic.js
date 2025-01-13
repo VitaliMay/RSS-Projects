@@ -7,7 +7,6 @@ import { level } from "./level.js";
 let sequence = []
 const userSequence = { value: '' }
 const flagRepeatSequence = { value: true };
-// let flagRepeatSequence = true;
 
 function createSequence (roundNum) {
   const lengthSequence = roundNum * 2;
@@ -16,23 +15,14 @@ function createSequence (roundNum) {
   const activeElement = levelArr.find(el => el.classList.contains('active'));
 
   // Получаю набор символов, соотв. уровню
-  // console.log(levelKeyboardMap.get(activeElement));
   const levelKeyboardStr = levelKeyboardMap.get(activeElement);
 
   const maxIndex = levelKeyboardStr.length - 1;
 
   sequence = getRandomIntegerArr(0, maxIndex, lengthSequence, levelKeyboardStr)
-  // return sequence
-
 }
 
-// console.log('Привет game')
-
-// console.log(createSequence(5))
-
 /************************************** */
-/************************************** */
-
 
 function activateKey(seqEl) {
   const tile = keysArr.find(el => el.getAttribute('data-key') === seqEl);
@@ -98,7 +88,7 @@ function repeatSequence () {
 
   inputText.placeholder = 'remember the sequence'
   inputText.value = ''
-  // console.log(sequence)
+
   keysArr.forEach(el => {
     el.classList.add('disabled')
   })
@@ -116,7 +106,6 @@ function repeatSequence () {
 function checkUserSequence() {
   const {value} = userSequence;
   const currentIndex = value.length - 1;
-
 
   // Сравниваю инпут с последовательностью
   if (value[currentIndex].toLowerCase() !== sequence[currentIndex].toLowerCase()) {

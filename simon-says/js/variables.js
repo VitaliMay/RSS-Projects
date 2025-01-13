@@ -21,9 +21,6 @@ const levelElOption = {
 const levelEasy = createEl({...levelElOption, text: 'easy', classes: ['level__el', 'level__el_easy', 'active', 'key'],})
 const levelMedium = createEl({...levelElOption, text: 'medium', classes: ['level__el', 'level__el_medium', 'key'],})
 const levelHard = createEl({...levelElOption, text: 'hard', classes: ['level__el', 'level__el_hard', 'key'],})
-// const levelEasy = createEl({...levelElOption, text: 'easy', classes: ['level__el', 'level__el_easy', 'disabled', 'key'],})
-// const levelMedium = createEl({...levelElOption, text: 'medium', classes: ['level__el', 'level__el_medium', 'disabled', 'key'],})
-// const levelHard = createEl({...levelElOption, text: 'hard', classes: ['level__el', 'level__el_hard', 'active', 'key'],})
 
 const levelArr = [levelEasy, levelMedium, levelHard]
 
@@ -55,26 +52,12 @@ const startButtonOption = {
   parent: startBlock,
 }
 const startButton = createEl(startButtonOption)
-// const startButton = createEl({ tag: 'button', text: 'Start', classes: ['key', 'keyboard-space'], parent: startBlock })
-
-// const nextButtonOption = {
-//   tag: 'button',
-//   text: 'Next',
-//   classes: ['key', 'keyboard-space', 'visually-hidden'],
-//   attributes: {
-//     type: 'button',
-//   },
-//   parent: startBlock,
-// }
-// const nextButton = createEl(nextButtonOption)
 
 /************ */
 const info = createEl({ classes: ['info'], parent: header })
-// const info = createEl({ classes: ['info', 'visually-hidden'], parent: header })
 
 const infoRoundOption = {
   classes: ['info__el', 'info__el_round', 'key', 'key_info', 'key_info-round', 'visually-hidden'],
-  // classes: ['info__el', 'info__el_round', 'key', 'key_info', 'key_info-round'],
   text: '1 round',
   parent: info,
 }
@@ -82,7 +65,6 @@ const infoRound = createEl(infoRoundOption)
 
 const infoNewGameOption = {
   classes: ['info__el', 'info__el_new-game', 'key', 'key_info', 'visually-hidden'],
-  // classes: ['info__el', 'info__el_new-game', 'key', 'key_info'],
   text: 'new game',
   parent: info,
 }
@@ -90,7 +72,6 @@ const infoNewGame = createEl(infoNewGameOption)
 
 const infoRepeatOption = {
   classes: ['info__el', 'info__el_repeat', 'key', 'key_info', 'visually-hidden'],
-  // classes: ['info__el', 'info__el_repeat', 'key', 'key_info'],
   text: 'Repeat the sequence',
   parent: info,
 }
@@ -121,7 +102,6 @@ const inputTextOption = {
     type: 'text',
     readonly: true,
     value: '',
-    // value: 'qwertyuiopas',
   },
   parent: main,
 }

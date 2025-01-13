@@ -8,7 +8,7 @@
 }
 
 
-// .keyboard-num,
+.keyboard-num,
 .keyboard-letter {
   display: flex;
   column-gap: 10px;
@@ -16,24 +16,10 @@
 
   justify-content: center;
   flex-wrap: wrap;
-
-  max-width: calc(var(--size-tile)*10 + var(--size-gap)*9);
-  // max-width: calc(var(--size-tile)*10 + 90px);
-
-  // transition: opacity 0.8s ease; /* Плавный переход для opacity */
-  // opacity: 1; /* для плавного появления */
 }
 
-.keyboard-num {
-  display: flex;
-  column-gap: 10px;
-  row-gap: 10px;
-
-  justify-content: center;
-  flex-wrap: wrap;
-
-  // transition: opacity 0.8s ease; /* Плавный переход для opacity */
-  // opacity: 1; /* для плавного появления */
+.keyboard-letter {
+  max-width: calc(var(--size-tile)*10 + var(--size-gap)*9);
 }
 
 
@@ -49,14 +35,11 @@
   border-radius: 5px;
   text-align: center;
 
-  // border: solid 2px blue;
-
   @include caption-check-h2;
   // color: $tag-pink;
   color: $tag-green;
-  // color: rgb(132, 127, 128);
 
-  background: linear-gradient(to top, #e0e0e0, #ffffff);
+  background: linear-gradient(to top, rgb(224, 224, 224), rgb(255, 255, 255));
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.3);
 
   transition: all 0.3s ease;
@@ -84,33 +67,27 @@
 }
 
 .key:active {
-  // color: rgb(251, 251, 251);
   color: $tag-pink;
 
-  // background: linear-gradient(to bottom, rgb(254, 66, 246), rgb(255, 67, 247));
-  background: linear-gradient(to bottom, #e0e0e0, #ffffff);
-  // background: linear-gradient(to bottom, rgb(224, 224, 224), rgb(255, 255, 255));
+  background: linear-gradient(to bottom, rgb(224, 224, 224), rgb(255, 255, 255));
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2);
-  // transform: translateY(-2px); /* Поднятие кнопки вверх */
-  transform: translateY(2px); /* Нажатие кнопки */
+  transform: translateY(2px);
 
   @include cansel-color-touch;
-
-  // border: solid 2px $tag-pink;
 
   &.key_info-round {  // отменяю active
     background: inherit;
     box-shadow: none;
     color: $tag-grey;
     font-size: 18px;
-    transform: translateY(0px); /* Убираю Нажатие кнопки */
+    transform: translateY(0px); // Убираю Нажатие кнопки
 
   }
 
   &.disabled {  // отменяю active при disabled
     background: linear-gradient(to bottom, rgb(220, 220, 220), rgb(236, 236, 236));
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2);
-    transform: translateY(2px); /* Нажатие кнопки */
+    transform: translateY(2px); // Нажатие кнопки
     color: $tag-white;
   }
 }
@@ -119,13 +96,10 @@
 .keyboard-space {
   width: 100%;
   max-width: calc(var(--size-tile)*6);
-  // height: var(--size-tile);
 }
 
 .level,
 .info {
-  // width: 100%;
-  // max-width: calc(var(--size-tile)*10 + 90px);
   display: flex;
   flex-direction: column;
   row-gap: 15px;
@@ -136,11 +110,9 @@
 .info {
   width: 100%;
   max-width: calc(var(--size-tile)*3);
-  // width: calc(var(--size-tile)*3);
 
   @media screen and (max-width: 640px) {
     max-width: calc(var(--size-tile)*5);
-    // width: calc(var(--size-tile)*5);
   }
 }
 
@@ -161,9 +133,9 @@
   // color: $tag-grey;
   color: $tag-pink;
 
-  background: linear-gradient(to bottom, #e0e0e0, #ffffff);
+  background: linear-gradient(to bottom, rgb(224, 224, 224), rgb(255, 255, 255));
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2);
-  transform: translateY(2px); /* Нажатие кнопки */
+  transform: translateY(2px); // Нажатие кнопки
 
   cursor: default;
   pointer-events: none;
@@ -179,11 +151,11 @@
     color: $tag-white;
     background: linear-gradient(to bottom, rgb(220, 220, 220), rgb(236, 236, 236));
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2);
-    transform: translateY(2px); /* Нажатие кнопки */
+    transform: translateY(2px); // Нажатие кнопки
   }
   30% {
     color: $tag-pink;
-    background: linear-gradient(to top, #e0e0e0, #ffffff);
+    background: linear-gradient(to top, rgb(224, 224, 224), rgb(255, 255, 255));
     box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.3);
     // box-shadow: 0 8px 12px rgba(255, 67, 247, 0.2), 0 2px 4px rgba(255, 67, 247, 0.3);
 
@@ -193,9 +165,9 @@
   }
   70% {
     color: $tag-pink;
-    background: linear-gradient(to top, #e0e0e0, #ffffff);
-    // box-shadow: 0 8px 12px rgba(255, 67, 247, 0.2), 0 2px 4px rgba(255, 67, 247, 0.3);
+    background: linear-gradient(to top, rgb(224, 224, 224), rgb(255, 255, 255));
     box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.3);
+    // box-shadow: 0 8px 12px rgba(255, 67, 247, 0.2), 0 2px 4px rgba(255, 67, 247, 0.3);
     transform: translateY(0px);
 
     // border: solid 2px $tag-pink;
@@ -204,7 +176,7 @@
     color: $tag-white;
     background: linear-gradient(to bottom, rgb(220, 220, 220), rgb(236, 236, 236));
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2);
-    transform: translateY(2px); /* Нажатие кнопки */
+    transform: translateY(2px); // Нажатие кнопки
 
     border: none;
   }
@@ -224,11 +196,11 @@
 .disabled {
   // color: $tag-grey;
   color: $tag-white;
-  
+
   background: linear-gradient(to bottom, rgb(220, 220, 220), rgb(236, 236, 236));
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2);
-  transform: translateY(2px); /* Нажатие кнопки */
-  
+  transform: translateY(2px); // Нажатие кнопки
+
   cursor: default;
   pointer-events: none;
 }
@@ -261,10 +233,7 @@
     color: $tag-green;
     text-align: center;
   }
-  // &[value] {
-  //   font-size: 31px;
-  //   color: $tag-grey;
-  // }
+
 }
 
 

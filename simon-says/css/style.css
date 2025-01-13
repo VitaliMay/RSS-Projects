@@ -331,8 +331,6 @@ template {
   }
 }
 /***** mixins ***********************************************************************/
-/***** mixins ***********************************************************************/
-/******** global *****************************************************/
 /******** global *****************************************************/
 /* сбрасываю, то что может мешать */
 *,
@@ -373,8 +371,6 @@ a {
   text-decoration: none;
   /*чтобы наследовали цвет родителя*/
   color: inherit;
-  /*чтобы везде не прописывать вместо дефолтного*/
-  cursor: url(../assets/img/pointinghand.svg), pointer;
 }
 
 button {
@@ -387,20 +383,6 @@ button {
   color: inherit;
 }
 
-@font-face {
-  font-family: "Montserrat";
-  src: url("../assets/fonts/montserrat/Montserrat-Regular.woff2") format("woff2"), url("../assets/fonts/montserrat/Montserrat-Regular.woff") format("woff"), url("../assets/fonts/montserrat/Montserrat-Regular.ttf") format("truetype");
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Montserrat";
-  src: url("../assets/fonts/montserrat/Montserrat-SemiBold.woff2") format("woff2"), url("../assets/fonts/montserrat/Montserrat-SemiBold.woff") format("woff"), url("../assets/fonts/montserrat/Montserrat-SemiBold.ttf") format("truetype");
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-}
 @font-face {
   font-family: "Allura";
   src: url("../assets/fonts/allura/Allura-Regular.woff2") format("woff2"), url("../assets/fonts/allura/Allura-Regular.woff") format("woff"), url("../assets/fonts/allura/Allura-Regular.ttf") format("truetype");
@@ -461,8 +443,6 @@ body.lock {
   }
 }
 
-/* Hidden */
-/***** header ***********************************************************************/
 /***** header ***********************************************************************/
 .title-h1 {
   text-align: center;
@@ -475,26 +455,12 @@ body.lock {
   color: rgb(255, 70, 70);
 }
 
-.check-h2 {
-  text-align: center;
-  padding: 0 0 20px 0;
-  font-family: Lato;
-  font-size: 24px;
-  font-weight: 600;
-  line-height: 100%;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: rgb(255, 67, 247);
-  min-width: calc(var(--size-tile) * 3);
-  background: yellow;
-}
-
 .header {
   display: flex;
   justify-content: space-between;
   padding-bottom: 20px;
 }
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 540px) {
   .header {
     flex-direction: column;
     row-gap: 20px;
@@ -519,6 +485,7 @@ body.lock {
   align-items: center;
 }
 
+.keyboard-num,
 .keyboard-letter {
   display: flex;
   -moz-column-gap: 10px;
@@ -526,16 +493,10 @@ body.lock {
   row-gap: 10px;
   justify-content: center;
   flex-wrap: wrap;
-  max-width: calc(var(--size-tile) * 10 + var(--size-gap) * 9);
 }
 
-.keyboard-num {
-  display: flex;
-  -moz-column-gap: 10px;
-       column-gap: 10px;
-  row-gap: 10px;
-  justify-content: center;
-  flex-wrap: wrap;
+.keyboard-letter {
+  max-width: calc(var(--size-tile) * 10 + var(--size-gap) * 9);
 }
 
 .key {
@@ -554,7 +515,7 @@ body.lock {
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: rgb(182, 200, 196);
-  background: linear-gradient(to top, #e0e0e0, #ffffff);
+  background: linear-gradient(to top, rgb(224, 224, 224), rgb(255, 255, 255));
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
   -webkit-tap-highlight-color: transparent;
@@ -579,9 +540,9 @@ body.lock {
 
 .key:active {
   color: rgb(255, 67, 247);
-  background: linear-gradient(to bottom, #e0e0e0, #ffffff);
+  background: linear-gradient(to bottom, rgb(224, 224, 224), rgb(255, 255, 255));
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2);
-  transform: translateY(2px); /* Нажатие кнопки */
+  transform: translateY(2px);
   -webkit-tap-highlight-color: transparent;
 }
 .key:active.key_info-round {
@@ -589,12 +550,12 @@ body.lock {
   box-shadow: none;
   color: rgb(132, 127, 128);
   font-size: 18px;
-  transform: translateY(0px); /* Убираю Нажатие кнопки */
+  transform: translateY(0px);
 }
 .key:active.disabled {
   background: linear-gradient(to bottom, rgb(220, 220, 220), rgb(236, 236, 236));
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2);
-  transform: translateY(2px); /* Нажатие кнопки */
+  transform: translateY(2px);
   color: rgb(247, 247, 247);
 }
 
@@ -640,9 +601,9 @@ body.lock {
 
 .active {
   color: rgb(255, 67, 247);
-  background: linear-gradient(to bottom, #e0e0e0, #ffffff);
+  background: linear-gradient(to bottom, rgb(224, 224, 224), rgb(255, 255, 255));
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2);
-  transform: translateY(2px); /* Нажатие кнопки */
+  transform: translateY(2px);
   cursor: default;
   pointer-events: none;
 }
@@ -654,17 +615,17 @@ body.lock {
     color: rgb(247, 247, 247);
     background: linear-gradient(to bottom, rgb(220, 220, 220), rgb(236, 236, 236));
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2);
-    transform: translateY(2px); /* Нажатие кнопки */
+    transform: translateY(2px);
   }
   30% {
     color: rgb(255, 67, 247);
-    background: linear-gradient(to top, #e0e0e0, #ffffff);
+    background: linear-gradient(to top, rgb(224, 224, 224), rgb(255, 255, 255));
     box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.3);
     transform: translateY(0px);
   }
   70% {
     color: rgb(255, 67, 247);
-    background: linear-gradient(to top, #e0e0e0, #ffffff);
+    background: linear-gradient(to top, rgb(224, 224, 224), rgb(255, 255, 255));
     box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.3);
     transform: translateY(0px);
   }
@@ -672,7 +633,7 @@ body.lock {
     color: rgb(247, 247, 247);
     background: linear-gradient(to bottom, rgb(220, 220, 220), rgb(236, 236, 236));
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2);
-    transform: translateY(2px); /* Нажатие кнопки */
+    transform: translateY(2px);
     border: none;
   }
 }
@@ -687,7 +648,7 @@ body.lock {
   color: rgb(247, 247, 247);
   background: linear-gradient(to bottom, rgb(220, 220, 220), rgb(236, 236, 236));
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2);
-  transform: translateY(2px); /* Нажатие кнопки */
+  transform: translateY(2px);
   cursor: default;
   pointer-events: none;
 }
