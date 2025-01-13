@@ -8,6 +8,7 @@
 }
 
 
+.keyboard-num,
 .keyboard-letter {
   display: flex;
   column-gap: 10px;
@@ -15,16 +16,10 @@
 
   justify-content: center;
   flex-wrap: wrap;
-
-  max-width: calc(var(--size-tile)*10 + var(--size-gap)*9);
-  // max-width: calc(var(--size-tile)*10 + 90px);
 }
 
-.keyboard-num {
-  display: flex;
-  column-gap: 10px;
-
-  justify-content: center;
+.keyboard-letter {
+  max-width: calc(var(--size-tile)*10 + var(--size-gap)*9);
 }
 
 
@@ -40,14 +35,11 @@
   border-radius: 5px;
   text-align: center;
 
-  // border: solid 2px blue;
-
   @include caption-check-h2;
   // color: $tag-pink;
   color: $tag-green;
-  // color: rgb(132, 127, 128);
 
-  background: linear-gradient(to top, #e0e0e0, #ffffff);
+  background: linear-gradient(to top, rgb(224, 224, 224), rgb(255, 255, 255));
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.3);
 
   transition: all 0.3s ease;
@@ -67,34 +59,47 @@
     box-shadow: none;
     color: $tag-grey;
     font-size: 18px;
+
+    cursor: default;
   }
+
+  @include cansel-color-touch;
 }
 
 .key:active {
-  // color: rgb(251, 251, 251);
   color: $tag-pink;
 
-  // background: linear-gradient(to bottom, rgb(254, 66, 246), rgb(255, 67, 247));
-  background: linear-gradient(to bottom, #e0e0e0, #ffffff);
-  // background: linear-gradient(to bottom, rgb(224, 224, 224), rgb(255, 255, 255));
+  background: linear-gradient(to bottom, rgb(224, 224, 224), rgb(255, 255, 255));
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2);
-  // transform: translateY(-2px); /* Поднятие кнопки вверх */
-  transform: translateY(2px); /* Нажатие кнопки */
-  
+  transform: translateY(2px);
+
   @include cansel-color-touch;
+
+  &.key_info-round {  // отменяю active
+    background: inherit;
+    box-shadow: none;
+    color: $tag-grey;
+    font-size: 18px;
+    transform: translateY(0px); // Убираю Нажатие кнопки
+
+  }
+
+  &.disabled {  // отменяю active при disabled
+    background: linear-gradient(to bottom, rgb(220, 220, 220), rgb(236, 236, 236));
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2);
+    transform: translateY(2px); // Нажатие кнопки
+    color: $tag-white;
+  }
 }
 
 
 .keyboard-space {
   width: 100%;
   max-width: calc(var(--size-tile)*6);
-  // height: var(--size-tile);
 }
 
 .level,
 .info {
-  // width: 100%;
-  // max-width: calc(var(--size-tile)*10 + 90px);
   display: flex;
   flex-direction: column;
   row-gap: 15px;
@@ -111,9 +116,7 @@
   }
 }
 
-.level__easy,
-.level__medium,
-.level__hard {
+.level__el {
   width: 100%;
   min-width: calc(var(--size-tile)*3);
   height: calc(var(--size-tile)/1.5);
@@ -124,23 +127,82 @@
     height: calc(var(--size-tile)/1);
   }
 
-  &_active {
-    // color: $tag-grey;
-    color: $tag-pink;
+}
 
-    background: linear-gradient(to bottom, #e0e0e0, #ffffff);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2);
-    transform: translateY(2px); /* Нажатие кнопки */
-  }
+.active {
+  // color: $tag-grey;
+  color: $tag-pink;
 
-  &_disabled {
-    // color: $tag-grey;
+  background: linear-gradient(to bottom, rgb(224, 224, 224), rgb(255, 255, 255));
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2);
+  transform: translateY(2px); // Нажатие кнопки
+
+  cursor: default;
+  pointer-events: none;
+}
+
+
+/******************************************/
+/******************************************/
+
+
+@keyframes show-button {
+  0% {
     color: $tag-white;
-
     background: linear-gradient(to bottom, rgb(220, 220, 220), rgb(236, 236, 236));
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2);
-    transform: translateY(2px); /* Нажатие кнопки */
+    transform: translateY(2px); // Нажатие кнопки
   }
+  30% {
+    color: $tag-pink;
+    background: linear-gradient(to top, rgb(224, 224, 224), rgb(255, 255, 255));
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.3);
+    // box-shadow: 0 8px 12px rgba(255, 67, 247, 0.2), 0 2px 4px rgba(255, 67, 247, 0.3);
+
+    transform: translateY(0px);
+
+    // border: solid 2px $tag-pink;
+  }
+  70% {
+    color: $tag-pink;
+    background: linear-gradient(to top, rgb(224, 224, 224), rgb(255, 255, 255));
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.3);
+    // box-shadow: 0 8px 12px rgba(255, 67, 247, 0.2), 0 2px 4px rgba(255, 67, 247, 0.3);
+    transform: translateY(0px);
+
+    // border: solid 2px $tag-pink;
+  }
+  100% {
+    color: $tag-white;
+    background: linear-gradient(to bottom, rgb(220, 220, 220), rgb(236, 236, 236));
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2);
+    transform: translateY(2px); // Нажатие кнопки
+
+    border: none;
+  }
+}
+
+
+.key.active-seq {
+  animation-name: show-button;
+  animation-fill-mode: forwards;
+  // animation-duration: 2s;
+}
+
+/***********************************************/
+/***********************************************/
+
+
+.disabled {
+  // color: $tag-grey;
+  color: $tag-white;
+
+  background: linear-gradient(to bottom, rgb(220, 220, 220), rgb(236, 236, 236));
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2);
+  transform: translateY(2px); // Нажатие кнопки
+
+  cursor: default;
+  pointer-events: none;
 }
 
 /*************************************/
@@ -155,10 +217,45 @@
   width: 100%;
   max-width: 360px;
 
+  @media screen and (max-width: 480px) {
+    font-size: 26px;
+  }
+
   padding-left: 10px;
   padding-bottom: 10px;
 
   // pointer-events: none;
   border: none;
   outline: none;
+
+  &::placeholder {
+    font-size: 16px;
+    color: $tag-green;
+    text-align: center;
+  }
+
+}
+
+
+/*************************************/
+
+/* Hidden */
+// Разместил внизу, чтобы другие стили не перебивали
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+  outline: 0;
+  outline-offset: 0;
+
+  // transition: all 0.8s ease;
+  // opacity: 0; /* для плавного исчезания */
+  pointer-events: none;
 }

@@ -1,33 +1,22 @@
 
 /***** header ***********************************************************************/
-/***** header ***********************************************************************/
 
-h1 {
-  // @include header-1;
+.title-h1 {
   text-align: center;
-  // margin-top: 40px;
   padding: 16px 0 10px 0;
   @include caption;
   color: $primary;
-
-  // max-width: calc(var(--size-tile)*10 + 90px);
-}
-
-.check-h2 {
-  text-align: center;
-  padding: 0 0 20px 0;
-  @include caption-check-h2;
-  color: $tag-pink;
-
-  // width: 100%;
-  min-width: calc(var(--size-tile)*3);
-  background: yellow;
 }
 
 .header {
   display: flex;
   justify-content: space-between;
   padding-bottom: 20px;
+
+  @media screen and (max-width: 540px) {
+    flex-direction: column;
+    row-gap: 20px;
+  }
 }
 
 .start {
@@ -40,10 +29,7 @@ h1 {
   }
 }
 
-// .keyboard-num {
-//   display: flex;
-//   column-gap: 10px;
-
-//   justify-content: center;
+// button:focus { // чтобы увидеть где tab
+//   outline: 2px solid $tag-green;
 // }
 
