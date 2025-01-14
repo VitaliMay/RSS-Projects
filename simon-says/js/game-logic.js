@@ -129,6 +129,7 @@ function checkUserSequence() {
         el.classList.add('disabled')
       })
     }
+    return
   }
 
   // Проверяю, завершена ли последовательность
