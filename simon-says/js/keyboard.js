@@ -11,6 +11,9 @@ const letters = 'QWERTYUIOPASDFGHJKLZXCVBNM';
 const keyClassArr = ['key', 'disabled']
 
 const keysArr = []
+let isKeyPressed = null; // Флаг для отслеживания нажатия клавиши (хранение нажатой клавиши)
+let activeKey = null; // Переменная для хранения ссылки на активную клавишу
+
 
 function createKeyboard (str, classArr, parent) {
   const strArr = str.split('')
@@ -30,22 +33,117 @@ function createKeyboard (str, classArr, parent) {
 createKeyboard( nums, keyClassArr, keyboardNum )
 createKeyboard( letters, keyClassArr, keyboardLetter )
 
-keyboard.addEventListener('click', typeUserSequence)
+// keyboard.addEventListener('click', typeUserSequence)
 
-function typeUserSequence (event) {
+/************************* */
+
+// Убираю контекстное меню при длительном нажатии
+document.addEventListener('contextmenu', (event) => {
+  event.preventDefault();
+});
+
+/************************* */
+
+keyboard.addEventListener('pointerdown', (event) => {
+// keyboard.addEventListener('mousedown', (event) => {
+  // console.log(event);
+
+  if (isKeyPressed) return;
   const {target} = event;
   const keyEl = target.closest('[data-key]')
 
   if (keyEl) {
     const dataEl = keyEl.getAttribute('data-key')
+    isKeyPressed = dataEl.toUpperCase()
+    activeKey = keyEl
 
     inputText.value += dataEl;
 
     userSequence.value = inputText.value
 
     checkUserSequence()
+
+    keyEl.classList.add('active-click')
+
+    // Добавляем обработчик mouseleave для activeKey
+    activeKey.addEventListener('pointerleave', onKeyLeave);
+    // activeKey.addEventListener('mouseleave', onKeyLeave);
   }
+
+  console.log(`press-DOWN ${isKeyPressed}`)
+});
+
+// keyboard.addEventListener('mouseup', (event) => {
+document.addEventListener('pointerup', (event) => {  // если курсор увёл с клавиатуры и отпустил мышь
+// document.addEventListener('mouseup', (event) => {  // если курсор увёл с клавиатуры и отпустил мышь
+  const {target} = event;
+  const keyEl = target.closest('[data-key]')
+
+  if (keyEl) {
+    keyEl.classList.remove('active-click')
+  }
+
+  if (keyEl && isKeyPressed) {
+    const dataEl = keyEl.getAttribute('data-key')
+    if (isKeyPressed === dataEl.toUpperCase()) {
+      isKeyPressed = null
+
+      activeKey.removeEventListener('mouseleave', onKeyLeave); // Удаляем обработчик при отпускании
+      activeKey = null
+    }
+  }
+
+  console.log(`press-UP ${isKeyPressed}`)
+});
+
+
+// Обработчик для mouseleave
+function onKeyLeave() {
+  if (activeKey) {
+    activeKey.classList.remove('active-click')
+    activeKey.removeEventListener('pointerleave', onKeyLeave); // Удаляем обработчик чтобы избежать утечек памяти
+  }
+
+  isKeyPressed = null; // Сбрасываем статус нажатой клавиши
+  // activeKey.removeEventListener('mouseleave', onKeyLeave); // Удаляем обработчик чтобы избежать утечек памяти
+  activeKey = null; // Обнуляем ссылку на активную клавишу
+  console.log(`press-LEAVE ${isKeyPressed}`);
 }
+
+
+// keyboard.addEventListener('mouseleave', (event) => {
+//   // const {target} = event;
+//   // const keyEl = target.closest('[data-key]')
+
+//   // if (keyEl) {
+//   //   const dataEl = keyEl.getAttribute('data-key')
+//   //   if (isKeyPressed === dataEl.toUpperCase()) {
+//   //     isKeyPressed = null
+//   //   }
+//   // }
+//   isKeyPressed = null
+//   console.log(`press-LEAVE ${isKeyPressed}`)
+//   // console.log(event)
+
+// });
+
+/************************* */
+
+// function typeUserSequence (event) {
+//   if (isKeyPressed) return; // если клавиша нажата click невозможен
+//   const {target} = event;
+//   const keyEl = target.closest('[data-key]')
+
+//   if (keyEl) {
+//     const dataEl = keyEl.getAttribute('data-key')
+
+//     inputText.value += dataEl;
+
+//     userSequence.value = inputText.value
+
+//     checkUserSequence()
+//   }
+// }
 
 /*********************************************** */
 // Определяю что нажата клавиша входящяя в клавиатуру
@@ -58,7 +156,7 @@ function startsWithAny(eventCodeStr) {
 /*********************************************** */
 
 
-let isKeyPressed = null; // Флаг для отслеживания нажатия клавиши (хранение нажатой клавиши)
+// let isKeyPressed = null; // Флаг для отслеживания нажатия клавиши (хранение нажатой клавиши)
 
 document.addEventListener('keydown', logicKeyboard);
 
@@ -69,7 +167,7 @@ document.addEventListener('keydown', logicKeyboard);
 
 function logicKeyboard (event) {
 
-  keyboard.removeEventListener('click', typeUserSequence) // чтобы нельзя было кликнуть, когда нажата клавиша
+  // keyboard.removeEventListener('click', typeUserSequence) // чтобы нельзя было кликнуть, когда нажата клавиша
 
   const el = `${event.code}`;
   const elLastSymb = el.charAt(el.length - 1);
@@ -127,7 +225,7 @@ function logicKeyboard (event) {
 // Убираю визуализацию нажатия клавиатуры
 document.addEventListener('keyup', (event) => {
 
-  keyboard.addEventListener('click', typeUserSequence) // возвращаю возможность клика по клаве
+  // keyboard.addEventListener('click', typeUserSequence) // возвращаю возможность клика по клаве
 
   const el = `${event.code}`;
   const elLastSymb = el.charAt(el.length - 1);
