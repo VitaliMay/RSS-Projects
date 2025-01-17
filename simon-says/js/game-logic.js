@@ -111,15 +111,30 @@ function activateKey(seqEl) {
     const animationDuration = '1s';
     tile.style.animationDuration = animationDuration; 
 
+    const numericDuration = parseFloat(animationDuration); 
+    // Получаю длительность анимации, что бы корректно установить разделитель между одинаковыми клавишами
+    const durationSeparator = numericDuration * 1000 + 300; // Разделяю в 300мл
+
     // Запускаем произнесение текста
     // const speechPromise = speak(inputText.placeholder);
     // const speechPromise = speak(`Finished activating key: ${seqEl}`);
     
     // const speechPromise = speak(seqEl);
-    let speechPromise = null
-    if(!isMobileDevice()) {
-      speechPromise = speak(seqEl)
-    }
+    // let speechPromise = null
+    // if(!isMobileDevice()) {
+    //   speechPromise = speak(seqEl)
+    // }
+
+    // const speechPromise = !isMobileDevice() ? speak(seqEl).catch(err => {
+    //   console.error('Speech synthesis error:', err);
+    // }) : null;
+    // даёт зависание на одинаковых клавишах лучше разрешать (resolve Промис)
+
+    const speechPromise = !isMobileDevice() ? speak(seqEl).catch(err => {
+      console.error('Speech synthesis error:', err);
+    // }) : Promise.resolve(); // Возвращаем промис при мобильных устройствах (потом их разделю settimeout)
+    }) : new Promise(resolve => setTimeout(resolve, durationSeparator)); // Разделяю одинаковые задержкой в 300ms
+
 
 
     // Слушаем событие завершения анимации
@@ -131,13 +146,27 @@ function activateKey(seqEl) {
     });
 
     // Ждем, пока завершатся оба процесса
-    Promise.all([speechPromise, animationPromise]).then(() => {
-      // console.log(`Finished activating key: ${seqEl}`);
+    const promises = [animationPromise]; // изменил формирование массива промисов чтобы исключить null
+    // if (speechPromise) {
+    //   promises.push(speechPromise);
+    // }
+    promises.push(speechPromise); // добавляем speakPromise, который стоит Promise.resolve (setTimeout) для мобильных устройств
+
+
+    Promise.all(promises).then(() => {
       resolve();
     }).catch(err => {
       console.error('Error during activation:', err);
       resolve(); // Завершаем даже в случае ошибки
     });
+
+    // Promise.all([speechPromise, animationPromise]).then(() => {
+    //   // console.log(`Finished activating key: ${seqEl}`);
+    //   resolve();
+    // }).catch(err => {
+    //   console.error('Error during activation:', err);
+    //   resolve(); // Завершаем даже в случае ошибки
+    // });
   });
 }
 
