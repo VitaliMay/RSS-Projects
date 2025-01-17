@@ -83,25 +83,6 @@ function speak (str) {
     window.speechSynthesis.speak(utterance);
   });
 };
-// const speak = (str) => {
-//   window.speechSynthesis.cancel(); // На всякий случай отменяю предыдущее высказывание
-//   const utterance = new SpeechSynthesisUtterance(str);
-//   utterance.rate = 1; // скорость произнесения
-//   utterance.pitch = 1;
-//   utterance.volume = 1;
-//   utterance.lang = 'en-US';
-
-//   const voices = speechSynthesis.getVoices();
-//   // utterance.voice = voices[10]; // Устанавливаем первый доступный голос
-//   // utterance.voice = voices[1]; // Устанавливаем первый доступный голос
-//   utterance.voice = voices[0]; // Устанавливаем первый доступный голос
-//   console.log(voices)
-
-//   return new Promise((resolve) => {
-//     utterance.onend = resolve;
-//     window.speechSynthesis.speak(utterance);
-//   });
-// };
 
 
 /************************************** */
