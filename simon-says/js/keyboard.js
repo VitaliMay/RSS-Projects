@@ -70,7 +70,7 @@ keyboard.addEventListener('pointerdown', (event) => {
     // activeKey.addEventListener('mouseleave', onKeyLeave);
   }
 
-  console.log(`press-DOWN ${isKeyPressed}`)
+  // console.log(`press-DOWN ${isKeyPressed}`)
 });
 
 // keyboard.addEventListener('mouseup', (event) => {
@@ -93,7 +93,7 @@ document.addEventListener('pointerup', (event) => {  // если курсор у
     }
   }
 
-  console.log(`press-UP ${isKeyPressed}`)
+  // console.log(`press-UP ${isKeyPressed}`)
 });
 
 
@@ -107,7 +107,7 @@ function onKeyLeave() {
   isKeyPressed = null; // Сбрасываем статус нажатой клавиши
   // activeKey.removeEventListener('mouseleave', onKeyLeave); // Удаляем обработчик чтобы избежать утечек памяти
   activeKey = null; // Обнуляем ссылку на активную клавишу
-  console.log(`press-LEAVE ${isKeyPressed}`);
+  // console.log(`press-LEAVE ${isKeyPressed}`);
 }
 
 
