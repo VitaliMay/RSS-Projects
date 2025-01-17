@@ -23,65 +23,140 @@ function createSequence (roundNum) {
 }
 
 /************************************** */
+//  Чтобы дождаться голоса загрузки голоса
+
+const voiceManager = {
+  voices: [],
+  voicesLoaded: false,
+  resolveVoices: null,
+
+  init() {
+    speechSynthesis.onvoiceschanged = () => {
+      this.voices = speechSynthesis.getVoices();
+      this.voicesLoaded = true; // Ставлю флаг true, когда голоса загружены
+      if (this.resolveVoices) {
+        this.resolveVoices(); // Запускаю все функции, которые ждут загрузки голосов
+      }
+    };
+  },
+
+  waitForVoices() {
+    // Если голоса уже загружены, сразу поехали - разрешаем промис
+    if (this.voicesLoaded) {
+      return Promise.resolve();
+    }
+
+    // Если голоса еще не загружены, создаем новый промис
+    return new Promise((resolve) => {
+      this.resolveVoices = resolve; // Сохраняем resolve в переменной для использования в onvoiceschanged
+    });
+  }
+};
+
+// Запускаю слушатель загрузки голосов voiceManager
+voiceManager.init();
+
+
+/************************************** */
+
+function speak (str) {
+  window.speechSynthesis.cancel(); // На всякий случай отменяю предыдущее высказывание
+  const utterance = new SpeechSynthesisUtterance(str);
+  utterance.rate = 1; // скорость произнесения
+  utterance.pitch = 1;
+  utterance.volume = 1;
+  // utterance.lang = 'en-GB'; // Устанавливаю язык
+
+  const voices = speechSynthesis.getVoices();
+  // console.log(voices)
+  // Поиск первого голоса с lang: "en-GB"
+  const selectedVoice = voices.find(voice => voice.lang === 'en-GB');
+  if (selectedVoice) {
+    utterance.voice = selectedVoice; // Устанавливаю найденный голос
+  } else {
+    console.warn("Voice with lang 'en-GB' not found.");
+    utterance.voice = voices[0]; // Запасной голос, если нужный не найден
+  }
+
+  return new Promise((resolve) => {
+    utterance.onend = resolve;
+    window.speechSynthesis.speak(utterance);
+  });
+};
+
+
+/************************************** */
 
 function activateKey(seqEl) {
-  const tile = keysArr.find(el => el.getAttribute('data-key') === seqEl);
+  return new Promise((resolve) => {
+    const tile = keysArr.find(el => el.getAttribute('data-key') === seqEl);
 
-  tile.classList.add('active-seq');
+    tile.classList.add('active-seq');
 
-// Динамически устанавливаю длительность анимации
-// для удобства отладки
-  const animationDuration = '1s';
-  tile.style.animationDuration = animationDuration; 
+    // Динамически устанавливаю длительность анимации
+    const animationDuration = '1s';
+    tile.style.animationDuration = animationDuration; 
 
-  // inputText.value = seqEl // можно показывать последовательность
-  // inputText.value += seqEl // можно показывать последовательность
-  // Удаляю класс анимации после завершения анимации
-  tile.addEventListener('animationend', () => {
-      tile.classList.remove('active-seq');
+    // Запускаем произнесение текста
+    // const speechPromise = speak(inputText.placeholder);
+    // const speechPromise = speak(`Finished activating key: ${seqEl}`);
+    const speechPromise = speak(seqEl);
 
-  }, { once: true }); // обработчик будет вызван только один раз
+
+    // Слушаем событие завершения анимации
+    const animationPromise = new Promise((animResolve) => {
+      tile.addEventListener('animationend', () => {
+          tile.classList.remove('active-seq');
+          animResolve();
+      }, { once: true }); // обработчик будет вызван только один раз
+    });
+
+    // Ждем, пока завершатся оба процесса
+    Promise.all([speechPromise, animationPromise]).then(() => {
+      // console.log(`Finished activating key: ${seqEl}`);
+      resolve();
+    }).catch(err => {
+      console.error('Error during activation:', err);
+      resolve(); // Завершаем даже в случае ошибки
+    });
+  });
 }
 
 /******************** */
 
-function playSequence(index = 0) {
+async function playSequence(index = 0) {
   infoArr.forEach((el, index) => {
     if (index !== 0) { // пропускаю round
       el.classList.add('disabled')
     }
-  })
+  });
 
   document.removeEventListener('keydown', logicKeyboard);
 
-  inputText.placeholder = 'remember the sequence'
+  inputText.placeholder = 'remember the sequence';
 
   // останавливаю работу клавы пока играет последовательность
   if (index < sequence.length) {
-    activateKey(sequence[index]); // Активирую текущую клавишу
-    setTimeout(() => {
-      playSequence(index + 1); // Рекурсивно вызываю функцию для следующего индекса
-    }, 1500);
-    // Задержка перед активацией следующего тайла
-    // должна быть больше времени анимации
+    await activateKey(sequence[index]); // Активирую текущую клавишу и жду, пока завершится
+    playSequence(index + 1); // Рекурсивно вызываю функцию для следующего индекса
   } else { // когда доиграет всё включаю
     keysArr.forEach(el => {
-      el.classList.remove('disabled')
-    })
+      el.classList.remove('disabled');
+    });
 
-    // activeKeyboard()
     document.addEventListener('keydown', logicKeyboard);
 
     infoArr.forEach((el) => {
-        el.classList.remove('disabled')
-    })
+      el.classList.remove('disabled');
+    });
 
-    inputText.placeholder = 'type the sequence'
+    inputText.placeholder = 'type the sequence';
 
-    if (!flagRepeatSequence.value) infoArr[2].classList.add('disabled')
+    if (!flagRepeatSequence.value) infoArr[2].classList.add('disabled');
   }
-
 }
+
+/*************************** */
 
 function repeatSequence () {
   if (!flagRepeatSequence) return;
@@ -164,4 +239,4 @@ function checkUserSequence() {
 /****************************************** */
 
 
-export { createSequence, sequence, playSequence, repeatSequence, flagRepeatSequence, userSequence, checkUserSequence }
+export { createSequence, sequence, playSequence, repeatSequence, flagRepeatSequence, userSequence, checkUserSequence, voiceManager }

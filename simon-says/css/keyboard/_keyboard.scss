@@ -66,31 +66,31 @@
   @include cansel-color-touch;
 }
 
-.key:active {
-  color: $tag-pink;
+// .key:active {
+//   color: $tag-pink;
 
-  background: linear-gradient(to bottom, rgb(224, 224, 224), rgb(255, 255, 255));
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2);
-  transform: translateY(2px);
+//   background: linear-gradient(to bottom, rgb(224, 224, 224), rgb(255, 255, 255));
+//   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2);
+//   transform: translateY(2px);
 
-  @include cansel-color-touch;
+//   @include cansel-color-touch;
 
-  &.key_info-round {  // отменяю active
-    background: inherit;
-    box-shadow: none;
-    color: $tag-grey;
-    font-size: 18px;
-    transform: translateY(0px); // Убираю Нажатие кнопки
+//   &.key_info-round {  // отменяю active
+//     background: inherit;
+//     box-shadow: none;
+//     color: $tag-grey;
+//     font-size: 18px;
+//     transform: translateY(0px); // Убираю Нажатие кнопки
 
-  }
+//   }
 
-  &.disabled {  // отменяю active при disabled
-    background: linear-gradient(to bottom, rgb(220, 220, 220), rgb(236, 236, 236));
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2);
-    transform: translateY(2px); // Нажатие кнопки
-    color: $tag-white;
-  }
-}
+//   &.disabled {  // отменяю active при disabled
+//     background: linear-gradient(to bottom, rgb(220, 220, 220), rgb(236, 236, 236));
+//     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2);
+//     transform: translateY(2px); // Нажатие кнопки
+//     color: $tag-white;
+//   }
+// }
 
 
 .keyboard-space {
@@ -138,9 +138,19 @@
   transform: translateY(2px); // Нажатие кнопки
 
   cursor: default;
-  pointer-events: none;
+  pointer-events: none;  // чтобы не срабатывал клик
 }
 
+
+.active-click {
+  color: $tag-pink;
+
+  background: linear-gradient(to bottom, rgb(224, 224, 224), rgb(255, 255, 255));
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2);
+  transform: translateY(2px);
+
+  @include cansel-color-touch;
+}
 
 /******************************************/
 /******************************************/
