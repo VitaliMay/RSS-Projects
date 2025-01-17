@@ -23,6 +23,16 @@ function createSequence (roundNum) {
 }
 
 /************************************** */
+
+function isMobileDevice() {
+  // console.log(navigator.userAgent)
+  // console.log(/Mobi|Android/i.test(navigator.userAgent))
+  return /Mobi|Android/i.test(navigator.userAgent);
+}
+
+// isMobileDevice()
+
+/************************************** */
 //  Чтобы дождаться голоса загрузки голоса
 
 const voiceManager = {
@@ -54,7 +64,11 @@ const voiceManager = {
 };
 
 // Запускаю слушатель загрузки голосов voiceManager
-voiceManager.init();
+// voiceManager.init();
+
+if(!isMobileDevice()) {
+  voiceManager.init();
+}
 
 
 /************************************** */
@@ -100,7 +114,12 @@ function activateKey(seqEl) {
     // Запускаем произнесение текста
     // const speechPromise = speak(inputText.placeholder);
     // const speechPromise = speak(`Finished activating key: ${seqEl}`);
-    const speechPromise = speak(seqEl);
+    
+    // const speechPromise = speak(seqEl);
+    let speechPromise = null
+    if(!isMobileDevice()) {
+      speechPromise = speak(seqEl)
+    }
 
 
     // Слушаем событие завершения анимации
@@ -239,4 +258,4 @@ function checkUserSequence() {
 /****************************************** */
 
 
-export { createSequence, sequence, playSequence, repeatSequence, flagRepeatSequence, userSequence, checkUserSequence, voiceManager }
+export { createSequence, sequence, playSequence, repeatSequence, flagRepeatSequence, userSequence, checkUserSequence, voiceManager, isMobileDevice }
