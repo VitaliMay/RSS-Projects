@@ -1,6 +1,6 @@
 import { levelBlock, levelEasy, levelMedium, levelHard, levelArr, keyboardNum, keyboardLetter, keyboardArr, info, infoArr, startButton, nextButton, inputText } from "./variables.js";
 import { keysArr } from "./keyboard.js";
-import { createSequence, playSequence, sequence, repeatSequence, flagRepeatSequence, voiceManager } from "./game-logic.js";
+import { createSequence, playSequence, sequence, repeatSequence, flagRepeatSequence, voiceManager, isMobileDevice } from "./game-logic.js";
 
 const [infoRound, infoNewGame, infoRepeat] = infoArr;
 
@@ -96,7 +96,11 @@ async function startGame () {
   createSequence(level.value)
 
   // Ожидаем загрузки голосов перед вызовом playSequence
-  await voiceManager.waitForVoices();
+  // await voiceManager.waitForVoices();
+
+  if(!isMobileDevice()) {
+    await voiceManager.waitForVoices();
+  }
 
   setTimeout(() => {
     playSequence();
