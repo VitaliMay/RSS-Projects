@@ -1,0 +1,8 @@
+
+.test-h1 {
+  @include caption;
+  color: $primary;
+
+  text-align: center;
+  margin: 100px auto;
+}
