@@ -462,4 +462,10 @@ body.lock {
   color: rgb(255, 70, 70);
   text-align: center;
   margin: 100px auto;
+}
+
+.canvas {
+  background-color: #424242;
+  display: block;
+  margin: 0 auto;
 }/*# sourceMappingURL=style.css.map */
