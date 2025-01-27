@@ -1,8 +1,10 @@
 class CanvasGrid {
-  constructor(gridSize, squareSize, gapSize) {
+  constructor(gridSize, squareSize, gapSize, matrix) {
     this.squareSize = squareSize; // Размер квадрата
     this.gridSize = gridSize; // Размер сетки
     this.gapSize = gapSize; // Размер промежутка между квадратиками
+
+    this.matrix = matrix;
 
     this.squaresAll = []; // Для хранения информации о каждом квадрате
     this.activeRow = -1; // Текущая активная строка
@@ -109,14 +111,6 @@ class CanvasGrid {
         this.activeRow = activeSquare ? activeSquare.row : -1;
         this.activeCol = activeSquare ? activeSquare.col : -1;
 
-        // if (activeSquare) {
-        //   this.activeRow = activeSquare.row;
-        //   this.activeCol = activeSquare.col;
-        // } else {
-        //   this.activeRow = -1;
-        //   this.activeCol = -1;
-        // }
-
         lastActiveSquare = activeSquare; // Обновляю последний активный квадрат
         this.drawSquares(); // Перерисовываю только если изменился активный квадрат
       }
@@ -140,7 +134,33 @@ class CanvasGrid {
 
       this.drawSquares(); // Перерисовываю квадраты после изменения цвета
       console.log(this.squaresAll);
+
+      // Проверка соответствие матрицы после клика
+      // Имеет смысл запускать не каждый раз,
+      // а только если кол-во кликнутых элементов совпадает с матрицей
+      this.checkMatrix();
     });
+  }
+
+  // Метод проверки соответствия матрицы
+  checkMatrix() {
+    for (let row = 0; row < this.gridSize; row += 1) {
+      for (let col = 0; col < this.gridSize; col += 1) {
+        const expectedValue = this.matrix[row][col]; // Значение из матрицы
+        const currentValue = this.squaresAll[row * this.gridSize + col].clicked
+          ? 1
+          : 0;
+        // 1, если кликнут, иначе 0
+
+        // Если значения не совпадают, выходим из функции
+        if (expectedValue !== currentValue) {
+          return;
+        }
+      }
+    }
+
+    // Если все значения совпадают, выводим поздравление
+    console.log('Ура! Кроссфорд решен, картинка собрана!');
   }
 }
 
