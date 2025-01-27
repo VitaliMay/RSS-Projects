@@ -10,17 +10,23 @@ class CanvasGrid {
     this.activeRow = -1; // Текущая активная строка
     this.activeCol = -1; // Текущая активная колонка
 
+    // Определяю стартовые позиции для рисования поля игры
+    const helpInfo = this.isHelp(matrix);
+    this.leftMaxLength = helpInfo.leftMaxLength;
+    this.topMaxLength = helpInfo.topMaxLength;
+
     // Создаю canvas
     this.canvas = document.createElement('canvas');
     this.canvas.classList.add('canvas');
 
-    document.body.append(this.canvas);
-    this.ctx = this.canvas.getContext('2d');
+    // добавляю базовый размер поля, чтобы меньше дублировать
+    const baseSize =
+      (this.gridSize + 1) * this.gapSize + this.squareSize * this.gridSize;
+    this.canvas.width = baseSize + this.squareSize * this.leftMaxLength;
+    this.canvas.height = baseSize + this.squareSize * this.topMaxLength;
 
-    this.canvas.width =
-      (this.gridSize + 1) * this.gapSize + this.squareSize * this.gridSize;
-    this.canvas.height =
-      (this.gridSize + 1) * this.gapSize + this.squareSize * this.gridSize;
+    document.body.append(this.canvas);
+    this.ctx = this.canvas.getContext('2d', { alpha: false }); // пробую улучшить производительность
 
     // заполняю squaresAll
     this.initSquaresAll();
@@ -29,15 +35,20 @@ class CanvasGrid {
     this.setupEventListeners();
 
     // Начальное рисование канвас (квадратики)
-    this.drawSquares(); // без активного квадрата
+    this.drawSquaresAll(); // без активного квадрата
   }
 
   // Первоначальное наполнение матрицы квадратов
   initSquaresAll() {
+    // стартовые позиции с учётом max кол-ва подсказок
+    const startX = this.leftMaxLength * this.squareSize;
+    const startY = this.topMaxLength * this.squareSize;
+
     for (let row = 0; row < this.gridSize; row += 1) {
       for (let col = 0; col < this.gridSize; col += 1) {
-        const x = col * (this.squareSize + this.gapSize) + this.gapSize;
-        const y = row * (this.squareSize + this.gapSize) + this.gapSize;
+        const baseSizeSquare = this.squareSize + this.gapSize;
+        const x = startX + col * baseSizeSquare + this.gapSize;
+        const y = startY + row * baseSizeSquare + this.gapSize;
         // this.squaresAll.push({ x, y, row, col, clicked: false }); // Все квадраты по умолчанию розовые
         this.squaresAll.push({
           x,
@@ -53,7 +64,7 @@ class CanvasGrid {
   }
 
   // Функция для рисования квадратиков
-  drawSquares() {
+  drawSquaresAll() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // Очистка canvas перед перерисовкой
 
     for (let square of this.squaresAll) {
@@ -146,7 +157,7 @@ class CanvasGrid {
         this.activeCol = activeSquare ? activeSquare.col : -1;
 
         lastActiveSquare = activeSquare; // Обновляю последний активный квадрат
-        this.drawSquares(); // Перерисовываю только если изменился активный квадрат
+        this.drawSquaresAll(); // Перерисовываю только если изменился активный квадрат
       }
     });
 
@@ -154,7 +165,7 @@ class CanvasGrid {
       // Сброс активного ряда и колонки, когда мышь покидает canvas
       this.activeRow = -1;
       this.activeCol = -1;
-      this.drawSquares(); // Перерисовываю квадраты без активного выделения
+      this.drawSquaresAll(); // Перерисовываю квадраты без активного выделения
     });
 
     this.canvas.addEventListener('click', (event) => {
@@ -169,8 +180,8 @@ class CanvasGrid {
       }
 
       // Имеет смысл перерисовывать только один квадрат
-      this.drawSquares(); // Перерисовываю квадраты после изменения цвета
-      console.log(this.squaresAll);
+      this.drawSquaresAll(); // Перерисовываю квадраты после изменения цвета
+      // console.log(this.squaresAll);
 
       // Проверка соответствие матрицы после клика
       // Имеет смысл запускать не каждый раз,
@@ -193,7 +204,7 @@ class CanvasGrid {
       }
 
       // Имеет смысл перерисовывать только один квадрат
-      this.drawSquares(); // Перерисовываем квадраты после изменения цвета
+      this.drawSquaresAll(); // Перерисовываем квадраты после изменения цвета
     });
   }
 
@@ -216,6 +227,93 @@ class CanvasGrid {
 
     // Если все значения совпадают, выводим поздравление
     console.log('Ура! Кроссфорд решен, картинка собрана!');
+  }
+
+  // Метод для расчёта (формрования) подсказок
+  isHelp(matrix) {
+    const result = {
+      left: [],
+      top: [],
+      leftMaxLength: 0,
+      topMaxLength: 0,
+    };
+
+    const numRows = matrix.length;
+    const numCols = matrix[0].length;
+
+    // Обработка рядов (строк)
+    for (let i = 0; i < numRows; i++) {
+      const row = matrix[i];
+      let count = 0;
+      const temp = [];
+
+      for (let j = 0; j < numCols; j += 1) {
+        if (row[j] === 1) {
+          count += 1;
+        } else {
+          if (count > 0) {
+            temp.push(count);
+            count = 0;
+          }
+        }
+      }
+
+      // В конце строки могут быть единицы
+      if (count > 0) {
+        temp.push(count);
+      }
+
+      // Расчитываю максимальное кол-во подсказок,
+      // для позиционирования игрового поля
+      if (temp.length > result.leftMaxLength) {
+        result.leftMaxLength = temp.length;
+      }
+
+      // Формирую результаты для left
+      if (temp.length === 0) {
+        result.left.push([]);
+      } else {
+        result.left.push(temp);
+      }
+    }
+
+    // Обработка колонок
+    for (let j = 0; j < numCols; j += 1) {
+      let count = 0;
+      const temp = [];
+
+      for (let i = 0; i < numRows; i += 1) {
+        if (matrix[i][j] === 1) {
+          count += 1;
+        } else {
+          if (count > 0) {
+            temp.push(count);
+            count = 0;
+          }
+        }
+      }
+
+      // В конце колонки могут быть единицы
+      if (count > 0) {
+        temp.push(count);
+      }
+
+      // Расчитываю максимальное кол-во подсказок,
+      // для позиционирования игрового поля
+      if (temp.length > result.topMaxLength) {
+        result.topMaxLength = temp.length;
+      }
+
+      // Формирую результаты для top
+      if (temp.length === 0) {
+        result.top.push([]);
+      } else {
+        result.top.push(temp);
+      }
+    }
+
+    console.log('Подсказки', result);
+    return result;
   }
 }
 
