@@ -39,7 +39,15 @@ class CanvasGrid {
         const x = col * (this.squareSize + this.gapSize) + this.gapSize;
         const y = row * (this.squareSize + this.gapSize) + this.gapSize;
         // this.squaresAll.push({ x, y, row, col, clicked: false }); // Все квадраты по умолчанию розовые
-        this.squaresAll.push({ x, y, row, col, color: 'pink', clicked: false }); // Все квадраты по умолчанию розовые
+        this.squaresAll.push({
+          x,
+          y,
+          row,
+          col,
+          color: 'pink',
+          clicked: false,
+          crossed: false,
+        }); // Добавил флаг для крестика
       }
     }
   }
@@ -50,7 +58,10 @@ class CanvasGrid {
 
     for (let square of this.squaresAll) {
       // Устанавливаем цвет квадрата
-      if (square.clicked) {
+      if (square.crossed) {
+        this.ctx.fillStyle = 'grey';
+      } // Цвет для перечеркнутого квадрата
+      else if (square.clicked) {
         this.ctx.fillStyle = 'beige'; // Цвет при клике
       } else if (
         square.row === this.activeRow ||
@@ -58,7 +69,7 @@ class CanvasGrid {
       ) {
         this.ctx.fillStyle = 'lightgreen'; // Цвет для всей строки и колонки
       } else {
-        this.ctx.fillStyle = 'pink'; // Остальные квадраты — розовые
+        this.ctx.fillStyle = 'grey'; // Остальные квадраты — серые
       }
 
       // Если курсор наведен на квадрат, меняю его цвет
@@ -71,7 +82,30 @@ class CanvasGrid {
       }
 
       this.ctx.fillRect(square.x, square.y, this.squareSize, this.squareSize);
+
+      // Если квадрат перечеркнут, рисую "X"
+      if (square.crossed) {
+        this.drawCross(square);
+      }
     }
+  }
+
+  // Метод рисования "X" на квадрате
+  drawCross(square) {
+    const x1 = square.x + 5; // Отступ от границы квадрата
+    const y1 = square.y + 5; // Отступ от границы квадрата
+    const x2 = square.x + this.squareSize - 5; // Отступ от границы квадрата
+    const y2 = square.y + this.squareSize - 5; // Отступ от границы квадрата
+
+    this.ctx.strokeStyle = 'red'; // Цвет "X"
+    this.ctx.lineWidth = 5; // Ширина линии
+
+    this.ctx.beginPath();
+    this.ctx.moveTo(x1, y1);
+    this.ctx.lineTo(x2, y2);
+    this.ctx.moveTo(x2, y1);
+    this.ctx.lineTo(x1, y2);
+    this.ctx.stroke();
   }
 
   // Установка обработчиков событий
@@ -130,8 +164,11 @@ class CanvasGrid {
       // Меняю состояние clicked
       if (clickedSquare) {
         clickedSquare.clicked = !clickedSquare.clicked;
+        // Если квадрат кликнутый, то он не перечёркнутый
+        clickedSquare.crossed = false;
       }
 
+      // Имеет смысл перерисовывать только один квадрат
       this.drawSquares(); // Перерисовываю квадраты после изменения цвета
       console.log(this.squaresAll);
 
@@ -139,6 +176,24 @@ class CanvasGrid {
       // Имеет смысл запускать не каждый раз,
       // а только если кол-во кликнутых элементов совпадает с матрицей
       this.checkMatrix();
+    });
+
+    // Клик по правой мыши - ставит крестик
+    this.canvas.addEventListener('contextmenu', (event) => {
+      event.preventDefault(); // Убираю дефолтное контекстное меню
+
+      const { mouseX, mouseY } = getMousePosition(event);
+      let clickedSquare = findSquare(mouseX, mouseY);
+
+      // Меняю состояние crossed
+      if (clickedSquare) {
+        clickedSquare.crossed = !clickedSquare.crossed;
+        // Если квадрат перечёркнутый, то он не кликнутый
+        clickedSquare.clicked = false;
+      }
+
+      // Имеет смысл перерисовывать только один квадрат
+      this.drawSquares(); // Перерисовываем квадраты после изменения цвета
     });
   }
 
