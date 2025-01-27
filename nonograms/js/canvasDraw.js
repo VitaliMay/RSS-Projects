@@ -122,6 +122,13 @@ class CanvasGrid {
       }
     });
 
+    this.canvas.addEventListener('mouseleave', () => {
+      // Сброс активного ряда и колонки, когда мышь покидает canvas
+      this.activeRow = -1;
+      this.activeCol = -1;
+      this.drawSquares(); // Перерисовываю квадраты без активного выделения
+    });
+
     this.canvas.addEventListener('click', (event) => {
       const { mouseX, mouseY } = getMousePosition(event);
       let clickedSquare = findSquare(mouseX, mouseY);
