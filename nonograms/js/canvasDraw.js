@@ -1,104 +1,127 @@
-const canvas = document.createElement('canvas');
-canvas.classList.add('canvas');
-document.body.appendChild(canvas);
+class CanvasGrid {
+  constructor(gridSize, squareSize, gapSize) {
+    this.squareSize = squareSize; // Размер квадрата
+    this.gridSize = gridSize; // Размер сетки
+    this.gapSize = gapSize; // Размер промежутка между квадратиками
 
-const ctx = canvas.getContext('2d');
+    this.squaresAll = []; // Для хранения информации о каждом квадрате
+    this.activeRow = -1; // Текущая активная строка
+    this.activeCol = -1; // Текущая активная колонка
 
-const squareSize = 50; // Размер квадрата
-const gapSize = 5; // Размер промежутка между квадратиками
-const gridSize = 5; // Количество квадратов по горизонтали и вертикали
-const squaresAll = []; // Для хранения информации о каждом квадрате
+    // Создаю canvas
+    this.canvas = document.createElement('canvas');
+    this.canvas.classList.add('canvas');
 
-canvas.width = (gridSize + 1) * gapSize + squareSize * gridSize;
-canvas.height = (gridSize + 1) * gapSize + squareSize * gridSize;
-// canvas.width = 500;
-// canvas.height = 400;
+    document.body.append(this.canvas);
+    this.ctx = this.canvas.getContext('2d');
 
-// Создаю матрицу квадратов с координатами и состоянием цвета
-for (let row = 0; row < gridSize; row++) {
-  for (let col = 0; col < gridSize; col++) {
-    const x = col * (squareSize + gapSize) + gapSize;
-    const y = row * (squareSize + gapSize) + gapSize;
-    squaresAll.push({ x, y, row, col, color: 'pink', clicked: false }); // Все квадраты по умолчанию розовые
+    this.canvas.width =
+      (this.gridSize + 1) * this.gapSize + this.squareSize * this.gridSize;
+    this.canvas.height =
+      (this.gridSize + 1) * this.gapSize + this.squareSize * this.gridSize;
+
+    // заполняю squaresAll
+    this.initSquaresAll();
+
+    // Добавляю обработчики событий
+    this.setupEventListeners();
+
+    // Начальное рисование канвас (квадратики)
+    this.drawSquares(); // без активного квадрата
+  }
+
+  // Первоначальное наполнение матрицы квадратов
+  initSquaresAll() {
+    for (let row = 0; row < this.gridSize; row += 1) {
+      for (let col = 0; col < this.gridSize; col += 1) {
+        const x = col * (this.squareSize + this.gapSize) + this.gapSize;
+        const y = row * (this.squareSize + this.gapSize) + this.gapSize;
+        // this.squaresAll.push({ x, y, row, col, clicked: false }); // Все квадраты по умолчанию розовые
+        this.squaresAll.push({ x, y, row, col, color: 'pink', clicked: false }); // Все квадраты по умолчанию розовые
+      }
+    }
+  }
+
+  // Функция для рисования квадратиков
+  drawSquares() {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // Очистка canvas перед перерисовкой
+
+    for (let square of this.squaresAll) {
+      // Устанавливаем цвет квадрата
+      if (square.clicked) {
+        this.ctx.fillStyle = 'beige'; // Цвет при клике
+      } else if (
+        square.row === this.activeRow ||
+        square.col === this.activeCol
+      ) {
+        this.ctx.fillStyle = 'lightgreen'; // Цвет для всей строки и колонки
+      } else {
+        this.ctx.fillStyle = 'pink'; // Остальные квадраты — розовые
+      }
+
+      // Если курсор наведен на квадрат, меняю его цвет
+      if (
+        square.row === this.activeRow &&
+        square.col === this.activeCol &&
+        !square.clicked
+      ) {
+        this.ctx.fillStyle = 'yellowgreen'; // Цвет hover, если не кликнутый
+      }
+
+      this.ctx.fillRect(square.x, square.y, this.squareSize, this.squareSize);
+    }
+  }
+
+  // Установка обработчиков событий
+  setupEventListeners() {
+    this.canvas.addEventListener('mousemove', (event) => {
+      const canvasRect = this.canvas.getBoundingClientRect();
+      // ловлю положение мыши над канвасом
+      const mouseX = event.clientX - canvasRect.left;
+      const mouseY = event.clientY - canvasRect.top;
+
+      this.activeRow = -1; // Сброс активного ряда и колонки
+      this.activeCol = -1;
+
+      // Нахожу квадрат, над которым курсор
+      this.squaresAll.forEach((square) => {
+        if (
+          mouseX > square.x &&
+          mouseX < square.x + this.squareSize &&
+          mouseY > square.y &&
+          mouseY < square.y + this.squareSize
+        ) {
+          this.activeRow = square.row; // Индекс активного ряда
+          this.activeCol = square.col; // Индекс активной колонки
+        }
+      });
+
+      this.drawSquares(); // Перерисовываю квадраты с учетом активного квадрата
+    });
+
+    this.canvas.addEventListener('click', (event) => {
+      const canvasRect = this.canvas.getBoundingClientRect();
+      // ловлю положение мыши над канвасом
+      const mouseX = event.clientX - canvasRect.left;
+      const mouseY = event.clientY - canvasRect.top;
+
+      /// Нахожу квадрат, по которому кликнули
+      this.squaresAll.forEach((square) => {
+        if (
+          mouseX > square.x &&
+          mouseX < square.x + this.squareSize &&
+          mouseY > square.y &&
+          mouseY < square.y + this.squareSize
+        ) {
+          // Меняю состояние clicked
+          square.clicked = !square.clicked;
+        }
+      });
+
+      this.drawSquares(); // Перерисовываю квадраты после изменения цвета
+      console.log(this.squaresAll);
+    });
   }
 }
 
-// Функция для рисования квадратиков
-function drawSquares(activeRow, activeCol) {
-  ctx.clearRect(0, 0, canvas.width, canvas.height); // Очистка canvas перед перерисовкой
-
-  for (let square of squaresAll) {
-    // Устанавливаю цвет квадрата
-    if (square.clicked) {
-      ctx.fillStyle = 'beige'; // Цвет при клике
-    } else if (square.row === activeRow || square.col === activeCol) {
-      ctx.fillStyle = 'lightgreen'; // Цвет для всей строки и колонки
-    } else {
-      ctx.fillStyle = 'pink'; // Остальные квадраты — розовые
-    }
-
-    // Если курсор наведен на квадрат, меняю его цвет
-    if (
-      square.row === activeRow &&
-      square.col === activeCol &&
-      !square.clicked
-    ) {
-      ctx.fillStyle = 'yellowgreen'; // Цвет hover, если не кликнутый
-    }
-
-    ctx.fillRect(square.x, square.y, squareSize, squareSize);
-  }
-}
-
-// Обработка движения мыши
-canvas.addEventListener('mousemove', (event) => {
-  const canvasRect = canvas.getBoundingClientRect();
-  // ловлю положение мыши над канвасом
-  const mouseX = event.clientX - canvasRect.left;
-  const mouseY = event.clientY - canvasRect.top;
-
-  let activeRow = -1;
-  let activeCol = -1;
-
-  // Нахожу квадрат, над которым курсор
-  squaresAll.forEach((square) => {
-    if (
-      mouseX > square.x &&
-      mouseX < square.x + squareSize &&
-      mouseY > square.y &&
-      mouseY < square.y + squareSize
-    ) {
-      activeRow = square.row; // Индекс активного ряда
-      activeCol = square.col; // Индекс активной колонки
-    }
-  });
-
-  drawSquares(activeRow, activeCol); // Перерисовываю квадраты с учетом активного квадрата
-});
-
-// Обработка клика по квадратикам
-canvas.addEventListener('click', (event) => {
-  const canvasRect = canvas.getBoundingClientRect();
-  // ловлю положение мыши над канвасом
-  const mouseX = event.clientX - canvasRect.left;
-  const mouseY = event.clientY - canvasRect.top;
-
-  // Нахожу квадрат, по которому кликнули
-  squaresAll.forEach((square) => {
-    if (
-      mouseX > square.x &&
-      mouseX < square.x + squareSize &&
-      mouseY > square.y &&
-      mouseY < square.y + squareSize
-    ) {
-      // Меняю состояние clicked
-      square.clicked = !square.clicked;
-    }
-  });
-
-  drawSquares(); // Перерисовываю квадраты после изменения цвета
-
-  console.log(squaresAll);
-});
-
-export { drawSquares };
+export { CanvasGrid };
