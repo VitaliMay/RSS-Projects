@@ -74,49 +74,70 @@ class CanvasGrid {
 
   // Установка обработчиков событий
   setupEventListeners() {
-    this.canvas.addEventListener('mousemove', (event) => {
+    // ловлю положение мыши над канвасом
+    const getMousePosition = (event) => {
       const canvasRect = this.canvas.getBoundingClientRect();
-      // ловлю положение мыши над канвасом
       const mouseX = event.clientX - canvasRect.left;
       const mouseY = event.clientY - canvasRect.top;
+      return { mouseX, mouseY };
+    };
 
-      this.activeRow = -1; // Сброс активного ряда и колонки
-      this.activeCol = -1;
-
-      // Нахожу квадрат, над которым курсор
-      this.squaresAll.forEach((square) => {
+    // Нахожу квадрат, над которым курсор
+    const findSquare = (mouseX, mouseY) => {
+      for (const square of this.squaresAll) {
         if (
           mouseX > square.x &&
           mouseX < square.x + this.squareSize &&
           mouseY > square.y &&
           mouseY < square.y + this.squareSize
         ) {
-          this.activeRow = square.row; // Индекс активного ряда
-          this.activeCol = square.col; // Индекс активной колонки
+          return square;
         }
-      });
+      }
+      return null; // Если квадрат не найден
+    };
 
-      this.drawSquares(); // Перерисовываю квадраты с учетом активного квадрата
+    // Последний активный квадрат (чтобы не рисовать при каждом движении мышью)
+    let lastActiveSquare = null;
+
+    this.canvas.addEventListener('mousemove', (event) => {
+      const { mouseX, mouseY } = getMousePosition(event);
+      let activeSquare = findSquare(mouseX, mouseY);
+
+      // Проверяю, изменился ли активный квадрат
+      if (activeSquare !== lastActiveSquare) {
+        // console.log(activeSquare);
+        if (activeSquare) {
+          this.activeRow = activeSquare.row;
+          this.activeCol = activeSquare.col;
+        } else {
+          this.activeRow = -1;
+          this.activeCol = -1;
+        }
+
+        lastActiveSquare = activeSquare; // Обновляю последний активный квадрат
+        this.drawSquares(); // Перерисовываю только если изменился активный квадрат
+      }
+
+      // if (activeSquare) {
+      //   this.activeRow = activeSquare.row;
+      //   this.activeCol = activeSquare.col;
+      // } else {
+      //   this.activeRow = -1;
+      //   this.activeCol = -1;
+      // }
+
+      // this.drawSquares();
     });
 
     this.canvas.addEventListener('click', (event) => {
-      const canvasRect = this.canvas.getBoundingClientRect();
-      // ловлю положение мыши над канвасом
-      const mouseX = event.clientX - canvasRect.left;
-      const mouseY = event.clientY - canvasRect.top;
+      const { mouseX, mouseY } = getMousePosition(event);
+      let clickedSquare = findSquare(mouseX, mouseY);
 
-      /// Нахожу квадрат, по которому кликнули
-      this.squaresAll.forEach((square) => {
-        if (
-          mouseX > square.x &&
-          mouseX < square.x + this.squareSize &&
-          mouseY > square.y &&
-          mouseY < square.y + this.squareSize
-        ) {
-          // Меняю состояние clicked
-          square.clicked = !square.clicked;
-        }
-      });
+      // Меняю состояние clicked
+      if (clickedSquare) {
+        clickedSquare.clicked = !clickedSquare.clicked;
+      }
 
       this.drawSquares(); // Перерисовываю квадраты после изменения цвета
       console.log(this.squaresAll);
