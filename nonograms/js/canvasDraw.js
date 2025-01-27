@@ -106,28 +106,20 @@ class CanvasGrid {
 
       // Проверяю, изменился ли активный квадрат
       if (activeSquare !== lastActiveSquare) {
-        // console.log(activeSquare);
-        if (activeSquare) {
-          this.activeRow = activeSquare.row;
-          this.activeCol = activeSquare.col;
-        } else {
-          this.activeRow = -1;
-          this.activeCol = -1;
-        }
+        this.activeRow = activeSquare ? activeSquare.row : -1;
+        this.activeCol = activeSquare ? activeSquare.col : -1;
+
+        // if (activeSquare) {
+        //   this.activeRow = activeSquare.row;
+        //   this.activeCol = activeSquare.col;
+        // } else {
+        //   this.activeRow = -1;
+        //   this.activeCol = -1;
+        // }
 
         lastActiveSquare = activeSquare; // Обновляю последний активный квадрат
         this.drawSquares(); // Перерисовываю только если изменился активный квадрат
       }
-
-      // if (activeSquare) {
-      //   this.activeRow = activeSquare.row;
-      //   this.activeCol = activeSquare.col;
-      // } else {
-      //   this.activeRow = -1;
-      //   this.activeCol = -1;
-      // }
-
-      // this.drawSquares();
     });
 
     this.canvas.addEventListener('click', (event) => {
