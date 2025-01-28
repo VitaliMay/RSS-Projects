@@ -9,8 +9,11 @@
 
 .canvas {
   // border: solid 1px black;
-  background-color: #424242;
+  background-color: rgb(128, 128, 128);
+  // background-color: #424242;
 
   display: block;
-  margin: 0 auto;
+  margin: 0 auto 30px;
+
+  border: 10px solid rgb(26, 114, 51); /* Временно для проверки */
 }

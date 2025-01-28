@@ -465,7 +465,8 @@ body.lock {
 }
 
 .canvas {
-  background-color: #424242;
+  background-color: rgb(128, 128, 128);
   display: block;
-  margin: 0 auto;
+  margin: 0 auto 30px;
+  border: 10px solid rgb(26, 114, 51); /* Временно для проверки */
 }/*# sourceMappingURL=style.css.map */

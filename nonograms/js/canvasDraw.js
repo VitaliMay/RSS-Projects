@@ -21,7 +21,9 @@ class CanvasGrid {
 
     // добавляю базовый размер поля, чтобы меньше дублировать
     const baseSize =
-      (this.gridSize + 1) * this.gapSize + this.squareSize * this.gridSize;
+      (this.gridSize + 1) * this.gapSize +
+      this.squareSize * this.gridSize +
+      this.gapSize * 6; // для разделительных линий
     this.canvas.width = baseSize + this.squareSize * this.leftMaxLength;
     this.canvas.height = baseSize + this.squareSize * this.topMaxLength;
 
@@ -41,15 +43,17 @@ class CanvasGrid {
   // Первоначальное наполнение матрицы квадратов
   initSquaresAll() {
     // стартовые позиции с учётом max кол-ва подсказок
-    const startX = this.leftMaxLength * this.squareSize;
-    const startY = this.topMaxLength * this.squareSize;
+    const startX = this.leftMaxLength * this.squareSize + this.gapSize * 4;
+    const startY = this.topMaxLength * this.squareSize + this.gapSize * 4;
 
     for (let row = 0; row < this.gridSize; row += 1) {
       for (let col = 0; col < this.gridSize; col += 1) {
         const baseSizeSquare = this.squareSize + this.gapSize;
-        const x = startX + col * baseSizeSquare + this.gapSize;
-        const y = startY + row * baseSizeSquare + this.gapSize;
-        // this.squaresAll.push({ x, y, row, col, clicked: false }); // Все квадраты по умолчанию розовые
+        const x =
+          startX + col * baseSizeSquare + Math.floor(col / 5) * this.gapSize;
+        const y =
+          startY + row * baseSizeSquare + Math.floor(row / 5) * this.gapSize;
+
         this.squaresAll.push({
           x,
           y,
@@ -68,11 +72,16 @@ class CanvasGrid {
   drawSquaresAll() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // Очистка canvas перед перерисовкой
 
+    // Изменяю цвет канвас
+    // this.ctx.fillStyle = 'rgb(63, 95, 225)';
+    // this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
     /********Блок закрашивания квадратов******************************** */
     for (let square of this.squaresAll) {
       // Устанавливаем цвет квадрата
       if (square.crossed) {
-        this.ctx.fillStyle = 'grey';
+        this.ctx.fillStyle = 'rgb(128, 128, 128)';
+        // this.ctx.fillStyle = 'grey';
       } // Цвет для перечеркнутого квадрата
       else if (square.clicked) {
         this.ctx.fillStyle = 'beige'; // Цвет при клике
@@ -80,9 +89,12 @@ class CanvasGrid {
         square.row === this.activeRow ||
         square.col === this.activeCol
       ) {
-        this.ctx.fillStyle = 'lightgreen'; // Цвет для всей строки и колонки
+        this.ctx.fillStyle = 'rgb(107, 107, 107)'; // Цвет для всей строки и колонки
+        // this.ctx.fillStyle = 'rgb(156, 156, 156)'; // Цвет для всей строки и колонки
+        // this.ctx.fillStyle = 'lightgreen'; // Цвет для всей строки и колонки
       } else {
-        this.ctx.fillStyle = 'grey'; // Остальные квадраты — серые
+        this.ctx.fillStyle = 'rgb(128, 128, 128)'; // Остальные квадраты — серые
+        // this.ctx.fillStyle = 'grey'; // Остальные квадраты — серые
       }
 
       // Если курсор наведен на квадрат, меняю его цвет
@@ -91,7 +103,8 @@ class CanvasGrid {
         square.col === this.activeCol &&
         !square.clicked
       ) {
-        this.ctx.fillStyle = 'yellowgreen'; // Цвет hover, если не кликнутый
+        this.ctx.fillStyle = 'rgb(88, 88, 88)'; // Цвет hover, если не кликнутый
+        // this.ctx.fillStyle = 'yellowgreen'; // Цвет hover, если не кликнутый
       }
 
       this.ctx.fillRect(square.x, square.y, this.squareSize, this.squareSize);
@@ -113,38 +126,17 @@ class CanvasGrid {
     for (let row = 0; row < this.helpInfo.left.length; row += 1) {
       const hintY =
         this.squaresAll[row * this.gridSize].y + (this.squareSize / 4) * 3;
-      // this.squaresAll[row * this.gridSize].y + this.squareSize / 2;
-      // const hintY = this.squares[row * this.gridSize].y + this.squareSize / 2;
-      // const hintY = (row + this.topMaxLength) * (this.squareSize + this.gapSize) + (this.squareSize / 2);
       this.helpInfo.left[row].forEach((value, index) => {
         const hintX =
           this.squaresAll[0].x -
           this.gapSize -
           this.squareSize / 2 -
-          index * this.squareSize;
-        // this.leftMaxLength * (this.squareSize + this.gapSize) -
-        // (this.gapSize + this.squareSize / 2 + index * this.squareSize);
-        // const hintX =
-        //   this.leftMaxLength * (this.squareSize + this.gapSize) -
-        //   (this.gapSize + this.squareSize / 2 + index * this.squareSize);
+          index * this.squareSize -
+          2 * this.gapSize;
 
         this.ctx.fillText(value, hintX, hintY);
-        // this.ctx.fillText(value, hintX, hintY + this.gapSize);
       });
     }
-
-    // for (let row = 0; row < this.helpInfo.left.length; row += 1) {
-    //   const hintY =
-    //     (row + this.topMaxLength) * (this.squareSize + this.gapSize) +
-    //     this.squareSize / 2;
-    //   this.helpInfo.left[row].forEach((value, index) => {
-    //     const hintX =
-    //       this.leftMaxLength * (this.squareSize + this.gapSize) -
-    //       (this.gapSize + this.squareSize / 2 + index * this.squareSize);
-    //     this.ctx.fillText(value, hintX, hintY + this.gapSize);
-    //     // this.ctx.fillText(value, hintX, hintY + (index * this.gapSize));
-    //   });
-    // }
 
     // Подсказки сверху
     for (let col = 0; col < this.helpInfo.top.length; col++) {
@@ -156,24 +148,66 @@ class CanvasGrid {
           // this.squaresAll[col].y -
           // this.gapSize -
           this.squareSize / 2 -
-          index * this.squareSize; // const hintY = (this.topMaxLength * (this.squareSize + this.gapSize * 2)) - (this.gapSize + (this.squareSize) + (index * this.squareSize)) ;
+          index * this.squareSize -
+          2 * this.gapSize;
+        // const hintY = (this.topMaxLength * (this.squareSize + this.gapSize * 2)) - (this.gapSize + (this.squareSize) + (index * this.squareSize)) ;
         // const hintY = (this.topMaxLength * (this.squareSize + this.gapSize * 2)) - (this.gapSize + (this.squareSize / 2) + (index * this.squareSize)) ;
         this.ctx.fillText(value, hintX, hintY);
         // this.ctx.fillText(value, hintX, hintY + (index * this.gapSize));
       });
     }
 
-    // for (let col = 0; col < this.helpInfo.top.length; col += 1) {
-    //   const hintX =
-    //     (col + this.leftMaxLength) * (this.squareSize + this.gapSize) +
-    //     this.squareSize / 2;
-    //   this.helpInfo.top[col].forEach((value, index) => {
-    //     const hintY =
-    //       this.topMaxLength * (this.squareSize + this.gapSize * 2) -
-    //       (this.gapSize + this.squareSize / 2 + index * this.squareSize);
-    //     this.ctx.fillText(value, hintX, hintY + index * this.gapSize);
-    //   });
-    // }
+    /********Блок разделительных линий *************************/
+    this.ctx.strokeStyle = 'red'; // Цвет линии
+    this.ctx.lineWidth = this.gapSize * 2; // Ширину линии
+
+    // Разделительных линии по горизонтали (top)
+    // Перебираю строки с границей через 5 квадратов
+    for (let row = 1; row <= this.gridSize; row += 5) {
+      const previousSquare = this.squaresAll[row * this.gridSize]; // Квадрат в первой колонке текущей строки
+      const lineY = previousSquare.y - this.squareSize - 2 * this.gapSize; //  Y для линии
+
+      this.ctx.beginPath();
+      this.ctx.moveTo(this.gapSize * 2, lineY); // Начало линии (слева)
+      // this.ctx.moveTo(0, lineY); // Начало линии (слева)
+
+      this.ctx.lineTo(previousSquare.x - this.gapSize * 4, lineY); // Конец линии (справа)
+      if (row === 1) {
+        this.ctx.moveTo(previousSquare.x - this.gapSize * 2, lineY); // Начало линии (слева)
+        this.ctx.lineTo(
+          this.squaresAll[this.gridSize - 1].x + this.squareSize,
+          lineY,
+        ); // Конец линии (справа)
+        // this.ctx.lineTo(this.squares[this.gridSize - 1].x + this.squareSize, lineY); // Конец линии (справа)
+      }
+      // this.ctx.lineTo(this.canvas.width, lineY); // Конец линии (справа)
+      this.ctx.stroke();
+    }
+
+    // Разделительные линии по вертикали (left)
+    // Перебираю колонки с границей через 5 квадратов
+    for (let col = 1; col <= this.gridSize; col += 5) {
+      const previousSquare = this.squaresAll[col - 1]; // Квадрат в первой колонке текущей строки
+      const lineX = previousSquare.x - this.gapSize; // X для линии
+      // const lineY = previousSquare.y + this.squareSize + this.gapSize;
+
+      this.ctx.beginPath();
+      this.ctx.moveTo(lineX, this.gapSize * 2); // Начало линии
+      // this.ctx.moveTo(lineX, this.gapSize * 2 ); // Начало линии
+
+      this.ctx.lineTo(lineX, previousSquare.y - this.gapSize * 4); // Конец линии
+      // this.ctx.lineTo(lineX, previousSquare.y); // Конец линии
+      if (col === 1) {
+        this.ctx.moveTo(lineX, previousSquare.y - this.gapSize * 2); // Начало линии
+        this.ctx.lineTo(
+          lineX,
+          this.squaresAll[this.squaresAll.length - this.gridSize].y +
+            this.squareSize,
+        ); // Конец линии (справа)
+      }
+      // this.ctx.lineTo(this.canvas.width, lineY); // Конец линии (справа)
+      this.ctx.stroke();
+    }
   }
 
   // Метод рисования "X" на квадрате
