@@ -211,7 +211,8 @@ const data = {
   },
 };
 
-const matrixName = 'butterfly';
+const matrixName = 'kat';
+// const matrixName = 'butterfly';
 console.log(`matrix ${matrixName}`, data[matrixName].matrix);
 // console.log(data.butterfly.matrix);
 

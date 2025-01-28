@@ -11,9 +11,9 @@ class CanvasGrid {
     this.activeCol = -1; // Текущая активная колонка
 
     // Определяю стартовые позиции для рисования поля игры
-    const helpInfo = this.isHelp(matrix);
-    this.leftMaxLength = helpInfo.leftMaxLength;
-    this.topMaxLength = helpInfo.topMaxLength;
+    this.helpInfo = this.isHelp(matrix);
+    this.leftMaxLength = this.helpInfo.leftMaxLength;
+    this.topMaxLength = this.helpInfo.topMaxLength;
 
     // Создаю canvas
     this.canvas = document.createElement('canvas');
@@ -61,12 +61,14 @@ class CanvasGrid {
         }); // Добавил флаг для крестика
       }
     }
+    console.log(this.squaresAll);
   }
 
   // Функция для рисования квадратиков
   drawSquaresAll() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // Очистка canvas перед перерисовкой
 
+    /********Блок закрашивания квадратов******************************** */
     for (let square of this.squaresAll) {
       // Устанавливаем цвет квадрата
       if (square.crossed) {
@@ -99,6 +101,79 @@ class CanvasGrid {
         this.drawCross(square);
       }
     }
+
+    /********Блок подсказок *************************/
+    this.ctx.fillStyle = 'white'; // Цвет текста
+    this.ctx.textAlign = 'center'; // Центрируем текст
+    this.ctx.font = `${this.squareSize / 2}px Lato`; // ставлю шрифт
+
+    // this.ctx.fillText('O', 0, 10);
+
+    // Подсказки слева
+    for (let row = 0; row < this.helpInfo.left.length; row += 1) {
+      const hintY =
+        this.squaresAll[row * this.gridSize].y + (this.squareSize / 4) * 3;
+      // this.squaresAll[row * this.gridSize].y + this.squareSize / 2;
+      // const hintY = this.squares[row * this.gridSize].y + this.squareSize / 2;
+      // const hintY = (row + this.topMaxLength) * (this.squareSize + this.gapSize) + (this.squareSize / 2);
+      this.helpInfo.left[row].forEach((value, index) => {
+        const hintX =
+          this.squaresAll[0].x -
+          this.gapSize -
+          this.squareSize / 2 -
+          index * this.squareSize;
+        // this.leftMaxLength * (this.squareSize + this.gapSize) -
+        // (this.gapSize + this.squareSize / 2 + index * this.squareSize);
+        // const hintX =
+        //   this.leftMaxLength * (this.squareSize + this.gapSize) -
+        //   (this.gapSize + this.squareSize / 2 + index * this.squareSize);
+
+        this.ctx.fillText(value, hintX, hintY);
+        // this.ctx.fillText(value, hintX, hintY + this.gapSize);
+      });
+    }
+
+    // for (let row = 0; row < this.helpInfo.left.length; row += 1) {
+    //   const hintY =
+    //     (row + this.topMaxLength) * (this.squareSize + this.gapSize) +
+    //     this.squareSize / 2;
+    //   this.helpInfo.left[row].forEach((value, index) => {
+    //     const hintX =
+    //       this.leftMaxLength * (this.squareSize + this.gapSize) -
+    //       (this.gapSize + this.squareSize / 2 + index * this.squareSize);
+    //     this.ctx.fillText(value, hintX, hintY + this.gapSize);
+    //     // this.ctx.fillText(value, hintX, hintY + (index * this.gapSize));
+    //   });
+    // }
+
+    // Подсказки сверху
+    for (let col = 0; col < this.helpInfo.top.length; col++) {
+      const hintX = this.squaresAll[col].x + this.squareSize / 2;
+      // const hintX = (col + this.leftMaxLength) * (this.squareSize + this.gapSize) + (this.squareSize / 2);
+      this.helpInfo.top[col].forEach((value, index) => {
+        const hintY =
+          this.squaresAll[0].y -
+          // this.squaresAll[col].y -
+          // this.gapSize -
+          this.squareSize / 2 -
+          index * this.squareSize; // const hintY = (this.topMaxLength * (this.squareSize + this.gapSize * 2)) - (this.gapSize + (this.squareSize) + (index * this.squareSize)) ;
+        // const hintY = (this.topMaxLength * (this.squareSize + this.gapSize * 2)) - (this.gapSize + (this.squareSize / 2) + (index * this.squareSize)) ;
+        this.ctx.fillText(value, hintX, hintY);
+        // this.ctx.fillText(value, hintX, hintY + (index * this.gapSize));
+      });
+    }
+
+    // for (let col = 0; col < this.helpInfo.top.length; col += 1) {
+    //   const hintX =
+    //     (col + this.leftMaxLength) * (this.squareSize + this.gapSize) +
+    //     this.squareSize / 2;
+    //   this.helpInfo.top[col].forEach((value, index) => {
+    //     const hintY =
+    //       this.topMaxLength * (this.squareSize + this.gapSize * 2) -
+    //       (this.gapSize + this.squareSize / 2 + index * this.squareSize);
+    //     this.ctx.fillText(value, hintX, hintY + index * this.gapSize);
+    //   });
+    // }
   }
 
   // Метод рисования "X" на квадрате
@@ -273,7 +348,7 @@ class CanvasGrid {
       if (temp.length === 0) {
         result.left.push([]);
       } else {
-        result.left.push(temp);
+        result.left.push(temp.reverse());
       }
     }
 
@@ -308,7 +383,7 @@ class CanvasGrid {
       if (temp.length === 0) {
         result.top.push([]);
       } else {
-        result.top.push(temp);
+        result.top.push(temp.reverse());
       }
     }
 
