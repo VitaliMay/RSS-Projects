@@ -242,7 +242,7 @@ class CanvasGrid {
     const numCols = matrix[0].length;
 
     // Обработка рядов (строк)
-    for (let i = 0; i < numRows; i++) {
+    for (let i = 0; i < numRows; i += 1) {
       const row = matrix[i];
       let count = 0;
       const temp = [];
