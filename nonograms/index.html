@@ -14,7 +14,24 @@
   <script type="module" src="./app.js" crossorigin></script>
 </head>
 <body>
-  <h1 class="test-h1">Hello Nonograms</h1>
+  <div class="wrapper">
+    <h1 class="test-h1">Hello Nonograms</h1>
+    <div class="container">
+      <div class="canvas-container"></div>
+      <div class="btn-container">
+        <button type="button" class="button button_reset">Reset Game</button>
+        <button type="button" class="button button_random">Random Game</button>
+        <button type="button" class="button button-solution">Solution</button>
+        <button type="button" class="button button-save">Save Game</button>
+        <button type="button" class="button">Continue last game</button>
+        <button type="button" class="button">Game Level</button>
+        <button type="button" class="button" disabled>Game List</button>
+        <button type="button" class="button">Select Game</button>
+      </div>
+
+    </div>
+
+  </div>
 
   <div class="modal-container">
     <article class="modal">
@@ -25,7 +42,7 @@
 
       <h2 class="modal-title">Great! You have solved the nonogram!</h2>
 
-      <button type="button" class="button-close">Close</button>
+      <button type="button" class="button button_close">Close</button>
     </article>
   </div>
 </body>

@@ -1,5 +1,5 @@
 import { data } from './data.js';
-import { initModal } from './modal.js';
+import { initModal, canvasContainer } from './modal.js';
 
 class CanvasGrid {
   constructor(gridSize, squareSize, gapSize, matrix) {
@@ -32,7 +32,8 @@ class CanvasGrid {
     this.canvas.width = baseSize + this.squareSize * this.leftMaxLength;
     this.canvas.height = baseSize + this.squareSize * this.topMaxLength;
 
-    document.body.append(this.canvas);
+    canvasContainer.append(this.canvas);
+    // document.body.append(this.canvas);
     this.ctx = this.canvas.getContext('2d', { alpha: false }); // пробую улучшить производительность
 
     // заполняю squaresAll

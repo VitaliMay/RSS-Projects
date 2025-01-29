@@ -1,9 +1,4 @@
-// import {
-//   createEl,
-//   createSvgEl,
-//   removeAllChild,
-//   toUpperFirstLetter,
-// } from './elementUtils.js';
+import { getRandomInteger } from './elementUtils.js';
 
 import { data } from './data.js';
 import { canvasGame, CanvasGrid } from './canvasDraw.js';
@@ -11,28 +6,60 @@ import { canvasGame, CanvasGrid } from './canvasDraw.js';
 
 const body = document.querySelector('body');
 const modalContainer = document.querySelector('.modal-container');
+const canvasContainer = document.querySelector('.canvas-container');
 
-const testH1 = document.querySelector('.test-h1');
+const btnContainer = document.querySelector('.btn-container');
 
-// const modal = document.querySelector('.modal');
+/********************************************************** */
+
+function getRandomMatrixOption(squareSize = 30) {
+  const keysArr = Object.keys(data);
+  const randomIndex = getRandomInteger(0, keysArr.length - 1);
+  const matrixName = keysArr[randomIndex];
+  const gridSize = data[matrixName].gridSize;
+  const matrix = data[matrixName].matrix;
+  return [gridSize, squareSize, 1, matrix];
+}
 
 /********************************************************* */
-testH1.addEventListener('click', test);
+btnContainer.addEventListener('click', test);
 
 // const checkKat = 'kat';
-const checkKat = 'cup';
-const checkMatrix = 'matrix';
-const testKat = [10, 40, 2, data[checkKat][checkMatrix]];
+// const gridSize = 15;
+// const squareSize = 30;
+// const checkKat = 'dogLarge';
+// // const checkKat = 'cup';
+// const checkMatrix = 'matrix';
+// const testKat = [gridSize, squareSize, 1, data[checkKat][checkMatrix]];
+// const testKat = [10, 40, 2, data[checkKat][checkMatrix]];
 // const testKat = [10, 40, 2, data.kat.matrix];
-function test() {
+
+function test(event) {
   const { currentGame } = canvasGame;
+
+  const { target } = event;
+  const button = target.closest('.button');
+
+  if (button) {
+    if (button.classList.contains('button_reset')) {
+      currentGame.resetGame();
+    }
+    if (button.classList.contains('button_random')) {
+      currentGame.removeCanvas();
+      canvasGame.currentGame = new CanvasGrid(...getRandomMatrixOption());
+    }
+    if (button.classList.contains('button-solution')) {
+      currentGame.showSolution();
+    }
+  }
+
   // currentGame.resetGame();
 
   // canvasGame.resetGame();
 
-  currentGame.removeCanvas();
+  // currentGame.removeCanvas();
+  // canvasGame.currentGame = new CanvasGrid(...testKat);
 
-  canvasGame.currentGame = new CanvasGrid(...testKat);
   // canvasGame.currentGame = new CanvasGrid(10, 40, 2, data.kat.matrix);
 }
 /**************************************************** */
@@ -51,7 +78,7 @@ function initModal() {
 modalContainer.addEventListener('click', function (event) {
   const { target } = event;
   const btnCross = target.closest('.button-cross');
-  const btnClose = target.closest('.button-close');
+  const btnClose = target.closest('.button_close');
   if (target === this || btnCross || btnClose) {
     // Клик произошел именно на родительском элементе или крестике
     this.classList.remove('modal-container--active');
@@ -59,4 +86,4 @@ modalContainer.addEventListener('click', function (event) {
   }
 });
 
-export { modalContainer, body, initModal };
+export { modalContainer, body, initModal, canvasContainer };

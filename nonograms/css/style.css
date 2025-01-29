@@ -310,7 +310,12 @@ template {
 }
 
 /***** variables ***********************************************************************/
-/***** mixins ***********************************************************************/
+:root {
+  --bnt-background: rgb(219, 219, 219);
+  --btn-color: rgb(80, 78, 78);
+  --primary: rgb(255, 70, 70);
+}
+
 /***** mixins ***********************************************************************/
 /******** global *****************************************************/
 /* сбрасываю, то что может мешать */
@@ -453,6 +458,30 @@ body.lock {
   outline-offset: 0;
 }
 
+.wrapper {
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.btn-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 440px;
+  gap: 10px;
+  height: 100%;
+}
+
+.canvas-container {
+  padding-bottom: 30px;
+}
+
 .test-h1 {
   font-family: Allura;
   font-size: 34px;
@@ -461,13 +490,11 @@ body.lock {
   letter-spacing: 0.05em;
   color: rgb(255, 70, 70);
   text-align: center;
-  margin: 100px auto;
+  padding-top: 40px;
 }
 
 .canvas {
-  background-color: rgb(128, 128, 128);
   display: block;
-  margin: 0 auto 30px;
   border: 10px solid rgb(26, 114, 51); /* Временно для проверки */
 }
 
@@ -510,6 +537,7 @@ body.lock {
   position: relative;
 }
 
+/**************************************************/
 .button-cross {
   width: 40px;
   height: 40px;
@@ -565,8 +593,8 @@ body.lock {
   }
 }
 /******************************************/
-.button-close {
-  width: 100px;
+.button {
+  width: 200px;
   height: 40px;
   border: none;
   display: flex;
@@ -574,30 +602,52 @@ body.lock {
   align-items: center;
   flex-direction: column;
   flex-shrink: 0;
+  background-color: var(--bnt-background);
+  color: var(--btn-color);
+  font-family: Lato;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 100%;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-radius: 7px;
+  box-shadow: 0px -2px 4px 1px rgb(170, 170, 170) inset, 0px 2px 4px 1px rgb(255, 255, 255) inset;
+  transition: transform 0.1s ease, box-shadow 0.1s ease; /* Переход для эффекта нажатия */
+}
+@media (hover: hover) {
+  .button:hover {
+    cursor: url(../assets/img/pointinghand.svg), pointer;
+  }
+}
+.button:active {
+  box-shadow: 0px 0px 4px 1px rgb(170, 170, 170) inset;
+  transform: scale(0.95);
+}
+.button:disabled {
+  cursor: not-allowed; /* Курсор для отключенной кнопки */
+  box-shadow: 0px 0px 4px 1px rgb(170, 170, 170) inset;
+  transform: scale(0.95);
+  color: rgb(255, 255, 255);
+}
+
+.button_close {
+  width: 100px;
+  height: 40px;
   position: absolute;
   bottom: 20px;
-  /****************************/
-  background-color: rgb(219, 219, 219);
-  color: rgb(255, 70, 70);
   font-family: Allura;
   font-size: 34px;
   font-weight: 600;
   line-height: 100%;
   letter-spacing: 0.05em;
   font-size: 20px;
-  border-radius: 7px;
-  box-shadow: 0px -2px 4px 1px rgb(170, 170, 170) inset, 0px 2px 4px 1px rgb(255, 255, 255) inset;
-  transition: transform 0.1s ease, box-shadow 0.1s ease; /* Переход для эффекта нажатия */
-}
-@media (hover: hover) {
-  .button-close:hover {
-    cursor: url(../assets/img/pointinghand.svg), pointer;
-  }
+  text-transform: none;
+  color: var(--primary);
 }
 
 .button-close:active {
-  transform: scale(0.95); /* Уменьшаем размер кнопки при нажатии */
-  box-shadow: 0px 0px 4px 1px rgb(170, 170, 170) inset; /* Уменьшаем тени */
+  box-shadow: 0px 0px 4px 1px rgb(170, 170, 170) inset;
+  transform: scale(0.95);
 }
 
 .modal-title {
