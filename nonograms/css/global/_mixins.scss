@@ -25,6 +25,24 @@
   letter-spacing: 0.05em;
 }
 
+@mixin header-3 {
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 152%;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+@mixin header-4 {
+  font-family: Montserrat;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 130%;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
 @mixin cansel-color-touch { // убирает синий цвет при таче
   -webkit-tap-highlight-color: transparent;
 }

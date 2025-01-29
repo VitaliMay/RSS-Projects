@@ -1,3 +1,6 @@
+import { data } from './data.js';
+import { initModal } from './modal.js';
+
 class CanvasGrid {
   constructor(gridSize, squareSize, gapSize, matrix) {
     this.squareSize = squareSize; // Размер квадрата
@@ -5,6 +8,8 @@ class CanvasGrid {
     this.gapSize = gapSize; // Размер промежутка между квадратиками
 
     this.matrix = matrix;
+
+    this.isMouseEventsFlag = true; // Флаг для управления обработкой событий
 
     this.squaresAll = []; // Для хранения информации о каждом квадрате
     this.activeRow = -1; // Текущая активная строка
@@ -38,6 +43,14 @@ class CanvasGrid {
 
     // Начальное рисование канвас (квадратики)
     this.drawSquaresAll(); // без активного квадрата
+  }
+
+  // Метод удаления из разметки
+  removeCanvas() {
+    if (this.canvas) {
+      this.canvas.remove(); // удаление элемента из DOM
+      this.canvas = null; // обнуляю ссылку на элемент
+    }
   }
 
   // Первоначальное наполнение матрицы квадратов
@@ -257,6 +270,8 @@ class CanvasGrid {
     let lastActiveSquare = null;
 
     this.canvas.addEventListener('mousemove', (event) => {
+      if (!this.isMouseEventsFlag) return; // Проверяем флаг перед обработкой клика
+
       const { mouseX, mouseY } = getMousePosition(event);
       let activeSquare = findSquare(mouseX, mouseY);
 
@@ -278,6 +293,8 @@ class CanvasGrid {
     });
 
     this.canvas.addEventListener('click', (event) => {
+      if (!this.isMouseEventsFlag) return; // Проверяем флаг перед обработкой клика
+
       const { mouseX, mouseY } = getMousePosition(event);
       let clickedSquare = findSquare(mouseX, mouseY);
 
@@ -334,9 +351,56 @@ class CanvasGrid {
       }
     }
 
+    this.showSolution();
+
+    initModal();
     // Если все значения совпадают, выводим поздравление
     console.log('Ура! Кроссфорд решен, картинка собрана!');
+    // return;
   }
+
+  // Метод для сброса clicked и crossed
+  resetGame() {
+    for (let square of this.squaresAll) {
+      square.clicked = false;
+      square.crossed = false;
+    }
+    // Перерисовываем квадраты
+    this.drawSquaresAll();
+
+    this.enableMouseEvents();
+  }
+
+  /**************************************** */
+  /**************************************** */
+  showSolution() {
+    for (let row = 0; row < this.gridSize; row += 1) {
+      for (let col = 0; col < this.gridSize; col += 1) {
+        // Ставлю clicked если в матрице стоит 1
+        this.squaresAll[row * this.gridSize + col].clicked =
+          this.matrix[row][col] === 1;
+      }
+    }
+
+    // Перерисовываю канвас
+    this.drawSquaresAll();
+
+    // Отключаю события
+    this.disableMouseEvents();
+  }
+
+  // Отключение событий
+  disableMouseEvents() {
+    this.isMouseEventsFlag = false;
+  }
+
+  // Включение событий
+  enableMouseEvents() {
+    this.isMouseEventsFlag = true;
+  }
+
+  /********************************** */
+  /********************************** */
 
   // Метод для расчёта (формрования) подсказок
   isHelp(matrix) {
@@ -426,4 +490,12 @@ class CanvasGrid {
   }
 }
 
-export { CanvasGrid };
+// const canvasGame = new CanvasGrid(5, 40, 2, data.butterfly.matrix);
+// const canvasGame = new CanvasGrid(10, 40, 2, data.kat.matrix);
+
+const canvasGame = {
+  currentGame: new CanvasGrid(5, 40, 2, data.butterfly.matrix),
+};
+
+// export { CanvasGrid };
+export { CanvasGrid, canvasGame };

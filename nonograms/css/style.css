@@ -469,4 +469,142 @@ body.lock {
   display: block;
   margin: 0 auto 30px;
   border: 10px solid rgb(26, 114, 51); /* Временно для проверки */
+}
+
+.modal-container {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  padding: 0px 8px;
+  background: rgba(24, 28, 41, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+  z-index: 0;
+  opacity: 0;
+  transform: scale(0);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  pointer-events: none;
+}
+.modal-container--active {
+  z-index: 60;
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+.modal {
+  width: 100%;
+  max-width: 400px;
+  height: 100%;
+  max-height: 300px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  background: rgb(236, 243, 248);
+  position: relative;
+}
+
+.button-cross {
+  width: 40px;
+  height: 40px;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex-shrink: 0;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+@media (hover: hover) {
+  .button-cross:hover {
+    cursor: url(../assets/img/pointinghand.svg), pointer;
+  }
+}
+
+.button-cross__item {
+  width: 30px;
+  height: 2px;
+  background-color: #181c29;
+  border-radius: 1.5px;
+}
+
+/*****************************************/
+/* Анимация при появлении в крестик */
+.modal-container.modal-container--active .button-cross__item--01 {
+  animation: rotateLine1 0.8s forwards;
+  animation-delay: 0.4s;
+}
+
+.modal-container.modal-container--active .button-cross__item--02 {
+  animation: rotateLine2 0.8s forwards;
+  animation-delay: 0.4s;
+}
+
+@keyframes rotateLine1 {
+  0% {
+    transform: translate(0%, 0%) rotate(0deg);
+  }
+  100% {
+    transform: translate(0%, 0%) rotate(45deg);
+  }
+}
+@keyframes rotateLine2 {
+  0% {
+    transform: translate(0%, -2px) rotate(0deg);
+  }
+  100% {
+    transform: translate(0%, -2px) rotate(-45deg);
+  }
+}
+/******************************************/
+.button-close {
+  width: 100px;
+  height: 40px;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex-shrink: 0;
+  position: absolute;
+  bottom: 20px;
+  /****************************/
+  background-color: rgb(219, 219, 219);
+  color: rgb(255, 70, 70);
+  font-family: Allura;
+  font-size: 34px;
+  font-weight: 600;
+  line-height: 100%;
+  letter-spacing: 0.05em;
+  font-size: 20px;
+  border-radius: 7px;
+  box-shadow: 0px -2px 4px 1px rgb(170, 170, 170) inset, 0px 2px 4px 1px rgb(255, 255, 255) inset;
+  transition: transform 0.1s ease, box-shadow 0.1s ease; /* Переход для эффекта нажатия */
+}
+@media (hover: hover) {
+  .button-close:hover {
+    cursor: url(../assets/img/pointinghand.svg), pointer;
+  }
+}
+
+.button-close:active {
+  transform: scale(0.95); /* Уменьшаем размер кнопки при нажатии */
+  box-shadow: 0px 0px 4px 1px rgb(170, 170, 170) inset; /* Уменьшаем тени */
+}
+
+.modal-title {
+  font-family: Montserrat;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 130%;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }/*# sourceMappingURL=style.css.map */
