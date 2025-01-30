@@ -2,7 +2,8 @@ import { signatureScore } from './js/score.js';
 import { CanvasGrid } from './js/canvasDraw.js';
 import { data } from './js/data.js';
 
-import { body } from './js/modal.js';
+import { initModal } from './js/modal.js';
+import { body } from './js/interface.js';
 import { hello } from './js/gameLogic.js';
 
 /************************************************** */

@@ -482,7 +482,7 @@ body.lock {
   padding-bottom: 30px;
 }
 
-.test-h1 {
+.title-h1 {
   font-family: Allura;
   font-size: 34px;
   font-weight: 600;
@@ -491,6 +491,7 @@ body.lock {
   color: rgb(255, 70, 70);
   text-align: center;
   padding-top: 40px;
+  padding-bottom: 10px;
 }
 
 .canvas {

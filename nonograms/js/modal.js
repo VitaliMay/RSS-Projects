@@ -1,15 +1,18 @@
 import { getRandomInteger, createEl } from './elementUtils.js';
-
+import { body, titleH1, btnContainer, btnInterfaceArr } from './interface.js';
 import { data } from './data.js';
 import { canvasGame, CanvasGrid, squareSize } from './canvasDraw.js';
 // import { canvasGame } from './gameLogic.js';
 
-const body = document.querySelector('body');
+// const body = document.querySelector('body');
+
 // const modalContainer = document.querySelector('.modal-container');
-const canvasContainer = document.querySelector('.canvas-container');
 
-const btnContainer = document.querySelector('.btn-container');
+// const canvasContainer = document.querySelector('.canvas-container');
 
+// const btnContainer = document.querySelector('.btn-container');
+
+const [btnReset, btnRandom, btnSolution, btnSelect] = btnInterfaceArr;
 const btnSelectArr = [];
 
 /********************************************************** */
@@ -146,10 +149,25 @@ function createButtonSelect(result, parentContainer) {
         parent: sizeContainer,
       });
 
+      if (name === 'butterfly') {
+        btn.disabled = true;
+      }
+
       btnSelectArr.push(btn); // заполняю массив кнопок, чтобы снимать дизаблед
     });
   }
 }
+
+/*********************************************** */
+// Наверное лучше сделать map и навесить на кнопку-ключ сразу матрицу,
+// вместо data но нифига не успеваю
+// const levelKeyboardMap = new Map();
+
+// levelKeyboardMap.set(levelEasy, '1234567890');
+// levelKeyboardMap.set(levelMedium, 'qwertyuiopasdfghjklzxcvbnm');
+// levelKeyboardMap.set(levelHard, '1234567890qwertyuiopasdfghjklzxcvbnm');
+
+/*********************************************** */
 
 function groupGridSize(data) {
   const result = {};
@@ -191,6 +209,17 @@ function getRandomMatrixOption(squareSize = 30) {
   const keysArr = Object.keys(data);
   const randomIndex = getRandomInteger(0, keysArr.length - 1);
   const matrixName = keysArr[randomIndex];
+
+  // это надо выкинуть из этой функции
+  titleH1.textContent = `Hello Nonograms ${matrixName}`;
+  infoOutput.textContent = matrixName;
+  btnSelectArr.forEach((btn) => {
+    btn.disabled = false;
+    if (btn.getAttribute('data-name') === matrixName) {
+      btn.disabled = true;
+    }
+  });
+
   const gridSize = data[matrixName].gridSize;
   const matrix = data[matrixName].matrix;
   return [gridSize, squareSize, 1, matrix];
@@ -218,19 +247,25 @@ function test(event) {
   const button = target.closest('.button');
 
   if (button) {
-    if (button.classList.contains('button_reset')) {
+    if (target === btnReset) {
+      // if (button.classList.contains('button_reset')) {
       currentGame.resetGame();
     }
-    if (button.classList.contains('button_random')) {
+    if (target === btnRandom) {
+      // if (button.classList.contains('button_random')) {
       currentGame.removeCanvas();
-      canvasGame.currentGame = new CanvasGrid(
-        ...getRandomMatrixOption(squareSize.value),
-      );
+      const randomMatrixOption = getRandomMatrixOption(squareSize.value);
+      canvasGame.currentGame = new CanvasGrid(...randomMatrixOption);
+
+      // Достать name и вставить сюда
+      // titleH1.textContent = `Hello Nonograms ${matrixName}`;
     }
-    if (button.classList.contains('button-solution')) {
+    if (target === btnSolution) {
+      // if (button.classList.contains('button-solution')) {
       currentGame.showSolution();
     }
-    if (button.classList.contains('button-select')) {
+    if (target === btnSelect) {
+      // if (button.classList.contains('button-select')) {
       modalContainerSelect.classList.add('modal-container--active');
       body.classList.add('lock');
     }
@@ -275,7 +310,8 @@ modalContainerSelect.addEventListener('click', function (event) {
   const { target } = event;
 
   const { currentGame } = canvasGame;
-  const button = target.closest('.button');
+  // const button = target.closest('.button');
+  const button = target.closest('.button:not(.button_close)');
 
   if (
     target === this ||
@@ -304,9 +340,13 @@ modalContainerSelect.addEventListener('click', function (event) {
     button.disabled = true;
     infoOutput.textContent = matrixName;
 
+    titleH1.textContent = `Hello Nonograms ${matrixName}`;
+
     currentGame.removeCanvas();
     canvasGame.currentGame = new CanvasGrid(...canvasGameOption);
   }
 });
 
-export { modalContainer, body, initModal, canvasContainer };
+export { modalContainer, initModal };
+// export { modalContainer, initModal, canvasContainer };
+// export { modalContainer, body, initModal, canvasContainer };

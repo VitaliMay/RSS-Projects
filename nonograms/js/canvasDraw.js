@@ -1,5 +1,7 @@
 import { data } from './data.js';
-import { initModal, canvasContainer } from './modal.js';
+import { initModal } from './modal.js';
+// import { initModal, canvasContainer } from './modal.js';
+import { canvasContainer } from './interface.js';
 
 class CanvasGrid {
   constructor(gridSize, squareSize, gapSize, matrix) {

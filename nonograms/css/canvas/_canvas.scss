@@ -1,5 +1,5 @@
 
-.test-h1 {
+.title-h1 {
   @include caption;
   color: $primary;
 
@@ -7,6 +7,7 @@
   // margin: 100px auto;
 
   padding-top: 40px;
+  padding-bottom: 10px;
 }
 
 .canvas {
