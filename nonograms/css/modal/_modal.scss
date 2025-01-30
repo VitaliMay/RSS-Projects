@@ -23,9 +23,13 @@
   //  скрываю
 
   z-index: 0;
-
   opacity: 0;
   transform: scale(0);
+
+  // z-index: 60;
+  // opacity: 1;
+  // transform: scale(1);
+
   transition: opacity 0.6s ease, transform 0.6s ease;
   pointer-events: none; // Игнорируем события, когда окно скрыто
 
@@ -68,6 +72,89 @@
 
 }
 
+/***********************************************/
+/***********************************************/
+/***********************************************/
+.modal-container-select {
+  position: fixed;
+  inset: 0;
+  // width: 100dvw;
+  // height: 100dvh;
+  width: 100vw;
+  height: 100vh;
+
+  padding: 0px 8px;
+
+  background: rgba(24, 28, 41, 0.80);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+ 
+
+  overflow-y: auto;
+
+  ///////////////////////////////
+  //  скрываю
+
+  z-index: 0;
+  opacity: 0;
+  transform: scale(0);
+
+  // z-index: 60;
+  // opacity: 1;
+  // transform: scale(1);
+
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  pointer-events: none; // Игнорируем события, когда окно скрыто
+
+  &--active {
+    // z-index: 60; // Чтобы перекрыть кнопку и лого
+    // visibility: visible;
+    // opacity: 1;
+    // transition: visibility 0.8s, opacity 0.8s;
+    // transition: all 2s linear;
+    // transform: translate(-50%, -50%) scale(1);
+
+    opacity: 1;   // Полная видимость
+    transform: scale(1);  // Восстановление начального размера
+    pointer-events: auto; // Включаем события, когда окно активно
+
+  }
+
+}
+
+
+.modal-select {
+  width: 100%;
+  max-width: 450px;
+  height: 100%;
+  max-height: 450px;
+  overflow-y: auto;
+  display: flex;
+  gap: 10px;
+    /* flex-direction: column; */
+    /* align-items: center; */
+  justify-content: center;
+  border-radius: 20px;
+  background: $content-background;
+  position: relative;
+  padding: 70px 10px 70px 10px;
+
+}
+
+.size-container {
+  height: 100%;
+  width: 100%;
+  // background-color: aqua;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+/**************************************************/
+/**************************************************/
 /**************************************************/
 
 .button-cross {
@@ -143,6 +230,10 @@
   height: 40px;
   border: none;
 
+  &_select {
+    width: 100%;
+  }
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -198,5 +289,16 @@
 
 .modal-title {
   @include header-4;
+}
+
+.info {
+  color: var(--btn-color);
+  @include caption-btn;
+
+  position: absolute;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    gap: 10px;
 }
 

@@ -494,9 +494,12 @@ class CanvasGrid {
 // const canvasGame = new CanvasGrid(5, 40, 2, data.butterfly.matrix);
 // const canvasGame = new CanvasGrid(10, 40, 2, data.kat.matrix);
 
+const squareSize = { value: 30 };
+
 const canvasGame = {
-  currentGame: new CanvasGrid(5, 40, 2, data.butterfly.matrix),
+  currentGame: new CanvasGrid(5, squareSize.value, 2, data.butterfly.matrix),
+  // currentGame: new CanvasGrid(5, 40, 2, data.butterfly.matrix),
 };
 
 // export { CanvasGrid };
-export { CanvasGrid, canvasGame };
+export { CanvasGrid, canvasGame, squareSize };

@@ -1,15 +1,190 @@
-import { getRandomInteger } from './elementUtils.js';
+import { getRandomInteger, createEl } from './elementUtils.js';
 
 import { data } from './data.js';
-import { canvasGame, CanvasGrid } from './canvasDraw.js';
+import { canvasGame, CanvasGrid, squareSize } from './canvasDraw.js';
 // import { canvasGame } from './gameLogic.js';
 
 const body = document.querySelector('body');
-const modalContainer = document.querySelector('.modal-container');
+// const modalContainer = document.querySelector('.modal-container');
 const canvasContainer = document.querySelector('.canvas-container');
 
 const btnContainer = document.querySelector('.btn-container');
 
+const btnSelectArr = [];
+
+/********************************************************** */
+/****  Модалка победа                  ******************** */
+
+const modalContainer = createEl({ parent: body, classes: ['modal-container'] });
+const modal = createEl({
+  tag: 'article',
+  classes: ['modal'],
+  parent: modalContainer,
+});
+
+const buttonCross = createEl({
+  tag: 'button',
+  classes: ['button-cross'],
+  attributes: { type: 'button', 'aria-label': 'button-close' },
+  parent: modal,
+});
+// const buttonCrossItem01 = createEl({
+createEl({
+  tag: 'span',
+  classes: ['button-cross__item', 'button-cross__item--01'],
+  parent: buttonCross,
+});
+// const buttonCrossItem02 = createEl({
+createEl({
+  tag: 'span',
+  classes: ['button-cross__item', 'button-cross__item--02'],
+  parent: buttonCross,
+});
+
+// const modalTitle = createEl({
+createEl({
+  tag: 'h2',
+  classes: ['modal-title'],
+  text: 'Great! You have solved the nonogram!',
+  parent: modal,
+});
+
+const buttonClose = createEl({
+  tag: 'button',
+  classes: ['button', 'button_close'],
+  attributes: { type: 'button', 'aria-label': 'button-close' },
+  text: 'Close',
+  parent: modal,
+});
+
+/********************************************************** */
+/****  Модалка SELECT                  ******************** */
+
+const modalContainerSelect = createEl({
+  parent: body,
+  classes: ['modal-container'],
+});
+const modalSelect = createEl({
+  tag: 'article',
+  classes: ['modal-select'],
+  parent: modalContainerSelect,
+});
+
+const buttonCrossSelect = createEl({
+  tag: 'button',
+  classes: ['button-cross'],
+  attributes: { type: 'button', 'aria-label': 'button-close' },
+  parent: modalSelect,
+});
+// const buttonCrossItem01 = createEl({
+createEl({
+  tag: 'span',
+  classes: ['button-cross__item', 'button-cross__item--01'],
+  parent: buttonCrossSelect,
+});
+// const buttonCrossItem02 = createEl({
+createEl({
+  tag: 'span',
+  classes: ['button-cross__item', 'button-cross__item--02'],
+  parent: buttonCrossSelect,
+});
+
+const infoSelect = createEl({ classes: ['info'], parent: modalSelect });
+createEl({
+  tag: 'h2',
+  classes: ['info__title'],
+  text: 'Selected game:',
+  parent: infoSelect,
+});
+const infoOutput = createEl({
+  tag: 'output',
+  classes: ['info__select-game'],
+  parent: infoSelect,
+  text: 'butterfly',
+});
+
+// const sizeContainerMin = createEl({
+//   classes: ['size-container'],
+//   parent: modalSelect,
+// });
+
+// createEl({
+//   tag: 'button',
+//   classes: ['button', 'button_select'],
+//   attributes: { type: 'button', 'data-gridSize':  },
+//   parent: sizeContainerMin,
+// });
+
+// const sizeContainerMedium = createEl({
+//   classes: ['size-container'],
+//   parent: modalSelect,
+// });
+// const sizeContainerMax = createEl({
+//   classes: ['size-container'],
+//   parent: modalSelect,
+// });
+
+function createButtonSelect(result, parentContainer) {
+  for (const size in result) {
+    // Контейнер для каждой сетки
+    const sizeContainer = createEl({
+      classes: ['size-container', `size-container_${size}`],
+      parent: parentContainer,
+    });
+
+    // Кнопка для каждого значения в массиве
+    result[size].forEach((name) => {
+      const btn = createEl({
+        tag: 'button',
+        classes: ['button', 'button_select'],
+        attributes: {
+          type: 'button',
+          'data-gridSize': size,
+          'data-name': name,
+        },
+        text: `${size}x${size} ${name}`, // Название кнопки будет как у матрицы
+        parent: sizeContainer,
+      });
+
+      btnSelectArr.push(btn); // заполняю массив кнопок, чтобы снимать дизаблед
+    });
+  }
+}
+
+function groupGridSize(data) {
+  const result = {};
+
+  for (const [key, value] of Object.entries(data)) {
+    const { gridSize } = value;
+
+    // если массива ещё нет создаю его
+    if (!result[gridSize]) {
+      result[gridSize] = [];
+    }
+    result[gridSize].push(key);
+  }
+
+  return result;
+}
+
+const groupSizeObj = groupGridSize(data);
+// const sizeArr = Object.keys(groupSizeObj);
+console.log('size', groupSizeObj);
+// console.log('size Arr', sizeArr);
+// console.log(groupSizeObj[sizeArr[1]]);
+
+createButtonSelect(groupSizeObj, modalSelect);
+
+/********************************************************** */
+const buttonCloseSelect = createEl({
+  tag: 'button',
+  classes: ['button', 'button_close'],
+  attributes: { type: 'button', 'aria-label': 'button-close' },
+  text: 'Close',
+  parent: modalSelect,
+});
+
+/********************************************************** */
 /********************************************************** */
 
 function getRandomMatrixOption(squareSize = 30) {
@@ -20,6 +195,8 @@ function getRandomMatrixOption(squareSize = 30) {
   const matrix = data[matrixName].matrix;
   return [gridSize, squareSize, 1, matrix];
 }
+
+/********************************************************* */
 
 /********************************************************* */
 btnContainer.addEventListener('click', test);
@@ -46,10 +223,16 @@ function test(event) {
     }
     if (button.classList.contains('button_random')) {
       currentGame.removeCanvas();
-      canvasGame.currentGame = new CanvasGrid(...getRandomMatrixOption());
+      canvasGame.currentGame = new CanvasGrid(
+        ...getRandomMatrixOption(squareSize.value),
+      );
     }
     if (button.classList.contains('button-solution')) {
       currentGame.showSolution();
+    }
+    if (button.classList.contains('button-select')) {
+      modalContainerSelect.classList.add('modal-container--active');
+      body.classList.add('lock');
     }
   }
 
@@ -77,12 +260,52 @@ function initModal() {
 // Закрываю модалку
 modalContainer.addEventListener('click', function (event) {
   const { target } = event;
-  const btnCross = target.closest('.button-cross');
-  const btnClose = target.closest('.button_close');
-  if (target === this || btnCross || btnClose) {
+  // const btnCross = target.closest('.button-cross');
+  // const btnClose = target.closest('.button_close');
+  // if (target === this || btnCross || btnClose) {
+  if (target === this || target === buttonCross || target === buttonClose) {
     // Клик произошел именно на родительском элементе или крестике
     this.classList.remove('modal-container--active');
     body.classList.remove('lock');
+  }
+});
+
+// Закрываю модалку SELECT
+modalContainerSelect.addEventListener('click', function (event) {
+  const { target } = event;
+
+  const { currentGame } = canvasGame;
+  const button = target.closest('.button');
+
+  if (
+    target === this ||
+    target === buttonCrossSelect ||
+    target === buttonCloseSelect
+  ) {
+    // Клик произошел именно на родительском элементе или крестике
+    this.classList.remove('modal-container--active');
+    body.classList.remove('lock');
+  }
+
+  if (button) {
+    const matrixName = button.getAttribute('data-name');
+    const gridSize = Number(button.getAttribute('data-gridSize'));
+    const matrix = data[matrixName].matrix;
+    // const squareSize = 30;
+
+    const canvasGameOption = [gridSize, squareSize.value, 1, matrix];
+    // console.log(typeof gridSize);
+    // console.log(matrixName, gridSize);
+
+    // button.setAttribute('disabled', true)
+    btnSelectArr.forEach((btn) => {
+      btn.disabled = false;
+    });
+    button.disabled = true;
+    infoOutput.textContent = matrixName;
+
+    currentGame.removeCanvas();
+    canvasGame.currentGame = new CanvasGrid(...canvasGameOption);
   }
 });
 
