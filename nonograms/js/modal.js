@@ -45,7 +45,7 @@ createEl({
 });
 
 // const modalTitle = createEl({
-createEl({
+const modalTitle = createEl({
   tag: 'h2',
   classes: ['modal-title'],
   text: 'Great! You have solved the nonogram!',
@@ -285,8 +285,9 @@ function test(event) {
 
 /**************************************************** */
 
-function initModal() {
+function initModal(totalSeconds) {
   // const { target } = event;
+  modalTitle.textContent = `Great! You have solved the nonogram in ${totalSeconds} seconds!`;
 
   modalContainer.classList.add('modal-container--active');
   body.classList.add('lock');

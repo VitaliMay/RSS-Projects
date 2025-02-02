@@ -2,6 +2,7 @@ import { data } from './data.js';
 import { initModal } from './modal.js';
 // import { initModal, canvasContainer } from './modal.js';
 import { canvasContainer } from './interface.js';
+import { Timer } from './timer.js';
 
 class CanvasGrid {
   constructor(gridSize, squareSize, gapSize, matrix) {
@@ -46,6 +47,8 @@ class CanvasGrid {
 
     // Начальное рисование канвас (квадратики)
     this.drawSquaresAll(); // без активного квадрата
+
+    this.timer = new Timer(canvasContainer);
   }
 
   // Метод удаления из разметки
@@ -303,6 +306,8 @@ class CanvasGrid {
 
       // Меняю состояние clicked
       if (clickedSquare) {
+        this.timer.init();
+
         clickedSquare.clicked = !clickedSquare.clicked;
         // Если квадрат кликнутый, то он не перечёркнутый
         clickedSquare.crossed = false;
@@ -322,11 +327,15 @@ class CanvasGrid {
     this.canvas.addEventListener('contextmenu', (event) => {
       event.preventDefault(); // Убираю дефолтное контекстное меню
 
+      if (!this.isMouseEventsFlag) return;
+
       const { mouseX, mouseY } = getMousePosition(event);
       let clickedSquare = findSquare(mouseX, mouseY);
 
       // Меняю состояние crossed
       if (clickedSquare) {
+        this.timer.init();
+
         clickedSquare.crossed = !clickedSquare.crossed;
         // Если квадрат перечёркнутый, то он не кликнутый
         clickedSquare.clicked = false;
@@ -354,11 +363,17 @@ class CanvasGrid {
       }
     }
 
+    const totalSeconds = this.timer.totalTime();
+    // console.log('totalSeconds', totalSeconds);
+    initModal(totalSeconds);
+
     this.showSolution();
 
-    initModal();
+    // const { seconds, minutes } = this.timer.timer();
+    // const totalSeconds = minutes * 60 + seconds;
+
     // Если все значения совпадают, выводим поздравление
-    console.log('Ура! Кроссфорд решен, картинка собрана!');
+    // console.log('Ура! Кроссфорд решен, картинка собрана!');
     // return;
   }
 
@@ -372,6 +387,8 @@ class CanvasGrid {
     this.drawSquaresAll();
 
     this.enableMouseEvents();
+
+    this.timer.reset();
   }
 
   /**************************************** */
@@ -379,6 +396,7 @@ class CanvasGrid {
   showSolution() {
     for (let row = 0; row < this.gridSize; row += 1) {
       for (let col = 0; col < this.gridSize; col += 1) {
+        this.squaresAll[row * this.gridSize + col].crossed = false; // убираю перечёркивание
         // Ставлю clicked если в матрице стоит 1
         this.squaresAll[row * this.gridSize + col].clicked =
           this.matrix[row][col] === 1;
@@ -390,6 +408,8 @@ class CanvasGrid {
 
     // Отключаю события
     this.disableMouseEvents();
+
+    this.timer.reset();
   }
 
   // Отключение событий
@@ -499,7 +519,7 @@ class CanvasGrid {
 const squareSize = { value: 30 };
 
 const canvasGame = {
-  currentGame: new CanvasGrid(5, squareSize.value, 2, data.butterfly.matrix),
+  currentGame: new CanvasGrid(5, squareSize.value, 1, data.butterfly.matrix),
   // currentGame: new CanvasGrid(5, 40, 2, data.butterfly.matrix),
 };
 
