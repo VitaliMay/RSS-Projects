@@ -7,6 +7,7 @@ import { body } from './js/interface.js';
 import { hello } from './js/gameLogic.js';
 
 import { Timer } from './js/timer.js';
+import { soundObj } from './js/sound.js';
 
 /************************************************** */
 

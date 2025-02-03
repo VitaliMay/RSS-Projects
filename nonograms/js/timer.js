@@ -64,6 +64,12 @@ class Timer {
     }
   }
 
+  // При победе лучше останавливать время
+  stop() {
+    clearInterval(this.intervalId);
+    this.intervalId = null;
+  }
+
   reset() {
     clearInterval(this.intervalId);
     this.intervalId = null; // Сбрасываю ID интервала

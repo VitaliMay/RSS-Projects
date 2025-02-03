@@ -287,6 +287,12 @@
     @include btn-shadow-press;
 }
 
+.button_setting {
+  width: 80px;
+  height: 25px;
+  font-size: 10px;
+}
+
 .modal-title {
   @include header-4;
   text-align: center;

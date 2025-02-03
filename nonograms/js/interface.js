@@ -4,6 +4,44 @@ const body = document.querySelector('body');
 
 const wrapper = createEl({ classes: ['wrapper'], parent: body });
 
+/************************************ */
+const settingsContainer = createEl({
+  classes: ['settings-container'],
+  parent: wrapper,
+});
+
+const settingSound = createEl({
+  tag: 'button',
+  classes: ['button', 'button_setting'],
+  attributes: {
+    type: 'button',
+  },
+  text: 'Sound ON',
+  parent: settingsContainer,
+});
+
+const settingWinners = createEl({
+  tag: 'button',
+  classes: ['button', 'button_setting'],
+  attributes: {
+    type: 'button',
+  },
+  text: 'Winners',
+  parent: settingsContainer,
+});
+
+const settingMode = createEl({
+  tag: 'button',
+  classes: ['button', 'button_setting'],
+  attributes: {
+    type: 'button',
+  },
+  text: 'Dark',
+  parent: settingsContainer,
+});
+
+/*********************************** */
+
 const titleH1 = createEl({
   tag: 'h1',
   classes: ['title-h1'],
@@ -36,7 +74,21 @@ const btnRandom = createEl({ ...btnOptions, text: 'Random Game' });
 const btnSolution = createEl({ ...btnOptions, text: 'Solution' });
 const btnSelect = createEl({ ...btnOptions, text: 'Select Game' });
 
+const btnContinue = createEl({ ...btnOptions, text: 'Continue Last Game' });
+const btnSave = createEl({ ...btnOptions, text: 'Save Game' });
+
 const btnInterfaceArr = [btnReset, btnRandom, btnSolution, btnSelect];
 // console.log('Привет интерфейс');
 
-export { body, titleH1, canvasContainer, btnContainer, btnInterfaceArr };
+export {
+  body,
+  titleH1,
+  canvasContainer,
+  btnContainer,
+  btnInterfaceArr,
+  btnContinue,
+  btnSave,
+  settingSound,
+  settingMode,
+  settingWinners,
+};

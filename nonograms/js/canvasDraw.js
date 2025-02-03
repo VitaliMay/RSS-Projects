@@ -3,6 +3,7 @@ import { initModal } from './modal.js';
 // import { initModal, canvasContainer } from './modal.js';
 import { canvasContainer } from './interface.js';
 import { Timer } from './timer.js';
+import { soundObj, playSound } from './sound.js';
 
 class CanvasGrid {
   constructor(gridSize, squareSize, gapSize, matrix) {
@@ -308,6 +309,8 @@ class CanvasGrid {
       if (clickedSquare) {
         this.timer.init();
 
+        playSound(soundObj.clickSound);
+
         clickedSquare.clicked = !clickedSquare.clicked;
         // Если квадрат кликнутый, то он не перечёркнутый
         clickedSquare.crossed = false;
@@ -336,6 +339,8 @@ class CanvasGrid {
       if (clickedSquare) {
         this.timer.init();
 
+        playSound(soundObj.crossSound);
+
         clickedSquare.crossed = !clickedSquare.crossed;
         // Если квадрат перечёркнутый, то он не кликнутый
         clickedSquare.clicked = false;
@@ -362,6 +367,11 @@ class CanvasGrid {
         }
       }
     }
+
+    playSound(soundObj.succesSound);
+    // if (soundObj.isSoundOn) {
+    //   soundObj.succesSound.play(); // Проигрываем звук, если он включен
+    // }
 
     const totalSeconds = this.timer.totalTime();
     // console.log('totalSeconds', totalSeconds);
@@ -409,7 +419,8 @@ class CanvasGrid {
     // Отключаю события
     this.disableMouseEvents();
 
-    this.timer.reset();
+    // this.timer.reset();
+    this.timer.stop();
   }
 
   // Отключение событий

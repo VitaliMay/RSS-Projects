@@ -462,6 +462,15 @@ body.lock {
   align-items: center;
 }
 
+.settings-container {
+  display: flex;
+  padding-top: 40px;
+  padding-right: 40px;
+  width: 100%;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
 .container {
   display: flex;
   justify-content: center;
@@ -733,6 +742,12 @@ body.lock {
 .button-close:active {
   box-shadow: 0px 0px 4px 1px rgb(170, 170, 170) inset;
   transform: scale(0.95);
+}
+
+.button_setting {
+  width: 80px;
+  height: 25px;
+  font-size: 10px;
 }
 
 .modal-title {
