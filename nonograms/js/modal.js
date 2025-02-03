@@ -261,6 +261,8 @@ function test(event) {
       btnInterfaceArr.forEach((btn) => {
         btn.disabled = false;
       });
+
+      checkLocalStorage();
     }
     if (target === btnRandom) {
       // if (button.classList.contains('button_random')) {
@@ -271,6 +273,9 @@ function test(event) {
       btnInterfaceArr.forEach((btn) => {
         btn.disabled = false;
       });
+
+      checkLocalStorage();
+
       // Достать name и вставить сюда
       // titleH1.textContent = `Hello Nonograms ${matrixName}`;
     }
