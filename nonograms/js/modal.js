@@ -8,6 +8,7 @@ import {
 } from './interface.js';
 import { data } from './data.js';
 import { canvasGame, CanvasGrid, squareSize } from './canvasDraw.js';
+import { checkLocalStorage } from './save-game.js';
 // import { canvasGame } from './gameLogic.js';
 
 // const body = document.querySelector('body');
@@ -355,6 +356,8 @@ modalContainerSelect.addEventListener('click', function (event) {
         btn.disabled = false;
       });
     }
+
+    checkLocalStorage();
 
     const canvasGameOption = [gridSize, squareSize.value, 1, matrix];
     // console.log(typeof gridSize);

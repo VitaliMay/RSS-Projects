@@ -4,9 +4,23 @@ import { canvasGame, CanvasGrid, squareSize } from './canvasDraw.js';
 btnSave.addEventListener('click', saveCurrentGame);
 btnContinue.addEventListener('click', continueSavedGame);
 
+function checkLocalStorage() {
+  const savedState = localStorage.getItem('VitaliMay_gameState');
+  if (!savedState) {
+    btnContinue.disabled = true;
+  } else {
+    btnContinue.disabled = false;
+  }
+}
+checkLocalStorage();
+
 function saveCurrentGame() {
   const { currentGame } = canvasGame;
   currentGame.saveGameState();
+
+  if (btnContinue.disabled) {
+    btnContinue.disabled = false;
+  }
 }
 
 function continueSavedGame() {
@@ -19,7 +33,7 @@ function continueSavedGame() {
     const { gridSize, matrix, matrixName } = gameState;
 
     gameOption = [gridSize, squareSize.value, squareSize.gapSize, matrix];
-    console.log(gameState);
+    // console.log(gameState);
 
     titleH1.textContent = `Hello Nonograms ${matrixName}`;
   }
@@ -36,4 +50,4 @@ function continueSavedGame() {
 
 // console.log('Локал стораге');
 
-export { saveCurrentGame };
+export { saveCurrentGame, checkLocalStorage };

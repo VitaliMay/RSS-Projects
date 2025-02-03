@@ -99,6 +99,7 @@ class CanvasGrid {
   // Метод удаления из разметки
   removeCanvas() {
     if (this.canvas) {
+      this.timer.removeTimer();
       this.canvas.remove(); // удаление элемента из DOM
       this.canvas = null; // обнуляю ссылку на элемент
     }
