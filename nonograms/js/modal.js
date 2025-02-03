@@ -1,5 +1,11 @@
 import { getRandomInteger, createEl } from './elementUtils.js';
-import { body, titleH1, btnContainer, btnInterfaceArr } from './interface.js';
+import {
+  body,
+  titleH1,
+  btnContainer,
+  btnInterfaceArr,
+  btnSave,
+} from './interface.js';
 import { data } from './data.js';
 import { canvasGame, CanvasGrid, squareSize } from './canvasDraw.js';
 // import { canvasGame } from './gameLogic.js';
@@ -187,7 +193,7 @@ function groupGridSize(data) {
 
 const groupSizeObj = groupGridSize(data);
 // const sizeArr = Object.keys(groupSizeObj);
-console.log('size', groupSizeObj);
+// console.log('size', groupSizeObj);
 // console.log('size Arr', sizeArr);
 // console.log(groupSizeObj[sizeArr[1]]);
 
@@ -250,6 +256,10 @@ function test(event) {
     if (target === btnReset) {
       // if (button.classList.contains('button_reset')) {
       currentGame.resetGame();
+
+      btnInterfaceArr.forEach((btn) => {
+        btn.disabled = false;
+      });
     }
     if (target === btnRandom) {
       // if (button.classList.contains('button_random')) {
@@ -257,12 +267,18 @@ function test(event) {
       const randomMatrixOption = getRandomMatrixOption(squareSize.value);
       canvasGame.currentGame = new CanvasGrid(...randomMatrixOption);
 
+      btnInterfaceArr.forEach((btn) => {
+        btn.disabled = false;
+      });
       // Достать name и вставить сюда
       // titleH1.textContent = `Hello Nonograms ${matrixName}`;
     }
     if (target === btnSolution) {
       // if (button.classList.contains('button-solution')) {
       currentGame.showSolution();
+
+      btnSave.disabled = true;
+      btnSolution.disabled = true;
     }
     if (target === btnSelect) {
       // if (button.classList.contains('button-select')) {
@@ -291,6 +307,9 @@ function initModal(totalSeconds) {
 
   modalContainer.classList.add('modal-container--active');
   body.classList.add('lock');
+
+  btnSave.disabled = true;
+  btnSolution.disabled = true;
 }
 
 // Закрываю модалку
@@ -330,6 +349,13 @@ modalContainerSelect.addEventListener('click', function (event) {
     const matrix = data[matrixName].matrix;
     // const squareSize = 30;
 
+    // если не эта кнопка была кликнута ранее
+    if (!button.disabled) {
+      btnInterfaceArr.forEach((btn) => {
+        btn.disabled = false;
+      });
+    }
+
     const canvasGameOption = [gridSize, squareSize.value, 1, matrix];
     // console.log(typeof gridSize);
     // console.log(matrixName, gridSize);
@@ -348,6 +374,6 @@ modalContainerSelect.addEventListener('click', function (event) {
   }
 });
 
-export { modalContainer, initModal };
+export { modalContainer, initModal, btnSelectArr };
 // export { modalContainer, initModal, canvasContainer };
 // export { modalContainer, body, initModal, canvasContainer };

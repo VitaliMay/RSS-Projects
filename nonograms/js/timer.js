@@ -76,6 +76,21 @@ class Timer {
     this.currentTimeSec = 0;
     this.timerContentWriter(); // Обнуляю табло
   }
+
+  // Метод для установки значения currentTimeSec
+  // (для корректног отображения сохранённой игры)
+  setTime(seconds) {
+    this.currentTimeSec = seconds;
+    this.timerContentWriter(); // Обновляю отображение таймера
+  }
+
+  // Метод для удаления таймера из разметки
+  removeTimer() {
+    this.stop();
+    if (this.timerBox) {
+      this.timerBox.remove();
+    }
+  }
 }
 
 // const timer = new Timer(canvasContainer);
@@ -116,7 +131,7 @@ class Timer {
 
 // // timerInit();
 
-console.log('Привет таймер');
+// console.log('Привет таймер');
 
 export { Timer };
 // export { timerInit };

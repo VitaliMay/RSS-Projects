@@ -1,5 +1,5 @@
 import { data } from './data.js';
-import { initModal } from './modal.js';
+import { initModal, btnSelectArr } from './modal.js';
 // import { initModal, canvasContainer } from './modal.js';
 import { canvasContainer } from './interface.js';
 import { Timer } from './timer.js';
@@ -12,6 +12,8 @@ class CanvasGrid {
     this.gapSize = gapSize; // Размер промежутка между квадратиками
 
     this.matrix = matrix;
+    // Убрать этот бред
+    this.matrixName = this.nameMatrixFromSelectBtn();
 
     this.isMouseEventsFlag = true; // Флаг для управления обработкой событий
 
@@ -52,6 +54,48 @@ class CanvasGrid {
     this.timer = new Timer(canvasContainer);
   }
 
+  /*************************************************************** */
+  // Огромная дурость, но очень тороплюсь
+  // Получаю имя матрицы по нажатой кнопке select
+  nameMatrixFromSelectBtn() {
+    const disabledButton = btnSelectArr.find((btn) => btn.disabled === true);
+    return disabledButton ? disabledButton.getAttribute('data-name') : null;
+  }
+
+  // Метод для сохранения текущего состояния игры
+  saveGameState() {
+    const gameState = {
+      matrixName: this.matrixName,
+      gridSize: this.gridSize,
+      matrix: this.matrix,
+      timer: this.timer.totalTime(),
+      squares: this.squaresAll.map((square) => ({
+        clicked: square.clicked,
+        crossed: square.crossed,
+      })),
+    };
+    localStorage.setItem('VitaliMay_gameState', JSON.stringify(gameState));
+  }
+
+  // Метод визуализации сохранённого состояния игры
+  loadGameState() {
+    const savedState = localStorage.getItem('VitaliMay_gameState');
+    if (savedState) {
+      const gameState = JSON.parse(savedState);
+      const { squares, timer } = gameState;
+      this.squaresAll.forEach((square, index) => {
+        square.clicked = squares[index].clicked;
+        square.crossed = squares[index].crossed;
+        // square.clicked = gameState.squares[index].clicked;
+        // square.crossed = gameState.squares[index].crossed;
+        this.timer.setTime(timer);
+      });
+
+      this.drawSquaresAll();
+    }
+  }
+  /*************************************************************** */
+
   // Метод удаления из разметки
   removeCanvas() {
     if (this.canvas) {
@@ -85,7 +129,7 @@ class CanvasGrid {
         }); // Добавил флаг для крестика
       }
     }
-    console.log(this.squaresAll);
+    // console.log(this.squaresAll);
   }
 
   // Функция для рисования квадратиков
@@ -519,7 +563,7 @@ class CanvasGrid {
       }
     }
 
-    console.log('Подсказки', result);
+    // console.log('Подсказки', result);
     return result;
   }
 }
@@ -527,10 +571,16 @@ class CanvasGrid {
 // const canvasGame = new CanvasGrid(5, 40, 2, data.butterfly.matrix);
 // const canvasGame = new CanvasGrid(10, 40, 2, data.kat.matrix);
 
-const squareSize = { value: 30 };
+const squareSize = { value: 30, gapSize: 1 };
 
 const canvasGame = {
-  currentGame: new CanvasGrid(5, squareSize.value, 1, data.butterfly.matrix),
+  currentGame: new CanvasGrid(
+    5,
+    squareSize.value,
+    squareSize.gapSize,
+    data.butterfly.matrix,
+  ),
+  // currentGame: new CanvasGrid(5, squareSize.value, 1, data.butterfly.matrix),
   // currentGame: new CanvasGrid(5, 40, 2, data.butterfly.matrix),
 };
 

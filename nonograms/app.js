@@ -9,6 +9,8 @@ import { hello } from './js/gameLogic.js';
 import { Timer } from './js/timer.js';
 import { soundObj } from './js/sound.js';
 
+import { saveCurrentGame } from './js/save-game.js';
+
 /************************************************** */
 
 signatureScore();

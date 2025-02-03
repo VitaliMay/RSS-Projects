@@ -226,9 +226,9 @@ const data = {
   },
 };
 
-const matrixName = 'kat';
+// const matrixName = 'kat';
 // const matrixName = 'butterfly';
-console.log(`matrix ${matrixName}`, data[matrixName].matrix);
+// console.log(`matrix ${matrixName}`, data[matrixName].matrix);
 // console.log(data.butterfly.matrix);
 
 export { data };

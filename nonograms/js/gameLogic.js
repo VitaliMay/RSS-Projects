@@ -9,6 +9,6 @@ import { CanvasGrid, canvasGame } from './canvasDraw.js';
 // };
 
 const hello = 'Привет game logic';
-console.log(hello);
+// console.log(hello);
 
 export { hello };

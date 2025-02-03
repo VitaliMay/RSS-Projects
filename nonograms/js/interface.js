@@ -77,7 +77,14 @@ const btnSelect = createEl({ ...btnOptions, text: 'Select Game' });
 const btnContinue = createEl({ ...btnOptions, text: 'Continue Last Game' });
 const btnSave = createEl({ ...btnOptions, text: 'Save Game' });
 
-const btnInterfaceArr = [btnReset, btnRandom, btnSolution, btnSelect];
+const btnInterfaceArr = [
+  btnReset,
+  btnRandom,
+  btnSolution,
+  btnSelect,
+  btnContinue,
+  btnSave,
+];
 // console.log('Привет интерфейс');
 
 export {
