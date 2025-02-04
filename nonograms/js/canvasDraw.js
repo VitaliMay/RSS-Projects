@@ -5,6 +5,7 @@ import { canvasContainer, settingWinners } from './interface.js';
 import { Timer } from './timer.js';
 import { soundObj, playSound } from './sound.js';
 import { gameWinnersStorage } from './modal-winners-LS.js';
+import { themaColors } from './thema.js';
 
 class CanvasGrid {
   constructor(gridSize, squareSize, gapSize, matrix) {
@@ -150,28 +151,29 @@ class CanvasGrid {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // Очистка canvas перед перерисовкой
 
     // Изменяю цвет канвас
-    // this.ctx.fillStyle = 'rgb(63, 95, 225)';
-    // this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    // this.ctx.fillStyle = 'black';
+    this.ctx.fillStyle = themaColors.canvasColor;
+    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
     /********Блок закрашивания квадратов******************************** */
     for (let square of this.squaresAll) {
       // Устанавливаем цвет квадрата
       if (square.crossed) {
-        this.ctx.fillStyle = 'rgb(128, 128, 128)';
-        // this.ctx.fillStyle = 'grey';
+        this.ctx.fillStyle = themaColors.squareCrossed;
+        // this.ctx.fillStyle = 'rgb(128, 128, 128)';
       } // Цвет для перечеркнутого квадрата
       else if (square.clicked) {
-        this.ctx.fillStyle = 'beige'; // Цвет при клике
+        this.ctx.fillStyle = themaColors.squareClicked; // Цвет при клике
+        // this.ctx.fillStyle = 'beige'; // Цвет при клике
       } else if (
         square.row === this.activeRow ||
         square.col === this.activeCol
       ) {
-        this.ctx.fillStyle = 'rgb(107, 107, 107)'; // Цвет для всей строки и колонки
-        // this.ctx.fillStyle = 'rgb(156, 156, 156)'; // Цвет для всей строки и колонки
-        // this.ctx.fillStyle = 'lightgreen'; // Цвет для всей строки и колонки
+        this.ctx.fillStyle = themaColors.squareRowColHover; // Цвет для всей строки и колонки
+        // this.ctx.fillStyle = 'rgb(107, 107, 107)'; // Цвет для всей строки и колонки
       } else {
-        this.ctx.fillStyle = 'rgb(128, 128, 128)'; // Остальные квадраты — серые
-        // this.ctx.fillStyle = 'grey'; // Остальные квадраты — серые
+        this.ctx.fillStyle = themaColors.squareAll; // Остальные квадраты — серые
+        // this.ctx.fillStyle = 'rgb(128, 128, 128)'; // Остальные квадраты — серые
       }
 
       // Если курсор наведен на квадрат, меняю его цвет
@@ -180,8 +182,8 @@ class CanvasGrid {
         square.col === this.activeCol &&
         !square.clicked
       ) {
-        this.ctx.fillStyle = 'rgb(88, 88, 88)'; // Цвет hover, если не кликнутый
-        // this.ctx.fillStyle = 'yellowgreen'; // Цвет hover, если не кликнутый
+        this.ctx.fillStyle = themaColors.squareHover; // Цвет hover, если не кликнутый
+        // this.ctx.fillStyle = 'rgb(88, 88, 88)'; // Цвет hover, если не кликнутый
       }
 
       this.ctx.fillRect(square.x, square.y, this.squareSize, this.squareSize);
@@ -193,7 +195,8 @@ class CanvasGrid {
     }
 
     /********Блок подсказок *************************/
-    this.ctx.fillStyle = 'white'; // Цвет текста
+    this.ctx.fillStyle = themaColors.textColor; // Цвет текста
+    // this.ctx.fillStyle = 'white'; // Цвет текста
     this.ctx.textAlign = 'center'; // Центрируем текст
     this.ctx.font = `${this.squareSize / 2}px Lato`; // ставлю шрифт
 
@@ -295,7 +298,7 @@ class CanvasGrid {
     const y2 = square.y + this.squareSize - 5; // Отступ от границы квадрата
 
     this.ctx.strokeStyle = 'red'; // Цвет "X"
-    this.ctx.lineWidth = 5; // Ширина линии
+    this.ctx.lineWidth = 2; // Ширина линии
 
     this.ctx.beginPath();
     this.ctx.moveTo(x1, y1);

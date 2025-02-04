@@ -119,7 +119,22 @@ body {
   // min-width: 100vw;
   // width: 100vw;
 	height: 100%;
-  background-color: white; // если вдруг пользователь поменял дефолтные настройки
+  // background-color: white; // если вдруг пользователь поменял дефолтные настройки
+  background-color: var(--background-dark);
+}
+
+// body.dark-mode {
+//   background-color: var(--background-dark);
+// }
+body.light-mode {
+  background-color: var(--background-light);
+
+  --primary: rgb(70, 141, 255);
+  --border: rgb(133, 183, 224);
+  --back-timer: rgb(255, 197, 197);
+
+  --btn-color: rgb(34, 139, 165);
+  --bnt-background: rgb(206, 195, 236);
 }
 
 /* чтобы прижать футер к низу страницы*/

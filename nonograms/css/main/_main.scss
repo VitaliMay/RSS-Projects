@@ -55,8 +55,8 @@
 // }
 
 .timer-box {
-  background-color: $primary;
-  // background-color: $static-white-40;
+  background-color: var(--back-timer);
+  // background-color: $primary;
   
   // padding: 8px 12px 12px 12px;
   padding: 4px;

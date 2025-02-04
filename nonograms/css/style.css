@@ -314,6 +314,13 @@ template {
   --bnt-background: rgb(219, 219, 219);
   --btn-color: rgb(80, 78, 78);
   --primary: rgb(255, 70, 70);
+  --shadow-press: rgb(170, 170, 170);
+  --shadow: rgb(255, 255, 255);
+  --border: rgb(77, 77, 77);
+  --back-timer: rgb(151, 151, 151);
+  --background-dark: rgb(225, 222, 222);
+  --background-light: rgb(188, 226, 246);
+  --disabled-color: rgb(255, 255, 255);
 }
 
 /***** mixins ***********************************************************************/
@@ -415,7 +422,16 @@ html {
 
 body {
   height: 100%;
-  background-color: white;
+  background-color: var(--background-dark);
+}
+
+body.light-mode {
+  background-color: var(--background-light);
+  --primary: rgb(70, 141, 255);
+  --border: rgb(133, 183, 224);
+  --back-timer: rgb(255, 197, 197);
+  --btn-color: rgb(34, 139, 165);
+  --bnt-background: rgb(206, 195, 236);
 }
 
 /* чтобы прижать футер к низу страницы*/
@@ -494,7 +510,7 @@ body.lock {
 
 /**************************************************/
 .timer-box {
-  background-color: rgb(255, 70, 70);
+  background-color: var(--back-timer);
   padding: 4px;
   width: 100%;
   max-width: 85px;
@@ -525,7 +541,7 @@ body.lock {
   font-weight: 600;
   line-height: 100%;
   letter-spacing: 0.05em;
-  color: rgb(255, 70, 70);
+  color: var(--primary);
   text-align: center;
   padding-top: 40px;
   padding-bottom: 35px;
@@ -533,7 +549,7 @@ body.lock {
 
 .canvas {
   display: block;
-  border: 10px solid rgb(26, 114, 51); /* Временно для проверки */
+  border: 10px solid var(--border); /* Временно для проверки */
 }
 
 .modal-container {
@@ -762,7 +778,7 @@ body.lock {
   letter-spacing: 0.05em;
   text-transform: uppercase;
   border-radius: 7px;
-  box-shadow: 0px -2px 4px 1px rgb(170, 170, 170) inset, 0px 2px 4px 1px rgb(255, 255, 255) inset;
+  box-shadow: 0px -2px 4px 1px var(--shadow-press) inset, 0px 2px 4px 1px var(--shadow) inset;
   transition: transform 0.1s ease, box-shadow 0.1s ease; /* Переход для эффекта нажатия */
 }
 .button_select {
@@ -774,12 +790,12 @@ body.lock {
   }
 }
 .button:active {
-  box-shadow: 0px 0px 4px 1px rgb(170, 170, 170) inset;
+  box-shadow: 0px 0px 4px 1px var(--shadow-press) inset;
   transform: scale(0.95);
 }
 .button:disabled {
   cursor: not-allowed; /* Курсор для отключенной кнопки */
-  box-shadow: 0px 0px 4px 1px rgb(170, 170, 170) inset;
+  box-shadow: 0px 0px 4px 1px var(--shadow-press) inset;
   transform: scale(0.95);
   color: rgb(255, 255, 255);
 }
@@ -800,7 +816,7 @@ body.lock {
 }
 
 .button-close:active {
-  box-shadow: 0px 0px 4px 1px rgb(170, 170, 170) inset;
+  box-shadow: 0px 0px 4px 1px var(--shadow-press) inset;
   transform: scale(0.95);
 }
 
