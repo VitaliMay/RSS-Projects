@@ -1,9 +1,10 @@
 import { data } from './data.js';
 import { initModal, btnSelectArr } from './modal.js';
 // import { initModal, canvasContainer } from './modal.js';
-import { canvasContainer } from './interface.js';
+import { canvasContainer, settingWinners } from './interface.js';
 import { Timer } from './timer.js';
 import { soundObj, playSound } from './sound.js';
+import { gameWinnersStorage } from './modal-winners-LS.js';
 
 class CanvasGrid {
   constructor(gridSize, squareSize, gapSize, matrix) {
@@ -94,6 +95,17 @@ class CanvasGrid {
       this.drawSquaresAll();
     }
   }
+  /*************************************************************** */
+
+  // saveWinners() {
+  //   const gameWinners = {
+  //     matrixName: this.matrixName,
+  //     gridSize: this.gridSize,
+  //     timer: this.timer.totalTime(),
+  //   };
+  //   localStorage.setItem('gameWinners', JSON.stringify(gameWinners));
+  // }
+
   /*************************************************************** */
 
   // Метод удаления из разметки
@@ -421,6 +433,12 @@ class CanvasGrid {
     const totalSeconds = this.timer.totalTime();
     // console.log('totalSeconds', totalSeconds);
     initModal(totalSeconds);
+
+    gameWinnersStorage.addWinner(this.matrixName, this.gridSize, totalSeconds);
+    settingWinners.disabled = false;
+    // this.matrixName
+    // this.gridSize
+    // totalSeconds
 
     this.showSolution();
 

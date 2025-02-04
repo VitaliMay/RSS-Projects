@@ -11,6 +11,8 @@ import { soundObj } from './js/sound.js';
 
 import { saveCurrentGame } from './js/save-game.js';
 
+import { modalContainerWinners } from './js/modal-winners.js';
+
 /************************************************** */
 
 signatureScore();

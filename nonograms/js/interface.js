@@ -41,6 +41,23 @@ const settingMode = createEl({
 });
 
 /*********************************** */
+// ещё одно дублирование
+
+function checkLocalStorageWinners() {
+  // const savedState = localStorage.getItem(localEl);
+  const savedState = localStorage.getItem('VitaliMay_Nono_scoreTable');
+  if (!savedState) {
+    settingWinners.disabled = true;
+    // btn.disabled = true;
+  } else {
+    settingWinners.disabled = false;
+    // btn.disabled = false;
+  }
+}
+
+checkLocalStorageWinners();
+
+/*********************************** */
 
 const titleH1 = createEl({
   tag: 'h1',

@@ -617,7 +617,67 @@ body.lock {
   position: relative;
   padding: 70px 10px 70px 10px;
 }
+.modal-winners {
+  width: 100%;
+  max-width: 450px;
+  height: 100%;
+  max-height: 450px;
+  overflow-y: auto;
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 20px;
+  background: rgb(236, 243, 248);
+  position: relative;
+  padding: 70px 10px 70px 10px;
+}
+.modal-winners__title {
+  color: var(--btn-color);
+  font-family: Lato;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 100%;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-size: 21px;
+}
+.modal-winners__block {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 
+/*****************************************/
+.winners-item {
+  font-family: Lato;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 100%;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  height: 30px;
+  padding-left: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: solid 1px var(--btn-color);
+}
+.winners-item__el_index {
+  width: 20px;
+}
+.winners-item__el_time {
+  width: 70px;
+}
+.winners-item__el_size {
+  width: 70px;
+}
+.winners-item__el_name {
+  width: 130px;
+}
+
+/*****************************************/
 .size-container {
   height: 100%;
   width: 100%;
