@@ -59,7 +59,8 @@ function formatSeconds(sec) {
 }
 
 function creatModalWinnersContent() {
-  const winnersArr = gameWinnersStorage.getWinners();
+  const winnersArr = gameWinnersStorage.getWinners().slice();
+  // мутирует
 
   winnersArr.sort((a, b) => a.timer - b.timer);
 
