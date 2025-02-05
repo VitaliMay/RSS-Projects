@@ -53,7 +53,51 @@ class CanvasGrid {
     // Начальное рисование канвас (квадратики)
     this.drawSquaresAll(); // без активного квадрата
 
+    // Для адаптива размера канваса
+    if (this.gridSize > 14) {
+      this.resizeCanvas();
+      window.addEventListener('resize', () => {
+        this.resizeCanvas();
+      });
+    }
+
     this.timer = new Timer(canvasContainer);
+  }
+
+  /*************************************************************** */
+  // Метод для пересчета размеров и расположения квадратов
+
+  resizeCanvas() {
+    if (window.innerWidth < 700) {
+      this.squareSize = 20;
+    } else this.squareSize = 30;
+
+    // Tекущее состояние квадратов
+    const currentSquaresState = this.squaresAll.map((square) => ({
+      clicked: square.clicked,
+      crossed: square.crossed,
+    }));
+
+    // Новые размеры базовые размеры
+    const baseSize =
+      (this.gridSize + 1) * this.gapSize +
+      this.squareSize * this.gridSize +
+      this.gapSize * 6; // для разделительных линий
+    this.canvas.width = baseSize + this.squareSize * this.leftMaxLength;
+    this.canvas.height = baseSize + this.squareSize * this.topMaxLength;
+
+    // Снова переписываю квадраты
+    this.squaresAll = [];
+    this.initSquaresAll();
+
+    // Востанавливаю состояния квадратов
+    for (let i = 0; i < currentSquaresState.length; i++) {
+      this.squaresAll[i].clicked = currentSquaresState[i].clicked;
+      this.squaresAll[i].crossed = currentSquaresState[i].crossed;
+    }
+
+    // Рисую квадраты с новыми позициями
+    this.drawSquaresAll();
   }
 
   /*************************************************************** */
