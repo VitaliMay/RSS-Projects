@@ -19,6 +19,7 @@
   display: block;
   // margin: 0 auto 30px;
 
-  border: 10px solid var(--border); /* Временно для проверки */
+  border: 10px solid var(--border);
+  border-radius: 0 7px 7px 7px;
   // border: 10px solid rgb(26, 114, 51); /* Временно для проверки */
 }

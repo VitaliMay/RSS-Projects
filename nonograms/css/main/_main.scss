@@ -57,6 +57,8 @@
 .timer-box {
   background-color: var(--back-timer);
   // background-color: $primary;
+
+  border-radius: 7px 7px 0 0;
   
   // padding: 8px 12px 12px 12px;
   padding: 4px;
@@ -70,7 +72,7 @@
   align-items: center;
   
   position: absolute;
-  top: -32px;
+  top: -33px;
   left: 0px;
 
   &__item {

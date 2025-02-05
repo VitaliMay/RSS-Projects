@@ -58,7 +58,8 @@ function changeThemeCanvas() {
     themaColors.squareHover = 'rgb(179, 178, 178)';
     themaColors.textColor = 'black';
 
-    themaColors.canvasColor = 'rgb(128, 128, 128)';
+    themaColors.canvasColor = 'rgb(206, 195, 236)';
+    // themaColors.canvasColor = 'rgb(128, 128, 128)';
   }
 
   // canvasGame.currentGame.drawSquaresAll();

@@ -511,6 +511,7 @@ body.lock {
 /**************************************************/
 .timer-box {
   background-color: var(--back-timer);
+  border-radius: 7px 7px 0 0;
   padding: 4px;
   width: 100%;
   max-width: 85px;
@@ -518,7 +519,7 @@ body.lock {
   justify-content: center;
   align-items: center;
   position: absolute;
-  top: -32px;
+  top: -33px;
   left: 0px;
   font-family: Montserrat;
   font-size: 16px;
@@ -549,7 +550,8 @@ body.lock {
 
 .canvas {
   display: block;
-  border: 10px solid var(--border); /* Временно для проверки */
+  border: 10px solid var(--border);
+  border-radius: 0 7px 7px 7px;
 }
 
 .modal-container {
