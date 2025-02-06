@@ -4,11 +4,14 @@ const soundObj = {
   isSoundOn: true,
   succesSound: new Audio('./assets/audio/winner-03.mp3'),
   clickSound: new Audio('./assets/audio/click-02.mp3'),
-  crossSound: new Audio('./assets/audio/crossed-01.mp3'),
+  noClickSound: new Audio('./assets/audio/click-03.mp3'),
+  crossSound: new Audio('./assets/audio/crossed-02.mp3'),
+  noCrossSound: new Audio('./assets/audio/crossed-01.mp3'),
 };
 
 function playSound(sound) {
   if (soundObj.isSoundOn) {
+    sound.currentTime = 0;
     sound.play(); // Проигрываем звук, если он включен
   }
 }

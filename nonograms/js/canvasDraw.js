@@ -73,6 +73,8 @@ class CanvasGrid {
     } else this.squareSize = 30;
 
     // Tекущее состояние квадратов
+    // Делаю это уже второй раз (делал для сохранения игры)
+    // может имеет смысл вести состояние отдельно
     const currentSquaresState = this.squaresAll.map((square) => ({
       clicked: square.clicked,
       crossed: square.crossed,
@@ -413,7 +415,11 @@ class CanvasGrid {
       if (clickedSquare) {
         this.timer.init();
 
-        playSound(soundObj.clickSound);
+        if (!clickedSquare.clicked) {
+          playSound(soundObj.clickSound);
+        } else {
+          playSound(soundObj.noClickSound);
+        }
 
         clickedSquare.clicked = !clickedSquare.clicked;
         // Если квадрат кликнутый, то он не перечёркнутый
@@ -443,7 +449,11 @@ class CanvasGrid {
       if (clickedSquare) {
         this.timer.init();
 
-        playSound(soundObj.crossSound);
+        if (!clickedSquare.crossed) {
+          playSound(soundObj.crossSound);
+        } else {
+          playSound(soundObj.noCrossSound);
+        }
 
         clickedSquare.crossed = !clickedSquare.crossed;
         // Если квадрат перечёркнутый, то он не кликнутый
