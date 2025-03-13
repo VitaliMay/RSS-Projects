@@ -5,19 +5,16 @@ import './canvas.scss';
 
 // import './mixins.scss';
 import './global.scss';
-import { startButton } from './components/view/Decision-Picker/decision-picker';
+import { startButton, infoItem, durationItem } from './components/view/Decision-Picker/decision-picker';
 
 // import { createEl } from './components/utils/elementUtils';
 
 import { createCanvas } from './components/view/Decision-Picker/decision-picker';
 
-const weightArr = [35, 4, 80, 27, 15];
+const weightArr = [40, 20, 20, 40, 20];
+// const weightArr = [35, 4, 125, 27, 15];
 const optionText = ['blue blue blue blue blue blue blue blue', 'red', 'green', 'orange', 'ultra'];
 const MAX_VALUE_COLOR_IN_RGB_FORMAT = 16777215;
-
-// function sumArray(arr) {
-//   return arr.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
-// }
 
 class Canvas {
     constructor(weightArr, optionText) {
@@ -86,6 +83,7 @@ class Canvas {
         let startAngle = this.angle; // Начальный угол с учетом вращения
         this.sectors.forEach((sector) => {
             const endAngle = startAngle + Math.PI * 2 * sector.percent;
+
             this.ctx.fillStyle = sector.color;
             this.ctx.beginPath();
             this.ctx.moveTo(this.centerX, this.centerY);
@@ -108,6 +106,25 @@ class Canvas {
             // 0,1 это коэфф для размещения текста ближе к центру сектора (текст 16 => середина 8,
             // при радиусе начала примерно 80 this.radius / 3, нужен сдвиг для центровки в 0.1 радиан
             // или так ((16/2) / this.radius / 3))
+
+            // console.log(sector.name, startAngle % (Math.PI * 2), endAngle % (Math.PI * 2), Math.PI * 1.5);
+            // console.log(sector.name, startAngle % (Math.PI * 2), endAngle % (Math.PI * 2), this.angle % (Math.PI * 2));
+            // console.log(sector.name, startAngle, endAngle, this.angle);
+
+            // if (this.angle > 1.5 * Math.PI) {
+            //     if (startAngle % (Math.PI * 2) <= Math.PI * 1.5 && endAngle % (Math.PI * 2) > Math.PI * 1.5) {
+            //         infoButton.textContent = sector.name;
+            //     }
+            //     if (
+            //         startAngle % (Math.PI * 2) <= Math.PI * 1.5 &&
+            //         endAngle % (Math.PI * 2) < Math.PI * 1.5 &&
+            //         startAngle % (Math.PI * 2) > endAngle % (Math.PI * 2)
+            //     ) {
+            //         infoButton.textContent = sector.name;
+            //     }
+            // }
+
+            this.#getSectorName(sector, startAngle, endAngle);
 
             // Сохраняю состояние контекста
             this.ctx.save();
@@ -156,17 +173,34 @@ class Canvas {
     }
 
     /******************************************************************* */
+
+    #getSectorName(sector, startAngle, endAngle) {
+        if (this.angle > 1.5 * Math.PI) {
+            if (startAngle % (Math.PI * 2) <= Math.PI * 1.5 && endAngle % (Math.PI * 2) > Math.PI * 1.5) {
+                infoItem.textContent = sector.name;
+            }
+            if (
+                startAngle % (Math.PI * 2) <= Math.PI * 1.5 &&
+                endAngle % (Math.PI * 2) < Math.PI * 1.5 &&
+                startAngle % (Math.PI * 2) > endAngle % (Math.PI * 2)
+            ) {
+                infoItem.textContent = sector.name;
+            }
+        }
+    }
+
     /******************************************************************* */
     // Функция параболы для анимации с ускорением и замедлением
     parabolicFunc(timeNorm) {
+        // return (1 - Math.pow(timeNorm - 0.5, 2) * 4) * 0.1;
         return (1 - Math.pow(timeNorm - 0.5, 2) * 4) * 0.4;
     }
 
     // Функция для анимации
     animate(duration) {
         if (!this.duration) {
-            // this.duration = duration; // остановка всегда в одном месте
-            this.duration = duration + Math.floor(Math.random() * 5) * 100; // для большего рандома меняю длительность анимации от 0 до 0,4с
+            this.duration = duration; // остановка всегда в одном месте
+            // this.duration = duration + Math.floor(Math.random() * 5) * 100; // для большего рандома меняю длительность анимации от 0 до 0,4с
             this.startTime = performance.now();
             this.endTime = this.startTime + this.duration;
         }
@@ -176,12 +210,10 @@ class Canvas {
         const timeNorm = Math.min(elapsed / this.duration, 1);
 
         const parabolTimeNorm = this.parabolicFunc(timeNorm);
-        // console.log(easingT, `t= ${t}`);
 
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // Очищаею canvas
 
         this.angle += parabolTimeNorm;
-        // this.angle += easingT * 0.4;
         this.drawCanvas();
 
         if (timeNorm < 1) {
@@ -205,9 +237,10 @@ class Canvas {
 const canvas = new Canvas(weightArr, optionText);
 
 startButton.addEventListener('click', () => {
-    canvas.animate(10000);
+    if (durationItem.value >= 4) {
+        canvas.animate(durationItem.value * 1000);
+    }
+    // canvas.animate(10000);
 });
-
-// canvas.animate(10000);
 
 canvas.drawCanvas();

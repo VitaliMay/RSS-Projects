@@ -9,6 +9,16 @@
   padding: 1.6rem;
 }
 
+.form-duration {
+  display: flex;
+  // flex-direction: column;
+  gap: 1.6rem;
+  width: 100%;
+  // max-width: 78rem;
+  // margin: 0 auto;
+  // padding: 1.6rem;
+}
+
 
 /***************************************************/
 
@@ -74,3 +84,33 @@
     color: var(--disabled-color);
   }
 }
+
+
+/***************************************************/
+
+.info,
+.input-duration {
+  background-color: var(--bnt-background);
+  color: var(--btn-color);
+  // @include caption-btn;
+
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 100%;
+  letter-spacing: 0.05em;
+
+  text-transform: uppercase;
+
+  height: 4rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 7px;
+}
+
+.input-duration {
+  text-align: center;
+  width: 100%;
+}
+
