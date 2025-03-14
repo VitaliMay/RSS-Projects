@@ -50,7 +50,7 @@ export const createDurationItem = () => {
         attributes: {
             type: 'number',
             name: 'duration',
-            min: 4,
+            min: 6,
             // value: 4,
             required: '',
             placeholder: 'input duration animation in sec',

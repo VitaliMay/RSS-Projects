@@ -11,33 +11,43 @@ import { startButton, infoItem, durationItem } from './components/view/Decision-
 
 import { createCanvas } from './components/view/Decision-Picker/decision-picker';
 
-const weightArr = [40, 20, 20, 40, 20];
-// const weightArr = [35, 4, 125, 27, 15];
-const optionText = ['blue blue blue blue blue blue blue blue', 'red', 'green', 'orange', 'ultra'];
+// const weightArr = [40, 20, 20, 40, 20];
+// // const weightArr = [35, 4, 125, 27, 15];
+// const optionText = ['blue blue blue blue blue blue blue blue', 'red', 'green', 'orange', 'ultra'];
 const MAX_VALUE_COLOR_IN_RGB_FORMAT = 16777215;
 
+const option = [
+    {
+        text: 'blue blue blue blue blue blue blue blue',
+        weight: 40,
+    },
+    {
+        text: 'red',
+        weight: 20,
+    },
+    {
+        text: 'green',
+        weight: 20,
+    },
+    {
+        text: 'orange',
+        weight: 40,
+    },
+    {
+        text: 'ultra',
+        weight: 20,
+    },
+];
+
 class Canvas {
-    constructor(weightArr, optionText) {
-        this.optionText = optionText;
-
-        this.sectors = this.sumArray(weightArr);
-
-        // Создаею canvas
-        // this.canvas = document.createElement('canvas');
-        // this.canvas.classList.add('canvas');
-        // this.canvas.width = 600;
-        // this.canvas.height = 600;
-        // document.body.appendChild(this.canvas);
-
-        // this.canvas = createEl({
-        //     tag: 'canvas',
-        //     classes: ['canvas'],
-        //     attributes: {
-        //         width: 600,
-        //         height: 600,
-        //     },
-        //     // parent: document.body,
-        // });
+    constructor(option) {
+        this.option = this.shuffleArray(option); // перемешиваю входной массив
+        this.optionText = this.getValueArr(this.option, 'text');
+        this.weightArr = this.getValueArr(this.option, 'weight');
+        this.sectors = this.sumArray(this.weightArr);
+        // constructor(weightArr, optionText) {
+        //     this.optionText = optionText;
+        //     this.sectors = this.sumArray(weightArr);
 
         this.canvas = createCanvas();
         this.ctx = this.canvas.getContext('2d');
@@ -47,13 +57,29 @@ class Canvas {
         // this.angle = 0; // начальный угол
 
         this.centerX = this.canvas.width / 2;
-        this.centerY = this.canvas.height / 2 + (this.canvas.height / 2 - this.radius); // Положение круга
+        this.centerY = this.canvas.height / 2; // Положение круга
+        // this.centerY = this.canvas.height / 2 + (this.canvas.height / 2 - this.radius); // Положение круга
 
         // this.isAnimate = true; // Флаг для управления анимацией
 
         this.startTime = null; // Время начала анимации
         this.duration = null; // Длительность анимации в миллисекундах
         this.endTime = null;
+    }
+
+    getValueArr(arrObj, key) {
+        return arrObj.map((item) => (item[key] !== undefined ? item[key] : null));
+    }
+
+    shuffleArray(baseArray) {
+        const array = [...baseArray];
+        for (let i = array.length - 1; i > 0; i -= 1) {
+            // Генерируем случайный индекс от 0 до i (включительно)
+            const j = Math.floor(Math.random() * (i + 1));
+            // Меняем местами элементы с индексами i и j
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
     }
 
     sumArray(arr) {
@@ -73,12 +99,21 @@ class Canvas {
         return `#${randomColor.padStart(6, '0')}`;
     }
 
-    drawCircleWithSectors() {
-        // Заполняю круг желтым цветом (чтобы было видно как работают сектора)
-        this.ctx.fillStyle = 'yellow';
+    drawCircle(radius, backgroundColor) {
+        this.ctx.fillStyle = backgroundColor;
         this.ctx.beginPath();
-        this.ctx.arc(this.centerX, this.centerY, this.radius, 0, Math.PI * 2);
+        this.ctx.arc(this.centerX, this.centerY, radius, 0, Math.PI * 2);
         this.ctx.fill();
+    }
+
+    drawCircleWithSectors() {
+        // // Заполняю круг желтым цветом (чтобы было видно как работают сектора)
+        // this.ctx.fillStyle = 'yellow';
+        // this.ctx.beginPath();
+        // this.ctx.arc(this.centerX, this.centerY, this.radius, 0, Math.PI * 2);
+        // this.ctx.fill();
+
+        this.drawCircle(this.radius, 'yellow');
 
         let startAngle = this.angle; // Начальный угол с учетом вращения
         this.sectors.forEach((sector) => {
@@ -157,19 +192,32 @@ class Canvas {
     }
 
     drawArrow() {
-        const arrowHeight = 60; // Высота стрелки
+        const arrowHeight = this.radius / 4; // Высота стрелки
+        // const arrowHeight = 60; // Высота стрелки
         this.ctx.fillStyle = 'black';
         this.ctx.beginPath();
-        this.ctx.moveTo(this.centerX - 15, 70); // Левый край стрелки
-        this.ctx.lineTo(this.centerX + 15, 70); // Правый край стрелки
+        this.ctx.moveTo(this.centerX - arrowHeight / 4, (this.centerY - this.radius) / 2); // Левый край стрелки
+        this.ctx.lineTo(this.centerX + arrowHeight / 4, (this.centerY - this.radius) / 2); // Правый край стрелки
+        // this.ctx.moveTo(this.centerX - arrowHeight / 4, 20); // Левый край стрелки
+        // this.ctx.lineTo(this.centerX + arrowHeight / 4, 20); // Правый край стрелки
+        // this.ctx.moveTo(this.centerX - 15, 70); // Левый край стрелки
+        // this.ctx.lineTo(this.centerX + 15, 70); // Правый край стрелки
         this.ctx.lineTo(this.centerX, this.centerY - this.radius + arrowHeight / 2); // Верхушка стрелки
         this.ctx.closePath();
         this.ctx.fill();
+
+        // Устанавливаем цвет обводки
+        this.ctx.strokeStyle = 'white';
+        this.ctx.lineWidth = 2; // Устанавливаем ширину обводки
+        this.ctx.stroke(); // Рисуем обводку
     }
 
     drawCanvas() {
         this.drawCircleWithSectors(); // Рисую круг с секторами
         this.drawArrow(); // Рисую указатель
+
+        this.drawCircle(this.radius / 8, 'white');
+        this.drawCircle(this.radius / 9, 'green');
     }
 
     /******************************************************************* */
@@ -234,11 +282,14 @@ class Canvas {
     }
 }
 
-const canvas = new Canvas(weightArr, optionText);
+const canvas = new Canvas(option);
+// const canvas = new Canvas(weightArr, optionText);
 
 startButton.addEventListener('click', () => {
-    if (durationItem.value >= 4) {
-        canvas.animate(durationItem.value * 1000);
+    if (durationItem.value >= 6) {
+        const durationRandom = durationItem.value * 1000 + Math.floor(Math.random() * 8) * 100; // для большего рандома меняю длительность анимации от 0 до 0,4с
+        canvas.animate(durationRandom);
+        // canvas.animate(durationItem.value * 1000);
     }
     // canvas.animate(10000);
 });
