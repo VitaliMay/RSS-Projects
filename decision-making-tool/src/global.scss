@@ -26,6 +26,7 @@
 
     --background-canvas: rgb(109, 170, 194);
     // --background-canvas: rgb(124, 58, 237);
+    --color-title: rgb(250, 235, 215);
   }
 
 
@@ -152,6 +153,15 @@ body.lock {
   @media (hover: hover) {
     margin-right: 17px; // чтобы не дёргалось при открытии модалки
   }
+}
+
+/**************************************************************/
+
+.title-h1 {
+  align-self: center;
+  font-size: 3rem;
+  color: var(--color-title);
+  // color: rgb(250, 235, 215);
 }
 
 /**************************************************************/

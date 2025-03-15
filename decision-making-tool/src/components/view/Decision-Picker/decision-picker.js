@@ -10,28 +10,25 @@ export const createMain = () => {
     });
 };
 
-const main = createMain();
+export const main = createMain();
 
-const form = createEl({
-    tag: 'form',
-    classes: ['form-duration'],
-    parent: main,
-});
-
-export const createStartButton = () => {
+export const createTitleH1 = () => {
     return createEl({
-        tag: 'button',
-        classes: ['button'],
-        attributes: {
-            title: 'Pick',
-            // type: 'button',
-        },
-        text: 'Start Button',
-        parent: form,
+        tag: 'h1',
+        classes: ['title-h1'],
+        text: 'Decision Making Tool',
+        parent: main,
     });
 };
 
-export const startButton = createStartButton();
+// export const titleH1 = createTitleH1();
+
+export const createForm = () =>
+    createEl({
+        tag: 'form',
+        classes: ['form-duration'],
+        parent: main,
+    });
 
 export const createInfoItem = () => {
     return createEl({
@@ -41,9 +38,55 @@ export const createInfoItem = () => {
         parent: main,
     });
 };
-export const infoItem = createInfoItem();
+// export const infoItem = createInfoItem();
 
-export const createDurationItem = () => {
+export const createButton = (title, text, parent) => {
+    return createEl({
+        tag: 'button',
+        classes: ['button', 'button_small'],
+        attributes: {
+            title: title,
+            type: 'button',
+        },
+        text: text,
+        parent: parent,
+    });
+};
+
+// export const backButton = createButton('Back', 'Back');
+// export const soundButton = createButton('Sound', 'Sound');
+
+// export const createBackButton = () => {
+//     return createEl({
+//         tag: 'button',
+//         classes: ['button', 'button_small'],
+//         attributes: {
+//             title: 'Back',
+//             type: 'button',
+//         },
+//         text: 'Back',
+//         parent: form,
+//     });
+// };
+
+// export const backButton = createBackButton();
+
+// export const createSoundButton = () => {
+//     return createEl({
+//         tag: 'button',
+//         classes: ['button', 'button_small'],
+//         attributes: {
+//             title: 'Sound',
+//             type: 'button',
+//         },
+//         text: 'Sound',
+//         parent: form,
+//     });
+// };
+
+// export const soundButton = createSoundButton();
+
+export const createDurationItem = (parent) => {
     return createEl({
         tag: 'input',
         classes: ['input-duration'],
@@ -56,11 +99,26 @@ export const createDurationItem = () => {
             placeholder: 'input duration animation in sec',
         },
 
-        parent: form,
+        parent: parent,
     });
 };
 
-export const durationItem = createDurationItem();
+// export const durationItem = createDurationItem();
+
+export const createStartButton = (parent) => {
+    return createEl({
+        tag: 'button',
+        classes: ['button'],
+        attributes: {
+            title: 'Pick',
+            // type: 'button',
+        },
+        text: 'Start Button',
+        parent: parent,
+    });
+};
+
+// export const startButton = createStartButton();
 
 export const createCanvas = () => {
     return createEl({

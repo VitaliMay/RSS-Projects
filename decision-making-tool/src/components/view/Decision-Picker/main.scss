@@ -9,26 +9,41 @@
   padding: 1.6rem;
 }
 
+// .form-duration {
+//   display: flex;
+//   // flex-direction: column;
+//   gap: 1.6rem;
+//   width: 100%;
+//   // max-width: 78rem;
+//   // margin: 0 auto;
+//   // padding: 1.6rem;
+// }
+
+
+/*****************************************************/
+
 .form-duration {
-  display: flex;
-  // flex-direction: column;
-  gap: 1.6rem;
-  width: 100%;
-  // max-width: 78rem;
-  // margin: 0 auto;
-  // padding: 1.6rem;
+  display: grid;
+  // grid-template-columns: repeat(3, 1fr); /* Три колонки одинаковой ширины */
+  grid-template-columns: 1fr 1fr 2fr;
+  // grid-template-rows: auto; /* Высота строк автоматически подстраивается под содержимое */
+  gap: 1.6rem; /* Промежуток между элементами */
 }
 
+.form-duration button:nth-child(4) {
+  grid-column: 1 / -1; /* Четвёртый элемент занимает всю ширину */
+}
 
 /***************************************************/
 
 .button {
   cursor: pointer;
-
-  width: 200px;
+  
+  // width: 200px;
   height: 40px;
   border: none;
-
+  
+  
   // &_select {
   //   width: 100%;
   // }
@@ -83,6 +98,12 @@
 
     color: var(--disabled-color);
   }
+
+  &_small {
+    // width: 70px;
+    min-width: 70px;
+  }
+
 }
 
 
@@ -113,4 +134,18 @@
   text-align: center;
   width: 100%;
 }
+
+.info {
+  background-color: inherit;
+  border: solid var(--bnt-background) 3px;
+  // color: var(--color-title);
+  color: var(--bnt-background);
+  // color: rgb(3, 241, 231);
+
+  &-result {
+    color: rgb(3, 241, 231);
+  }
+}
+
+
 
