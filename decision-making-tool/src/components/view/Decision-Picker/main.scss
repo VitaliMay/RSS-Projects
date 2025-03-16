@@ -9,6 +9,11 @@
   padding: 1.6rem;
 }
 
+.file-block {
+  display: flex;
+  column-gap: 1rem;
+}
+
 // .form-duration {
 //   display: flex;
 //   // flex-direction: column;
@@ -24,9 +29,7 @@
 
 .form-duration {
   display: grid;
-  // grid-template-columns: repeat(3, 1fr); /* Три колонки одинаковой ширины */
   grid-template-columns: 1fr 1fr 2fr;
-  // grid-template-rows: auto; /* Высота строк автоматически подстраивается под содержимое */
   gap: 1.6rem; /* Промежуток между элементами */
 }
 
@@ -102,6 +105,11 @@
   &_small {
     // width: 70px;
     min-width: 70px;
+  }
+
+  &_file {
+    width: 100%;
+    flex-shrink: 1;
   }
 
 }

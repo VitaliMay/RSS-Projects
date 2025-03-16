@@ -10,7 +10,25 @@ import {
 
 import { CanvasWheel } from './decision-picker/wheel';
 
-import { removeAllChild } from '../utils/elementUtils';
+import { removeAllChild, createEl } from '../utils/elementUtils';
+
+/************************************** */
+
+// import { option } from './sources/option';
+
+import {
+    createList,
+    createListArr,
+    createListItemBlock,
+    // createListItem,
+    // createListItem_Id,
+    // createListItem_Title,
+    // createListItem_Weight,
+    // createDeleteButton,
+} from './option-page';
+
+import './option-style.scss';
+/*************************************** */
 
 export const createWheelPage = (option) => {
     const titleH1 = createTitleH1();
@@ -19,8 +37,8 @@ export const createWheelPage = (option) => {
 
     const infoItem = createInfoItem();
 
-    const backButton = createButton('Back', 'Back', form);
-    const soundButton = createButton('Sound', 'Sound', form);
+    const backButton = createButton('Back', 'Back', form, ['button_small']);
+    const soundButton = createButton('Sound', 'Sound', form, ['button_small']);
 
     const durationItem = createDurationItem(form);
 
@@ -37,9 +55,52 @@ export const createWheelPage = (option) => {
         }
     });
 
+    /************************************************ */
+
     backButton.addEventListener('click', () => {
         removeAllChild(main);
+
+        createTitleH1();
+
+        const list = createList(main);
+
+        createListArr(option, list);
+
+        const addButton = createButton('', 'Add Option', main);
+        addButton.addEventListener('click', () => {
+            createListItemBlock(list, 444);
+        });
+
+        createButton('', 'Paste List', main);
+
+        const clearListButton = createButton('', 'Clear List', main);
+        clearListButton.addEventListener('click', () => {
+            removeAllChild(list);
+        });
+
+        const fileButtonsBlock = createEl({ classes: ['file-block'], parent: main });
+        createButton('', 'Save List to file', fileButtonsBlock, ['button_file']);
+        createButton('', 'Load List from file', fileButtonsBlock, ['button_file']);
+
+        const startButton = createButton('', 'Start', main);
+        startButton.addEventListener('click', () => {
+            removeAllChild(main);
+            createWheelPage(option);
+        });
+
+        // const listItem = createListItem(list);
+
+        // createListItem_Id(listItem, 6);
+        // createListItem_Title(listItem, 6);
+        // createListItem_Weight(listItem);
+        // const delButton = createDeleteButton(listItem, ['but-del']);
+
+        // delButton.addEventListener('click', () => {
+        //     listItem.remove();
+        // });
     });
+
+    /************************************************************************* */
 
     return [titleH1, form, infoItem, backButton, soundButton, durationItem, startButton];
 };

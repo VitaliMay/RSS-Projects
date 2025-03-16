@@ -40,10 +40,11 @@ export const createInfoItem = () => {
 };
 // export const infoItem = createInfoItem();
 
-export const createButton = (title, text, parent) => {
+export const createButton = (title, text, parent, addClasses = []) => {
     return createEl({
         tag: 'button',
-        classes: ['button', 'button_small'],
+        classes: ['button', ...addClasses],
+        // classes: ['button', 'button_small'],
         attributes: {
             title: title,
             type: 'button',
