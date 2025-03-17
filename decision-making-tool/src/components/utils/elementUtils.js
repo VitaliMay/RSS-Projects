@@ -121,6 +121,28 @@ function getCategoryFromString(str) {
     return resultString;
 }
 
+/*********************************************************************** */
+// Функция счётчик
+
+function createCounter(initialValue) {
+    let count = initialValue;
+
+    return function () {
+        return (count += 1);
+    };
+}
+
+/****************************************************************** */
+// Функция удаляет из массива объектов,
+// элемент-объект у которого есть ключ id c соответствующим значением
+
+function removeById(arrObj, id) {
+    const index = arrObj.findIndex((item) => item.id === id);
+    if (index !== -1) {
+        arrObj.splice(index, 1);
+    }
+}
+
 export {
     createEl,
     // createSvgEl,
@@ -131,4 +153,6 @@ export {
     getRandomIntegerArr,
     toUpperFirstLetter,
     getCategoryFromString,
+    createCounter,
+    removeById,
 };

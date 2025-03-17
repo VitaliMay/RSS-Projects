@@ -1,6 +1,9 @@
 import { createButton } from './decision-picker/decision-picker';
 
-import { createEl } from '../utils/elementUtils';
+import { createEl, createCounter, removeById } from '../utils/elementUtils';
+
+import { data } from './sources/data';
+const counterID = createCounter(data.lastId);
 
 export const createListItem = (parent) => {
     return createEl({
@@ -69,30 +72,78 @@ export const createList = (parent) => {
     });
 };
 
-export const createListItemBlock = (parent, id = 123) => {
+export const createListItemBlock = (parent, id = counterID()) => {
     const listItem = createListItem(parent);
     createListItem_Id(listItem, id);
-    createListItem_Title(listItem, id);
-    createListItem_Weight(listItem);
-    const delButton = createDeleteButton(listItem, ['but-del']);
+    const title = createListItem_Title(listItem, id);
+    const weight = createListItem_Weight(listItem);
 
+    const delButton = createDeleteButton(listItem, ['but-del']);
     delButton.addEventListener('click', () => {
+        removeById(data.list, id);
         listItem.remove();
+
+        console.log(data);
     });
+
+    // слушатели для обновления data.list
+    title.addEventListener('input', () => {
+        const item = data.list.find((item) => item.id === id);
+        if (item) {
+            item.title = title.value; // обновление title в data.list
+        }
+    });
+
+    weight.addEventListener('input', () => {
+        const item = data.list.find((item) => item.id === id);
+        if (item) {
+            item.weight = Number(weight.value); // обновление weight в data.list
+        }
+    });
+
+    data.list.push({ id: id, title: title.value, weight: weight.value });
+    data.lastId = id;
+
+    console.log(data);
 };
 
 export const createListArr = (option, parent) => {
-    option.forEach((item, index) => {
-        const listItem = createListItem(parent);
-        createListItem_Id(listItem, index);
-        const title = createListItem_Title(listItem, index);
-        title.value = item.text;
-        const weight = createListItem_Weight(listItem);
-        weight.value = item.weight;
-        const delButton = createDeleteButton(listItem, ['but-del']);
+    if (option) {
+        option.forEach((item) => {
+            // option.forEach((item, index) => {
+            const listItem = createListItem(parent);
+            createListItem_Id(listItem, item.id);
+            // createListItem_Id(listItem, index);
+            const title = createListItem_Title(listItem, item.id);
+            title.value = item.title;
+            // title.value = item.text;
 
-        delButton.addEventListener('click', () => {
-            listItem.remove();
+            title.addEventListener('input', () => {
+                const foundItem = data.list.find((el) => el.id === item.id);
+                if (foundItem) {
+                    foundItem.title = title.value; // обновление title в data.list
+                }
+            });
+
+            const weight = createListItem_Weight(listItem);
+            weight.value = item.weight;
+
+            weight.addEventListener('input', () => {
+                const foundItem = data.list.find((el) => el.id === item.id);
+                if (foundItem) {
+                    foundItem.weight = Number(weight.value); // обновление title в data.list
+                }
+            });
+
+            const delButton = createDeleteButton(listItem, ['but-del']);
+
+            delButton.addEventListener('click', () => {
+                // listItem.remove();
+                removeById(data.list, item.id);
+                listItem.remove();
+
+                console.log(data);
+            });
         });
-    });
+    }
 };

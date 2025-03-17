@@ -37,7 +37,8 @@ const MAX_VALUE_COLOR_IN_RGB_FORMAT = 16777215;
 export class CanvasWheel {
     constructor(option, startButton, infoItem) {
         this.option = this.shuffleArray(option); // перемешиваю входной массив
-        this.optionText = this.getValueArr(this.option, 'text');
+        this.optionText = this.getValueArr(this.option, 'title');
+        // this.optionText = this.getValueArr(this.option, 'text');
         this.weightArr = this.getValueArr(this.option, 'weight');
         this.sectors = this.sumArray(this.weightArr);
 
