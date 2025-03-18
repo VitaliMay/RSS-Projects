@@ -127,10 +127,26 @@ function getCategoryFromString(str) {
 function createCounter(initialValue) {
     let count = initialValue;
 
-    return function () {
-        return (count += 1);
+    return {
+        getCount: () => {
+            return (count += 1);
+        },
+        resetCount: () => {
+            count = 0;
+        },
+        loadCount: (loadValue) => {
+            count = loadValue;
+        },
     };
 }
+
+// function createCounter(initialValue) {
+//     let count = initialValue;
+
+//     return function () {
+//         return (count += 1);
+//     };
+// }
 
 /****************************************************************** */
 // Функция удаляет из массива объектов,

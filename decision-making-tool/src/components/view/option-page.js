@@ -3,7 +3,7 @@ import { createButton } from './decision-picker/decision-picker';
 import { createEl, createCounter, removeById } from '../utils/elementUtils';
 
 import { data } from './sources/data';
-const counterID = createCounter(data.lastId);
+export const counterID = createCounter(data.lastId);
 
 export const createListItem = (parent) => {
     return createEl({
@@ -72,7 +72,7 @@ export const createList = (parent) => {
     });
 };
 
-export const createListItemBlock = (parent, id = counterID()) => {
+export const createListItemBlock = (parent, id = counterID.getCount()) => {
     const listItem = createListItem(parent);
     createListItem_Id(listItem, id);
     const title = createListItem_Title(listItem, id);

@@ -2,7 +2,7 @@ import { main, createTitleH1, createButton } from './decision-picker/decision-pi
 
 import { removeAllChild, createEl } from '../utils/elementUtils';
 
-import { createList, createListArr, createListItemBlock } from './option-page';
+import { createList, createListArr, createListItemBlock, counterID } from './option-page';
 
 import { createWheelPage } from './wheel-page';
 
@@ -30,19 +30,77 @@ export const createOptionPage = (option) => {
     const clearListButton = createButton('', 'Clear List', main);
     clearListButton.addEventListener('click', () => {
         removeAllChild(list);
+        data.list = [];
+        data.lastId = 0;
+        // store.setList(data);
+        counterID.resetCount();
     });
 
     const fileButtonsBlock = createEl({ classes: ['file-block'], parent: main });
-    createButton('', 'Save List to file', fileButtonsBlock, ['button_file']);
-    createButton('', 'Load List from file', fileButtonsBlock, ['button_file']);
 
+    const saveButton = createButton('', 'Save List to file', fileButtonsBlock, ['button_file']);
+    /****************************** */
+    saveButton.addEventListener('click', () => {
+        const json = JSON.stringify(data);
+        const blob = new Blob([json], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'data.json';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    });
+    /****************************** */
+
+    const loadButton = createButton('', 'Load List from file', fileButtonsBlock, ['button_file']);
+    /***************************** */
+    loadButton.addEventListener('click', () => {
+        const fileInput = createEl({
+            tag: 'input',
+            attributes: {
+                type: 'file',
+                accept: '.json',
+            },
+            styles: { display: 'none' },
+        });
+
+        fileInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    try {
+                        const jsonData = event.target.result;
+                        const dataTemp = JSON.parse(jsonData);
+                        data.list = dataTemp.list;
+                        data.lastId = dataTemp.lastId;
+                        counterID.loadCount(Number(data.lastId));
+
+                        // console.log(data);
+
+                        removeAllChild(list);
+                        createListArr(data.list, list);
+                    } catch (error) {
+                        console.error('Error parse JSON:', error);
+                    }
+                };
+                reader.readAsText(file);
+            }
+        });
+
+        fileInput.click();
+        fileInput.remove();
+    });
+    /***************************** */
     const startButton = createButton('', 'Start', main);
     startButton.addEventListener('click', () => {
-        console.log(data);
+        // console.log(data);
         store.setList(data);
 
         removeAllChild(main);
-        // createWheelPage(data.list);
-        createWheelPage(option);
+        createWheelPage(data.list);
+        // createWheelPage(option);
     });
 };
