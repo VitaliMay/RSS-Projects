@@ -165,7 +165,7 @@ export const createListArr = (option, parent) => {
                 //     data.lastId = 0;
                 // }
 
-                console.log(data);
+                // console.log(data);
             });
         });
     }

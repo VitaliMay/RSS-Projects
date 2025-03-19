@@ -13,7 +13,7 @@ import { CanvasWheel } from './decision-picker/wheel';
 import { removeAllChild } from '../utils/elementUtils';
 // import { removeAllChild, createEl } from '../utils/elementUtils';
 
-// import { data } from './sources/data';
+import { data } from './sources/data';
 
 // import { store } from './sources/save-state';
 
@@ -79,8 +79,8 @@ export const createWheelPage = (option) => {
     /************************************************ */
 
     backButton.addEventListener('click', () => {
-        // createOptionPage(data.list);
-        createOptionPage(option);
+        createOptionPage(data.list);
+        // createOptionPage(option);
 
         // removeAllChild(main);
 

@@ -159,8 +159,8 @@ export class CanvasWheel {
 
             // Надо ограничить длину строки, чтобы текст не выходил за круг
             let nameSector = sector.name;
-            if (nameSector.length > 16) {
-                nameSector = nameSector.slice(0, 17) + '...';
+            if (nameSector.length > 8) {
+                nameSector = nameSector.slice(0, 9) + '...';
             }
 
             this.ctx.fillText(nameSector, this.radius / 3, 0);

@@ -1,4 +1,4 @@
-const body = document.body;
+export const body = document.body;
 
 function createEl(options) {
     const {

@@ -10,6 +10,8 @@ import { data, store } from './sources/data';
 
 import './option-style.scss';
 
+import { modal } from './modal/modal-validation';
+
 export const createOptionPage = (option) => {
     removeAllChild(main);
 
@@ -37,7 +39,7 @@ export const createOptionPage = (option) => {
         //     data.lastId = 0;
         // }
 
-        console.log(data);
+        // console.log(data);
     });
 
     createButton('', 'Paste List', main);
@@ -112,10 +114,31 @@ export const createOptionPage = (option) => {
     const startButton = createButton('', 'Start', main);
     startButton.addEventListener('click', () => {
         // console.log(data);
+        const { list } = data;
+        // if (list.length > 1) {
+        //     list.forEach((item) => {
+        //         if ( item.title.trim().length > 0 && item.weight > 0) {
+
+        //         }
+        //     });
+        //     console.log(data);
+        // }
+
+        const filteredItems = list.filter((item) => item.title.trim().length > 0 && item.weight > 0);
+
+        // console.log(filteredItems);
+
         store.setList(data);
 
-        removeAllChild(main);
-        createWheelPage(data.list);
-        // createWheelPage(option);
+        // removeAllChild(main);
+
+        if (filteredItems.length > 1) {
+            removeAllChild(main);
+            createWheelPage(filteredItems);
+        } else {
+            // console.log('слишком мало элементов');
+            modal();
+        }
+        // createWheelPage(data.list);
     });
 };
