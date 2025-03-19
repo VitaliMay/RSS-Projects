@@ -1,7 +1,7 @@
 import './modal.scss';
 import { createEl, body } from '../../utils/elementUtils';
 
-export const modal = () => {
+export const modal = (innerLayotElement) => {
     body.classList.add('lock');
 
     const modalContainer = createEl({ classes: ['modal-container'] });
@@ -29,12 +29,13 @@ export const modal = () => {
         parent: buttonCross,
     });
 
-    createEl({
-        tag: 'h2',
-        classes: ['modal-title'],
-        text: 'There must be at least two valid options. An option is considered valid if its title is not empty and its weight is greater than 0',
-        parent: modal,
-    });
+    modal.append(innerLayotElement);
+    // createEl({
+    //     tag: 'h2',
+    //     classes: ['modal-title'],
+    //     text: 'There must be at least two valid options. An option is considered valid if its title is not empty and its weight is greater than 0',
+    //     parent: modal,
+    // });
 
     const buttonClose = createEl({
         tag: 'button',
@@ -65,5 +66,31 @@ export const modal = () => {
             removeModal();
             // body.classList.remove('lock');
         }
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+            removeModal();
+        }
+    });
+};
+
+export const modalTitleElement = () => {
+    return createEl({
+        tag: 'h2',
+        classes: ['modal-title'],
+        text: 'There must be at least two valid options. An option is considered valid if its title is not empty and its weight is greater than 0',
+        parent: null,
+    });
+};
+
+export const modalTextAreaElement = () => {
+    return createEl({
+        tag: 'textarea',
+        attributes: {
+            rows: '12',
+            cols: '64',
+            placeholder: 'Paste a list of new options',
+        },
     });
 };

@@ -60,7 +60,7 @@ export const createWheelPage = (option) => {
     canvasWheel.drawCanvas();
 
     startButton.addEventListener('click', () => {
-        if (durationItem.value >= 6) {
+        if (durationItem.value >= 6 && durationItem.value <= 60) {
             const durationRandom = durationItem.value * 1000 + Math.floor(Math.random() * 8) * 100; // для большего рандома меняю длительность анимации от 0 до 0,4с
             canvasWheel.animate(durationRandom);
         }

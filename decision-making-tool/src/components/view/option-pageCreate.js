@@ -10,7 +10,7 @@ import { data, store } from './sources/data';
 
 import './option-style.scss';
 
-import { modal } from './modal/modal-validation';
+import { modal, modalTitleElement, modalTextAreaElement } from './modal/modal-validation';
 
 export const createOptionPage = (option) => {
     removeAllChild(main);
@@ -42,7 +42,10 @@ export const createOptionPage = (option) => {
         // console.log(data);
     });
 
-    createButton('', 'Paste List', main);
+    const pasteListButton = createButton('', 'Paste List', main);
+    pasteListButton.addEventListener('click', () => {
+        modal(modalTextAreaElement());
+    });
 
     const clearListButton = createButton('', 'Clear List', main);
     clearListButton.addEventListener('click', () => {
@@ -137,7 +140,8 @@ export const createOptionPage = (option) => {
             createWheelPage(filteredItems);
         } else {
             // console.log('слишком мало элементов');
-            modal();
+            modal(modalTitleElement());
+            // modal()
         }
         // createWheelPage(data.list);
     });
