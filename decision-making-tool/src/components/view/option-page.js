@@ -80,10 +80,24 @@ export const createListItemBlock = (parent, id = counterID.getCount()) => {
 
     const delButton = createDeleteButton(listItem, ['but-del']);
     delButton.addEventListener('click', () => {
-        removeById(data.list, id);
+        // removeById(data.list, id);
+        // listItem.remove();
+
+        const lengthData = removeById(data.list, id);
+        if (lengthData === 0) {
+            counterID.resetCount();
+            data.lastId = 0;
+        }
         listItem.remove();
 
-        console.log(data);
+        // console.log(data);
+
+        // if (data.list.lenght === 0) {
+        //     counterID.resetCount();
+        //     data.lastId = 0;
+        // }
+
+        // console.log(data);
     });
 
     // слушатели для обновления data.list
@@ -104,7 +118,7 @@ export const createListItemBlock = (parent, id = counterID.getCount()) => {
     data.list.push({ id: id, title: title.value, weight: weight.value });
     data.lastId = id;
 
-    console.log(data);
+    // console.log(data);
 };
 
 export const createListArr = (option, parent) => {
@@ -138,9 +152,18 @@ export const createListArr = (option, parent) => {
             const delButton = createDeleteButton(listItem, ['but-del']);
 
             delButton.addEventListener('click', () => {
-                // listItem.remove();
-                removeById(data.list, item.id);
+                // removeById(data.list, item.id);
+                const lengthData = removeById(data.list, item.id);
+                if (lengthData === 0) {
+                    counterID.resetCount();
+                    data.lastId = 0;
+                }
                 listItem.remove();
+
+                // if (data.list.lenght === 0) {
+                //     counterID.resetCount();
+                //     data.lastId = 0;
+                // }
 
                 console.log(data);
             });

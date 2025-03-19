@@ -141,6 +141,11 @@
 .input-duration {
   text-align: center;
   width: 100%;
+
+  &:disabled {
+    color: var(--disabled-color);
+    cursor: not-allowed;
+  }
 }
 
 .info {

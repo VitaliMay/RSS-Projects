@@ -11,7 +11,8 @@ export class MemoryStore {
             // если что-то есть
             return JSON.parse(lsOptions);
         } else {
-            return { list: [{ id: 1, title: null, weight: null }], lastId: 1 };
+            return { list: [{ id: 1, title: '', weight: '' }], lastId: 1 };
+            // return { list: [{ id: 1, title: null, weight: null }], lastId: 1 };
         }
     }
 

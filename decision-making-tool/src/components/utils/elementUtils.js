@@ -157,6 +157,8 @@ function removeById(arrObj, id) {
     if (index !== -1) {
         arrObj.splice(index, 1);
     }
+
+    return arrObj.length;
 }
 
 export {

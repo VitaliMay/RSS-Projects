@@ -21,8 +21,23 @@ export const createOptionPage = (option) => {
 
     const addButton = createButton('', 'Add Option', main);
     addButton.addEventListener('click', () => {
+        // if (data.list.lenght === 0) {
+        //     counterID.resetCount();
+        //     console.log(counterID.resetCount());
+        //     data.lastId = 0;
+        // }
+
+        // counterID.resetCount();
+        // console.log(data);
+
         createListItemBlock(list);
         // createListItemBlock(list, 444);
+        // if (data.list.lenght === 0) {
+        //     counterID.resetCount();
+        //     data.lastId = 0;
+        // }
+
+        console.log(data);
     });
 
     createButton('', 'Paste List', main);

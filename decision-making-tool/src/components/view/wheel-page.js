@@ -17,6 +17,8 @@ import { removeAllChild } from '../utils/elementUtils';
 
 // import { store } from './sources/save-state';
 
+import { soundObj } from './sources/sound';
+
 /************************************** */
 
 // import { option } from './sources/option';
@@ -47,12 +49,13 @@ export const createWheelPage = (option) => {
 
     const backButton = createButton('Back', 'Back', form, ['button_small']);
     const soundButton = createButton('Sound', 'Sound', form, ['button_small']);
+    soundButton.textContent = soundObj.isSoundOn ? 'Sound ON' : 'Sound OFF';
 
     const durationItem = createDurationItem(form);
 
     const startButton = createStartButton(form);
 
-    const canvasWheel = new CanvasWheel(option, startButton, infoItem);
+    const canvasWheel = new CanvasWheel(option, startButton, infoItem, backButton, soundButton, durationItem);
 
     canvasWheel.drawCanvas();
 
@@ -62,6 +65,16 @@ export const createWheelPage = (option) => {
             canvasWheel.animate(durationRandom);
         }
     });
+
+    soundButton.addEventListener('click', toggleSound);
+
+    function toggleSound() {
+        soundObj.isSoundOn = !soundObj.isSoundOn; // Переключаем состояние звука
+        const soundState = soundObj.isSoundOn ? 'Sound ON' : 'Sound OFF';
+        soundButton.textContent = soundState;
+        // localStorage.setItem('VitaliMay_Nono_theme', isThemaDark.value ? 'dark' : 'light');
+        localStorage.setItem('VitaliMay_DMT_sound_ON', soundObj.isSoundOn);
+    }
 
     /************************************************ */
 

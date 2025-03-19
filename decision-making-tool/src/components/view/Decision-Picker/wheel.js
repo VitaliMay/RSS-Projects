@@ -8,6 +8,7 @@
 // import { createCanvas } from './components/view/decision-picker/decision-picker';
 
 import { createCanvas } from './decision-picker';
+import { soundObj, playSound } from '../sources/sound';
 
 const MAX_VALUE_COLOR_IN_RGB_FORMAT = 16777215;
 
@@ -35,7 +36,7 @@ const MAX_VALUE_COLOR_IN_RGB_FORMAT = 16777215;
 // ];
 
 export class CanvasWheel {
-    constructor(option, startButton, infoItem) {
+    constructor(option, startButton, infoItem, backButton, soundButton, durationItem) {
         this.option = this.shuffleArray(option); // перемешиваю входной массив
         this.optionText = this.getValueArr(this.option, 'title');
         // this.optionText = this.getValueArr(this.option, 'text');
@@ -44,6 +45,11 @@ export class CanvasWheel {
 
         this.startButton = startButton;
         this.infoItem = infoItem;
+
+        this.backButton = backButton;
+        this.soundButton = soundButton;
+        this.durationItem = durationItem;
+
         // constructor(weightArr, optionText) {
         //     this.optionText = optionText;
         //     this.sectors = this.sumArray(weightArr);
@@ -245,6 +251,10 @@ export class CanvasWheel {
             this.startButton.disabled = true;
             this.startButton.title = '';
             this.infoItem.classList.remove('info-result');
+
+            this.backButton.disabled = true;
+            this.soundButton.disabled = true;
+            this.durationItem.disabled = true;
         } else {
             // Сброс состояния для следующего запуска
             this.duration = null;
@@ -257,6 +267,12 @@ export class CanvasWheel {
             // infoItem.style.color = 'rgb(3 241 231)';
             this.infoItem.classList.add('info-result');
             this.angle = 1.5 * Math.PI; // чтобы отрисовка начиналась с верхней точки
+
+            this.backButton.disabled = false;
+            this.soundButton.disabled = false;
+            this.durationItem.disabled = false;
+
+            playSound(soundObj.succesSound);
         }
     }
 }
