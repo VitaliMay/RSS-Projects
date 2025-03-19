@@ -12,29 +12,6 @@ import { soundObj, playSound } from '../sources/sound';
 
 const MAX_VALUE_COLOR_IN_RGB_FORMAT = 16777215;
 
-// const option = [
-//     {
-//         text: 'blue blue blue blue blue blue blue blue',
-//         weight: 40,
-//     },
-//     {
-//         text: 'red',
-//         weight: 20,
-//     },
-//     {
-//         text: 'green',
-//         weight: 20,
-//     },
-//     {
-//         text: 'orange',
-//         weight: 40,
-//     },
-//     {
-//         text: 'ultra',
-//         weight: 20,
-//     },
-// ];
-
 export class CanvasWheel {
     constructor(option, startButton, infoItem, backButton, soundButton, durationItem) {
         this.option = this.shuffleArray(option); // перемешиваю входной массив
@@ -141,33 +118,43 @@ export class CanvasWheel {
             this.ctx.stroke();
 
             // Добавляею текст с наименованием сектора
-            const textAngle = startAngle + (endAngle - startAngle + 0.1) / 2; // угол для размещения текста
+            // console.log(((endAngle - startAngle) * this.radius) / 3);
+            if (((endAngle - startAngle) * this.radius) / 3.5 >= 17) {
+                // если длина дуги больше 17px, то рисую название сектора (высота букв примерно 16px)
+                //font = 16px
+                const textAngle = startAngle + (endAngle - startAngle + 0.08) / 2; // угол для размещения текста
 
-            this.#getSectorName(sector, startAngle, endAngle);
+                this.#getSectorName(sector, startAngle, endAngle);
 
-            this.ctx.save();
+                this.ctx.save();
 
-            this.ctx.translate(this.centerX, this.centerY);
-            // Поворачиваю контекст на нужный угол
-            this.ctx.rotate(textAngle);
+                this.ctx.translate(this.centerX, this.centerY);
+                // Поворачиваю контекст на нужный угол
+                this.ctx.rotate(textAngle);
 
-            this.ctx.fillStyle = 'black';
-            this.ctx.font = '16px Arial';
-            this.ctx.textAlign = 'left';
-            // this.ctx.textAlign = 'center';
-            // Рисую текст, смещая его от центра
+                // Ставлю тень к тексту (чтобы всегда было видно)
+                this.ctx.shadowColor = 'white'; // Цвет тени
+                this.ctx.shadowBlur = 4; // Размытие тени
+                this.ctx.shadowOffsetX = 0; // Смещение по оси X
+                this.ctx.shadowOffsetY = 0; // Смещение по оси Y
 
-            // Надо ограничить длину строки, чтобы текст не выходил за круг
-            let nameSector = sector.name;
-            if (nameSector.length > 8) {
-                nameSector = nameSector.slice(0, 9) + '...';
+                this.ctx.fillStyle = 'black';
+                this.ctx.font = '16px Arial';
+                this.ctx.textAlign = 'left';
+                // this.ctx.textAlign = 'center';
+                // Рисую текст, смещая его от центра
+
+                // Надо ограничить длину строки, чтобы текст не выходил за круг
+                let nameSector = sector.name;
+                if (nameSector.length > 8) {
+                    nameSector = nameSector.slice(0, 9) + '...';
+                }
+
+                this.ctx.fillText(nameSector, this.radius / 3, 0);
+
+                // Возвращаю состояние контекста
+                this.ctx.restore();
             }
-
-            this.ctx.fillText(nameSector, this.radius / 3, 0);
-            // this.ctx.fillText(sector.name, this.radius / 3, 0);
-
-            // Возвращаю состояние контекста
-            this.ctx.restore();
 
             startAngle = endAngle; // Обновляю начальный угол для следующего сектора
         });

@@ -20,7 +20,10 @@ export function playSound(sound) {
 const savedSound = localStorage.getItem('VitaliMay_DMT_sound_ON');
 
 // По умолчанию 'true', если сохраненное значение не найдено
-if (!savedSound) {
-    soundObj.isSoundOn = true;
-    localStorage.setItem('VitaliMay_DMT_sound_ON', 'true'); // Сохраняю по умолчанию в localStorage
+
+if (savedSound === null) {
+    soundObj.isSoundOn = true; // Устанавливаем значение по умолчанию
+    localStorage.setItem('VitaliMay_DMT_sound_ON', 'true');
+} else {
+    soundObj.isSoundOn = savedSound === 'true';
 }

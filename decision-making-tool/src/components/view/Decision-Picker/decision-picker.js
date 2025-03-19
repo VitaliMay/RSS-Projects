@@ -95,7 +95,7 @@ export const createDurationItem = (parent) => {
             type: 'number',
             name: 'duration',
             min: 6,
-            // value: 4,
+            value: 8,
             required: '',
             placeholder: 'input duration animation in sec',
         },
