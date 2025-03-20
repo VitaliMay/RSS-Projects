@@ -6,6 +6,17 @@ export const modal = (innerLayotElement) => {
 
     const modalContainer = createEl({ classes: ['modal-container'] });
     // const modalContainer = createEl({ classes: ['modal-container', 'modal-container--active'] });
+
+    const removeModal = () => {
+        modalContainer.classList.add('modal-del');
+
+        modalContainer.addEventListener('animationend', () => {
+            modalContainer.remove();
+        });
+
+        body.classList.remove('lock');
+    };
+
     const modal = createEl({
         tag: 'article',
         classes: ['modal'],
@@ -29,7 +40,7 @@ export const modal = (innerLayotElement) => {
         parent: buttonCross,
     });
 
-    modal.append(innerLayotElement);
+    modal.append(innerLayotElement(removeModal));
     // createEl({
     //     tag: 'h2',
     //     classes: ['modal-title'],
@@ -45,15 +56,15 @@ export const modal = (innerLayotElement) => {
         parent: modal,
     });
 
-    const removeModal = () => {
-        modalContainer.classList.add('modal-del');
+    // const removeModal = () => {
+    //     modalContainer.classList.add('modal-del');
 
-        modalContainer.addEventListener('animationend', () => {
-            modalContainer.remove();
-        });
+    //     modalContainer.addEventListener('animationend', () => {
+    //         modalContainer.remove();
+    //     });
 
-        body.classList.remove('lock');
-    };
+    //     body.classList.remove('lock');
+    // };
 
     buttonClose.addEventListener('click', removeModal);
     buttonCross.addEventListener('click', removeModal);
@@ -73,6 +84,9 @@ export const modal = (innerLayotElement) => {
             removeModal();
         }
     });
+
+    // пробую организовать удаление
+    // return removeModal;
 };
 
 export const modalTitleElement = () => {
@@ -84,13 +98,13 @@ export const modalTitleElement = () => {
     });
 };
 
-export const modalTextAreaElement = () => {
-    return createEl({
-        tag: 'textarea',
-        attributes: {
-            rows: '12',
-            cols: '64',
-            placeholder: 'Paste a list of new options',
-        },
-    });
-};
+// export const modalTextAreaElement = () => {
+//     return createEl({
+//         tag: 'textarea',
+//         attributes: {
+//             rows: '12',
+//             cols: '64',
+//             placeholder: 'Paste a list of new options',
+//         },
+//     });
+// };

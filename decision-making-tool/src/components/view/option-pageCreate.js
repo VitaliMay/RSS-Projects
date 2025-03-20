@@ -6,11 +6,14 @@ import { createList, createListArr, createListItemBlock, counterID } from './opt
 
 import { createWheelPage } from './wheel-page';
 
-import { data, store } from './sources/data';
+import { data, store, listOptions } from './sources/data';
 
 import './option-style.scss';
 
-import { modal, modalTitleElement, modalTextAreaElement } from './modal/modal-validation';
+import { modal, modalTitleElement } from './modal/modal-validation';
+// import { modal, modalTitleElement, modalTextAreaElement } from './modal/modal-validation';
+
+import { modalFormElement } from './paste-list/paste-list';
 
 export const createOptionPage = (option) => {
     removeAllChild(main);
@@ -18,6 +21,7 @@ export const createOptionPage = (option) => {
     createTitleH1();
 
     const list = createList(main);
+    listOptions.list = list;
 
     createListArr(option, list);
 
@@ -44,7 +48,9 @@ export const createOptionPage = (option) => {
 
     const pasteListButton = createButton('', 'Paste List', main);
     pasteListButton.addEventListener('click', () => {
-        modal(modalTextAreaElement());
+        modal(modalFormElement);
+        // modal(modalFormElement());
+        // modal(modalTextAreaElement());
     });
 
     const clearListButton = createButton('', 'Clear List', main);
@@ -140,7 +146,8 @@ export const createOptionPage = (option) => {
             createWheelPage(filteredItems);
         } else {
             // console.log('слишком мало элементов');
-            modal(modalTitleElement());
+            modal(modalTitleElement);
+            // modal(modalTitleElement());
             // modal()
         }
         // createWheelPage(data.list);
