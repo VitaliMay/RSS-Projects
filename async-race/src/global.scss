@@ -1,0 +1,272 @@
+:root {
+    --background-primary: linear-gradient(rgb(0, 0, 0), rgba(255, 255, 255, 0.7));
+    --background-scroll: linear-gradient(rgb(100, 100, 100), rgba(255, 255, 255, 0.7));
+    --color-source-border: rgb(48, 197, 255);
+    --background-body: rgb(109, 170, 194);
+    // --background-body: rgb(124, 58, 237);
+    // --background-body: rgb(255, 255, 255);
+    // --background-body: rgb(124, 132, 162);
+
+    --bnt-background: rgb(219, 219, 219);
+    --btn-color: rgb(80, 78, 78);
+    --primary: rgb(255, 70, 70);
+
+    --shadow-press: rgb(170, 170, 170);
+    --shadow: rgb(255, 255, 255);
+
+    --border: rgb(77, 77, 77);
+
+    --back-timer: rgb(151, 151, 151);
+
+    --background-dark: rgb(225, 222, 222);
+    --background-light: rgb(188, 226, 246);
+
+    --disabled-color: rgb(255, 255, 255);
+
+    --background-canvas: rgb(109, 170, 194);
+    // --background-canvas: rgb(124, 58, 237);
+    --color-title: rgb(250, 235, 215);
+
+    --background-modal: rgb(236, 243, 248);
+
+    --modal-min-hight: 400px;
+    --color-paste: rgb(13, 138, 132);
+}
+
+body {
+    background: var(--background-body);
+    font-family: sans-serif;
+}
+
+/***************************************************************/
+
+/* сбрасываю, то что может мешать */
+
+*,
+*::after,
+*::before {
+    box-sizing: inherit;
+}
+
+ul[class],
+ol[class] {
+    padding: 0;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+    margin: 0;
+}
+
+ul[class] {
+    list-style: none;
+}
+
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+a {
+    text-decoration: none;
+    /*чтобы наследовали цвет родителя*/
+    color: inherit;
+}
+
+button {
+    border: none;
+    outline: none; /*убираю фокус*/
+    background: none;
+    appearance: none; /* Removes platform-specific styling */
+    // color: inherit;
+
+    border: solid 2px blue; /*чтобы увидеть кнопку*/
+}
+
+/***************************************************************/
+/***************************************************************/
+* {
+    box-sizing: border-box;
+}
+
+html {
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+
+    font-size: 10px; // для rem
+}
+
+/* чтобы прижать футер к низу страницы*/
+/*! чтобы всегда была полоса прокрутки и не дергалось при пиксель перфект. 
+Надо убрать для мобилок*/
+
+html {
+    height: 100.1%;
+}
+
+body {
+    // min-width: 100vw;
+    // width: 100vw;
+    height: 100%;
+    // background-color: white; // если вдруг пользователь поменял дефолтные настройки
+}
+
+/* чтобы прижать футер к низу страницы*/
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+/* чтобы прижать футер к низу страницы*/
+.main {
+    // flex: 1 0 auto;
+    flex-grow: 1;
+
+    // background-color: $primary;
+    // border-radius: 20px;
+}
+.footer {
+    flex: 0 0 auto;
+}
+
+/* убираю скролл */
+body.lock {
+    overflow: hidden;
+
+    @media (hover: hover) {
+        margin-right: 17px; // чтобы не дёргалось при открытии модалки
+    }
+}
+
+/**************************************************************/
+
+.title-h1 {
+    align-self: center;
+    font-size: 3rem;
+    color: var(--color-title);
+    // color: rgb(250, 235, 215);
+}
+
+/**************************************************************/
+
+// header {
+//     padding: 10px 30px;
+//     max-width: 1870px;
+//     margin: 0 auto;
+// }
+
+// header h1 {
+//     font-size: 40px;
+//     font-weight: 800;
+// }
+
+// footer {
+//     height: 100px;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+// }
+// footer .copyright {
+//     font-size: 14px;
+//     color: #333;
+//     text-align: center;
+// }
+// footer .copyright a {
+//     color: #444;
+// }
+// footer .copyright a:hover {
+//     color: #555;
+// }
+// footer .copyright:before {
+//     content: '©';
+// }
+
+//   .footer {
+//     background: var(--background-primary);
+//     box-shadow: 10px 10px 40px -2px rgba(0, 0, 0, 0.25);
+//     font-size: 12px;
+//     font-weight: 700;
+//     opacity: 0.8;
+//   }
+
+//   .footer-container {
+//     margin: 0 auto;
+//     width: 100%;
+//     max-width: 600px;
+//     display: flex;
+//     justify-content: space-between;
+//     align-items: center;
+//     padding: 15px;
+//   }
+
+//   .github-visit {
+//     margin-left: 10px;
+//   }
+
+//   .footer-container__github {
+//     display: flex;
+//     align-items: center;
+//   }
+
+//   .footer-container__github:hover {
+//     text-decoration: underline;
+//   }
+
+//   .footer-link {
+//     opacity: 70%;
+//     transform: scale(1);
+//     transition: all 0.4s;
+//   }
+//   .footer-link:hover {
+//     transform: scale(1.2);
+//     transition: all 0.4s;
+//     opacity: 100%;
+//   }
+//   .footer-link:active {
+//     transform: scale(0.9);
+//     transition: all 0.4s;
+//   }
+
+//   .footer-container__copy {
+//     margin-left: 25px;
+//   }
+
+
+.car-color {
+    color: greenyellow;
+    width: 200px;
+    height: 80px;
+    // transform: scaleX(-1) rotate(-10deg);
+}
+
+.car-race {
+    width: 100px;
+    height: 40px;
+    transform: scaleX(-1);
+}
+
+.flag-style {
+    width: 24px;
+    height: 24px;
+}
