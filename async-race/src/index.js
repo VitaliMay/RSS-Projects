@@ -28,37 +28,39 @@ import { Router, routes } from './router/router';
 // const svgElement = svgDoc.documentElement;
 // body.append(svgElement);
 
-const svgUseCarRace = createSvgUse('#car', 'car-race');
-wrapper.append(svgUseCarRace);
+/** *************************************** */
+/** *************************************** */
 
-const svgUseFlag = createSvgUse('#flag', 'flag-style');
-wrapper.append(svgUseFlag);
+// const svgUseCarRace = createSvgUse('#car', 'car-race');
+// wrapper.append(svgUseCarRace);
 
-const svgUseCar = createSvgUse('#car', 'car-color');
-wrapper.append(svgUseCar);
-// svgUseCar.style.color = 'red';
+// const svgUseFlag = createSvgUse('#flag', 'flag-style');
+// wrapper.append(svgUseFlag);
 
-const inputColor = createEl({
-  tag: 'input',
-  attributes: { type: 'color' },
-  classes: ['input-color'],
-  parent: wrapper,
-});
-svgUseCar.style.color = inputColor.value;
-inputColor.addEventListener('input', () => {
-  svgUseCar.style.color = inputColor.value;
-});
+// const svgUseCar = createSvgUse('#car', 'car-color');
+// wrapper.append(svgUseCar);
+// // svgUseCar.style.color = 'red';
 
-svgUseCar.style.color = inputColor.value;
+// const inputColor = createEl({
+//   tag: 'input',
+//   attributes: { type: 'color' },
+//   classes: ['input-color'],
+//   parent: wrapper,
+// });
+// svgUseCar.style.color = inputColor.value;
+// inputColor.addEventListener('input', () => {
+//   svgUseCar.style.color = inputColor.value;
+// });
 
-const inputText = createEl({
-  tag: 'input',
-  attributes: { type: 'text', placeholder: 'Car name' },
-  classes: ['input-text'],
-  parent: wrapper,
-});
+// svgUseCar.style.color = inputColor.value;
+
+// const inputText = createEl({
+//   tag: 'input',
+//   attributes: { type: 'text', placeholder: 'Car name' },
+//   classes: ['input-text'],
+//   parent: wrapper,
+// });
 
 // Router(routes);
 const routerItem = new Router(routes);
-// routerItem.start();
 Router.navigate(window.location.hash.slice(1) || '/garage');

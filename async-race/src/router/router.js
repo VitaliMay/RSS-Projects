@@ -1,15 +1,37 @@
-import createTitleH1 from '../pages/garage-page/garage';
+import { removeAllChild, createEl } from '../utils/elementUtils';
+import { createTitleH1, createChooseBlock, svgUseCar, createBlock } from '../pages/garage-page/garage';
 import { main } from '../components/wrapper/wrapper';
+import { createButton } from '../components/button/button';
+import createPaginationBlock from '../components/pagination/pagination';
+import { list } from '../components/list/list';
 
 // const [buttonGarage, buttonWinners] = buttonsHeader;
 
 export const routes = {
   '/garage': () => {
-    createTitleH1('Garage', main);
-    // buttonGarage.disabled = true;
+    removeAllChild(main);
+    createTitleH1('Garage (total cars: 236)', main);
+    createPaginationBlock(main);
+    const blockCreateCar = createBlock(main);
+    createChooseBlock('create', blockCreateCar);
+    blockCreateCar.append(svgUseCar);
+    createButton('create 100 random cars', blockCreateCar);
+    createEl({ parent: blockCreateCar, classes: ['choose-car-name'], text: 'honda premium v8' });
+    createChooseBlock('update', blockCreateCar);
+    // createButton('create 100 cars', main);
+    createButton('reset race', main);
+    createButton('start race', main);
+
+    main.append(list);
   },
-  '/winners': () => createTitleH1('Winners', main),
-  '*': () => createTitleH1('Error. Go to Garage or to Winners ', main),
+  '/winners': () => {
+    removeAllChild(main);
+    createTitleH1('Winners', main);
+  },
+  '*': () => {
+    removeAllChild(main);
+    createTitleH1('Error. Go to Garage or to Winners ', main);
+  },
 };
 
 export class Router {

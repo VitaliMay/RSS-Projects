@@ -1,4 +1,6 @@
 import { createEl } from '../../utils/elementUtils';
+import { createButton } from '../button/button';
+
 // import { Router } from '../../router/router';
 
 // import createTitleH1 from '../../pages/garage-page/garage';
@@ -19,15 +21,15 @@ import { createEl } from '../../utils/elementUtils';
 
 // export const createHeader = (parent) => createEl({ tag: 'header', classes: ['header'], parent });
 
-export function createButton(text, parent, addClasses = []) {
-  return createEl({
-    tag: 'button',
-    parent,
-    text,
-    classes: ['button', ...addClasses],
-    attributes: { type: 'button' },
-  });
-}
+// export function createButton(text, parent, addClasses = []) {
+//   return createEl({
+//     tag: 'button',
+//     parent,
+//     text,
+//     classes: ['button', ...addClasses],
+//     attributes: { type: 'button' },
+//   });
+// }
 
 export function createHeader(parent) {
   const header = createEl({ tag: 'header', classes: ['header'], parent });

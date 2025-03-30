@@ -8,10 +8,9 @@ svgSpriteElement();
 
 const createWrapper = () => createEl({ parent: body, classes: ['wrapper'] });
 const wrapper = createWrapper();
-
-const buttonsHeader = createHeader(wrapper);
+createHeader(wrapper);
 
 const createMain = (parent) => createEl({ tag: 'main', classes: ['main'], parent });
 const main = createMain(wrapper);
 
-export { main, wrapper, buttonsHeader };
+export { main, wrapper };

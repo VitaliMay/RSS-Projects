@@ -1,12 +1,9 @@
-import { createEl, removeAllChild } from '../../utils/elementUtils';
-// import { wrapper } from '../../components/wrapper/wrapper';
+import { createEl, createSvgUse } from '../../utils/elementUtils';
+import { createButton } from '../../components/button/button';
+import { main } from '../../components/wrapper/wrapper';
+import { dataStore } from '../../store/data-store';
 
-// const createMain = (parent) => createEl({ tag: 'main', classes: ['main'], parent });
-// const main = createMain(wrapper);
-
-function createTitleH1(text, parent) {
-  removeAllChild(parent);
-
+export function createTitleH1(text, parent) {
   createEl({
     tag: 'h1',
     classes: ['title-h1'],
@@ -15,44 +12,86 @@ function createTitleH1(text, parent) {
   });
 }
 
-export default createTitleH1;
+export function createForm(parent) {
+  return createEl({
+    tag: 'form',
+    parent,
+    classes: ['form-create'],
+  });
+}
 
-// export const createForm = (parent) =>
-// createEl({ tag: 'form', classes: ['form-create'], parent });
+export function createInputColor(parent) {
+  return createEl({
+    tag: 'input',
+    attributes: { type: 'color' },
+    classes: ['input-color'],
+    parent,
+  });
+}
 
-// export const createButton = (title, text, parent, addClasses = []) =>
-//   createEl({
-//   tag: 'button',
-//   classes: ['button', ...addClasses],
-//   // classes: ['button', 'button_small'],
-//   attributes: {
-//     title,
-//     type: 'button',
-//   },
-//   text,
-//   parent,
-// });
+export function createInputText(parent) {
+  return createEl({
+    tag: 'input',
+    attributes: { type: 'text', placeholder: 'Car name' },
+    classes: ['input-text'],
+    parent,
+  });
+}
 
-// export const createDurationItem = (parent) =>
-//   createEl({
-//   tag: 'input',
-//   classes: ['input-duration'],
-//   attributes: {
-//     type: 'number',
-//     name: 'duration',
-//     min: 6,
-//     max: 60,
-//     value: 8,
-//     required: '',
-//     placeholder: 'input duration animation in sec',
-//   },
+export function createBlock(parent) {
+  return createEl({
+    classes: ['create-cars-block'],
+    parent,
+  });
+}
 
-//   parent,
-// });
+// blockCreateCar
 
-// export const createStartButton = (parent) => createEl({
-//     tag: 'button',
-//     classes: ['button'],
-//     text: 'Create Car',
-//     parent,
-//   });
+export const svgUseCar = createSvgUse('#car', 'car-color');
+
+export const createChooseBlock = (buttonTitle, parent) => {
+  // const svgUseCarRace = createSvgUse('#car', 'car-race');
+  // main.append(svgUseCarRace);
+
+  // const svgUseFlag = createSvgUse('#flag', 'flag-style');
+  // main.append(svgUseFlag);
+
+  const formCreateCar = createForm(parent);
+
+  // const svgUseCar = createSvgUse('#car', 'car-color');
+  // main.append(svgUseCar);
+
+  const inputText = createInputText(formCreateCar);
+  inputText.value = dataStore.formCreateCarStore.textCar || '';
+
+  const inputColor = createInputColor(formCreateCar);
+  const buttonSendCreateCar = createButton(buttonTitle, formCreateCar, [], 'submit');
+  // const buttonSendCreateCar = createButton('Create', formCreateCar, [], 'submit');
+  // buttonSendCreateCar.disabled = true;
+
+  if (inputText.value.length < 3) {
+    buttonSendCreateCar.disabled = true;
+  } else {
+    buttonSendCreateCar.disabled = false;
+  }
+
+  inputText.addEventListener('input', () => {
+    if (inputText.value.length < 3) {
+      buttonSendCreateCar.disabled = true;
+    } else {
+      buttonSendCreateCar.disabled = false;
+    }
+
+    dataStore.formCreateCarStore.textCar = inputText.value;
+  });
+
+  inputColor.value = dataStore.formCreateCarStore.colorCar;
+  svgUseCar.style.color = inputColor.value;
+
+  inputColor.addEventListener('input', () => {
+    svgUseCar.style.color = inputColor.value;
+    dataStore.formCreateCarStore.colorCar = inputColor.value;
+  });
+
+  dataStore.formCreateCarStore.colorCar = inputColor.value;
+};
