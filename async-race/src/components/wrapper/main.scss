@@ -91,6 +91,11 @@
     // width: 100%;
     // outline: none;
     border: none;
+
+    &:disabled {
+        cursor: not-allowed; /* Курсор для отключенной кнопки */
+        color: var(--disabled-color);
+    }
 }
 
 .input-color {
@@ -105,6 +110,9 @@
         0px -2px 4px 1px var(--shadow-press) inset,
         0px 2px 4px 1px var(--shadow) inset;
 
+    &:disabled {
+        cursor: not-allowed;
+    }
 }
 
 // .form-create {

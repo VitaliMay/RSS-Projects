@@ -89,13 +89,12 @@ export const modal = (innerLayotElement) => {
   // return removeModal;
 };
 
-export const modalTitleElement = () =>
-  createEl({
-  tag: 'h2',
-  classes: ['modal-title'],
-  text: 'There must be at least two valid options. An option is considered valid if its title is not empty and its weight is greater than 0',
-  parent: null,
-});
+export const modalTitleElement = () => createEl({
+    tag: 'h2',
+    classes: ['modal-title'],
+    text: 'There must be at least two valid options. An option is considered valid if its title is not empty and its weight is greater than 0',
+    parent: null,
+  });
 
 // export const modalTextAreaElement = () => {
 //     return createEl({

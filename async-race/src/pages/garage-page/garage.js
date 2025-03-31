@@ -1,7 +1,11 @@
-import { createEl, createSvgUse } from '../../utils/elementUtils';
+import { createEl, createSvgUse, getRandomColor } from '../../utils/elementUtils';
+import { counterID, getRandomCarName } from '../../sources/car-options';
 import { createButton } from '../../components/button/button';
 import { main } from '../../components/wrapper/wrapper';
 import { dataStore } from '../../store/data-store';
+import { createListItem } from '../../components/list/list';
+
+import { controlsBtnState } from '../../store/controls-store';
 
 export function createTitleH1(text, parent) {
   createEl({
@@ -48,8 +52,9 @@ export function createBlock(parent) {
 // blockCreateCar
 
 export const svgUseCar = createSvgUse('#car', 'car-color');
+controlsBtnState.svgModel = svgUseCar;
 
-export const createChooseBlock = (buttonTitle, parent) => {
+export const createChooseBlock = (buttonTitle, parent, keyControlsBtnState) => {
   // const svgUseCarRace = createSvgUse('#car', 'car-race');
   // main.append(svgUseCarRace);
 
@@ -57,6 +62,7 @@ export const createChooseBlock = (buttonTitle, parent) => {
   // main.append(svgUseFlag);
 
   const formCreateCar = createForm(parent);
+  controlsBtnState[`${keyControlsBtnState}Block`] = formCreateCar;
 
   // const svgUseCar = createSvgUse('#car', 'car-color');
   // main.append(svgUseCar);
@@ -90,8 +96,48 @@ export const createChooseBlock = (buttonTitle, parent) => {
 
   inputColor.addEventListener('input', () => {
     svgUseCar.style.color = inputColor.value;
+    // В самом list-item лучше не менять,
+    // чтобы не вводить доп кнопку возврата к исходному состоянию
+    // controlsBtnState.svgSelectCar.style.color = inputColor.value;
     dataStore.formCreateCarStore.colorCar = inputColor.value;
   });
 
   dataStore.formCreateCarStore.colorCar = inputColor.value;
+
+  controlsBtnState[keyControlsBtnState].inputText = inputText;
+  controlsBtnState[keyControlsBtnState].inputColor = inputColor;
+  controlsBtnState[keyControlsBtnState].buttonSendCreateCar = buttonSendCreateCar;
+  // console.log(controlsBtnState.formSelect.buttonSendCreateCar);
+  // return [inputText, inputColor, buttonSendCreateCar];
+
+  if (controlsBtnState.formSelect.buttonSendCreateCar) {
+    controlsBtnState.formSelect.buttonSendCreateCar.addEventListener('click', () => {
+      controlsBtnState.formSelect.buttonSendCreateCar.disabled = true;
+      controlsBtnState.infoCarNameSelectCar.textContent = controlsBtnState.formSelect.inputText.value;
+      controlsBtnState.btnSelectListItem.disabled = false;
+      controlsBtnState.selectTrack.style.color = inputColor.value;
+
+      controlsBtnState.deleteBtnSelectCar.disabled = false;
+
+      // задолбался возиться с форматами цвета, лучше просто обнулю
+      controlsBtnState.svgModel.style.color = '#000000';
+      controlsBtnState.formSelect.inputColor.value = '#000000';
+      controlsBtnState.formSelect.inputColor.disabled = true;
+      controlsBtnState.formSelect.inputText.disabled = true;
+      // controlsBtnState.svgSelectCar.style.color = inputColor.value;
+
+      controlsBtnState.formSelect.inputText.value = '';
+      controlsBtnState.chooseCarName.textContent = '';
+
+      controlsBtnState.formCreat.inputText.disabled = false;
+      controlsBtnState.formCreat.inputColor.disabled = false;
+      controlsBtnState.formCreat.buttonSendCreateCar.disabled = false;
+    });
+  }
+
+  // if (controlsBtnState.formCreat.buttonSendCreateCar) {
+  //   controlsBtnState.formCreat.buttonSendCreateCar.addEventListener('click', () => {
+  //     createListItem(counterID.getCount(), getRandomColor(), getRandomCarName());
+  //   });
+  // }
 };

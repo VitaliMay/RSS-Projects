@@ -1,9 +1,12 @@
-import { removeAllChild, createEl } from '../utils/elementUtils';
+import { removeAllChild, createEl, getRandomColor } from '../utils/elementUtils';
 import { createTitleH1, createChooseBlock, svgUseCar, createBlock } from '../pages/garage-page/garage';
 import { main } from '../components/wrapper/wrapper';
 import { createButton } from '../components/button/button';
 import createPaginationBlock from '../components/pagination/pagination';
-import { list } from '../components/list/list';
+import { list, createListItem } from '../components/list/list';
+import { counterID, getRandomCarName } from '../sources/car-options';
+
+import { controlsBtnState } from '../store/controls-store';
 
 // const [buttonGarage, buttonWinners] = buttonsHeader;
 
@@ -13,17 +16,74 @@ export const routes = {
     createTitleH1('Garage (total cars: 236)', main);
     createPaginationBlock(main);
     const blockCreateCar = createBlock(main);
-    createChooseBlock('create', blockCreateCar);
+    createChooseBlock('create', blockCreateCar, 'formCreat');
+    // createChooseBlock('create', blockCreateCar);
+    controlsBtnState.formCreat.buttonSendCreateCar.disabled = false;
+
     blockCreateCar.append(svgUseCar);
-    createButton('create 100 random cars', blockCreateCar);
-    createEl({ parent: blockCreateCar, classes: ['choose-car-name'], text: 'honda premium v8' });
-    createChooseBlock('update', blockCreateCar);
-    // createButton('create 100 cars', main);
+    const btnCreat100Cars = createButton('create 100 random cars', blockCreateCar);
+    controlsBtnState.creat100Cars = btnCreat100Cars;
+
+    controlsBtnState.creat100Cars.addEventListener('click', () => {
+      for (let i = 0; i < 100; i += 1) {
+        createListItem(counterID.getCount(), getRandomColor(), getRandomCarName());
+      }
+    });
+
+    const chooseCarName = createEl({ parent: blockCreateCar, classes: ['choose-car-name'], text: '' });
+    controlsBtnState.chooseCarName = chooseCarName;
+
+    createChooseBlock('update', blockCreateCar, 'formSelect');
+    controlsBtnState.formSelect.buttonSendCreateCar.disabled = true;
+    controlsBtnState.formSelect.inputText.disabled = true;
+    controlsBtnState.formSelect.inputColor.disabled = true;
+
+    controlsBtnState.formCreat.buttonSendCreateCar.addEventListener('click', () => {
+      createListItem(counterID.getCount(), getRandomColor(), getRandomCarName());
+    });
+
+    // const [inputText, inputColor, buttonSendCreateCar] = createChooseBlock('update', blockCreateCar);
     createButton('reset race', main);
     createButton('start race', main);
 
     main.append(list);
+    removeAllChild(list);
+    createListItem(counterID.getCount(), getRandomColor(), getRandomCarName());
+    // createListItem(counterID.getCount(), getRandomColor(), getRandomCarName());
+    // createListItem(counterID.getCount(), getRandomColor(), getRandomCarName());
+
+    // createListItem(counterID.getCount(), getRandomColor(), getRandomCarName(), svgUseCar);
+    // createListItem(counterID.getCount(), getRandomColor(), getRandomCarName(), svgUseCar);
+
+    // if (controlsBtnState.formSelect.buttonSendCreateCar) {
+    //   controlsBtnState.formSelect.buttonSendCreateCar.addEventListener('click', () => {
+    //     controlsBtnState.formSelect.buttonSendCreateCar.disabled = true;
+    //     controlsBtnState.infoCarNameSelectCar.textContent = controlsBtnState.formSelect.inputText.value;
+    //     controlsBtnState.btnSelectListItem.disabled = false;
+    //     controlsBtnState.selectTrack.style.color = controlsBtnState.formSelect.inputColor.value;
+    //     // controlsBtnState.svgSelectCar.style.color = inputColor.value;
+    //   });
+    // }
   },
+  //   createListItem(
+  //     counterID.getCount(),
+  //     getRandomColor(),
+  //     getRandomCarName(),
+  //     inputText,
+  //     inputColor,
+  //     buttonSendCreateCar,
+  //     svgUseCar
+  //   );
+  //   createListItem(
+  //     counterID.getCount(),
+  //     getRandomColor(),
+  //     getRandomCarName(),
+  //     inputText,
+  //     inputColor,
+  //     buttonSendCreateCar,
+  //     svgUseCar
+  //   );
+  // },
   '/winners': () => {
     removeAllChild(main);
     createTitleH1('Winners', main);

@@ -136,8 +136,8 @@ function getCategoryFromString(str) {
 /** ********************************************************************* */
 // Функция счётчик
 
-function createCounter(initialValue) {
-  let count = initialValue;
+function createCounterID(initialValue) {
+  let count = initialValue || 0;
 
   return {
     getCount: () => {
@@ -174,6 +174,24 @@ function removeById(arrObj, id) {
   return arrObj.length;
 }
 
+/** **************************************************************** */
+// Функция рандомного цвета
+
+// const MAX_VALUE_COLOR_IN_RGB_FORMAT = 16777215;
+
+// function getRandomColor() {
+//   const randomColor = Math.floor(Math.random() * MAX_VALUE_COLOR_IN_RGB_FORMAT).toString(16);
+//   return `#${randomColor.padStart(6, '0')}`;
+// }
+
+// для большего рандома
+function getRandomColor() {
+  const hexaDecimal = () => Math.floor(Math.random() * 256).toString(16);
+  return `#${hexaDecimal()}${hexaDecimal()}${hexaDecimal()}`;
+}
+
+/** *************************************************************** */
+
 export {
   createEl,
   // createSvgEl,
@@ -184,6 +202,7 @@ export {
   getRandomIntegerArr,
   toUpperFirstLetter,
   getCategoryFromString,
-  createCounter,
+  createCounterID,
   removeById,
+  getRandomColor,
 };
