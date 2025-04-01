@@ -34,6 +34,7 @@ export function createListItem(id, colorCar, nameCar) {
 
   const startButton = createButton('A', raceBlock);
   const backButton = createButton('B', raceBlock);
+  backButton.disabled = true;
 
   const trackBlock = createEl({ parent: raceBlock, classes: ['race-block__track'] });
   trackBlock.style.color = colorCar;
@@ -87,32 +88,50 @@ export function createListItem(id, colorCar, nameCar) {
     controlsBtnState.infoCarNameSelectCar = infoCarName;
   });
 
+  startButton.addEventListener('click', () => {
+    trackBlock.classList.remove('race-block__track_adapt');
+    svgCar.classList.remove('move');
+    svgCar.style = '';
+
+    startAnimation(trackBlock, svgCar, 2000);
+    startButton.disabled = true;
+    backButton.disabled = false;
+  });
+
+  backButton.addEventListener('click', () => {
+    // svgCar.classList.remove('move');
+    // svgCar.style.transform = 'translateX(0) scaleX(-1);';
+    trackBlock.classList.remove('race-block__track_adapt');
+    svgCar.classList.remove('move');
+    svgCar.style = '';
+    startButton.disabled = false;
+    backButton.disabled = true;
+  });
+
+  svgCar.addEventListener('animationend', () => {
+    svgCar.classList.remove('move');
+    svgCar.style = '';
+    trackBlock.classList.add('race-block__track_adapt');
+    startButton.disabled = false;
+    backButton.disabled = false;
+  });
+
   return listItem;
 }
 
-// const listItem = createListItem();
+// Функция для запуска анимации
+function startAnimation(parent, child, duration) {
+  const parentWidth = parent.clientWidth;
+  const childWidth = child.clientWidth;
+  const moveDistance = parentWidth - childWidth;
 
-// function createListItem() {
-//   return createEl({ tag: 'li', classes: ['list-item'], parent: list });
-// }
+  // длительность анимации
+  // eslint-disable-next-line no-param-reassign
+  child.style.animationDuration = `${duration}ms`;
 
-// const listItem = createListItem();
+  // конечная точка
+  child.style.setProperty('--move-distance', `${moveDistance}px`);
 
-// const optionBlock = createEl({ parent: listItem, classes: ['list-item__option', 'option'] });
-
-// const selectButton = createButton('select', optionBlock);
-// const deleteButton = createButton('delete', optionBlock);
-
-// const infoCarName = createEl({ text: 'Mersedes', parent: optionBlock, classes: ['info-car-name'] });
-
-// const raceBlock = createEl({ parent: listItem, classes: ['list-item__race', 'race-block'] });
-// const startButton = createButton('A', raceBlock);
-// const backButton = createButton('B', raceBlock);
-
-// const trackBlock = createEl({ parent: raceBlock, classes: ['race-block__track'] });
-
-// const svgCar = createSvgUse('#car', 'car-race');
-// trackBlock.append(svgCar);
-
-// const svgFlag = createSvgUse('#flag', 'flag-style');
-// trackBlock.append(svgFlag);
+  // Добавляем класс для запуска анимации
+  child.classList.add('move');
+}
