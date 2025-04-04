@@ -276,6 +276,11 @@ body.lock {
 .move {
     animation-name: moveAnimation;
     animation-timing-function: linear;
+    // animation-timing-function: ease-in;
+}
+
+.pause {
+    animation-play-state: paused;
 }
 
 @keyframes moveAnimation {

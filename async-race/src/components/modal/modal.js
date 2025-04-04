@@ -1,10 +1,10 @@
 import './modal.scss';
 import { createEl, body } from '../../utils/elementUtils';
 
-export const modal = (innerLayotElement) => {
+export const modalWinner = (innerLayotElement, textModal) => {
   body.classList.add('lock');
 
-  const modalContainer = createEl({ classes: ['modal-container'] });
+  const modalContainer = createEl({ classes: ['modal-container'], parent: body });
   // const modalContainer = createEl({ classes: ['modal-container', 'modal-container--active'] });
 
   const removeModal = () => {
@@ -40,12 +40,13 @@ export const modal = (innerLayotElement) => {
     parent: buttonCross,
   });
 
-  modal.append(innerLayotElement(removeModal));
+  modal.append(innerLayotElement(textModal));
+  // modal.append(innerLayotElement(removeModal));
   // createEl({
-  //     tag: 'h2',
-  //     classes: ['modal-title'],
-  //     text: 'There must be at least two valid options. An option is considered valid if its title is not empty and its weight is greater than 0',
-  //     parent: modal,
+  //   tag: 'h2',
+  //   classes: ['modal-title'],
+  //   text: 'There must be at least two valid options. An option is considered valid if its title is not empty and its weight is greater than 0',
+  //   parent: modal,
   // });
 
   const buttonClose = createEl({
@@ -84,17 +85,16 @@ export const modal = (innerLayotElement) => {
       removeModal();
     }
   });
-
-  // пробую организовать удаление
-  // return removeModal;
 };
 
-export const modalTitleElement = () => createEl({
+export function modalTitleElement(text) {
+  return createEl({
     tag: 'h2',
-    classes: ['modal-title'],
-    text: 'There must be at least two valid options. An option is considered valid if its title is not empty and its weight is greater than 0',
+    classes: ['modal__title'],
+    text,
     parent: null,
   });
+}
 
 // export const modalTextAreaElement = () => {
 //     return createEl({

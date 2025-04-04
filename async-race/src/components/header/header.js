@@ -1,5 +1,6 @@
 import { createEl } from '../../utils/elementUtils';
 import { createButton } from '../button/button';
+import { controlsBtnState } from '../../store/controls-store';
 
 // import { Router } from '../../router/router';
 
@@ -35,6 +36,9 @@ export function createHeader(parent) {
   const header = createEl({ tag: 'header', classes: ['header'], parent });
   const buttonGarage = createButton('to garage', header, ['button_nav']);
   const buttonWinners = createButton('to Winners', header, ['button_nav']);
+
+  controlsBtnState.buttonGarage = buttonGarage;
+  controlsBtnState.buttonWinners = buttonWinners;
 
   // const routerModel = new Router(routes);
 

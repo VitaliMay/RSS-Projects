@@ -161,6 +161,14 @@ function createCounterID(initialValue) {
 //     };
 // }
 
+// Получение начального (максимального) значения ID для счётчика
+function getMaxID(initialData) {
+  const maxId = initialData.reduce((max, item) => Math.max(max, Number(item.id)), 0);
+  return maxId;
+}
+
+// const maxId = cars.reduce((max, car) => Math.max(max, car.id), 0);
+
 /** **************************************************************** */
 // Функция удаляет из массива объектов,
 // элемент-объект у которого есть ключ id c соответствующим значением
@@ -185,8 +193,17 @@ function removeById(arrObj, id) {
 // }
 
 // для большего рандома
+function hexaDecimal() {
+  return Math.floor(Math.random() * 256)
+    .toString(16)
+    .padStart(2, '0');
+}
 function getRandomColor() {
-  const hexaDecimal = () => Math.floor(Math.random() * 256).toString(16);
+  // const hexaDecimal = () =>
+  //   Math.floor(Math.random() * 256)
+  //   .toString(16)
+  //   .padStart(2, '0');
+  // console.log(`#${hexaDecimal()}${hexaDecimal()}${hexaDecimal()}`);
   return `#${hexaDecimal()}${hexaDecimal()}${hexaDecimal()}`;
 }
 
@@ -203,6 +220,7 @@ export {
   toUpperFirstLetter,
   getCategoryFromString,
   createCounterID,
+  getMaxID,
   removeById,
   getRandomColor,
 };

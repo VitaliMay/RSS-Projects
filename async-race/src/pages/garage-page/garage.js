@@ -8,7 +8,7 @@ import { createListItem } from '../../components/list/list';
 import { controlsBtnState } from '../../store/controls-store';
 
 export function createTitleH1(text, parent) {
-  createEl({
+  return createEl({
     tag: 'h1',
     classes: ['title-h1'],
     parent,
