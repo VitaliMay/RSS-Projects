@@ -2,8 +2,8 @@ import { removeAllChild, createEl, getRandomColor } from '../utils/elementUtils'
 import { createTitleH1, createChooseBlock, svgUseCar, createBlock } from '../pages/garage-page/garage';
 import { main } from '../components/wrapper/wrapper';
 import { createButton } from '../components/button/button';
-import createPaginationBlock from '../components/pagination/pagination';
-import { list, createListItem, startCarAnimation } from '../components/list/list';
+import { createPaginationBlock, paginationButtonHolder } from '../components/pagination/pagination';
+import { list, createListItem, startCarAnimation, startAnimation, checkDriveStatus } from '../components/list/list';
 import { counterID, getRandomCarName } from '../sources/car-options';
 
 import { controlsBtnState, currentPage } from '../store/controls-store';
@@ -56,6 +56,20 @@ export const routes = {
       fetchPagination(numberCurrentPage, createListItem);
     });
 
+    const { buttonPrev, buttonNext } = controlsBtnState.pagination;
+
+    buttonNext.addEventListener('click', () => {
+      currentPage.numberCurrentPage += 1;
+      removeAllChild(list);
+      fetchPagination(currentPage.numberCurrentPage, createListItem);
+    });
+
+    buttonPrev.addEventListener('click', () => {
+      currentPage.numberCurrentPage -= 1;
+      removeAllChild(list);
+      fetchPagination(currentPage.numberCurrentPage, createListItem);
+    });
+
     const chooseCarName = createEl({ parent: blockCreateCar, classes: ['choose-car-name'], text: '' });
     controlsBtnState.chooseCarName = chooseCarName;
 
@@ -65,9 +79,11 @@ export const routes = {
     controlsBtnState.formSelect.inputColor.disabled = true;
 
     controlsBtnState.formCreat.buttonSendCreateCar.addEventListener('click', () => {
+      const { inputText, inputColor } = controlsBtnState.formCreat;
+
       const carID = counterID.getCount();
-      const colorCar = getRandomColor();
-      const carName = getRandomCarName();
+      const colorCar = inputColor.value || getRandomColor();
+      const carName = inputText.value || getRandomCarName();
 
       const carOnPage = [...list.querySelectorAll('.list-item')].length;
 
@@ -75,19 +91,18 @@ export const routes = {
         createListItem(carID, colorCar, carName);
       }
 
+      // paginationButtonHolder();
+
       currentPage.totalCars += 1;
-      // const titleGarage = createTitleH1('Garage (total cars: )', main);
       controlsBtnState.titleGarage.textContent = `Garage (total cars: ${currentPage.totalCars})`;
 
-      const maxPage = Math.ceil(currentPage.totalCars / 7);
+      paginationButtonHolder();
 
-      const { pagination } = controlsBtnState;
-      const { numberCurrentPage } = currentPage;
-
-      pagination.title.textContent = `Page: ${numberCurrentPage} / ${maxPage}`;
-
-      // createListItem(counterID.getCount(), getRandomColor(), getRandomCarName());
       fetchAdd({ id: carID, color: colorCar, name: carName });
+
+      inputColor.value = '#000000';
+      inputText.value = '';
+      svgUseCar.style.color = inputColor.value;
     });
 
     const resetRaceButton = createButton('reset race', main);
@@ -103,9 +118,14 @@ export const routes = {
 
       currentPage.isRace = true;
 
+      // currentPage.list = list;
+      // console.log(currentPage.list);
+
       const blockArr = [...list.querySelectorAll('.list-item')];
       const trackArr = [...list.querySelectorAll('.race-block__track')];
       const svgArr = [...list.querySelectorAll('.car-race')];
+
+      const startButtonArr = [...list.querySelectorAll('.button_start')];
 
       const buttonsAll = [...document.querySelectorAll('.button')];
 
@@ -120,14 +140,24 @@ export const routes = {
       resetRaceButton.disabled = false;
       controlsBtnState.buttonWinners.disabled = false;
 
-      // blockArr.forEach((item, index) => {
-      //   startCarAnimation(trackArr[index], svgArr[index], item.id);
-      // });
+      // await Promise.all(
+      //   blockArr.map((item, index) =>
+      // startCarAnimation(trackArr[index], svgArr[index], item.id, startButtonArr[index]))
+      // );
 
-      await Promise.all(
-        blockArr.map((item, index) => startCarAnimation(trackArr[index], svgArr[index], item.id))
-        // if (!item.id) throw new Error(`Элемент с индексом ${index} не имеет ID`);
+      // Сначала получаю асинхронно время для всех машинок
+      const carsData = await Promise.all(
+        blockArr.map((item, index) => startCarAnimation(trackArr[index], svgArr[index], item.id, startButtonArr[index]))
       );
+
+      // запускаю все анимации одновременно
+      carsData.forEach((car) => {
+        if (car) {
+          startAnimation(car.track, car.svg, car.duration); // Запуск анимации
+          // Вынес поверку статуса
+          checkDriveStatus(car.id, car.svg);
+        }
+      });
     });
 
     resetRaceButton.addEventListener('click', async () => {
@@ -138,6 +168,7 @@ export const routes = {
       buttonsAll.forEach((item) => {
         item.disabled = false;
       });
+      paginationButtonHolder();
 
       controlsBtnState.buttonGarage.disabled = true;
       controlsBtnState.formSelect.buttonSendCreateCar.disabled = true;
@@ -151,12 +182,18 @@ export const routes = {
       const svgArr = [...list.querySelectorAll('.car-race')];
       const backButtonArr = [...list.querySelectorAll('.button_back')];
 
+      backButtonArr.forEach((item) => {
+        item.disabled = true;
+        item.classList.add('buttonAnimation');
+      });
+
       const backLogic = (index) => {
         trackArr[index].classList.remove('race-block__track_adapt');
-        svgArr[index].classList.remove('move');
         svgArr[index].classList.remove('pause');
+        svgArr[index].classList.remove('move');
         svgArr[index].style = '';
-        backButtonArr[index].disabled = true;
+        // backButtonArr[index].disabled = true;
+        // // trackArr[index].classList.remove('race-block__track_adapt');
       };
 
       await Promise.all(
@@ -164,9 +201,31 @@ export const routes = {
         // if (!item.id) throw new Error(`Индекс ${index} не имеет ID`);
       );
 
+      backButtonArr.forEach((item) => {
+        // item.disabled = true;
+        item.classList.remove('buttonAnimation');
+      });
+
       // blockArr.forEach((item) => {
       //   const { id } = item;
       // });
+
+      // blockArr.forEach((item) => {
+      //   const { id } = item;
+      // });
+
+      // buttonsAll.forEach((item) => {
+      //   item.disabled = false;
+      // });
+
+      // controlsBtnState.buttonGarage.disabled = true;
+      // controlsBtnState.formSelect.buttonSendCreateCar.disabled = true;
+
+      // const { formCreat } = controlsBtnState;
+      // formCreat.inputText.disabled = false;
+      // formCreat.inputColor.disabled = false;
+
+      // paginationButtonHolder();
     });
     // startRaceButton.addEventListener('click', fetchTotal);
     // startRaceButton.addEventListener('click', () => {
@@ -236,6 +295,8 @@ export const routes = {
   '/winners': () => {
     removeAllChild(main);
     createTitleH1('Winners', main);
+
+    // main.append(currentPage.list);
   },
   '*': () => {
     removeAllChild(main);

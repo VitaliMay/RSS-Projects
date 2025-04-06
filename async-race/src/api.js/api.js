@@ -1,7 +1,9 @@
-import { controlsBtnState, currentPage } from '../store/controls-store';
+import { controlsBtnState, currentPage, winnersTotal } from '../store/controls-store';
 // import { createListItem } from '../components/list/list';
 import { getMaxID } from '../utils/elementUtils';
 import { counterID } from '../sources/car-options';
+
+import { paginationButtonHolder } from '../components/pagination/pagination';
 
 // const { startRaceButton } = controlsBtnState;
 // console.log(startRaceButton);
@@ -20,11 +22,12 @@ import { counterID } from '../sources/car-options';
 export async function fetchInitial(callback) {
   // console.log('Привет');
 
-  const { titleGarage, pagination } = controlsBtnState;
-  const titlePagination = pagination.title;
-  const { buttonNext } = pagination;
+  // const { titleGarage, pagination } = controlsBtnState;
+  // const titlePagination = pagination.title;
+  // const { buttonNext } = pagination;
 
-  const { numberCurrentPage } = currentPage;
+  // const { numberCurrentPage } = currentPage;
+  const { titleGarage } = controlsBtnState;
 
   try {
     // Запрос на весь гараж, чтобы правильно определить начальный ID
@@ -42,17 +45,19 @@ export async function fetchInitial(callback) {
 
     // Получаем заголовок X-Total-Count (с запросом на весь гараж не сработает)
     // const totalCount = Number(response.headers.get('X-total-Count'));
-    const maxPage = Math.ceil(totalCount / 7);
     // console.log('X-Total-Count:', totalCount);
     // console.log(titleGarage);
     if (titleGarage) {
       titleGarage.textContent = `Garage (total cars: ${totalCount})`;
     }
 
-    titlePagination.textContent = `Page: ${numberCurrentPage} / ${maxPage}`;
-    if (totalCount > 7) {
-      buttonNext.disabled = false;
-    }
+    // const maxPage = Math.ceil(totalCount / 7);
+    // titlePagination.textContent = `Page: ${numberCurrentPage} / ${maxPage}`;
+    // if (totalCount > 7) {
+    //   buttonNext.disabled = false;
+    // }
+
+    paginationButtonHolder();
 
     // const data = await response.json();
 
@@ -91,9 +96,10 @@ export async function fetchInitial(callback) {
 export async function fetchPagination(page, callback) {
   // console.log('Привет');
 
-  const { titleGarage, pagination } = controlsBtnState;
-  const titlePagination = pagination.title;
-  const { buttonNext } = pagination;
+  const { titleGarage } = controlsBtnState;
+  // const { titleGarage, pagination } = controlsBtnState;
+  // const titlePagination = pagination.title;
+  // const { buttonNext } = pagination;
 
   // const { numberCurrentPage } = currentPage;
 
@@ -107,20 +113,29 @@ export async function fetchPagination(page, callback) {
     const data = await response.json();
     const totalCount = Number(response.headers.get('X-total-Count'));
 
+    console.log('pagination', data);
+
+    currentPage.totalCars = totalCount;
+
     const carOnPage = data.length;
     // Получаем заголовок X-Total-Count (с запросом на весь гараж не сработает)
-    const maxPage = Math.ceil(totalCount / 7);
+
+    if (carOnPage === 0 && page > 1) {
+      fetchPagination(page - 1, callback);
+    }
 
     if (titleGarage) {
       titleGarage.textContent = `Garage (total cars: ${totalCount})`;
     }
 
     // currentPage.totalCars += 100;
+    // const maxPage = Math.ceil(totalCount / 7);
+    // titlePagination.textContent = `Page: ${page} / ${maxPage}`;
+    // if (totalCount > 7) {
+    //   buttonNext.disabled = false;
+    // }
 
-    titlePagination.textContent = `Page: ${page} / ${maxPage}`;
-    if (totalCount > 7) {
-      buttonNext.disabled = false;
-    }
+    paginationButtonHolder();
 
     // Ставлю на страницу
     for (let i = 0; i < carOnPage; i += 1) {
@@ -254,6 +269,93 @@ export async function fetchStopped(id, callback) {
     return data.velocity;
   } catch (error) {
     console.log(error);
+    throw error;
+  }
+}
+
+/** ************************************************************** */
+
+export async function fetchWinnersTotal() {
+  try {
+    const response = await fetch('http://127.0.0.1:3000/winners');
+    // Проверяем, успешен ли ответ
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const data = await response.json();
+    winnersTotal.table = data;
+    const totalCount = data.length;
+    winnersTotal.totalWinners = totalCount;
+
+    // if (titleWinners) {
+    //   titleWinners.textContent = `Winners (total: ${totalCount})`;
+    // }
+
+    // paginationButtonHolder();
+
+    // const winnersOnFirstPage = Math.min(totalCount, 10);
+
+    // // Ставлю на страницу только 10 первых элементов
+    // for (let i = 0; i < winnersOnFirstPage; i += 1) {
+    //   callback(data[i].id, data[i].color, data[i].name);
+    // }
+
+    return data;
+  } catch (error) {
+    console.error('There was a problem with the fetch operation:', error);
+    return null;
+  }
+}
+
+/** ************************************************************** */
+
+export async function fetchAddWinner(data) {
+  const url = 'http://127.0.0.1:3000/winners';
+
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const responseData = await response.json();
+    // console.log(responseData); // смотрю что отправляю
+    return responseData;
+  } catch (error) {
+    console.error('There was a problem with the fetch operation:', error);
+    throw error;
+  }
+}
+
+export async function fetchGetWinner(data) {
+  const url = 'http://127.0.0.1:3000/winners';
+
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const responseData = await response.json();
+    // console.log(responseData); // смотрю что отправляю
+    return responseData;
+  } catch (error) {
+    console.error('There was a problem with the fetch operation:', error);
     throw error;
   }
 }

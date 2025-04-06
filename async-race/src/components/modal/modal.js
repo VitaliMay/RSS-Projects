@@ -2,7 +2,7 @@ import './modal.scss';
 import { createEl, body } from '../../utils/elementUtils';
 
 export const modalWinner = (innerLayotElement, textModal) => {
-  body.classList.add('lock');
+  // body.classList.add('lock');
 
   const modalContainer = createEl({ classes: ['modal-container'], parent: body });
   // const modalContainer = createEl({ classes: ['modal-container', 'modal-container--active'] });
@@ -14,7 +14,7 @@ export const modalWinner = (innerLayotElement, textModal) => {
       modalContainer.remove();
     });
 
-    body.classList.remove('lock');
+    // body.classList.remove('lock');
   };
 
   const modal = createEl({

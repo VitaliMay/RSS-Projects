@@ -1,6 +1,6 @@
 import { createEl } from '../../utils/elementUtils';
 import { createButton } from '../button/button';
-import { controlsBtnState } from '../../store/controls-store';
+import { controlsBtnState, currentPage } from '../../store/controls-store';
 
 // import { Router } from '../../router/router';
 

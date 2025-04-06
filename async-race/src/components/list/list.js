@@ -1,8 +1,8 @@
-import { createEl, createSvgUse } from '../../utils/elementUtils';
+import { createEl, createSvgUse, removeAllChild } from '../../utils/elementUtils';
 import { createButton } from '../button/button';
 
 import { controlsBtnState, currentPage } from '../../store/controls-store';
-import { fetchDelete, fetchStarted, fetchDrive, fetchStopped } from '../../api.js/api';
+import { fetchDelete, fetchStarted, fetchDrive, fetchStopped, fetchPagination } from '../../api.js/api';
 
 import { modalWinner, modalTitleElement } from '../modal/modal';
 
@@ -37,7 +37,7 @@ export function createListItem(id, colorCar, nameCar) {
 
   const raceBlock = createEl({ parent: listItem, classes: ['list-item__race', 'race-block'] });
 
-  const startButton = createButton('A', raceBlock);
+  const startButton = createButton('A', raceBlock, ['button_start']);
   const backButton = createButton('B', raceBlock, ['button_back']);
   backButton.disabled = true;
 
@@ -50,11 +50,11 @@ export function createListItem(id, colorCar, nameCar) {
   const svgFlag = createSvgUse('#flag', 'flag-style');
   trackBlock.append(svgFlag);
 
-  deleteButton.addEventListener('click', () => {
+  deleteButton.addEventListener('click', async () => {
     listItem.remove();
-    fetchDelete(id);
-    // removeAllChild(list);
-    // fetchPagination(currentPage.numberCurrentPage, createListItem);
+    await fetchDelete(id);
+    removeAllChild(list);
+    fetchPagination(currentPage.numberCurrentPage, createListItem);
   });
 
   selectButton.addEventListener('click', () => {
@@ -96,7 +96,7 @@ export function createListItem(id, colorCar, nameCar) {
     controlsBtnState.infoCarNameSelectCar = infoCarName;
   });
 
-  startButton.addEventListener('click', () => {
+  startButton.addEventListener('click', async () => {
     trackBlock.classList.remove('race-block__track_adapt');
     svgCar.classList.remove('move');
     svgCar.classList.remove('pause');
@@ -104,16 +104,26 @@ export function createListItem(id, colorCar, nameCar) {
 
     currentPage.isRace = false;
 
-    startCarAnimation(trackBlock, svgCar, id);
+    // startButton.classList.add('buttonAnimation');
+    const carData = await startCarAnimation(trackBlock, svgCar, id, startButton);
+    // startButton.classList.remove('buttonAnimation');
+
+    startAnimation(carData.track, carData.svg, carData.duration);
+
+    checkDriveStatus(id, svgCar);
+
     // startAnimation(trackBlock, svgCar, fetchStarted(id));
     // startAnimation(trackBlock, svgCar, 2000);
+
+    // startButton.classList.remove('buttonAnimation');
+
     startButton.disabled = true;
     backButton.disabled = false;
 
     startRaceButton.disabled = true;
   });
 
-  backButton.addEventListener('click', () => {
+  backButton.addEventListener('click', async () => {
     // svgCar.classList.remove('move');
     // svgCar.style.transform = 'translateX(0) scaleX(-1);';
 
@@ -134,17 +144,21 @@ export function createListItem(id, colorCar, nameCar) {
     };
 
     // backLogic();
+    backButton.classList.add('buttonAnimation');
 
-    fetchStopped(id, backLogic);
+    await fetchStopped(id, backLogic);
+
+    backButton.classList.remove('buttonAnimation');
   });
 
   svgCar.addEventListener('animationend', () => {
     // svgCar.classList.remove('move');
     // svgCar.classList.remove('pause');
     // svgCar.style = '';
+    // trackBlock.classList.remove('race-block__track_adapt');
     // trackBlock.classList.add('race-block__track_adapt');
-    // // startButton.disabled = false;
-    // backButton.disabled = false;
+    // // // startButton.disabled = false;
+    // // backButton.disabled = false;
 
     const { winner, isRace } = currentPage;
     // console.log(winner.id, winner.name);
@@ -173,14 +187,16 @@ export function createListItem(id, colorCar, nameCar) {
       }
     };
 
-    fetchStopped(id, backLogic);
+    backLogic();
+
+    // fetchStopped(id, backLogic);
   });
 
   return listItem;
 }
 
 // Функция для запуска анимации
-function startAnimation(parent, child, duration) {
+export function startAnimation(parent, child, duration) {
   const parentWidth = parent.clientWidth;
   const childWidth = child.clientWidth;
   const moveDistance = parentWidth - childWidth;
@@ -196,44 +212,51 @@ function startAnimation(parent, child, duration) {
   child.classList.add('move');
 }
 
-export async function startCarAnimation(track, svg, id) {
+export async function checkDriveStatus(id, svg) {
   try {
-    const duration = await fetchStarted(id); // Ждем, пока получим длительность
-    startAnimation(track, svg, duration); // Запускаем анимацию
-
     const statusDrive = await fetchDrive(id);
-    console.log(statusDrive);
     if (!statusDrive) {
-      // console.log(svg.style.transform.translateX);
-
-      // const computedStyle = getComputedStyle(svg);
-      // const { transform } = computedStyle;
-      // console.log(transform);
-      // // Парсим translateX из матрицы (transform)
-      // const matrix = new DOMMatrix(transform);
-      // const currentPosition = matrix.m41; // m41 = translateX
-      // console.log(currentPosition);
-
       svg.classList.add('pause');
+      // track.textContent = 'Авария на трассе';
     }
   } catch (error) {
-    console.error('Ошибка при запуске анимации:', error);
+    console.error('Ошибка при проверке статуса:', error);
   }
 }
 
-// Функция для запуска анимации
-// function startAnimation(parent, child, duration) {
-//   const parentWidth = parent.clientWidth;
-//   const childWidth = child.clientWidth;
-//   const moveDistance = parentWidth - childWidth;
+// export async function startCarAnimation(track, svg, id, button) {
+//   // export async function startCarAnimation(track, svg, id) {
+//   try {
+//     button.classList.add('buttonAnimation');
+//     const duration = await fetchStarted(id); // Ждем, пока получим длительность
+//     button.classList.remove('buttonAnimation');
+//     startAnimation(track, svg, duration); // Запускаем анимацию
 
-//   // длительность анимации
-//   // eslint-disable-next-line no-param-reassign
-//   child.style.animationDuration = `${duration}ms`;
-
-//   // конечная точка
-//   child.style.setProperty('--move-distance', `${moveDistance}px`);
-
-//   // Добавляем класс для запуска анимации
-//   child.classList.add('move');
+//     const statusDrive = await fetchDrive(id);
+//     console.log(statusDrive);
+//     if (!statusDrive) {
+//       svg.classList.add('pause');
+//     }
+//   } catch (error) {
+//     console.error('Ошибка при запуске анимации:', error);
+//   }
 // }
+
+export async function startCarAnimation(track, svg, id, button) {
+  try {
+    button.classList.add('buttonAnimation');
+    const duration = await fetchStarted(id); // время для каждой машинки
+    button.classList.remove('buttonAnimation');
+
+    // Данные для синхронного старта
+    return {
+      track,
+      svg,
+      duration,
+      id,
+    };
+  } catch (error) {
+    console.error('Ошибка при получении данных:', error);
+    return null;
+  }
+}

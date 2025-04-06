@@ -26,7 +26,7 @@ const carModel = [
   'Rash',
   '5',
   '3',
-  '9',
+  'RAF-4',
   'TT',
   'Scope',
   'A5',

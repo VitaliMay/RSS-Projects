@@ -40,6 +40,13 @@ export const currentPage = {
     time: null,
   },
   isRace: false,
+  list: null,
+};
+
+export const winnersTotal = {
+  title: null,
+  table: null,
+  totalWinners: 1,
 };
 
 // if (controlsBtnState.formSelect.buttonSendCreateCar) {
@@ -48,3 +55,29 @@ export const currentPage = {
 //     controlsBtnState.formSelect.buttonSendCreateCar.disabled = true;
 //   });
 // }
+
+/** ********************************************* */
+// Будущий TS
+
+// interface FormControls {
+//   inputText: HTMLElement | null;
+//   inputColor: HTMLElement | null;
+//   buttonSendCreateCar: HTMLElement | null;
+// }
+
+// interface ControlsBtnState {
+//   buttonGarage: HTMLElement | null;
+//   buttonWinners: HTMLElement | null;
+//   // ... другие поля
+//   formCreat: FormControls;
+//   formSelect: FormControls;
+//   pagination: {
+//     title: HTMLElement | null;
+//     buttonPrev: HTMLElement | null;
+//     buttonNext: HTMLElement | null;
+//   };
+// }
+
+// const controlsBtnState: ControlsBtnState = {
+//   // ...
+// };

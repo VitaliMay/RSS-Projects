@@ -299,3 +299,19 @@ body.lock {
 //     position: absolute;
 //     right: 120px;
 // }
+
+.buttonAnimation {
+    animation: verticalAnimation 0.3s infinite linear;
+    pointer-events: none;
+    background-color: inherit;
+}
+
+@keyframes verticalAnimation {
+    from {
+        transform: rotateY(0deg);
+    }
+    to {
+        transform: rotateY(360deg);
+    }
+}
+
