@@ -33,6 +33,7 @@ export const controlsBtnState = {
 
 export const currentPage = {
   numberCurrentPage: 1,
+  dataTotalGarage: null,
   totalCars: 4,
   winner: {
     id: null,
@@ -43,10 +44,23 @@ export const currentPage = {
   list: null,
 };
 
-export const winnersTotal = {
+export const winnersPage = {
   title: null,
-  table: null,
   totalWinners: 1,
+  dataTotalWinners: null,
+  numberCurrentPage: 1,
+  pagination: {
+    title: null,
+    buttonPrev: null,
+    buttonNext: null,
+  },
+  table: {
+    wrapper: null,
+    title: null,
+    list: null,
+  },
+  isWinsUP: true,
+  isTimeUP: true,
 };
 
 // if (controlsBtnState.formSelect.buttonSendCreateCar) {

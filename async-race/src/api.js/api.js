@@ -1,4 +1,4 @@
-import { controlsBtnState, currentPage, winnersTotal } from '../store/controls-store';
+import { controlsBtnState, currentPage, winnersPage } from '../store/controls-store';
 // import { createListItem } from '../components/list/list';
 import { getMaxID } from '../utils/elementUtils';
 import { counterID } from '../sources/car-options';
@@ -275,7 +275,43 @@ export async function fetchStopped(id, callback) {
 
 /** ************************************************************** */
 
-export async function fetchWinnersTotal() {
+export async function fetchGetTotalGarage() {
+  try {
+    const response = await fetch('http://127.0.0.1:3000/garage');
+    // Проверяем, успешен ли ответ
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const data = await response.json();
+    // winnersPage.dataTotalWinners = data;
+    // const totalCount = data.length;
+
+    // currentPage.dataTotalGarage = data;
+
+    // if (titleWinners) {
+    //   titleWinners.textContent = `Winners (total: ${totalCount})`;
+    // }
+
+    // paginationButtonHolder();
+
+    // const winnersOnFirstPage = Math.min(totalCount, 10);
+
+    // // Ставлю на страницу только 10 первых элементов
+    // for (let i = 0; i < winnersOnFirstPage; i += 1) {
+    //   callback(data[i].id, data[i].color, data[i].name);
+    // }
+
+    return data;
+  } catch (error) {
+    console.error('There was a problem with the fetch operation:', error);
+    return null;
+  }
+}
+
+/** ************************************************************** */
+
+export async function fetchGetTotalWinners() {
   try {
     const response = await fetch('http://127.0.0.1:3000/winners');
     // Проверяем, успешен ли ответ
@@ -284,9 +320,9 @@ export async function fetchWinnersTotal() {
     }
 
     const data = await response.json();
-    winnersTotal.table = data;
+    winnersPage.dataTotalWinners = data;
     const totalCount = data.length;
-    winnersTotal.totalWinners = totalCount;
+    winnersPage.totalWinners = totalCount;
 
     // if (titleWinners) {
     //   titleWinners.textContent = `Winners (total: ${totalCount})`;
@@ -327,7 +363,7 @@ export async function fetchAddWinner(data) {
     }
 
     const responseData = await response.json();
-    // console.log(responseData); // смотрю что отправляю
+    console.log(responseData); // смотрю что отправляю
     return responseData;
   } catch (error) {
     console.error('There was a problem with the fetch operation:', error);
@@ -335,12 +371,53 @@ export async function fetchAddWinner(data) {
   }
 }
 
-export async function fetchGetWinner(data) {
-  const url = 'http://127.0.0.1:3000/winners';
+export async function fetchGetWinner(id) {
+  try {
+    const response = await fetch(`http://127.0.0.1:3000/winners?id=${id}`);
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const data = await response.json();
+
+    console.log(data);
+    // const totalCount = data.length;
+    // winnersTotal.totalWinners = totalCount;
+
+    return data;
+  } catch (error) {
+    console.error('There was a problem with the fetch operation:', error);
+    return null;
+  }
+}
+
+export async function fetchDeleteWinner(carID) {
+  const url = `http://127.0.0.1:3000/winners/${carID}`;
+  try {
+    const response = await fetch(url, {
+      method: 'DELETE',
+    });
+
+    // if (!response.ok) {
+    //   throw new Error('Network response was not ok');
+    // }
+
+    const responseData = await response.json();
+    // item.remove();
+    // console.log(responseData); // обрабатываем данные ответа по необходимости
+    return responseData;
+  } catch (error) {
+    console.error('Произошла проблема с выполнением запроса:', error);
+    throw error;
+  }
+}
+
+export async function fetchUpdateWinner(id, data) {
+  const url = `http://127.0.0.1:3000/winners/${id}`;
 
   try {
     const response = await fetch(url, {
-      method: 'POST',
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -352,10 +429,64 @@ export async function fetchGetWinner(data) {
     }
 
     const responseData = await response.json();
-    // console.log(responseData); // смотрю что отправляю
+    console.log(responseData); // смотрю что отправляю
     return responseData;
   } catch (error) {
     console.error('There was a problem with the fetch operation:', error);
     throw error;
   }
 }
+
+// _sort=['id'|'wins'|'time']
+
+// _order=['ASC'|'DESC']
+
+export async function fetchSortWinner(page, sort, order) {
+  try {
+    const response = await fetch(`http://127.0.0.1:3000/winners?_page=${page}&_limit=10&_sort=${sort}&_order=${order}`);
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const data = await response.json();
+
+    console.log(data);
+
+    const totalCount = Number(response.headers.get('X-total-Count'));
+    winnersPage.totalWinners = totalCount;
+
+    // console.log('total Winners =', totalCount);
+    // const totalCount = data.length;
+    // winnersTotal.totalWinners = totalCount;
+
+    return data;
+  } catch (error) {
+    console.error('There was a problem with the fetch operation:', error);
+    return null;
+  }
+}
+
+// export async function fetchGetWinner(id) {
+//   const url = 'http://127.0.0.1:3000/winners';
+
+//   try {
+//     const response = await fetch(url, {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify(data),
+//     });
+
+//     if (!response.ok) {
+//       throw new Error('Network response was not ok');
+//     }
+
+//     const responseData = await response.json();
+//     // console.log(responseData); // смотрю что отправляю
+//     return responseData;
+//   } catch (error) {
+//     console.error('There was a problem with the fetch operation:', error);
+//     throw error;
+//   }
+// }

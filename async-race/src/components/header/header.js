@@ -1,7 +1,7 @@
 import { createEl } from '../../utils/elementUtils';
 import { createButton } from '../button/button';
-import { controlsBtnState, currentPage } from '../../store/controls-store';
-
+import { controlsBtnState, currentPage, winnersPage } from '../../store/controls-store';
+import { fetchGetTotalWinners } from '../../api.js/api';
 // import { Router } from '../../router/router';
 
 // import createTitleH1 from '../../pages/garage-page/garage';
@@ -54,8 +54,11 @@ export function createHeader(parent) {
     window.location.hash = '/garage';
     buttonGarage.disabled = true;
     buttonWinners.disabled = false;
+
+    // await fetchGetTotalWinners();
   });
-  buttonWinners.addEventListener('click', () => {
+  buttonWinners.addEventListener('click', async () => {
+    await fetchGetTotalWinners();
     // Router.navigate('/winners');
     window.location.hash = '/winners';
     buttonWinners.disabled = true;

@@ -2,13 +2,25 @@ import { removeAllChild, createEl, getRandomColor } from '../utils/elementUtils'
 import { createTitleH1, createChooseBlock, svgUseCar, createBlock } from '../pages/garage-page/garage';
 import { main } from '../components/wrapper/wrapper';
 import { createButton } from '../components/button/button';
-import { createPaginationBlock, paginationButtonHolder } from '../components/pagination/pagination';
+import {
+  createPaginationBlock,
+  paginationButtonHolder,
+  paginationButtonHolderWinner,
+} from '../components/pagination/pagination';
 import { list, createListItem, startCarAnimation, startAnimation, checkDriveStatus } from '../components/list/list';
 import { counterID, getRandomCarName } from '../sources/car-options';
 
-import { controlsBtnState, currentPage } from '../store/controls-store';
-import { fetchAdd, fetchInitial, fetchPagination, fetchStopped } from '../api.js/api';
+import { controlsBtnState, currentPage, winnersPage } from '../store/controls-store';
+import {
+  fetchAdd,
+  fetchInitial,
+  fetchPagination,
+  fetchStopped,
+  fetchGetTotalWinners,
+  fetchGetTotalGarage,
+} from '../api.js/api';
 
+import { createTableWrapper, createTable, createTableTitle } from '../pages/winners-page/winners';
 // const [buttonGarage, buttonWinners] = buttonsHeader;
 
 export const routes = {
@@ -18,7 +30,7 @@ export const routes = {
     controlsBtnState.titleGarage = titleGarage;
     // console.log(controlsBtnState.titleGarage);
 
-    createPaginationBlock(main);
+    createPaginationBlock(main, controlsBtnState);
     const blockCreateCar = createBlock(main);
     createChooseBlock('create', blockCreateCar, 'formCreat');
     // createChooseBlock('create', blockCreateCar);
@@ -292,12 +304,41 @@ export const routes = {
   //     svgUseCar
   //   );
   // },
-  '/winners': () => {
+  '/winners': async () => {
     removeAllChild(main);
-    createTitleH1('Winners', main);
+    const titleWinners = createTitleH1(`Winners (total: ${winnersPage.totalWinners})`, main);
+    winnersPage.title = titleWinners;
 
+    createPaginationBlock(main, winnersPage);
+    paginationButtonHolderWinner();
+
+    currentPage.dataTotalGarage = await fetchGetTotalGarage();
+
+    console.log(currentPage.dataTotalGarage);
     // main.append(currentPage.list);
+
+    // const { buttonPrev, buttonNext } = winnersPage.pagination;
+    // const { table } = winnersPage;
+
+    // buttonNext.addEventListener('click', () => {
+    //   winnersPage.numberCurrentPage += 1;
+    //   removeAllChild(table);
+    //   fetchPagination(currentPage.numberCurrentPage, createListItem);
+    // });
+
+    // buttonPrev.addEventListener('click', () => {
+    //   winnersPage.numberCurrentPage -= 1;
+    //   removeAllChild(table);
+    //   fetchPagination(currentPage.numberCurrentPage, createListItem);
+    // });
+
+    // const tableWrapper = createTableWrapper(main);
+    // const tableTitle = createTableTitle(tableWrapper);
+    // const table = createTable(tableWrapper);
+
+    main.append(winnersPage.table.wrapper);
   },
+
   '*': () => {
     removeAllChild(main);
     createTitleH1('Error. Go to Garage or to Winners ', main);

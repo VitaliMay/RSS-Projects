@@ -2,7 +2,17 @@ import { createEl, createSvgUse, removeAllChild } from '../../utils/elementUtils
 import { createButton } from '../button/button';
 
 import { controlsBtnState, currentPage } from '../../store/controls-store';
-import { fetchDelete, fetchStarted, fetchDrive, fetchStopped, fetchPagination } from '../../api.js/api';
+import {
+  fetchDelete,
+  fetchStarted,
+  fetchDrive,
+  fetchStopped,
+  fetchPagination,
+  fetchGetWinner,
+  fetchAddWinner,
+  fetchDeleteWinner,
+  fetchUpdateWinner,
+} from '../../api.js/api';
 
 import { modalWinner, modalTitleElement } from '../modal/modal';
 
@@ -53,6 +63,7 @@ export function createListItem(id, colorCar, nameCar) {
   deleteButton.addEventListener('click', async () => {
     listItem.remove();
     await fetchDelete(id);
+    fetchDeleteWinner(id);
     removeAllChild(list);
     fetchPagination(currentPage.numberCurrentPage, createListItem);
   });
@@ -151,15 +162,7 @@ export function createListItem(id, colorCar, nameCar) {
     backButton.classList.remove('buttonAnimation');
   });
 
-  svgCar.addEventListener('animationend', () => {
-    // svgCar.classList.remove('move');
-    // svgCar.classList.remove('pause');
-    // svgCar.style = '';
-    // trackBlock.classList.remove('race-block__track_adapt');
-    // trackBlock.classList.add('race-block__track_adapt');
-    // // // startButton.disabled = false;
-    // // backButton.disabled = false;
-
+  svgCar.addEventListener('animationend', async () => {
     const { winner, isRace } = currentPage;
     // console.log(winner.id, winner.name);
     if (!currentPage.winner.id && isRace === true) {
@@ -169,10 +172,49 @@ export function createListItem(id, colorCar, nameCar) {
 
       console.log('Привет победитель');
       console.log(winner.name, winner.id, winner.time);
-
       const timeSec = Math.round(winner.time) / 1000;
+
+      const dataWinner = {
+        id,
+        wins: 1,
+        time: timeSec,
+        // time: winner.time,
+      };
+
       const textModal = `Winner ${winner.name} for ${timeSec} sec`;
       modalWinner(modalTitleElement, textModal);
+
+      const dataWinnerServer = await fetchGetWinner(id);
+      console.log('dataWinnerServer', dataWinnerServer, dataWinnerServer.length);
+
+      if (dataWinnerServer.length === 0) {
+        // console.log('надо делать fetchAddWinner');
+        fetchAddWinner(dataWinner);
+      } else {
+        console.log('надо делать fetchUpdateWinner');
+
+        const { wins, time } = dataWinnerServer[0];
+
+        console.log('wins=', wins);
+        console.log('time=', time);
+        // wins: number,
+        // time: number
+
+        // const test = {
+        //   wins: 10,
+        //   time: 2,
+        // };
+
+        const dataUpdateWinner = {
+          wins: Number(wins) + 1,
+          // time: 35,
+          time: Math.min(timeSec, Number(time)),
+        };
+        // dataWinnerServer.wins += 1;
+        // dataWinnerServer.time = ;
+        // fetchUpdateWinner(id, test);
+        fetchUpdateWinner(id, dataUpdateWinner);
+      }
     }
 
     const backLogic = () => {
