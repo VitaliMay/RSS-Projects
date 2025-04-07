@@ -1,6 +1,6 @@
 import './winners.scss';
 
-import { createEl, createSvgUse } from '../../utils/elementUtils';
+import { createEl, createSvgUse, removeAllChild } from '../../utils/elementUtils';
 import { currentPage, winnersPage } from '../../store/controls-store';
 import { main } from '../../components/wrapper/wrapper';
 import { createButton } from '../../components/button/button';
@@ -47,15 +47,48 @@ titleWins.addEventListener('click', async () => {
   // const order = 'DESC';
   // const order = 'ASC';
 
+  const { list } = winnersPage.table;
+  removeAllChild(list);
+
   const page = winnersPage.numberCurrentPage;
   const sort = 'wins';
 
   const order = toggleWins();
-  const data = await fetchSortWinner(page, sort, order);
+  const dataSort = await fetchSortWinner(page, sort, order);
+  const { dataTotalGarage } = currentPage;
 
-  console.log('из кнопки', data);
+  const optionArr = createPageOptons(dataSort, dataTotalGarage);
+
+  optionArr.forEach((item) => {
+    const { index, id, color, name, wins, time } = item;
+    creatTableElement(index, id, color, name, wins, time);
+  });
+
+  // console.log('из кнопки', data);
 });
+
 titleTime.addEventListener('click', toggleTime);
+
+/** ********************************************* */
+
+// export async function test() {
+//   const { list } = winnersPage.table;
+//   removeAllChild(list);
+
+//   const page = winnersPage.numberCurrentPage;
+//   const sort = 'wins';
+
+//   const order = toggleWins();
+//   const dataSort = await fetchSortWinner(page, sort, order);
+//   const { dataTotalGarage } = currentPage;
+
+//   const optionArr = createPageOptons(dataSort, dataTotalGarage);
+
+//   optionArr.forEach((item) => {
+//     const { index, id, color, name, wins, time } = item;
+//     creatTableElement(index, id, color, name, wins, time);
+//   });
+// }
 
 /** ******************************************** */
 
@@ -84,7 +117,16 @@ export function creatTableElement(number, id, color, name, wins, time) {
   // const tableTime = createEl({ text: `${time}`, parent: tableItem });
 }
 
-creatTableElement(1, 25, 'red', 'Mersedes Fantom Sprinter', 6, 3.717);
+// creatTableElement(1, 25, 'red', 'Mersedes Fantom Sprinter', 6, 3.717);
+
+function createPageOptons(winners, garage) {
+  const pageOptionsArr = winners.map((itemWinners, index) => {
+    const car = garage.find((garageItem) => garageItem.id === itemWinners.id);
+    return { ...car, ...itemWinners, index: index + 1 };
+  });
+
+  return pageOptionsArr;
+}
 
 /** ********************************************** */
 

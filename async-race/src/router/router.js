@@ -20,7 +20,7 @@ import {
   fetchGetTotalGarage,
 } from '../api.js/api';
 
-import { createTableWrapper, createTable, createTableTitle } from '../pages/winners-page/winners';
+import { createTableWrapper, createTable, createTableTitle, test } from '../pages/winners-page/winners';
 // const [buttonGarage, buttonWinners] = buttonsHeader;
 
 export const routes = {
@@ -150,7 +150,7 @@ export const routes = {
       formCreat.inputColor.disabled = true;
 
       resetRaceButton.disabled = false;
-      controlsBtnState.buttonWinners.disabled = false;
+      // controlsBtnState.buttonWinners.disabled = false;
 
       // await Promise.all(
       //   blockArr.map((item, index) =>
@@ -314,7 +314,9 @@ export const routes = {
 
     currentPage.dataTotalGarage = await fetchGetTotalGarage();
 
-    console.log(currentPage.dataTotalGarage);
+    // await test();
+
+    // console.log(currentPage.dataTotalGarage);
     // main.append(currentPage.list);
 
     // const { buttonPrev, buttonNext } = winnersPage.pagination;
