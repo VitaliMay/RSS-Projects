@@ -51,9 +51,14 @@ titleWins.addEventListener('click', async () => {
   removeAllChild(list);
 
   const page = winnersPage.numberCurrentPage;
-  const sort = 'wins';
+  // const sort = 'wins';
+  // const order = toggleWins();
 
-  const order = toggleWins();
+  winnersPage.currentSort.sort = 'wins';
+  winnersPage.currentSort.order = toggleWins();
+
+  const { sort, order } = winnersPage.currentSort;
+
   const dataSort = await fetchSortWinner(page, sort, order);
   const { dataTotalGarage } = currentPage;
 
@@ -67,29 +72,58 @@ titleWins.addEventListener('click', async () => {
   // console.log('из кнопки', data);
 });
 
-titleTime.addEventListener('click', toggleTime);
+titleTime.addEventListener('click', async () => {
+  const { list } = winnersPage.table;
+  removeAllChild(list);
+
+  const page = winnersPage.numberCurrentPage;
+  // const sort = 'time';
+  // const order = toggleTime();
+
+  winnersPage.currentSort.sort = 'time';
+  winnersPage.currentSort.order = toggleTime();
+
+  const { sort, order } = winnersPage.currentSort;
+
+  const dataSort = await fetchSortWinner(page, sort, order);
+  const { dataTotalGarage } = currentPage;
+
+  const optionArr = createPageOptons(dataSort, dataTotalGarage);
+
+  optionArr.forEach((item) => {
+    const { index, id, color, name, wins, time } = item;
+    creatTableElement(index, id, color, name, wins, time);
+  });
+});
 
 /** ********************************************* */
 
-// export async function test() {
-//   const { list } = winnersPage.table;
-//   removeAllChild(list);
+export async function firstLoad() {
+  const { list } = winnersPage.table;
+  removeAllChild(list);
 
-//   const page = winnersPage.numberCurrentPage;
-//   const sort = 'wins';
+  const page = winnersPage.numberCurrentPage;
+  // const sort = 'wins';
+  // const order = toggleWins();
 
-//   const order = toggleWins();
-//   const dataSort = await fetchSortWinner(page, sort, order);
-//   const { dataTotalGarage } = currentPage;
+  // const sort = 'time';
+  // const order = 'ASC';
 
-//   const optionArr = createPageOptons(dataSort, dataTotalGarage);
+  const { sort, order } = winnersPage.currentSort;
+  // const sort = 'time';
+  // const order = 'ASC';
+  const dataSort = await fetchSortWinner(page, sort, order);
+  const { dataTotalGarage } = currentPage;
 
-//   optionArr.forEach((item) => {
-//     const { index, id, color, name, wins, time } = item;
-//     creatTableElement(index, id, color, name, wins, time);
-//   });
-// }
+  const optionArr = createPageOptons(dataSort, dataTotalGarage);
 
+  optionArr.forEach((item) => {
+    const { index, id, color, name, wins, time } = item;
+    creatTableElement(index, id, color, name, wins, time);
+  });
+}
+
+// test();
 /** ******************************************** */
 
 export function creatTableElement(number, id, color, name, wins, time) {
@@ -119,10 +153,12 @@ export function creatTableElement(number, id, color, name, wins, time) {
 
 // creatTableElement(1, 25, 'red', 'Mersedes Fantom Sprinter', 6, 3.717);
 
-function createPageOptons(winners, garage) {
+export function createPageOptons(winners, garage) {
+  const { numberCurrentPage } = winnersPage;
+  const numberCorrection = (numberCurrentPage - 1) * 10;
   const pageOptionsArr = winners.map((itemWinners, index) => {
     const car = garage.find((garageItem) => garageItem.id === itemWinners.id);
-    return { ...car, ...itemWinners, index: index + 1 };
+    return { ...car, ...itemWinners, index: index + 1 + numberCorrection };
   });
 
   return pageOptionsArr;
@@ -142,6 +178,6 @@ function toggleTime() {
   winnersPage.isTimeUP = !winnersPage.isTimeUP;
   const timeState = winnersPage.isTimeUP ? 'Time UP' : 'Time DOWN';
   titleTime.textContent = timeState;
-  const order = winnersPage.isWinsUP ? 'ASC' : 'DESC';
+  const order = winnersPage.isTimeUP ? 'ASC' : 'DESC';
   return order;
 }

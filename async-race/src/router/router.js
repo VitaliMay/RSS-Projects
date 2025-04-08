@@ -1,5 +1,7 @@
 import { removeAllChild, createEl, getRandomColor } from '../utils/elementUtils';
-import { createTitleH1, createChooseBlock, svgUseCar, createBlock } from '../pages/garage-page/garage';
+import {
+ createTitleH1, createChooseBlock, svgUseCar, createBlock 
+} from '../pages/garage-page/garage';
 import { main } from '../components/wrapper/wrapper';
 import { createButton } from '../components/button/button';
 import {
@@ -7,7 +9,9 @@ import {
   paginationButtonHolder,
   paginationButtonHolderWinner,
 } from '../components/pagination/pagination';
-import { list, createListItem, startCarAnimation, startAnimation, checkDriveStatus } from '../components/list/list';
+import {
+ list, createListItem, startCarAnimation, startAnimation, checkDriveStatus 
+} from '../components/list/list';
 import { counterID, getRandomCarName } from '../sources/car-options';
 
 import { controlsBtnState, currentPage, winnersPage } from '../store/controls-store';
@@ -18,9 +22,17 @@ import {
   fetchStopped,
   fetchGetTotalWinners,
   fetchGetTotalGarage,
+  fetchSortWinner,
 } from '../api.js/api';
 
-import { createTableWrapper, createTable, createTableTitle, test } from '../pages/winners-page/winners';
+import {
+  createTableWrapper,
+  createTable,
+  createTableTitle,
+  firstLoad,
+  createPageOptons,
+  creatTableElement,
+} from '../pages/winners-page/winners';
 // const [buttonGarage, buttonWinners] = buttonsHeader;
 
 export const routes = {
@@ -159,7 +171,7 @@ export const routes = {
 
       // Сначала получаю асинхронно время для всех машинок
       const carsData = await Promise.all(
-        blockArr.map((item, index) => startCarAnimation(trackArr[index], svgArr[index], item.id, startButtonArr[index]))
+        blockArr.map((item, index) => startCarAnimation(trackArr[index], svgArr[index], item.id, startButtonArr[index])),
       );
 
       // запускаю все анимации одновременно
@@ -209,7 +221,7 @@ export const routes = {
       };
 
       await Promise.all(
-        blockArr.map((item, index) => fetchStopped(item.id, () => backLogic(index)))
+        blockArr.map((item, index) => fetchStopped(item.id, () => backLogic(index))),
         // if (!item.id) throw new Error(`Индекс ${index} не имеет ID`);
       );
 
@@ -314,7 +326,56 @@ export const routes = {
 
     currentPage.dataTotalGarage = await fetchGetTotalGarage();
 
-    // await test();
+    if (winnersPage.isFirstLoad) {
+      await firstLoad();
+      winnersPage.isFirstLoad = false;
+    }
+
+    const { buttonPrev, buttonNext } = winnersPage.pagination;
+
+    buttonNext.addEventListener('click', async () => {
+      winnersPage.numberCurrentPage += 1;
+      paginationButtonHolderWinner();
+
+      const { list } = winnersPage.table;
+      removeAllChild(list);
+
+      const page = winnersPage.numberCurrentPage;
+
+      const { sort, order } = winnersPage.currentSort;
+
+      const dataSort = await fetchSortWinner(page, sort, order);
+      const { dataTotalGarage } = currentPage;
+
+      const optionArr = createPageOptons(dataSort, dataTotalGarage);
+
+      optionArr.forEach((item) => {
+        const { index, id, color, name, wins, time } = item;
+        creatTableElement(index, id, color, name, wins, time);
+      });
+    });
+
+    buttonPrev.addEventListener('click', async () => {
+      winnersPage.numberCurrentPage -= 1;
+      paginationButtonHolderWinner();
+
+      const { list } = winnersPage.table;
+      removeAllChild(list);
+
+      const page = winnersPage.numberCurrentPage;
+
+      const { sort, order } = winnersPage.currentSort;
+
+      const dataSort = await fetchSortWinner(page, sort, order);
+      const { dataTotalGarage } = currentPage;
+
+      const optionArr = createPageOptons(dataSort, dataTotalGarage);
+
+      optionArr.forEach((item) => {
+        const { index, id, color, name, wins, time } = item;
+        creatTableElement(index, id, color, name, wins, time);
+      });
+    });
 
     // console.log(currentPage.dataTotalGarage);
     // main.append(currentPage.list);

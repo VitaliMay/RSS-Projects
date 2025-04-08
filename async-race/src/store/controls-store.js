@@ -45,6 +45,7 @@ export const currentPage = {
 };
 
 export const winnersPage = {
+  isFirstLoad: true,
   title: null,
   totalWinners: 1,
   dataTotalWinners: null,
@@ -61,6 +62,10 @@ export const winnersPage = {
   },
   isWinsUP: true,
   isTimeUP: true,
+  currentSort: {
+    sort: 'time',
+    order: 'ASC',
+  },
 };
 
 // if (controlsBtnState.formSelect.buttonSendCreateCar) {
