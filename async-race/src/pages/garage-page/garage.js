@@ -56,20 +56,11 @@ export const svgUseCar = createSvgUse('#car', 'car-color');
 controlsBtnState.svgModel = svgUseCar;
 
 export const createChooseBlock = (buttonTitle, parent, keyControlsBtnState) => {
-  // const svgUseCarRace = createSvgUse('#car', 'car-race');
-  // main.append(svgUseCarRace);
-
-  // const svgUseFlag = createSvgUse('#flag', 'flag-style');
-  // main.append(svgUseFlag);
-
   const formCreateCar = createForm(parent);
   controlsBtnState[`${keyControlsBtnState}Block`] = formCreateCar;
 
-  // const svgUseCar = createSvgUse('#car', 'car-color');
-  // main.append(svgUseCar);
-
   const inputText = createInputText(formCreateCar);
-  inputText.value = dataStore.formCreateCarStore.textCar || '';
+  // inputText.value = dataStore.formCreateCarStore.textCar || '';
 
   const inputColor = createInputColor(formCreateCar);
   const buttonSendCreateCar = createButton(buttonTitle, formCreateCar, [], 'submit');
@@ -92,7 +83,7 @@ export const createChooseBlock = (buttonTitle, parent, keyControlsBtnState) => {
     dataStore.formCreateCarStore.textCar = inputText.value;
   });
 
-  inputColor.value = dataStore.formCreateCarStore.colorCar;
+  // inputColor.value = dataStore.formCreateCarStore.colorCar;
   svgUseCar.style.color = inputColor.value;
 
   inputColor.addEventListener('input', () => {
@@ -143,6 +134,9 @@ export const createChooseBlock = (buttonTitle, parent, keyControlsBtnState) => {
       };
       fetchUpdateCar(selectID, data);
       controlsBtnState.selectID = null;
+
+      dataStore.formCreateCarStore.textCar = '';
+      dataStore.formCreateCarStore.colorCar = '#000000';
     });
   }
 

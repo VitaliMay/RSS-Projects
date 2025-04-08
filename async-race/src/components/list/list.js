@@ -1,5 +1,6 @@
 import { createEl, createSvgUse, removeAllChild, rgbToHex } from '../../utils/elementUtils';
 import { createButton } from '../button/button';
+import { dataStore } from '../../store/data-store';
 
 import { controlsBtnState, currentPage } from '../../store/controls-store';
 import {
@@ -93,8 +94,13 @@ export function createListItem(id, colorCar, nameCar) {
     selectButton.disabled = true;
     deleteButton.disabled = true;
 
-    controlsBtnState.chooseCarName.textContent = infoCarName.textContent;
-    inpText.value = infoCarName.textContent;
+    const carName = infoCarName.textContent;
+    controlsBtnState.chooseCarName.textContent = carName;
+    inpText.value = carName;
+
+    // controlsBtnState.chooseCarName.textContent = infoCarName.textContent;
+    // inpText.value = infoCarName.textContent;
+
     // inpColor.value = colorCar;
     // inpColor.value = trackBlock.style.color;
     // eslint-disable-next-line no-param-reassign
@@ -115,6 +121,16 @@ export function createListItem(id, colorCar, nameCar) {
     // svgModel.style.color = inpColor.value;
 
     controlsBtnState.infoCarNameSelectCar = infoCarName;
+
+    // const { selectID } = controlsBtnState;
+    // const { colorCar, textCar } = dataStore.formCreateCarStore;
+    // const data = {
+    //   name: textCar,
+    //   color: colorCar,
+    // };
+
+    dataStore.formCreateCarStore.textCar = carName;
+    dataStore.formCreateCarStore.colorCar = hexColor;
   });
 
   startButton.addEventListener('click', async () => {

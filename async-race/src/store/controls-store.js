@@ -33,6 +33,7 @@ export const controlsBtnState = {
 };
 
 export const currentPage = {
+  isFirstLoad: true,
   numberCurrentPage: 1,
   dataTotalGarage: null,
   totalCars: 4,

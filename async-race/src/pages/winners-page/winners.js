@@ -181,3 +181,19 @@ function toggleTime() {
   const order = winnersPage.isTimeUP ? 'ASC' : 'DESC';
   return order;
 }
+
+/** ************************************************ */
+
+export async function createCurrentListWinners() {
+  const { list: listWinner } = winnersPage.table;
+  removeAllChild(listWinner);
+  const page = winnersPage.numberCurrentPage;
+  const { sort, order } = winnersPage.currentSort;
+  const dataSort = await fetchSortWinner(page, sort, order);
+  const { dataTotalGarage } = currentPage;
+  const optionArr = createPageOptons(dataSort, dataTotalGarage);
+  optionArr.forEach((item) => {
+    const { index, id, color, name, wins, time } = item;
+    creatTableElement(index, id, color, name, wins, time);
+  });
+}

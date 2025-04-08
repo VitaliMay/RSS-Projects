@@ -58,7 +58,7 @@ export function createHeader(parent) {
     // await fetchGetTotalWinners();
   });
   buttonWinners.addEventListener('click', async () => {
-    await fetchGetTotalWinners();
+    // await fetchGetTotalWinners();
     // Router.navigate('/winners');
     window.location.hash = '/winners';
     buttonWinners.disabled = true;

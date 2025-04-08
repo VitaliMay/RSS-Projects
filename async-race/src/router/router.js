@@ -28,11 +28,11 @@ import {
   firstLoad,
   createPageOptons,
   creatTableElement,
+  createCurrentListWinners,
 } from '../pages/winners-page/winners';
-// const [buttonGarage, buttonWinners] = buttonsHeader;
 
 export const routes = {
-  '/garage': () => {
+  '/garage': async () => {
     removeAllChild(main);
     const titleGarage = createTitleH1('Garage (total cars: )', main);
     controlsBtnState.titleGarage = titleGarage;
@@ -247,85 +247,65 @@ export const routes = {
 
       // paginationButtonHolder();
     });
-    // startRaceButton.addEventListener('click', fetchTotal);
-    // startRaceButton.addEventListener('click', () => {
-    //   console.log('Привет');
-    //   fetchTotal();
-    // });
-    // const data = fetchTotal();
-    // console.log(data);
 
-    // // startRaceButton.addEventListener('click', async () => {
-    //   const data = await fetchTotal();
-    //   console.log(data);
-    // // });
-
-    // mainFunc(fetchTotal, console.log);
-    // mainFunc(fetchTotal, createListItem);
-
-    fetchInitial(createListItem);
-
-    // fetchTotal().then(data => {
-    //   console.log(data);
-    // }).catch(error => {
-    //   console.error('Error fetching data:', error);
-    // });
+    // fetchInitial(createListItem);
 
     main.append(list);
     removeAllChild(list);
 
-    // createListItem(counterID.getCount(), getRandomColor(), getRandomCarName());
+    if (currentPage.isFirstLoad) {
+      await fetchInitial(createListItem);
+      currentPage.isFirstLoad = false;
+    } else {
+      await fetchPagination(currentPage.numberCurrentPage, createListItem);
+    }
 
-    // createListItem(counterID.getCount(), getRandomColor(), getRandomCarName());
-    // createListItem(counterID.getCount(), getRandomColor(), getRandomCarName());
+    // main.append(list);
+    // removeAllChild(list);
+    // await fetchInitial(createListItem);
 
-    // createListItem(counterID.getCount(), getRandomColor(), getRandomCarName(), svgUseCar);
-    // createListItem(counterID.getCount(), getRandomColor(), getRandomCarName(), svgUseCar);
+    // currentPage.list = list;
+    // console.log(currentPage.list);
 
-    // if (controlsBtnState.formSelect.buttonSendCreateCar) {
-    //   controlsBtnState.formSelect.buttonSendCreateCar.addEventListener('click', () => {
-    //     controlsBtnState.formSelect.buttonSendCreateCar.disabled = true;
-    //     controlsBtnState.infoCarNameSelectCar.textContent =
-    // controlsBtnState.formSelect.inputText.value;
-    //     controlsBtnState.btnSelectListItem.disabled = false;
-    //     controlsBtnState.selectTrack.style.color = controlsBtnState.formSelect.inputColor.value;
-    //     // controlsBtnState.svgSelectCar.style.color = inputColor.value;
-    //   });
-    // }
+    // fetchPagination(currentPage.numberCurrentPage, createListItem);
   },
-  //   createListItem(
-  //     counterID.getCount(),
-  //     getRandomColor(),
-  //     getRandomCarName(),
-  //     inputText,
-  //     inputColor,
-  //     buttonSendCreateCar,
-  //     svgUseCar
-  //   );
-  //   createListItem(
-  //     counterID.getCount(),
-  //     getRandomColor(),
-  //     getRandomCarName(),
-  //     inputText,
-  //     inputColor,
-  //     buttonSendCreateCar,
-  //     svgUseCar
-  //   );
-  // },
+
   '/winners': async () => {
     removeAllChild(main);
+
+    currentPage.dataTotalGarage = await fetchGetTotalGarage();
+    await fetchGetTotalWinners();
+
     const titleWinners = createTitleH1(`Winners (total: ${winnersPage.totalWinners})`, main);
     winnersPage.title = titleWinners;
 
     createPaginationBlock(main, winnersPage);
     paginationButtonHolderWinner();
 
-    currentPage.dataTotalGarage = await fetchGetTotalGarage();
-
     if (winnersPage.isFirstLoad) {
       await firstLoad();
       winnersPage.isFirstLoad = false;
     }
+
+    main.append(winnersPage.table.wrapper);
+
+    /** ****************************************************** */
+
+    // const { list: listWinner } = winnersPage.table;
+    // removeAllChild(listWinner);
+    // const page = winnersPage.numberCurrentPage;
+    // const { sort, order } = winnersPage.currentSort;
+    // const dataSort = await fetchSortWinner(page, sort, order);
+    // const { dataTotalGarage } = currentPage;
+    // const optionArr = createPageOptons(dataSort, dataTotalGarage);
+    // optionArr.forEach((item) => {
+    //   const { index, id, color, name, wins, time } = item;
+    //   creatTableElement(index, id, color, name, wins, time);
+    // });
+
+    await createCurrentListWinners();
+
+    /** ****************************************************** */
 
     const { buttonPrev, buttonNext } = winnersPage.pagination;
 
@@ -333,44 +313,48 @@ export const routes = {
       winnersPage.numberCurrentPage += 1;
       paginationButtonHolderWinner();
 
-      const { list } = winnersPage.table;
-      removeAllChild(list);
+      await createCurrentListWinners();
 
-      const page = winnersPage.numberCurrentPage;
+      // const { list } = winnersPage.table;
+      // removeAllChild(list);
 
-      const { sort, order } = winnersPage.currentSort;
+      // const page = winnersPage.numberCurrentPage;
 
-      const dataSort = await fetchSortWinner(page, sort, order);
-      const { dataTotalGarage } = currentPage;
+      // const { sort, order } = winnersPage.currentSort;
 
-      const optionArr = createPageOptons(dataSort, dataTotalGarage);
+      // const dataSort = await fetchSortWinner(page, sort, order);
+      // const { dataTotalGarage } = currentPage;
 
-      optionArr.forEach((item) => {
-        const { index, id, color, name, wins, time } = item;
-        creatTableElement(index, id, color, name, wins, time);
-      });
+      // const optionArr = createPageOptons(dataSort, dataTotalGarage);
+
+      // optionArr.forEach((item) => {
+      //   const { index, id, color, name, wins, time } = item;
+      //   creatTableElement(index, id, color, name, wins, time);
+      // });
     });
 
     buttonPrev.addEventListener('click', async () => {
       winnersPage.numberCurrentPage -= 1;
       paginationButtonHolderWinner();
 
-      const { list } = winnersPage.table;
-      removeAllChild(list);
+      await createCurrentListWinners();
 
-      const page = winnersPage.numberCurrentPage;
+      // const { list } = winnersPage.table;
+      // removeAllChild(list);
 
-      const { sort, order } = winnersPage.currentSort;
+      // const page = winnersPage.numberCurrentPage;
 
-      const dataSort = await fetchSortWinner(page, sort, order);
-      const { dataTotalGarage } = currentPage;
+      // const { sort, order } = winnersPage.currentSort;
 
-      const optionArr = createPageOptons(dataSort, dataTotalGarage);
+      // const dataSort = await fetchSortWinner(page, sort, order);
+      // const { dataTotalGarage } = currentPage;
 
-      optionArr.forEach((item) => {
-        const { index, id, color, name, wins, time } = item;
-        creatTableElement(index, id, color, name, wins, time);
-      });
+      // const optionArr = createPageOptons(dataSort, dataTotalGarage);
+
+      // optionArr.forEach((item) => {
+      //   const { index, id, color, name, wins, time } = item;
+      //   creatTableElement(index, id, color, name, wins, time);
+      // });
     });
 
     // console.log(currentPage.dataTotalGarage);
@@ -395,7 +379,7 @@ export const routes = {
     // const tableTitle = createTableTitle(tableWrapper);
     // const table = createTable(tableWrapper);
 
-    main.append(winnersPage.table.wrapper);
+    // main.append(winnersPage.table.wrapper);
   },
 
   '*': () => {
