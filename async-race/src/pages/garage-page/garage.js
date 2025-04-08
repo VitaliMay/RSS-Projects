@@ -4,6 +4,7 @@ import { createButton } from '../../components/button/button';
 import { main } from '../../components/wrapper/wrapper';
 import { dataStore } from '../../store/data-store';
 import { createListItem } from '../../components/list/list';
+import { fetchUpdateCar } from '../../api.js/api';
 
 import { controlsBtnState } from '../../store/controls-store';
 
@@ -132,6 +133,16 @@ export const createChooseBlock = (buttonTitle, parent, keyControlsBtnState) => {
       controlsBtnState.formCreat.inputText.disabled = false;
       controlsBtnState.formCreat.inputColor.disabled = false;
       controlsBtnState.formCreat.buttonSendCreateCar.disabled = false;
+
+      // Это может работать и синхронно, нечего тормозить процесс))
+      const { selectID } = controlsBtnState;
+      const { colorCar, textCar } = dataStore.formCreateCarStore;
+      const data = {
+        name: textCar,
+        color: colorCar,
+      };
+      fetchUpdateCar(selectID, data);
+      controlsBtnState.selectID = null;
     });
   }
 

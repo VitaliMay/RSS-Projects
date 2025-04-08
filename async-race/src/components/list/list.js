@@ -1,4 +1,4 @@
-import { createEl, createSvgUse, removeAllChild } from '../../utils/elementUtils';
+import { createEl, createSvgUse, removeAllChild, rgbToHex } from '../../utils/elementUtils';
 import { createButton } from '../button/button';
 
 import { controlsBtnState, currentPage } from '../../store/controls-store';
@@ -69,6 +69,8 @@ export function createListItem(id, colorCar, nameCar) {
   });
 
   selectButton.addEventListener('click', () => {
+    controlsBtnState.selectID = id;
+    // console.log('id=', id);
     // eslint-disable-next-line no-param-reassign
     btnSend.disabled = false;
     inpColor.disabled = false;
@@ -98,8 +100,16 @@ export function createListItem(id, colorCar, nameCar) {
     // eslint-disable-next-line no-param-reassign
     // trackBlock.style.color = inpColor.value;
     // controlsBtnState.svgModel.style.color = inpColor.value;
-    controlsBtnState.svgModel.style.color = trackBlock.style.color;
-    controlsBtnState.formSelect.inputColor.value = '#000000';
+
+    const hexColor = rgbToHex(trackBlock.style.color);
+    controlsBtnState.svgModel.style.color = hexColor;
+    // controlsBtnState.svgModel.style.color = trackBlock.style.color;
+    // console.log(hexColor);
+    // console.log(trackBlock.style.color);
+    controlsBtnState.formSelect.inputColor.value = hexColor;
+    // controlsBtnState.formSelect.inputColor.value = trackBlock.style.color;
+    // controlsBtnState.formSelect.inputColor.value = '#000000';
+
     // controlsBtnState.formSelect.inputColor.value = controlsBtnState.svgModel.style.color;
     // console.log(controlsBtnState.svgModel.style.color);
     // svgModel.style.color = inpColor.value;

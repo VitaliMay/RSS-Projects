@@ -1,7 +1,5 @@
 import { removeAllChild, createEl, getRandomColor } from '../utils/elementUtils';
-import {
- createTitleH1, createChooseBlock, svgUseCar, createBlock 
-} from '../pages/garage-page/garage';
+import { createTitleH1, createChooseBlock, svgUseCar, createBlock } from '../pages/garage-page/garage';
 import { main } from '../components/wrapper/wrapper';
 import { createButton } from '../components/button/button';
 import {
@@ -9,9 +7,7 @@ import {
   paginationButtonHolder,
   paginationButtonHolderWinner,
 } from '../components/pagination/pagination';
-import {
- list, createListItem, startCarAnimation, startAnimation, checkDriveStatus 
-} from '../components/list/list';
+import { list, createListItem, startCarAnimation, startAnimation, checkDriveStatus } from '../components/list/list';
 import { counterID, getRandomCarName } from '../sources/car-options';
 
 import { controlsBtnState, currentPage, winnersPage } from '../store/controls-store';

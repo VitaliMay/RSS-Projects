@@ -22,6 +22,7 @@ export const controlsBtnState = {
   btnSelectListItem: null,
   svgSelectCar: null,
   selectTrack: null,
+  selectID: null,
   infoCarNameSelectCar: null,
   deleteBtnSelectCar: null,
   pagination: {

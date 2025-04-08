@@ -208,6 +208,22 @@ function getRandomColor() {
 }
 
 /** *************************************************************** */
+// Перевод цвета из формата rgb в формат hex
+
+function rgbToHex(rgbStr) {
+  // удаляю rgb, скобки и разбиваю по запятым
+  const decimalArr = rgbStr.slice(4, -1).split(',');
+
+  // перевожу числа в 16 формат
+  const hexArr = decimalArr.map((item) => {
+    const num = Number(item.trim());
+    return num.toString(16).padStart(2, '0');
+  });
+
+  return `#${hexArr.join('')}`;
+}
+
+/** *************************************************************** */
 
 export {
   createEl,
@@ -223,4 +239,5 @@ export {
   getMaxID,
   removeById,
   getRandomColor,
+  rgbToHex,
 };
