@@ -1,6 +1,6 @@
 import { createEl, createSvgUse, removeAllChild, rgbToHex } from '../../utils/elementUtils';
 import { createButton } from '../button/button';
-import { dataStore } from '../../store/data-store';
+import { dataStore, stateData, cleanStateData } from '../../store/data-store';
 
 import { controlsBtnState, currentPage } from '../../store/controls-store';
 import {
@@ -67,6 +67,8 @@ export function createListItem(id, colorCar, nameCar) {
     fetchDeleteWinner(id);
     removeAllChild(list);
     fetchPagination(currentPage.numberCurrentPage, createListItem);
+
+    cleanStateData();
   });
 
   selectButton.addEventListener('click', () => {
@@ -80,6 +82,9 @@ export function createListItem(id, colorCar, nameCar) {
     btnSendCreat.disabled = true;
     inpColorCreat.disabled = true;
     inpTextCreat.disabled = true;
+
+    inpColorCreat.value = '#000000';
+    inpTextCreat.value = '';
 
     // В самом list-item лучше не менять,
     // чтобы не вводить доп кнопку возврата к исходному состоянию
@@ -131,6 +136,12 @@ export function createListItem(id, colorCar, nameCar) {
 
     dataStore.formCreateCarStore.textCar = carName;
     dataStore.formCreateCarStore.colorCar = hexColor;
+
+    cleanStateData();
+    stateData.stateUpdateText = carName;
+    stateData.stateUpdateColor = hexColor;
+    stateData.stateSvgColor = hexColor;
+    stateData.stateCreateDisabled = true;
   });
 
   startButton.addEventListener('click', async () => {

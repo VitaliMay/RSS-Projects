@@ -1,12 +1,12 @@
-import { createEl, createSvgUse, getRandomColor } from '../../utils/elementUtils';
+import { createEl, createSvgUse, getRandomColor, removeAllChild } from '../../utils/elementUtils';
 import { counterID, getRandomCarName } from '../../sources/car-options';
 import { createButton } from '../../components/button/button';
 import { main } from '../../components/wrapper/wrapper';
-import { dataStore } from '../../store/data-store';
-import { createListItem } from '../../components/list/list';
-import { fetchUpdateCar } from '../../api.js/api';
+import { dataStore, stateData } from '../../store/data-store';
+import { createListItem, list } from '../../components/list/list';
+import { fetchUpdateCar, fetchPagination } from '../../api.js/api';
 
-import { controlsBtnState } from '../../store/controls-store';
+import { controlsBtnState, currentPage } from '../../store/controls-store';
 
 export function createTitleH1(text, parent) {
   return createEl({
@@ -81,10 +81,30 @@ export const createChooseBlock = (buttonTitle, parent, keyControlsBtnState) => {
     }
 
     dataStore.formCreateCarStore.textCar = inputText.value;
+
+    if (keyControlsBtnState === 'formCreat') {
+      stateData.stateCreateText = inputText.value;
+      stateData.stateUpdateText = '';
+    }
+
+    if (keyControlsBtnState === 'formSelect') {
+      stateData.stateUpdateText = inputText.value;
+      stateData.stateCreateText = '';
+    }
   });
 
   // inputColor.value = dataStore.formCreateCarStore.colorCar;
   svgUseCar.style.color = inputColor.value;
+
+  controlsBtnState[keyControlsBtnState].inputText = inputText;
+  controlsBtnState[keyControlsBtnState].inputColor = inputColor;
+  controlsBtnState[keyControlsBtnState].buttonSendCreateCar = buttonSendCreateCar;
+
+  const {
+    inputText: inputTextData,
+    inputColor: inputColorData,
+    buttonSendCreateCar: buttonSendData,
+  } = controlsBtnState[keyControlsBtnState];
 
   inputColor.addEventListener('input', () => {
     svgUseCar.style.color = inputColor.value;
@@ -92,18 +112,30 @@ export const createChooseBlock = (buttonTitle, parent, keyControlsBtnState) => {
     // чтобы не вводить доп кнопку возврата к исходному состоянию
     // controlsBtnState.svgSelectCar.style.color = inputColor.value;
     dataStore.formCreateCarStore.colorCar = inputColor.value;
+
+    stateData.stateSvgColor = inputColor.value;
+    if (keyControlsBtnState === 'formCreat') {
+      stateData.stateCreateColor = inputColor.value;
+      stateData.stateUpdateColor = '#000000';
+    }
+
+    if (keyControlsBtnState === 'formSelect') {
+      stateData.stateUpdateColor = inputColor.value;
+      stateData.stateCreateColor = '#000000';
+    }
+
+    console.log(stateData.stateCreateColor);
+    console.log(stateData.stateUpdateColor);
   });
 
   dataStore.formCreateCarStore.colorCar = inputColor.value;
 
-  controlsBtnState[keyControlsBtnState].inputText = inputText;
-  controlsBtnState[keyControlsBtnState].inputColor = inputColor;
-  controlsBtnState[keyControlsBtnState].buttonSendCreateCar = buttonSendCreateCar;
-  // console.log(controlsBtnState.formSelect.buttonSendCreateCar);
-  // return [inputText, inputColor, buttonSendCreateCar];
+  // controlsBtnState[keyControlsBtnState].inputText = inputText;
+  // controlsBtnState[keyControlsBtnState].inputColor = inputColor;
+  // controlsBtnState[keyControlsBtnState].buttonSendCreateCar = buttonSendCreateCar;
 
   if (controlsBtnState.formSelect.buttonSendCreateCar) {
-    controlsBtnState.formSelect.buttonSendCreateCar.addEventListener('click', () => {
+    controlsBtnState.formSelect.buttonSendCreateCar.addEventListener('click', async () => {
       controlsBtnState.formSelect.buttonSendCreateCar.disabled = true;
       controlsBtnState.infoCarNameSelectCar.textContent = controlsBtnState.formSelect.inputText.value;
       controlsBtnState.btnSelectListItem.disabled = false;
@@ -127,22 +159,26 @@ export const createChooseBlock = (buttonTitle, parent, keyControlsBtnState) => {
 
       // Это может работать и синхронно, нечего тормозить процесс))
       const { selectID } = controlsBtnState;
-      const { colorCar, textCar } = dataStore.formCreateCarStore;
+      const { stateUpdateColor: colorCar, stateUpdateText: textCar } = stateData;
+      // const { colorCar, textCar } = dataStore.formCreateCarStore;
       const data = {
         name: textCar,
         color: colorCar,
       };
-      fetchUpdateCar(selectID, data);
+      await fetchUpdateCar(selectID, data);
+      removeAllChild(list);
+      fetchPagination(currentPage.numberCurrentPage, createListItem);
+
       controlsBtnState.selectID = null;
 
       dataStore.formCreateCarStore.textCar = '';
       dataStore.formCreateCarStore.colorCar = '#000000';
+
+      stateData.stateSvgColor = '#000000';
+      stateData.stateUpdateColor = '#000000';
+      stateData.stateUpdateDisabled = true;
+      stateData.stateCreateDisabled = false;
+      stateData.stateUpdateText = '';
     });
   }
-
-  // if (controlsBtnState.formCreat.buttonSendCreateCar) {
-  //   controlsBtnState.formCreat.buttonSendCreateCar.addEventListener('click', () => {
-  //     createListItem(counterID.getCount(), getRandomColor(), getRandomCarName());
-  //   });
-  // }
 };

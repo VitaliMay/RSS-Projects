@@ -1,4 +1,4 @@
-import { removeAllChild, createEl, getRandomColor } from '../utils/elementUtils';
+import { removeAllChild, createEl, getRandomColor, rgbToHex } from '../utils/elementUtils';
 import { createTitleH1, createChooseBlock, svgUseCar, createBlock } from '../pages/garage-page/garage';
 import { main } from '../components/wrapper/wrapper';
 import { createButton } from '../components/button/button';
@@ -30,16 +30,65 @@ import {
   creatTableElement,
   createCurrentListWinners,
 } from '../pages/winners-page/winners';
+import { dataStore, stateData } from '../store/data-store';
+
+// function test() {
+//   const blockCreateCar = createBlock(main);
+//   // const blockCreateCar = createBlock(main);
+//   createChooseBlock('create', blockCreateCar, 'formCreat');
+//   // createChooseBlock('create', blockCreateCar);
+//   controlsBtnState.formCreat.buttonSendCreateCar.disabled = false;
+
+//   controlsBtnState.formCreatBlock = blockCreateCar;
+
+//   blockCreateCar.append(svgUseCar);
+//   const btnCreat100Cars = createButton('create 100 random cars', blockCreateCar);
+//   controlsBtnState.creat100Cars = btnCreat100Cars;
+
+//   controlsBtnState.creat100Cars.addEventListener('click', async () => {
+//     const requests = [];
+//     // const { pagination } = controlsBtnState;
+//     // const titlePagination = pagination.title;
+//     // const { buttonNext } = pagination;
+
+//     const { numberCurrentPage } = currentPage;
+//     currentPage.totalCars += 100;
+
+//     for (let i = 0; i < 100; i += 1) {
+//       const carID = counterID.getCount();
+//       const colorCar = getRandomColor();
+//       const carName = getRandomCarName();
+//       // createListItem(carID, colorCar, carName);
+
+//       requests.push(fetchAdd({ id: carID, color: colorCar, name: carName }));
+//     }
+
+//     try {
+//       await Promise.all(requests);
+//     } catch (error) {
+//       console.error('Global error:', error);
+//     }
+
+//     removeAllChild(list);
+//     fetchPagination(numberCurrentPage, createListItem);
+//   });
+// }
+
+// test();
 
 export const routes = {
   '/garage': async () => {
+    // console.log(controlsBtnState.formCreat.inputColor.value);
     removeAllChild(main);
     const titleGarage = createTitleH1('Garage (total cars: )', main);
     controlsBtnState.titleGarage = titleGarage;
-    // console.log(controlsBtnState.titleGarage);
+
+    // const { formCreatBlock: blockCreateCar } = controlsBtnState;
+    // main.append(blockCreateCar);
 
     createPaginationBlock(main, controlsBtnState);
     const blockCreateCar = createBlock(main);
+    // const blockCreateCar = createBlock(main);
     createChooseBlock('create', blockCreateCar, 'formCreat');
     // createChooseBlock('create', blockCreateCar);
     controlsBtnState.formCreat.buttonSendCreateCar.disabled = false;
@@ -123,6 +172,12 @@ export const routes = {
       inputColor.value = '#000000';
       inputText.value = '';
       svgUseCar.style.color = inputColor.value;
+
+      stateData.stateSvgColor = '#000000';
+      stateData.stateCreateColor = '#000000';
+      stateData.stateUpdateDisabled = true;
+      stateData.stateCreateDisabled = false;
+      stateData.stateCreateText = '';
     });
 
     const resetRaceButton = createButton('reset race', main);
@@ -268,10 +323,57 @@ export const routes = {
     // console.log(currentPage.list);
 
     // fetchPagination(currentPage.numberCurrentPage, createListItem);
+
+    // console.log(controlsBtnState.formCreat.inputColor.value);
+    // console.log(controlsBtnState.btnSelectListItem);
+
+    // console.log(controlsBtnState.infoCarNameSelectCar);
+    // console.log(controlsBtnState.selectTrack);
+    // console.log(controlsBtnState.chooseCarName);
+
+    console.log(stateData.stateCreateColor);
+    console.log(stateData.stateUpdateColor);
+
+    const { selectID, svgModel } = controlsBtnState;
+    if (selectID) {
+      const block = document.getElementById(`${selectID}`);
+      const option = block.querySelector('.option');
+      const buttonArr = option.querySelectorAll('.button');
+      buttonArr.forEach((item) => (item.disabled = true));
+    }
+    const { inputText, inputColor, buttonSendCreateCar: buttonSendSelect } = controlsBtnState.formSelect;
+    const {
+      inputText: inputTextCreate,
+      inputColor: inputColorCreate,
+      buttonSendCreateCar: buttonSendCreate,
+    } = controlsBtnState.formCreat;
+
+    // const block = document.getElementById(`${selectID}`);
+    // const track = block.querySelector('.race-block__track');
+    // const info = block.querySelector('.info-car-name');
+
+    // const color = rgbToHex(track.style.color);
+    inputTextCreate.value = stateData.stateCreateText;
+    inputColorCreate.value = stateData.stateCreateColor;
+    svgModel.style.color = stateData.stateSvgColor;
+
+    inputColor.value = stateData.stateUpdateColor;
+    inputText.value = stateData.stateUpdateText;
+
+    inputText.disabled = stateData.stateUpdateDisabled;
+    inputColor.disabled = stateData.stateUpdateDisabled;
+    buttonSendSelect.disabled = stateData.stateUpdateDisabled;
+
+    inputTextCreate.disabled = stateData.stateCreateDisabled;
+    inputColorCreate.disabled = stateData.stateCreateDisabled;
+    buttonSendCreate.disabled = stateData.stateCreateDisabled;
+
+    chooseCarName.textContent = stateData.stateUpdateText;
   },
 
   '/winners': async () => {
     removeAllChild(main);
+    // console.log(controlsBtnState.selectID);
 
     currentPage.dataTotalGarage = await fetchGetTotalGarage();
     await fetchGetTotalWinners();
@@ -380,6 +482,9 @@ export const routes = {
     // const table = createTable(tableWrapper);
 
     // main.append(winnersPage.table.wrapper);
+
+    console.log(stateData.stateCreateColor);
+    console.log(stateData.stateUpdateColor);
   },
 
   '*': () => {
