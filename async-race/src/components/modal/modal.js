@@ -5,7 +5,6 @@ export const modalWinner = (innerLayotElement, textModal) => {
   // body.classList.add('lock');
 
   const modalContainer = createEl({ classes: ['modal-container'], parent: body });
-  // const modalContainer = createEl({ classes: ['modal-container', 'modal-container--active'] });
 
   const removeModal = () => {
     modalContainer.classList.add('modal-del');
@@ -41,13 +40,6 @@ export const modalWinner = (innerLayotElement, textModal) => {
   });
 
   modal.append(innerLayotElement(textModal));
-  // modal.append(innerLayotElement(removeModal));
-  // createEl({
-  //   tag: 'h2',
-  //   classes: ['modal-title'],
-  //   text: 'There must be at least two valid options. An option is considered valid if its title is not empty and its weight is greater than 0',
-  //   parent: modal,
-  // });
 
   const buttonClose = createEl({
     tag: 'button',
@@ -57,24 +49,12 @@ export const modalWinner = (innerLayotElement, textModal) => {
     parent: modal,
   });
 
-  // const removeModal = () => {
-  //     modalContainer.classList.add('modal-del');
-
-  //     modalContainer.addEventListener('animationend', () => {
-  //         modalContainer.remove();
-  //     });
-
-  //     body.classList.remove('lock');
-  // };
-
   buttonClose.addEventListener('click', removeModal);
   buttonCross.addEventListener('click', removeModal);
 
   modalContainer.addEventListener('click', function (event) {
     const { target } = event;
     if (target === this || target === buttonCross || target === buttonClose) {
-      // Клик произошел именно на родительском элементе или крестике
-      // this.classList.remove('modal-container--active');
       removeModal();
       // body.classList.remove('lock');
     }
@@ -95,14 +75,3 @@ export function modalTitleElement(text) {
     parent: null,
   });
 }
-
-// export const modalTextAreaElement = () => {
-//     return createEl({
-//         tag: 'textarea',
-//         attributes: {
-//             rows: '12',
-//             cols: '64',
-//             placeholder: 'Paste a list of new options',
-//         },
-//     });
-// };

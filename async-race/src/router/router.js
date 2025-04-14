@@ -1,4 +1,4 @@
-import { removeAllChild, createEl, getRandomColor, rgbToHex } from '../utils/elementUtils';
+import { removeAllChild, createEl, getRandomColor } from '../utils/elementUtils.ts';
 import { createTitleH1, createChooseBlock, svgUseCar, createBlock } from '../pages/garage-page/garage';
 import { main } from '../components/wrapper/wrapper';
 import { createButton } from '../components/button/button';
@@ -18,79 +18,20 @@ import {
   fetchStopped,
   fetchGetTotalWinners,
   fetchGetTotalGarage,
-  fetchSortWinner,
 } from '../api.js/api';
 
-import {
-  createTableWrapper,
-  createTable,
-  createTableTitle,
-  firstLoad,
-  createPageOptons,
-  creatTableElement,
-  createCurrentListWinners,
-} from '../pages/winners-page/winners';
-import { dataStore, stateData } from '../store/data-store';
-
-// function test() {
-//   const blockCreateCar = createBlock(main);
-//   // const blockCreateCar = createBlock(main);
-//   createChooseBlock('create', blockCreateCar, 'formCreat');
-//   // createChooseBlock('create', blockCreateCar);
-//   controlsBtnState.formCreat.buttonSendCreateCar.disabled = false;
-
-//   controlsBtnState.formCreatBlock = blockCreateCar;
-
-//   blockCreateCar.append(svgUseCar);
-//   const btnCreat100Cars = createButton('create 100 random cars', blockCreateCar);
-//   controlsBtnState.creat100Cars = btnCreat100Cars;
-
-//   controlsBtnState.creat100Cars.addEventListener('click', async () => {
-//     const requests = [];
-//     // const { pagination } = controlsBtnState;
-//     // const titlePagination = pagination.title;
-//     // const { buttonNext } = pagination;
-
-//     const { numberCurrentPage } = currentPage;
-//     currentPage.totalCars += 100;
-
-//     for (let i = 0; i < 100; i += 1) {
-//       const carID = counterID.getCount();
-//       const colorCar = getRandomColor();
-//       const carName = getRandomCarName();
-//       // createListItem(carID, colorCar, carName);
-
-//       requests.push(fetchAdd({ id: carID, color: colorCar, name: carName }));
-//     }
-
-//     try {
-//       await Promise.all(requests);
-//     } catch (error) {
-//       console.error('Global error:', error);
-//     }
-
-//     removeAllChild(list);
-//     fetchPagination(numberCurrentPage, createListItem);
-//   });
-// }
-
-// test();
+import { firstLoad, createCurrentListWinners } from '../pages/winners-page/winners';
+import { stateData } from '../store/data-store';
 
 export const routes = {
   '/garage': async () => {
-    // console.log(controlsBtnState.formCreat.inputColor.value);
     removeAllChild(main);
     const titleGarage = createTitleH1('Garage (total cars: )', main);
     controlsBtnState.titleGarage = titleGarage;
 
-    // const { formCreatBlock: blockCreateCar } = controlsBtnState;
-    // main.append(blockCreateCar);
-
     createPaginationBlock(main, controlsBtnState);
     const blockCreateCar = createBlock(main);
-    // const blockCreateCar = createBlock(main);
     createChooseBlock('create', blockCreateCar, 'formCreat');
-    // createChooseBlock('create', blockCreateCar);
     controlsBtnState.formCreat.buttonSendCreateCar.disabled = false;
 
     blockCreateCar.append(svgUseCar);
@@ -99,9 +40,6 @@ export const routes = {
 
     controlsBtnState.creat100Cars.addEventListener('click', async () => {
       const requests = [];
-      // const { pagination } = controlsBtnState;
-      // const titlePagination = pagination.title;
-      // const { buttonNext } = pagination;
 
       const { numberCurrentPage } = currentPage;
       currentPage.totalCars += 100;
@@ -110,7 +48,6 @@ export const routes = {
         const carID = counterID.getCount();
         const colorCar = getRandomColor();
         const carName = getRandomCarName();
-        // createListItem(carID, colorCar, carName);
 
         requests.push(fetchAdd({ id: carID, color: colorCar, name: carName }));
       }
@@ -160,8 +97,6 @@ export const routes = {
         createListItem(carID, colorCar, carName);
       }
 
-      // paginationButtonHolder();
-
       currentPage.totalCars += 1;
       controlsBtnState.titleGarage.textContent = `Garage (total cars: ${currentPage.totalCars})`;
 
@@ -193,9 +128,6 @@ export const routes = {
 
       currentPage.isRace = true;
 
-      // currentPage.list = list;
-      // console.log(currentPage.list);
-
       const blockArr = [...list.querySelectorAll('.list-item')];
       const trackArr = [...list.querySelectorAll('.race-block__track')];
       const svgArr = [...list.querySelectorAll('.car-race')];
@@ -205,6 +137,7 @@ export const routes = {
       const buttonsAll = [...document.querySelectorAll('.button')];
 
       buttonsAll.forEach((item) => {
+        // eslint-disable-next-line no-param-reassign
         item.disabled = true;
       });
 
@@ -213,34 +146,24 @@ export const routes = {
       formCreat.inputColor.disabled = true;
 
       resetRaceButton.disabled = false;
-      // controlsBtnState.buttonWinners.disabled = false;
 
-      // await Promise.all(
-      //   blockArr.map((item, index) =>
-      // startCarAnimation(trackArr[index], svgArr[index], item.id, startButtonArr[index]))
-      // );
-
-      // Сначала получаю асинхронно время для всех машинок
       const carsData = await Promise.all(
         blockArr.map((item, index) => startCarAnimation(trackArr[index], svgArr[index], item.id, startButtonArr[index])),
       );
 
-      // запускаю все анимации одновременно
       carsData.forEach((car) => {
         if (car) {
-          startAnimation(car.track, car.svg, car.duration); // Запуск анимации
-          // Вынес поверку статуса
+          startAnimation(car.track, car.svg, car.duration);
           checkDriveStatus(car.id, car.svg);
         }
       });
     });
 
     resetRaceButton.addEventListener('click', async () => {
-      // startRaceButton.disabled = false;
-
       const buttonsAll = [...document.querySelectorAll('.button')];
 
       buttonsAll.forEach((item) => {
+        // eslint-disable-next-line no-param-reassign
         item.disabled = false;
       });
       paginationButtonHolder();
@@ -258,6 +181,7 @@ export const routes = {
       const backButtonArr = [...list.querySelectorAll('.button_back')];
 
       backButtonArr.forEach((item) => {
+        // eslint-disable-next-line no-param-reassign
         item.disabled = true;
         item.classList.add('buttonAnimation');
       });
@@ -267,43 +191,14 @@ export const routes = {
         svgArr[index].classList.remove('pause');
         svgArr[index].classList.remove('move');
         svgArr[index].style = '';
-        // backButtonArr[index].disabled = true;
-        // // trackArr[index].classList.remove('race-block__track_adapt');
       };
 
-      await Promise.all(
-        blockArr.map((item, index) => fetchStopped(item.id, () => backLogic(index))),
-        // if (!item.id) throw new Error(`Индекс ${index} не имеет ID`);
-      );
+      await Promise.all(blockArr.map((item, index) => fetchStopped(item.id, () => backLogic(index))));
 
       backButtonArr.forEach((item) => {
-        // item.disabled = true;
         item.classList.remove('buttonAnimation');
       });
-
-      // blockArr.forEach((item) => {
-      //   const { id } = item;
-      // });
-
-      // blockArr.forEach((item) => {
-      //   const { id } = item;
-      // });
-
-      // buttonsAll.forEach((item) => {
-      //   item.disabled = false;
-      // });
-
-      // controlsBtnState.buttonGarage.disabled = true;
-      // controlsBtnState.formSelect.buttonSendCreateCar.disabled = true;
-
-      // const { formCreat } = controlsBtnState;
-      // formCreat.inputText.disabled = false;
-      // formCreat.inputColor.disabled = false;
-
-      // paginationButtonHolder();
     });
-
-    // fetchInitial(createListItem);
 
     main.append(list);
     removeAllChild(list);
@@ -315,24 +210,8 @@ export const routes = {
       await fetchPagination(currentPage.numberCurrentPage, createListItem);
     }
 
-    // main.append(list);
-    // removeAllChild(list);
-    // await fetchInitial(createListItem);
-
-    // currentPage.list = list;
-    // console.log(currentPage.list);
-
-    // fetchPagination(currentPage.numberCurrentPage, createListItem);
-
-    // console.log(controlsBtnState.formCreat.inputColor.value);
-    // console.log(controlsBtnState.btnSelectListItem);
-
-    // console.log(controlsBtnState.infoCarNameSelectCar);
-    // console.log(controlsBtnState.selectTrack);
-    // console.log(controlsBtnState.chooseCarName);
-
-    console.log(stateData.stateCreateColor);
-    console.log(stateData.stateUpdateColor);
+    // console.log(stateData.stateCreateColor);
+    // console.log(stateData.stateUpdateColor);
 
     const { selectID, svgModel } = controlsBtnState;
     if (selectID) {
@@ -348,11 +227,6 @@ export const routes = {
       buttonSendCreateCar: buttonSendCreate,
     } = controlsBtnState.formCreat;
 
-    // const block = document.getElementById(`${selectID}`);
-    // const track = block.querySelector('.race-block__track');
-    // const info = block.querySelector('.info-car-name');
-
-    // const color = rgbToHex(track.style.color);
     inputTextCreate.value = stateData.stateCreateText;
     inputColorCreate.value = stateData.stateCreateColor;
     svgModel.style.color = stateData.stateSvgColor;
@@ -373,7 +247,6 @@ export const routes = {
 
   '/winners': async () => {
     removeAllChild(main);
-    // console.log(controlsBtnState.selectID);
 
     currentPage.dataTotalGarage = await fetchGetTotalGarage();
     await fetchGetTotalWinners();
@@ -391,23 +264,7 @@ export const routes = {
 
     main.append(winnersPage.table.wrapper);
 
-    /** ****************************************************** */
-
-    // const { list: listWinner } = winnersPage.table;
-    // removeAllChild(listWinner);
-    // const page = winnersPage.numberCurrentPage;
-    // const { sort, order } = winnersPage.currentSort;
-    // const dataSort = await fetchSortWinner(page, sort, order);
-    // const { dataTotalGarage } = currentPage;
-    // const optionArr = createPageOptons(dataSort, dataTotalGarage);
-    // optionArr.forEach((item) => {
-    //   const { index, id, color, name, wins, time } = item;
-    //   creatTableElement(index, id, color, name, wins, time);
-    // });
-
     await createCurrentListWinners();
-
-    /** ****************************************************** */
 
     const { buttonPrev, buttonNext } = winnersPage.pagination;
 
@@ -416,23 +273,6 @@ export const routes = {
       paginationButtonHolderWinner();
 
       await createCurrentListWinners();
-
-      // const { list } = winnersPage.table;
-      // removeAllChild(list);
-
-      // const page = winnersPage.numberCurrentPage;
-
-      // const { sort, order } = winnersPage.currentSort;
-
-      // const dataSort = await fetchSortWinner(page, sort, order);
-      // const { dataTotalGarage } = currentPage;
-
-      // const optionArr = createPageOptons(dataSort, dataTotalGarage);
-
-      // optionArr.forEach((item) => {
-      //   const { index, id, color, name, wins, time } = item;
-      //   creatTableElement(index, id, color, name, wins, time);
-      // });
     });
 
     buttonPrev.addEventListener('click', async () => {
@@ -440,51 +280,10 @@ export const routes = {
       paginationButtonHolderWinner();
 
       await createCurrentListWinners();
-
-      // const { list } = winnersPage.table;
-      // removeAllChild(list);
-
-      // const page = winnersPage.numberCurrentPage;
-
-      // const { sort, order } = winnersPage.currentSort;
-
-      // const dataSort = await fetchSortWinner(page, sort, order);
-      // const { dataTotalGarage } = currentPage;
-
-      // const optionArr = createPageOptons(dataSort, dataTotalGarage);
-
-      // optionArr.forEach((item) => {
-      //   const { index, id, color, name, wins, time } = item;
-      //   creatTableElement(index, id, color, name, wins, time);
-      // });
     });
 
-    // console.log(currentPage.dataTotalGarage);
-    // main.append(currentPage.list);
-
-    // const { buttonPrev, buttonNext } = winnersPage.pagination;
-    // const { table } = winnersPage;
-
-    // buttonNext.addEventListener('click', () => {
-    //   winnersPage.numberCurrentPage += 1;
-    //   removeAllChild(table);
-    //   fetchPagination(currentPage.numberCurrentPage, createListItem);
-    // });
-
-    // buttonPrev.addEventListener('click', () => {
-    //   winnersPage.numberCurrentPage -= 1;
-    //   removeAllChild(table);
-    //   fetchPagination(currentPage.numberCurrentPage, createListItem);
-    // });
-
-    // const tableWrapper = createTableWrapper(main);
-    // const tableTitle = createTableTitle(tableWrapper);
-    // const table = createTable(tableWrapper);
-
-    // main.append(winnersPage.table.wrapper);
-
-    console.log(stateData.stateCreateColor);
-    console.log(stateData.stateUpdateColor);
+    // console.log(stateData.stateCreateColor);
+    // console.log(stateData.stateUpdateColor);
   },
 
   '*': () => {
@@ -529,5 +328,3 @@ export class Router {
     }
   }
 }
-
-// const routerItem = new Router(routes);

@@ -26,6 +26,12 @@
         "class-methods-use-this": "off",
         "@typescript-eslint/no-explicit-any": 2,
         "indent": ["error", 2]
+    // "@typescript-eslint/no-unused-vars": [
+    //     "error",
+    //     {
+    //       "args": "none" // Полностью отключает проверку неиспользуемых параметров
+    //     }
+    //   ]
     //     "prettier/prettier": [
     //             "error",
     //         {

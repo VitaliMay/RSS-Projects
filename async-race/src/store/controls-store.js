@@ -72,13 +72,6 @@ export const winnersPage = {
   },
 };
 
-// if (controlsBtnState.formSelect.buttonSendCreateCar) {
-//   controlsBtnState.formSelect.buttonSendCreateCar.addEventListener('click', () => {
-//     console.log('Привет');
-//     controlsBtnState.formSelect.buttonSendCreateCar.disabled = true;
-//   });
-// }
-
 /** ********************************************* */
 // Будущий TS
 

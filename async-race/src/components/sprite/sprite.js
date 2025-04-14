@@ -9,7 +9,3 @@ const svgSpriteElement = () => {
 };
 
 export default svgSpriteElement;
-
-// const svgElement = svgDoc.documentElement;
-// export default svgElement;
-// body.append(svgElement);

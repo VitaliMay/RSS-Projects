@@ -1,4 +1,4 @@
-import { createEl } from '../../utils/elementUtils';
+import { createEl } from '../../utils/elementUtils.ts';
 import { createButton } from '../button/button';
 import { controlsBtnState, currentPage, winnersPage } from '../../store/controls-store';
 
@@ -10,13 +10,12 @@ export function createPaginationBlock(parent, store) {
   const buttonNext = createButton('Next', paginationBlock, ['button_pag']);
   buttonNext.disabled = true;
 
+  // eslint-disable-next-line no-param-reassign
   store.pagination.title = paginationTitle;
+  // eslint-disable-next-line no-param-reassign
   store.pagination.buttonPrev = buttonPrev;
+  // eslint-disable-next-line no-param-reassign
   store.pagination.buttonNext = buttonNext;
-
-  // controlsBtnState.pagination.title = paginationTitle;
-  // controlsBtnState.pagination.buttonPrev = buttonPrev;
-  // controlsBtnState.pagination.buttonNext = buttonNext;
 }
 
 export function paginationButtonHolder() {
@@ -24,9 +23,7 @@ export function paginationButtonHolder() {
     currentPage.numberCurrentPage = 1;
   }
   const { numberCurrentPage, totalCars } = currentPage;
-  // const { pagination } = controlsBtnState;
   const { title, buttonPrev, buttonNext } = controlsBtnState.pagination;
-  // const { buttonPrev, buttonNext } = controlsBtnState.pagination;
 
   buttonPrev.disabled = true;
   buttonNext.disabled = true;
@@ -53,9 +50,7 @@ export function paginationButtonHolderWinner() {
     winnersPage.numberCurrentPage = 1;
   }
   const { totalWinners, numberCurrentPage } = winnersPage;
-  // const { pagination } = controlsBtnState;
   const { title, buttonPrev, buttonNext } = winnersPage.pagination;
-  // const { buttonPrev, buttonNext } = controlsBtnState.pagination;
 
   buttonPrev.disabled = true;
   buttonNext.disabled = true;

@@ -48,17 +48,3 @@ export function getRandomCarName() {
 }
 
 export const counterID = createCounterID(0);
-
-// export function hexaColor() {
-//   const hexaDecimal = () => Math.floor(Math.random() * 256).toString(16);
-//   return `#${hexaDecimal()}${hexaDecimal()}${hexaDecimal()}`;
-// }
-
-// export function idCounter(maxKeyValue) {
-//   let counter = maxKeyValue || 0;
-//   // Начальное значение с максимальным ключом (беру из fetch начальной загрузки) или 0
-//   return () => {
-//     counter += 1;
-//     return counter;
-//   };
-// }
