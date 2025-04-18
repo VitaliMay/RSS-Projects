@@ -2,11 +2,13 @@ import { removeAllChild } from '../utils/elementUtils';
 
 import { createTitleH1 } from '../components/tags/tags';
 import { main } from '../components/wrapper/wrapper';
+import constrols from '../store/constrols';
 
 export const routes = {
   '/login': () => {
     removeAllChild(main);
     createTitleH1('Login )', main);
+    main.append(constrols.page.login.formLogin);
   },
 
   '/about': () => {

@@ -16,7 +16,7 @@ const createFooter = (parent: HTMLElement) => {
 
   createEl({
     tag: 'p',
-    text: '2025',
+    text: '2025 VitaliMay',
     classes: ['copyright'],
     parent: footerContainer,
   });
