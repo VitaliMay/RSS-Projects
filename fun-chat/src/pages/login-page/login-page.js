@@ -83,6 +83,7 @@ const createFormLogin = (parent) => {
     event.preventDefault();
     // console.log('Send password...');
     window.location.hash = '/main';
+    constrols.userLogin.textContent = inputLogin.value;
     formLogin.reset();
   });
 };

@@ -13,6 +13,18 @@ const constrols = {
       inputPasswordInfo: null,
       buttonFormLogin: null,
     },
+    main: {
+      wrapper: null,
+      inputSearch: null,
+      userList: null,
+      messageBlock: null,
+      currentUserInfo: null,
+      currentUser: null,
+      messageWrapper: null,
+      formMessage: null,
+      inputMessage: null,
+      buttonSendMessage: null,
+    },
   },
 };
 

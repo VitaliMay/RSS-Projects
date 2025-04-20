@@ -19,6 +19,7 @@ export const routes = {
   '/main': () => {
     removeAllChild(main);
     createTitleH1('Main )', main);
+    main.append(constrols.page.main.wrapper);
   },
 
   '*': () => {
