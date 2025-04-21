@@ -4,6 +4,7 @@ import { createEl } from '../../utils/elementUtils';
 import createButton from '../button/button';
 import { createTitleH1 } from '../tags/tags';
 import constrols from '../../store/constrols';
+import storeLogin from '../../store/store';
 
 function createHeader(parent) {
   const header = createEl({ tag: 'header', classes: ['header'], parent });
@@ -13,7 +14,7 @@ function createHeader(parent) {
 
   const userLogin = createEl({
     tag: 'span',
-    text: '4444',
+    text: '',
     classes: ['title-login'],
     parent: header,
   });
@@ -38,6 +39,7 @@ function createHeader(parent) {
     window.location.hash = '/login';
     buttonLogout.disabled = true;
     buttonAbout.disabled = false;
+    storeLogin.clearStorage();
   });
 
   window.addEventListener('hashchange', () => {

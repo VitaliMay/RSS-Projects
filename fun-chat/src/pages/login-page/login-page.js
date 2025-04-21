@@ -4,6 +4,7 @@ import { createEl } from '../../utils/elementUtils';
 import createButton from '../../components/button/button';
 import constrols from '../../store/constrols';
 import validateForm from './login-validate';
+import storeLogin from '../../store/store';
 
 const createFormLogin = (parent) => {
   const formLogin = createEl({ tag: 'form', classes: ['form-login'], parent });
@@ -84,6 +85,7 @@ const createFormLogin = (parent) => {
     // console.log('Send password...');
     window.location.hash = '/main';
     constrols.userLogin.textContent = inputLogin.value;
+    storeLogin.addItem(inputLogin.value, inputPassword.value);
     formLogin.reset();
   });
 };

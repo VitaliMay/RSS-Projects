@@ -3,6 +3,7 @@ import { removeAllChild } from '../utils/elementUtils';
 import { createTitleH1 } from '../components/tags/tags';
 import { main } from '../components/wrapper/wrapper';
 import constrols from '../store/constrols';
+import storeLogin from '../store/store';
 
 export const routes = {
   '/login': () => {
@@ -33,12 +34,19 @@ export class Router {
     this.routes = path;
     this.lastHash = '';
 
+    this.authStore = storeLogin;
+
     window.addEventListener('hashchange', this.routeManager.bind(this));
     this.routeManager();
   }
 
   static navigate(hash) {
     window.location.hash = hash;
+  }
+
+  isLogined() {
+    const { login, password } = this.authStore.data.dataUser;
+    return !!login && !!password;
   }
 
   routeManager() {
@@ -49,6 +57,18 @@ export class Router {
     }
 
     if (hash === '/fun-chat' || hash === '/') {
+      Router.navigate('/login');
+      return;
+    }
+
+    // Защита маршрута /login для авторизованных
+    if (hash === '/login' && this.isLogined()) {
+      Router.navigate('/main');
+      return;
+    }
+
+    // Защита авторизованных маршрутов
+    if (hash !== '/login' && !this.isLogined()) {
       Router.navigate('/login');
       return;
     }
