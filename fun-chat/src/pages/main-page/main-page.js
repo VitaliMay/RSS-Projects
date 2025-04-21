@@ -4,6 +4,8 @@ import { createEl } from '../../utils/elementUtils';
 import createButton from '../../components/button/button';
 import constrols from '../../store/constrols';
 
+import { createMessageSend } from './message';
+
 const createMainPageWrapper = (parent) => {
   const mainPageWrapper = createEl({ classes: ['main-wrapper'], parent });
   constrols.page.main.wrapper = mainPageWrapper;
@@ -34,6 +36,11 @@ const createMainPageWrapper = (parent) => {
   const messageWrapper = createEl({ classes: ['message-wrapper'], parent: messageBlock });
   constrols.page.main.messageWrapper = messageWrapper;
 
+  createMessageSend(messageWrapper, 'Привет');
+  // createMessageSend(messageWrapper, 'Привет', 'message-item_send');
+  createMessageSend(messageWrapper, 'Ещё один Привет', 'message-item_receive');
+  createMessageSend(messageWrapper, 'Мой привет тебе в ответ');
+
   createFormMessage(null);
   // constrols.page.main.messageBlock.append(constrols.page.main.formMessage);
 };
@@ -63,8 +70,8 @@ function createFormMessage(parent) {
   });
 }
 
-const creatListItem = (parent, text, id) => {
-  const listItem = createEl({
+const creatUserListItem = (parent, text, id) => {
+  const userListItem = createEl({
     tag: 'li',
     classes: ['list-item', 'list-item_active'],
     parent,
@@ -72,7 +79,7 @@ const creatListItem = (parent, text, id) => {
     attributes: { id },
   });
 
-  listItem.addEventListener('click', () => {
+  userListItem.addEventListener('click', () => {
     // const listItemCopy = listItem.cloneNode(true);
     const { userList, currentUserInfo, currentUser } = constrols.page.main;
     // constrols.page.main.currentUserInfo.append(listItemCopy);
@@ -81,14 +88,14 @@ const creatListItem = (parent, text, id) => {
     if (currentUser) {
       userList.append(currentUser);
     }
-    currentUserInfo.append(listItem);
-    constrols.page.main.currentUser = listItem;
+    currentUserInfo.append(userListItem);
+    constrols.page.main.currentUser = userListItem;
 
     constrols.page.main.messageBlock.append(constrols.page.main.formMessage);
   });
-  return listItem;
+  return userListItem;
 };
 
 // export default createMainPageWrapper;
 
-export { createMainPageWrapper, creatListItem };
+export { createMainPageWrapper, creatUserListItem };

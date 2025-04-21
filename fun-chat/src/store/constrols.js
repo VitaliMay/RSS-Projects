@@ -26,6 +26,11 @@ const constrols = {
       buttonSendMessage: null,
     },
   },
+  contextMenu: {
+    menu: null,
+    editButton: null,
+    deleteButton: null,
+  },
 };
 
 export default constrols;

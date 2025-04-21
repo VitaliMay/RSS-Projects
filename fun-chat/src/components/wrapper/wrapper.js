@@ -7,7 +7,7 @@ import createFooter from '../footer/footer';
 import constrols from '../../store/constrols';
 import createFormLogin from '../../pages/login-page/login-page';
 // import createMainPageWrapper from '../../pages/main-page/main-page';
-import { createMainPageWrapper, creatListItem } from '../../pages/main-page/main-page';
+import { createMainPageWrapper, creatUserListItem } from '../../pages/main-page/main-page';
 
 svgSpriteElement();
 
@@ -26,8 +26,8 @@ createFormLogin(constrols.main);
 
 createMainPageWrapper(constrols.main);
 
-creatListItem(constrols.page.main.userList, 'user-01', 25);
-creatListItem(constrols.page.main.userList, 'user-02', 34);
+creatUserListItem(constrols.page.main.userList, 'user-01', 25);
+creatUserListItem(constrols.page.main.userList, 'user-02', 34);
 
 createFooter(wrapper);
 
