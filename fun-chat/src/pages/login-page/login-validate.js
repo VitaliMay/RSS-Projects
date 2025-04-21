@@ -43,6 +43,9 @@ function validateForm() {
   } else if (hasInvalidChars) {
     inputPasswordInfo.textContent = 'Only Latin letters, numbers and !@#$%^&* symbols allowed';
     isPasswordValid = false;
+  } else if (loginValue === passwordValue) {
+    inputPasswordInfo.textContent = 'The password must not match the login';
+    isPasswordValid = false;
   } else {
     inputPasswordInfo.textContent = '';
     isPasswordValid = true;
