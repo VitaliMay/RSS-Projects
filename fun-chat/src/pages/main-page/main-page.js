@@ -73,7 +73,8 @@ function createFormMessage(parent) {
 const creatUserListItem = (parent, text, id) => {
   const userListItem = createEl({
     tag: 'li',
-    classes: ['list-item', 'list-item_active'],
+    classes: ['list-item'],
+    // classes: ['list-item', 'list-item_active'],
     parent,
     text,
     attributes: { id },

@@ -26,8 +26,8 @@ createFormLogin(constrols.main);
 
 createMainPageWrapper(constrols.main);
 
-creatUserListItem(constrols.page.main.userList, 'user-01', 25);
-creatUserListItem(constrols.page.main.userList, 'user-02', 34);
+// creatUserListItem(constrols.page.main.userList, 'user-01', 25);
+// creatUserListItem(constrols.page.main.userList, 'user-02', 34);
 
 createFooter(wrapper);
 

@@ -111,6 +111,18 @@ const createFormLogin = (parent) => {
       },
     });
 
+    ws.send({
+      id: getUUID(),
+      type: 'USER_ACTIVE',
+      payload: null,
+    });
+
+    ws.send({
+      id: getUUID(),
+      type: 'USER_INACTIVE',
+      payload: null,
+    });
+
     /** *************************************** */
 
     // window.location.hash = '/main';
