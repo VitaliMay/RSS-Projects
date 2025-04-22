@@ -36,6 +36,9 @@ export class Router {
 
     this.authStore = storeLogin;
 
+    // Маршруты, доступные без авторизации
+    this.publicRoutes = ['/login', '/about'];
+
     window.addEventListener('hashchange', this.routeManager.bind(this));
     this.routeManager();
   }
@@ -47,6 +50,10 @@ export class Router {
   isLogined() {
     const { login, password } = this.authStore.data.dataUser;
     return !!login && !!password;
+  }
+
+  isPublicRoute(hash) {
+    return this.publicRoutes.includes(hash);
   }
 
   routeManager() {
@@ -67,11 +74,17 @@ export class Router {
       return;
     }
 
-    // Защита авторизованных маршрутов
-    if (hash !== '/login' && !this.isLogined()) {
+    // Защита авторизованных маршрутов (кроме публичных)
+    if (!this.isPublicRoute(hash) && !this.isLogined()) {
       Router.navigate('/login');
       return;
     }
+
+    // Защита авторизованных маршрутов
+    // if (hash !== '/login' && !this.isLogined()) {
+    //   Router.navigate('/login');
+    //   return;
+    // }
 
     this.lastHash = hash;
 
@@ -84,3 +97,5 @@ export class Router {
     }
   }
 }
+
+// export const routerItem = new Router(routes);

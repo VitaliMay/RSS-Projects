@@ -1,10 +1,11 @@
 import './login-page.scss';
 
-import { createEl } from '../../utils/elementUtils';
+import { createEl, getUUID } from '../../utils/elementUtils';
 import createButton from '../../components/button/button';
 import constrols from '../../store/constrols';
 import validateForm from './login-validate';
 import storeLogin from '../../store/store';
+import { ws } from '../../api/api';
 
 const createFormLogin = (parent) => {
   const formLogin = createEl({ tag: 'form', classes: ['form-login'], parent });
@@ -83,10 +84,39 @@ const createFormLogin = (parent) => {
   formLogin.addEventListener('submit', (event) => {
     event.preventDefault();
     // console.log('Send password...');
-    window.location.hash = '/main';
-    constrols.userLogin.textContent = inputLogin.value;
-    storeLogin.addItem(inputLogin.value, inputPassword.value);
-    formLogin.reset();
+
+    /** *************************************** */
+    // ws.send({
+    //   id: '',
+    //   type: 'USER_LOGIN',
+    //   payload: {
+    //     user: {
+    //       login: `${inputLogin.value}`,
+    //       password: `${inputPassword.value}`,
+    //     },
+    //   },
+    // });
+
+    // Блокируем кнопку на время запроса
+    constrols.page.login.buttonFormLogin.disabled = true;
+
+    ws.send({
+      id: getUUID(),
+      type: 'USER_LOGIN',
+      payload: {
+        user: {
+          login: inputLogin.value,
+          password: inputPassword.value,
+        },
+      },
+    });
+
+    /** *************************************** */
+
+    // window.location.hash = '/main';
+    // constrols.userLogin.textContent = inputLogin.value;
+    // storeLogin.addItem(inputLogin.value, inputPassword.value);
+    // formLogin.reset();
   });
 };
 

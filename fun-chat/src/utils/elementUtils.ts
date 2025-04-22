@@ -97,6 +97,11 @@ function getMaxID<T extends { id: string | number }>(initialData: T[]): number {
 
 /* *************************************** */
 
+// eslint-disable-next-line no-restricted-globals
+const getUUID = (): string => self.crypto.randomUUID();
+
+/* *************************************** */
+
 // function hexaDecimal() {
 //   return Math.floor(Math.random() * 256)
 //     .toString(16)
@@ -127,6 +132,7 @@ export {
   // getRandomIntegerArr,
   createCounterID,
   getMaxID,
+  getUUID,
   // getRandomColor,
   // rgbToHex,
 };
