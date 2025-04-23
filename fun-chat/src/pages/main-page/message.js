@@ -32,7 +32,13 @@ export function createMessageSend(parent, text, addClass = 'message-item_send') 
       contextMenu.style.top = `${event.clientY}px`;
 
       const { menu, editButton, deleteButton } = constrols.contextMenu;
-      editButton.onclick = () => console.log(text);
+      editButton.onclick = () => {
+        // console.log(text);
+        constrols.page.main.currentEditMessage = messageSend;
+        constrols.page.main.currentEditMessageMain = messageMain;
+        constrols.page.main.inputMessage.value = text;
+        console.log(constrols.page.main.inputMessage);
+      };
       deleteButton.onclick = () => {
         messageSend.remove();
         menu.style.display = 'none';

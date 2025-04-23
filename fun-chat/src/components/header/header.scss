@@ -31,6 +31,12 @@
 
   display: grid;
   grid-template-columns: 1fr 1fr;
+
+  @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+      row-gap: 15px;
+      column-gap: 0;
+  }
 }
 
 .title-login {

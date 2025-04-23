@@ -20,12 +20,18 @@ const constrols = {
       messageBlock: null,
       currentUserInfo: null,
       currentUser: null,
+      currentUserCopy: null,
       currentUserLogin: null,
       currentUserID: null,
       messageWrapper: null,
+      currentEditMessage: null,
+      currentEditMessageMain: null,
       formMessage: null,
       inputMessage: null,
       buttonSendMessage: null,
+      messageSend: {
+        id: null,
+      },
     },
   },
   contextMenu: {

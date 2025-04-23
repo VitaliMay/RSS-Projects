@@ -1,8 +1,9 @@
 import './main-page.scss';
 
-import { createEl, removeAllChild } from '../../utils/elementUtils';
+import { createEl, removeAllChild, getUUID } from '../../utils/elementUtils';
 import createButton from '../../components/button/button';
 import constrols from '../../store/constrols';
+import { ws } from '../../api/api';
 
 import { createMessageSend } from './message';
 
@@ -36,10 +37,10 @@ const createMainPageWrapper = (parent) => {
   const messageWrapper = createEl({ classes: ['message-wrapper'], parent: messageBlock });
   constrols.page.main.messageWrapper = messageWrapper;
 
-  createMessageSend(messageWrapper, 'Привет');
-  // createMessageSend(messageWrapper, 'Привет', 'message-item_send');
-  createMessageSend(messageWrapper, 'Ещё один Привет', 'message-item_receive');
-  createMessageSend(messageWrapper, 'Мой привет тебе в ответ');
+  // createMessageSend(messageWrapper, 'Привет');
+  // // createMessageSend(messageWrapper, 'Привет', 'message-item_send');
+  // createMessageSend(messageWrapper, 'Ещё один Привет', 'message-item_receive');
+  // createMessageSend(messageWrapper, 'Мой привет тебе в ответ');
 
   createFormMessage(null);
   // constrols.page.main.messageBlock.append(constrols.page.main.formMessage);
@@ -68,6 +69,52 @@ function createFormMessage(parent) {
       buttonSendMessage.disabled = true;
     }
   });
+
+  formMessage.addEventListener('submit', (event) => {
+    event.preventDefault();
+    console.log('сообщение отправлено');
+
+    /* ****************************************** */
+    // для редактирования (при срабатывании кнопки Edit)
+    const { currentEditMessageMain } = constrols.page.main;
+    if (currentEditMessageMain) {
+      currentEditMessageMain.textContent = inputMessage.value;
+      // constrols.page.main.currentEditMessageMain.textContent = inputMessage.value;
+
+      // обнулить блок переменной сообщения
+      constrols.page.main.currentEditMessageMain = null;
+    }
+
+    // {
+    //   id: string,
+    //   type: "MSG_SEND",
+    //   payload: {
+    //     message: {
+    //       to: string,
+    //       text: string,
+    //     }
+    //   }
+    // }
+
+    const { currentUserLogin } = constrols.page.main;
+
+    const messageID = getUUID();
+    constrols.page.main.messageSend.id = messageID;
+
+    ws.send({
+      id: messageID,
+      type: 'MSG_SEND',
+      payload: {
+        message: {
+          to: currentUserLogin,
+          text: inputMessage.value,
+        },
+      },
+    });
+
+    formMessage.reset();
+    buttonSendMessage.disabled = true;
+  });
 }
 
 const creatUserListItem = (parent, text, id) => {
@@ -82,7 +129,13 @@ const creatUserListItem = (parent, text, id) => {
 
   userListItem.addEventListener('click', () => {
     const listItemCopy = userListItem.cloneNode(true);
-    const { userList, currentUserInfo, currentUser } = constrols.page.main;
+    const { userList, currentUserInfo, currentUser, messageWrapper, currentUserLogin } = constrols.page.main;
+    // console.log(messageWrapper);
+
+    // если выран новый элемент, то очищаю переписку
+    if (currentUserLogin !== text) {
+      removeAllChild(messageWrapper);
+    }
     // constrols.page.main.currentUserInfo.append(listItemCopy);
     removeAllChild(currentUserInfo);
     currentUserInfo.append(listItemCopy);
@@ -91,6 +144,7 @@ const creatUserListItem = (parent, text, id) => {
     // }
     // currentUserInfo.append(userListItem);
     constrols.page.main.currentUser = userListItem;
+    constrols.page.main.currentUserCopy = listItemCopy;
     constrols.page.main.currentUserLogin = userListItem.textContent;
     constrols.page.main.currentUserID = userListItem.id;
 

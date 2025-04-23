@@ -3,6 +3,7 @@ import constrols from '../store/constrols';
 import storeLogin from '../store/store';
 import { creatUserListItem } from '../pages/main-page/main-page';
 import { getUUID, removeAllChild } from '../utils/elementUtils';
+import { createMessageSend } from '../pages/main-page/message';
 
 function handleLoginSuccess(userData) {
   const { inputLogin, inputPassword, formLogin } = constrols.page.login;
@@ -106,6 +107,9 @@ const messageHandlers = {
   USER_ACTIVE: (data) => {
     const activeUsers = data.payload.users;
     const { login: currentLogin } = storeLogin.data.dataUser;
+    const { currentUserLogin, currentUserCopy } = constrols.page.main;
+
+    console.log(currentUserLogin, currentUserCopy);
     activeUsers.forEach((item) => {
       console.log(`в сети ${item.login}`);
       const { login } = item;
@@ -114,12 +118,16 @@ const messageHandlers = {
         const userListItem = creatUserListItem(constrols.page.main.userList, login, id);
         userListItem.classList.add('list-item_active');
       }
+      if (currentUserLogin === login) {
+        currentUserCopy.classList.add('list-item_active');
+      }
     });
   },
 
   USER_INACTIVE: (data) => {
     const activeUsers = data.payload.users;
     const { login: currentLogin } = storeLogin.data.dataUser;
+    const { currentUserLogin, currentUserCopy } = constrols.page.main;
     activeUsers.forEach((item) => {
       console.log(`не в сети ${item.login}`);
       const { login } = item;
@@ -127,9 +135,50 @@ const messageHandlers = {
         const id = getUUID();
         creatUserListItem(constrols.page.main.userList, login, id);
       }
+      if (currentUserLogin === login) {
+        currentUserCopy.classList.remove('list-item_active');
+      }
       // const id = getUUID();
       // creatUserListItem(constrols.page.main.userList, login, id);
     });
+  },
+
+  MSG_SEND: (data) => {
+    const { from, to, text } = data.payload.message;
+    const { login: currentLogin } = storeLogin.data.dataUser;
+    const { messageWrapper, currentUserLogin } = constrols.page.main;
+    // console.log(data.payload.message.text);
+    console.log(`from ${from} to ${to} text ${text}`);
+
+    if (from === currentLogin && to === currentUserLogin) {
+      createMessageSend(messageWrapper, text);
+    }
+    if (to === currentLogin && from === currentUserLogin) {
+      createMessageSend(messageWrapper, text, 'message-item_receive');
+    }
+
+    // createMessageSend(messageWrapper, 'Привет');
+    //   createMessageSend(messageWrapper, 'Ещё один Привет', 'message-item_receive');
+    //   createMessageSend(messageWrapper, 'Мой привет тебе в ответ');
+
+    // {
+    //   id: string,
+    //   type: "MSG_SEND",
+    //   payload: {
+    //     message: {
+    //       id: string,
+    //       from: string,
+    //       to: string,
+    //       text: string,
+    //       datetime: number,
+    //       status: {
+    //         isDelivered: boolean,
+    //         isReaded: boolean,
+    //         isEdited: boolean,
+    //       }
+    //     }
+    //   }
+    // }
   },
 };
 
