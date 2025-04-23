@@ -1,9 +1,14 @@
+import { createModal, modalTitleElement } from '../components/modal/modal';
+
 export class WebSocketModel {
   constructor(url, options = {}) {
     this.url = url;
     this.socket = null;
     this.reconnectInterval = options.reconnectInterval || 3000;
     this.eventListeners = {};
+
+    this.modalInstance = null; // ссылка на модальное окно (чтобы было только один раз)
+    this.connectionLost = false; // Флаг потери соединения
 
     this.connect();
   }
@@ -43,7 +48,22 @@ export class WebSocketModel {
 
   handleOpen(event) {
     console.log('WebSocket подключен');
+
+    // Если было восстановление соединения и модальное окно существует
+    if (this.connectionLost && this.modalInstance) {
+      this.removeConnectionModal();
+      this.connectionLost = false;
+    }
+
     this.emit('open', event);
+  }
+
+  // Метод для удаления модального окна
+  removeConnectionModal() {
+    if (this.modalInstance) {
+      this.modalInstance.remove();
+      this.modalInstance = null;
+    }
   }
 
   handleMessage(event) {
@@ -62,6 +82,15 @@ export class WebSocketModel {
 
   handleClose(event) {
     console.log('WebSocket отключен:', event.code, event.reason);
+
+    // Показываю модальное окно только при первой потере соединения
+    if (!this.connectionLost) {
+      const modalText = 'Соединение отключено, идут попытки подключения';
+      this.modalInstance = createModal(modalTitleElement, modalText);
+      this.connectionLost = true;
+    }
+
+    // modalWinner(modalTitleElement, 'Cоединение отключено');
     this.emit('close', event);
 
     // Переподключение

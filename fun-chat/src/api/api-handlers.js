@@ -44,6 +44,23 @@ const messageHandlers = {
     handleLoginError(data.payload.error);
   },
 
+  USER_LOGOUT: (data) => {
+    const { login } = data.payload.user;
+    console.log(`Разлогинелся user ${login}`);
+
+    ws.send({
+      id: getUUID(),
+      type: 'USER_ACTIVE',
+      payload: null,
+    });
+
+    ws.send({
+      id: getUUID(),
+      type: 'USER_INACTIVE',
+      payload: null,
+    });
+  },
+
   USER_EXTERNAL_LOGIN: (data) => {
     const { login } = data.payload.user;
     // const id = getUUID();

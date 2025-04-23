@@ -1,7 +1,7 @@
 import './modal.scss';
 import { createEl, body } from '../../utils/elementUtils';
 
-export const modalWinner = (innerLayotElement, textModal) => {
+export const createModal = (innerLayotElement, textModal) => {
   // body.classList.add('lock');
 
   const modalContainer = createEl({ classes: ['modal-container'], parent: body });
@@ -22,49 +22,57 @@ export const modalWinner = (innerLayotElement, textModal) => {
     parent: modalContainer,
   });
 
-  const buttonCross = createEl({
-    tag: 'button',
-    classes: ['button-cross'],
-    attributes: { type: 'button', 'aria-label': 'button-close' },
-    parent: modal,
-  });
-  createEl({
-    tag: 'span',
-    classes: ['button-cross__item', 'button-cross__item--01'],
-    parent: buttonCross,
-  });
-  createEl({
-    tag: 'span',
-    classes: ['button-cross__item', 'button-cross__item--02'],
-    parent: buttonCross,
-  });
+  // const buttonCross = createEl({
+  //   tag: 'button',
+  //   classes: ['button-cross'],
+  //   attributes: { type: 'button', 'aria-label': 'button-close' },
+  //   parent: modal,
+  // });
+  // createEl({
+  //   tag: 'span',
+  //   classes: ['button-cross__item', 'button-cross__item--01'],
+  //   parent: buttonCross,
+  // });
+  // createEl({
+  //   tag: 'span',
+  //   classes: ['button-cross__item', 'button-cross__item--02'],
+  //   parent: buttonCross,
+  // });
 
   modal.append(innerLayotElement(textModal));
 
-  const buttonClose = createEl({
-    tag: 'button',
-    classes: ['button', 'button_close'],
-    attributes: { type: 'button', 'aria-label': 'button-close' },
-    text: 'Close',
-    parent: modal,
-  });
+  // const buttonClose = createEl({
+  //   tag: 'button',
+  //   classes: ['button', 'button_close'],
+  //   attributes: { type: 'button', 'aria-label': 'button-close' },
+  //   text: 'Close',
+  //   parent: modal,
+  // });
 
-  buttonClose.addEventListener('click', removeModal);
-  buttonCross.addEventListener('click', removeModal);
+  // buttonClose.addEventListener('click', removeModal);
+  // buttonCross.addEventListener('click', removeModal);
 
-  modalContainer.addEventListener('click', function (event) {
-    const { target } = event;
-    if (target === this || target === buttonCross || target === buttonClose) {
-      removeModal();
-      // body.classList.remove('lock');
-    }
-  });
+  // modalContainer.addEventListener('click', function (event) {
+  //   const { target } = event;
+  //   if (target === this || target === buttonCross || target === buttonClose) {
+  //     removeModal();
+  //     // body.classList.remove('lock');
+  //   }
+  // });
 
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') {
-      removeModal();
-    }
-  });
+  // document.addEventListener('keydown', (event) => {
+  //   if (event.key === 'Escape') {
+  //     removeModal();
+  //   }
+  // });
+
+  /* ******************************************* */
+  // для управления модальным окном
+
+  return {
+    remove: removeModal,
+    element: modalContainer,
+  };
 };
 
 export function modalTitleElement(text) {

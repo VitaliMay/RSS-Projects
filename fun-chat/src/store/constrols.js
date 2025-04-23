@@ -20,6 +20,8 @@ const constrols = {
       messageBlock: null,
       currentUserInfo: null,
       currentUser: null,
+      currentUserLogin: null,
+      currentUserID: null,
       messageWrapper: null,
       formMessage: null,
       inputMessage: null,

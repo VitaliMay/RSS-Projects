@@ -1,10 +1,11 @@
 import './header.scss';
 
-import { createEl } from '../../utils/elementUtils';
+import { createEl, getUUID } from '../../utils/elementUtils';
 import createButton from '../button/button';
 import { createTitleH1 } from '../tags/tags';
 import constrols from '../../store/constrols';
 import storeLogin from '../../store/store';
+import { ws } from '../../api/api';
 
 function createHeader(parent) {
   const header = createEl({ tag: 'header', classes: ['header'], parent });
@@ -36,10 +37,25 @@ function createHeader(parent) {
     buttonLogout.disabled = false;
   });
   buttonLogout.addEventListener('click', async () => {
-    window.location.hash = '/login';
     buttonLogout.disabled = true;
     buttonAbout.disabled = false;
+
+    const { login: currentLogin, password } = storeLogin.data.dataUser;
+
+    ws.send({
+      id: getUUID(),
+      type: 'USER_LOGOUT',
+      payload: {
+        user: {
+          login: currentLogin,
+          password,
+        },
+      },
+    });
+
+    userLogin.textContent = '';
     storeLogin.clearStorage();
+    window.location.hash = '/login';
   });
 
   window.addEventListener('hashchange', () => {

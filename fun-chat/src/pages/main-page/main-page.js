@@ -1,6 +1,6 @@
 import './main-page.scss';
 
-import { createEl } from '../../utils/elementUtils';
+import { createEl, removeAllChild } from '../../utils/elementUtils';
 import createButton from '../../components/button/button';
 import constrols from '../../store/constrols';
 
@@ -81,16 +81,20 @@ const creatUserListItem = (parent, text, id) => {
   });
 
   userListItem.addEventListener('click', () => {
-    // const listItemCopy = listItem.cloneNode(true);
+    const listItemCopy = userListItem.cloneNode(true);
     const { userList, currentUserInfo, currentUser } = constrols.page.main;
     // constrols.page.main.currentUserInfo.append(listItemCopy);
-    // removeAllChild(currentUserInfo);
-    // currentUserInfo.append(listItemCopy);
-    if (currentUser) {
-      userList.append(currentUser);
-    }
-    currentUserInfo.append(userListItem);
+    removeAllChild(currentUserInfo);
+    currentUserInfo.append(listItemCopy);
+    // if (currentUser) {
+    //   userList.append(currentUser);
+    // }
+    // currentUserInfo.append(userListItem);
     constrols.page.main.currentUser = userListItem;
+    constrols.page.main.currentUserLogin = userListItem.textContent;
+    constrols.page.main.currentUserID = userListItem.id;
+
+    console.log(constrols.page.main.currentUserID);
 
     constrols.page.main.messageBlock.append(constrols.page.main.formMessage);
   });
