@@ -56,6 +56,11 @@ function createHeader(parent) {
     userLogin.textContent = '';
     storeLogin.clearStorage();
     removeAllChild(constrols.page.main.userList);
+    constrols.page.main.currentUserCopy = null;
+
+    if (constrols.page.main.currentUser) {
+      removeAllChild(constrols.page.main.currentUser);
+    }
 
     console.log(constrols.page.main.userList);
     window.location.hash = '/login';

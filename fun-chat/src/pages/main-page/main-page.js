@@ -83,34 +83,23 @@ function createFormMessage(parent) {
 
       // обнулить блок переменной сообщения
       constrols.page.main.currentEditMessageMain = null;
-    }
+    } else {
+      const { currentUserLogin } = constrols.page.main;
 
-    // {
-    //   id: string,
-    //   type: "MSG_SEND",
-    //   payload: {
-    //     message: {
-    //       to: string,
-    //       text: string,
-    //     }
-    //   }
-    // }
+      const messageID = getUUID();
+      constrols.page.main.messageSend.id = messageID;
 
-    const { currentUserLogin } = constrols.page.main;
-
-    const messageID = getUUID();
-    constrols.page.main.messageSend.id = messageID;
-
-    ws.send({
-      id: messageID,
-      type: 'MSG_SEND',
-      payload: {
-        message: {
-          to: currentUserLogin,
-          text: inputMessage.value,
+      ws.send({
+        id: messageID,
+        type: 'MSG_SEND',
+        payload: {
+          message: {
+            to: currentUserLogin,
+            text: inputMessage.value,
+          },
         },
-      },
-    });
+      });
+    }
 
     formMessage.reset();
     buttonSendMessage.disabled = true;
@@ -135,7 +124,19 @@ const creatUserListItem = (parent, text, id) => {
     // если выран новый элемент, то очищаю переписку
     if (currentUserLogin !== text) {
       removeAllChild(messageWrapper);
+
+      const messageID = getUUID();
+      ws.send({
+        id: messageID,
+        type: 'MSG_FROM_USER',
+        payload: {
+          user: {
+            login: text,
+          },
+        },
+      });
     }
+
     // constrols.page.main.currentUserInfo.append(listItemCopy);
     removeAllChild(currentUserInfo);
     currentUserInfo.append(listItemCopy);
@@ -151,6 +152,29 @@ const creatUserListItem = (parent, text, id) => {
     console.log(constrols.page.main.currentUserID);
 
     constrols.page.main.messageBlock.append(constrols.page.main.formMessage);
+
+    /* ********************************************** */
+
+    // const messageID = getUUID();
+    // ws.send({
+    //   id: messageID,
+    //   type: 'MSG_FROM_USER',
+    //   payload: {
+    //     user: {
+    //       login: currentUserLogin,
+    //     },
+    //   },
+    // });
+    // {
+    //   id: string,
+    //   type: "MSG_FROM_USER",
+    //   payload: {
+    //     user: {
+    //       login: string,
+    //     }
+    //   }
+    // }
+    /* ********************************************** */
   });
   return userListItem;
 };

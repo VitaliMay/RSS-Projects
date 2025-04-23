@@ -1,4 +1,8 @@
 import { createModal, modalTitleElement } from '../components/modal/modal';
+import storeLogin from '../store/store';
+import { getUUID } from '../utils/elementUtils';
+
+// const { login, password } = storeLogin.data.dataUser;
 
 export class WebSocketModel {
   constructor(url, options = {}) {
@@ -10,8 +14,45 @@ export class WebSocketModel {
     this.modalInstance = null; // ссылка на модальное окно (чтобы было только один раз)
     this.connectionLost = false; // Флаг потери соединения
 
+    this.loginData = null; // для авторизации при отключении
+    // this.loadLoginData(); // для авторизации при отключении
+
+    this.isFirstConnection = true; // Флаг первого подключения
     this.connect();
   }
+
+  // Забираю логин и пароль из storage
+  // loadLoginData() {
+  //   const { login, password } = storeLogin.data.dataUser;
+  //   if (login && password) {
+  //     this.loginData = { login, password };
+  //   }
+  // }
+
+  // Метод для автоматической авторизации
+  // autoLogin() {
+  //   const { login, password } = storeLogin.data.dataUser;
+  //   console.log('Попытка автоматической авторизации');
+  //   console.log(`посылаю логин ${login} и пароль ${password}`);
+  //   // console.log(`посылаю логин ${this.loginData.login} и пароль ${this.loginData.password}`);
+
+  //   // if (this.loginData) {
+  //   //   console.log(`посылаю логин ${this.loginData.login} и пароль ${this.loginData.password}`);
+  //   this.send({
+  //     id: getUUID(),
+  //     type: 'USER_LOGIN',
+  //     payload: {
+  //       user: {
+  //         login,
+  //         password,
+  //         // login: this.loginData.login,
+  //         // password: this.loginData.password,
+  //       },
+  //     },
+  //   });
+  //   // console.log('Попытка автоматической авторизации');
+  //   // }
+  // }
 
   connect() {
     this.socket = new WebSocket(this.url);
@@ -53,8 +94,24 @@ export class WebSocketModel {
     if (this.connectionLost && this.modalInstance) {
       this.removeConnectionModal();
       this.connectionLost = false;
+
+      // // Авторизация только при повторном подключении
+      // if (!this.isFirstConnection) {
+      //   setTimeout(() => {
+      //     if (this.socket?.readyState === WebSocket.OPEN) {
+      //       this.autoLogin();
+      //     }
+      //   }, 100);
+      // }
     }
 
+    this.isFirstConnection = false;
+    // setTimeout(() => {
+    //   if (this.socket?.readyState === WebSocket.OPEN) {
+    //     this.autoLogin();
+    //   }
+    // }, 100);
+    // this.autoLogin();
     this.emit('open', event);
   }
 

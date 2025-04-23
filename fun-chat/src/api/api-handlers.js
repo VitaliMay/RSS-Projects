@@ -193,6 +193,31 @@ const messageHandlers = {
     //   }
     // }
   },
+
+  MSG_FROM_USER: (data) => {
+    const { messages } = data.payload;
+    const { login: currentLogin } = storeLogin.data.dataUser;
+    const { messageWrapper, currentUserLogin } = constrols.page.main;
+    console.log(messages);
+
+    messages.forEach((item) => {
+      const { from, to, text } = item;
+      if (from === currentLogin && to === currentUserLogin) {
+        createMessageSend(messageWrapper, text);
+      }
+      if (to === currentLogin && from === currentUserLogin) {
+        createMessageSend(messageWrapper, text, 'message-item_receive');
+      }
+    });
+    // console.log(`from ${from} to ${to} text ${text}`);
+
+    // if (from === currentLogin && to === currentUserLogin) {
+    //   createMessageSend(messageWrapper, text);
+    // }
+    // if (to === currentLogin && from === currentUserLogin) {
+    //   createMessageSend(messageWrapper, text, 'message-item_receive');
+    // }
+  },
 };
 
 // creatUserListItem(constrols.page.main.userList, 'user-01', 25);
