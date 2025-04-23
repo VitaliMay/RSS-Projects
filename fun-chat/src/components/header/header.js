@@ -1,6 +1,6 @@
 import './header.scss';
 
-import { createEl, getUUID } from '../../utils/elementUtils';
+import { createEl, getUUID, removeAllChild } from '../../utils/elementUtils';
 import createButton from '../button/button';
 import { createTitleH1 } from '../tags/tags';
 import constrols from '../../store/constrols';
@@ -55,6 +55,9 @@ function createHeader(parent) {
 
     userLogin.textContent = '';
     storeLogin.clearStorage();
+    removeAllChild(constrols.page.main.userList);
+
+    console.log(constrols.page.main.userList);
     window.location.hash = '/login';
   });
 

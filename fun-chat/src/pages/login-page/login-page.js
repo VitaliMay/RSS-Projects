@@ -1,6 +1,6 @@
 import './login-page.scss';
 
-import { createEl, getUUID } from '../../utils/elementUtils';
+import { createEl, getUUID, removeAllChild } from '../../utils/elementUtils';
 import createButton from '../../components/button/button';
 import constrols from '../../store/constrols';
 import validateForm from './login-validate';
@@ -105,23 +105,26 @@ const createFormLogin = (parent) => {
       type: 'USER_LOGIN',
       payload: {
         user: {
-          login: inputLogin.value,
+          login: inputLogin.value.trim(),
           password: inputPassword.value,
         },
       },
     });
 
-    ws.send({
-      id: getUUID(),
-      type: 'USER_ACTIVE',
-      payload: null,
-    });
+    removeAllChild(constrols.page.main.userList);
+    console.log(constrols.page.main.userList);
 
-    ws.send({
-      id: getUUID(),
-      type: 'USER_INACTIVE',
-      payload: null,
-    });
+    // ws.send({
+    //   id: getUUID(),
+    //   type: 'USER_ACTIVE',
+    //   payload: null,
+    // });
+
+    // ws.send({
+    //   id: getUUID(),
+    //   type: 'USER_INACTIVE',
+    //   payload: null,
+    // });
 
     /** *************************************** */
 

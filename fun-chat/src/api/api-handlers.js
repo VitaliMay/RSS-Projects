@@ -39,6 +39,18 @@ export function handleLoginError(errorMessage) {
 const messageHandlers = {
   USER_LOGIN: (data) => {
     handleLoginSuccess(data.payload.user);
+
+    ws.send({
+      id: getUUID(),
+      type: 'USER_ACTIVE',
+      payload: null,
+    });
+
+    ws.send({
+      id: getUUID(),
+      type: 'USER_INACTIVE',
+      payload: null,
+    });
   },
 
   ERROR: (data) => {
@@ -128,6 +140,7 @@ const messageHandlers = {
     const activeUsers = data.payload.users;
     const { login: currentLogin } = storeLogin.data.dataUser;
     const { currentUserLogin, currentUserCopy } = constrols.page.main;
+    console.log(constrols.page.main.userList);
     activeUsers.forEach((item) => {
       console.log(`не в сети ${item.login}`);
       const { login } = item;
