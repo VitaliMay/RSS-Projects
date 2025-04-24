@@ -4,6 +4,7 @@ const constrols = {
   main: null,
   titleTask: null,
   userLogin: null,
+  isFirstConnection: true,
   page: {
     login: {
       formLogin: null,

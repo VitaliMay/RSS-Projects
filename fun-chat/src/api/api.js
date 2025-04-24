@@ -30,29 +30,29 @@ export class WebSocketModel {
   // }
 
   // Метод для автоматической авторизации
-  // autoLogin() {
-  //   const { login, password } = storeLogin.data.dataUser;
-  //   console.log('Попытка автоматической авторизации');
-  //   console.log(`посылаю логин ${login} и пароль ${password}`);
-  //   // console.log(`посылаю логин ${this.loginData.login} и пароль ${this.loginData.password}`);
+  autoLogin() {
+    const { login, password } = storeLogin.data.dataUser;
+    console.log('Попытка автоматической авторизации');
+    console.log(`посылаю логин ${login} и пароль ${password}`);
+    // console.log(`посылаю логин ${this.loginData.login} и пароль ${this.loginData.password}`);
 
-  //   // if (this.loginData) {
-  //   //   console.log(`посылаю логин ${this.loginData.login} и пароль ${this.loginData.password}`);
-  //   this.send({
-  //     id: getUUID(),
-  //     type: 'USER_LOGIN',
-  //     payload: {
-  //       user: {
-  //         login,
-  //         password,
-  //         // login: this.loginData.login,
-  //         // password: this.loginData.password,
-  //       },
-  //     },
-  //   });
-  //   // console.log('Попытка автоматической авторизации');
-  //   // }
-  // }
+    // if (this.loginData) {
+    //   console.log(`посылаю логин ${this.loginData.login} и пароль ${this.loginData.password}`);
+    this.send({
+      id: getUUID(),
+      type: 'USER_LOGIN',
+      payload: {
+        user: {
+          login,
+          password,
+          // login: this.loginData.login,
+          // password: this.loginData.password,
+        },
+      },
+    });
+    // console.log('Попытка автоматической авторизации');
+    // }
+  }
 
   connect() {
     this.socket = new WebSocket(this.url);
@@ -95,14 +95,14 @@ export class WebSocketModel {
       this.removeConnectionModal();
       this.connectionLost = false;
 
-      // // Авторизация только при повторном подключении
-      // if (!this.isFirstConnection) {
-      //   setTimeout(() => {
-      //     if (this.socket?.readyState === WebSocket.OPEN) {
-      //       this.autoLogin();
-      //     }
-      //   }, 100);
-      // }
+      // Авторизация только при повторном подключении
+      if (!this.isFirstConnection) {
+        setTimeout(() => {
+          if (this.socket?.readyState === WebSocket.OPEN) {
+            this.autoLogin();
+          }
+        }, 100);
+      }
     }
 
     this.isFirstConnection = false;

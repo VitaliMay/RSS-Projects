@@ -38,19 +38,23 @@ export function handleLoginError(errorMessage) {
 
 const messageHandlers = {
   USER_LOGIN: (data) => {
-    handleLoginSuccess(data.payload.user);
+    if (constrols.isFirstConnection) {
+      handleLoginSuccess(data.payload.user);
 
-    ws.send({
-      id: getUUID(),
-      type: 'USER_ACTIVE',
-      payload: null,
-    });
+      ws.send({
+        id: getUUID(),
+        type: 'USER_ACTIVE',
+        payload: null,
+      });
 
-    ws.send({
-      id: getUUID(),
-      type: 'USER_INACTIVE',
-      payload: null,
-    });
+      ws.send({
+        id: getUUID(),
+        type: 'USER_INACTIVE',
+        payload: null,
+      });
+
+      constrols.isFirstConnection = false;
+    }
   },
 
   ERROR: (data) => {
