@@ -51,21 +51,23 @@ export function createMessageSend(parent, text, addClass = 'message-item_send', 
 
   const messageFooter = createEl({ classes: ['message-item__footer'], parent: messageSend });
 
-  const messageFooterEdit = createEl({ classes: ['message-item__edit'], text: '', parent: messageFooter });
+  const messageFooterEdit = createEl({ classes: ['message-item__edit'], text: isEditStatus, parent: messageFooter });
   const messageFooterDelivered = createEl({
     classes: ['message-item__status'],
-    text: isDeliveredStatus,
+    // text: isDeliveredStatus,
     parent: messageFooter,
   });
 
   const messageFooterReaded = createEl({
     classes: ['message-item__status'],
-    text: isReadStatus,
+    // text: isReadStatus,
     parent: messageFooter,
   });
 
   if (addClass === 'message-item_send') {
-    messageFooterEdit.textContent = isEditStatus;
+    // messageFooterEdit.textContent = isEditStatus;
+    messageFooterDelivered.textContent = isDeliveredStatus;
+    messageFooterReaded.textContent = isReadStatus;
   }
 
   if (messageSend.classList.contains('message-item_send')) {
