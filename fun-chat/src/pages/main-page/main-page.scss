@@ -144,10 +144,15 @@
     var(--shadow-light) inset;
   padding: var(--padding-sm);
 
-  &__header,
-  &__footer {
+  &__header {
     display: grid;
     grid-template-columns: 2fr 2fr;
+    gap: 10px;
+  }
+
+  &__footer {
+    display: grid;
+    grid-template-columns: 2fr 2fr 2fr;
     gap: 10px;
   }
 
@@ -173,7 +178,8 @@
 
 .context-menu {
   display: none;
-  position: absolute;
+  // position: absolute;
+  position: fixed;
   border: 4px solid var(--bnt-background);
 
   border-radius: var(--radius-sm);

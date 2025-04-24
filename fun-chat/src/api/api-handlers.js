@@ -161,17 +161,19 @@ const messageHandlers = {
   },
 
   MSG_SEND: (data) => {
-    const { from, to, text } = data.payload.message;
+    // const { from, to, text } = data.payload.message;
+    const item = data.payload.message;
+    const { from, to, text } = item;
     const { login: currentLogin } = storeLogin.data.dataUser;
     const { messageWrapper, currentUserLogin } = constrols.page.main;
     // console.log(data.payload.message.text);
     console.log(`from ${from} to ${to} text ${text}`);
 
     if (from === currentLogin && to === currentUserLogin) {
-      createMessageSend(messageWrapper, text);
+      createMessageSend(messageWrapper, text, 'message-item_send', item);
     }
     if (to === currentLogin && from === currentUserLogin) {
-      createMessageSend(messageWrapper, text, 'message-item_receive');
+      createMessageSend(messageWrapper, text, 'message-item_receive', item);
     }
 
     // createMessageSend(messageWrapper, 'Привет');
@@ -207,10 +209,10 @@ const messageHandlers = {
     messages.forEach((item) => {
       const { from, to, text } = item;
       if (from === currentLogin && to === currentUserLogin) {
-        createMessageSend(messageWrapper, text);
+        createMessageSend(messageWrapper, text, 'message-item_send', item);
       }
       if (to === currentLogin && from === currentUserLogin) {
-        createMessageSend(messageWrapper, text, 'message-item_receive');
+        createMessageSend(messageWrapper, text, 'message-item_receive', item);
       }
     });
 

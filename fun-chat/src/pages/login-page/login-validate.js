@@ -19,10 +19,17 @@ function validateForm() {
 
   // Валидация логина
   const loginValue = login.value.trim();
+  const allowedLoginPattern = /^[A-Za-z]+$/; // Только эти символы разрешены
+
+  const hasInvalidLoginChars = !allowedLoginPattern.test(loginValue);
+
   if (!loginValue) {
     inputLoginInfo.textContent = 'Login is required';
   } else if (loginValue.length < 3) {
-    inputLoginInfo.textContent = 'Login must be at least 3 characters';
+    inputLoginInfo.textContent = 'Login must be at least 3 characters Only Latin letters allowed';
+  } else if (hasInvalidLoginChars) {
+    inputPasswordInfo.textContent = 'Only Latin letters allowed';
+    isPasswordValid = false;
   } else {
     inputLoginInfo.textContent = '';
     isLoginValid = true;

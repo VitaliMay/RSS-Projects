@@ -4,7 +4,7 @@ import { createEl, getUUID, removeAllChild } from '../../utils/elementUtils';
 import createButton from '../../components/button/button';
 import constrols from '../../store/constrols';
 import validateForm from './login-validate';
-import storeLogin from '../../store/store';
+// import storeLogin from '../../store/store';
 import { ws } from '../../api/api';
 
 const createFormLogin = (parent) => {
@@ -31,7 +31,7 @@ const createFormLogin = (parent) => {
       placeholder: 'Your Login',
       autocomplete: 'off',
       required: true,
-      title: 'Логин должен быть от 3 символов',
+      title: 'Логин должен быть от 3 букв (латиница)',
     },
   });
   constrols.page.login.inputLogin = inputLogin;
