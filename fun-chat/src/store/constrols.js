@@ -34,6 +34,7 @@ const constrols = {
         id: null,
       },
     },
+    about: null,
   },
   contextMenu: {
     menu: null,

@@ -8,6 +8,7 @@ import constrols from '../../store/constrols';
 import createFormLogin from '../../pages/login-page/login-page';
 // import createMainPageWrapper from '../../pages/main-page/main-page';
 import { createMainPageWrapper, creatUserListItem } from '../../pages/main-page/main-page';
+import createAboutPage from '../../pages/about-page/about-page';
 
 svgSpriteElement();
 
@@ -25,6 +26,8 @@ constrols.main = main;
 createFormLogin(constrols.main);
 
 createMainPageWrapper(constrols.main);
+
+createAboutPage(constrols.main);
 
 // creatUserListItem(constrols.page.main.userList, 'user-01', 25);
 // creatUserListItem(constrols.page.main.userList, 'user-02', 34);

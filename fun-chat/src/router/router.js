@@ -15,6 +15,7 @@ export const routes = {
   '/about': () => {
     removeAllChild(main);
     createTitleH1('About )', main);
+    main.append(constrols.page.about);
   },
 
   '/main': () => {
