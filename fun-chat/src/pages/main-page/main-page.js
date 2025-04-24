@@ -31,7 +31,11 @@ const createMainPageWrapper = (parent) => {
   const messageBlock = createEl({ classes: ['message-block'], parent: mainPageWrapper });
   constrols.page.main.messageBlock = messageBlock;
 
-  const currentUserInfo = createEl({ classes: ['current-user'], parent: messageBlock });
+  const currentUserInfo = createEl({
+    classes: ['current-user', 'message-item__text'],
+    text: 'Select user to send message',
+    parent: messageBlock,
+  });
   constrols.page.main.currentUserInfo = currentUserInfo;
 
   const messageWrapper = createEl({ classes: ['message-wrapper'], parent: messageBlock });
@@ -186,6 +190,7 @@ const creatUserListItem = (parent, text, id) => {
 
     // constrols.page.main.currentUserInfo.append(listItemCopy);
     removeAllChild(currentUserInfo);
+    currentUserInfo.textContent = '';
     currentUserInfo.append(listItemCopy);
     // if (currentUser) {
     //   userList.append(currentUser);
