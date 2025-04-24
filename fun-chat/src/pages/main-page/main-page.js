@@ -54,7 +54,7 @@ function createFormMessage(parent) {
     tag: 'textarea',
     classes: ['input-message', 'login-input'],
     parent: formMessage,
-    attributes: { placeholder: 'Send message', autocomplete: 'off' },
+    attributes: { placeholder: 'Send message', autocomplete: 'off', rows: 1 },
   });
   constrols.page.main.inputMessage = inputMessage;
 
@@ -63,29 +63,75 @@ function createFormMessage(parent) {
   constrols.page.main.buttonSendMessage = buttonSendMessage;
 
   inputMessage.addEventListener('input', () => {
-    if (inputMessage.value.length > 0) {
-      buttonSendMessage.disabled = false;
-    } else {
-      buttonSendMessage.disabled = true;
+    // if (inputMessage.value.length > 0) {
+    //   buttonSendMessage.disabled = false;
+    // } else {
+    //   buttonSendMessage.disabled = true;
+    // }
+
+    buttonSendMessage.disabled = inputMessage.value.length === 0;
+
+    // Автоматическое увеличение высоты textarea
+    inputMessage.style.height = 'auto';
+    inputMessage.style.height = `${inputMessage.scrollHeight}px`;
+  });
+
+  // Добавляю срабатывание Enter
+  inputMessage.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault(); // чтобы не переносилась строка (только с шифт)
+      if (inputMessage.value.length > 0) {
+        sendMessage();
+      }
     }
   });
 
   formMessage.addEventListener('submit', (event) => {
     event.preventDefault();
+    sendMessage();
+    // console.log('сообщение отправлено');
+
+    // /* ****************************************** */
+    // // для редактирования (при срабатывании кнопки Edit)
+    // const { currentEditMessageMain } = constrols.page.main;
+    // if (currentEditMessageMain) {
+    //   currentEditMessageMain.textContent = inputMessage.value;
+    //   // constrols.page.main.currentEditMessageMain.textContent = inputMessage.value;
+
+    //   // обнулить блок переменной сообщения
+    //   constrols.page.main.currentEditMessageMain = null;
+    // } else {
+    //   const { currentUserLogin } = constrols.page.main;
+
+    //   const messageID = getUUID();
+    //   constrols.page.main.messageSend.id = messageID;
+
+    //   ws.send({
+    //     id: messageID,
+    //     type: 'MSG_SEND',
+    //     payload: {
+    //       message: {
+    //         to: currentUserLogin,
+    //         text: inputMessage.value,
+    //       },
+    //     },
+    //   });
+    // }
+
+    // formMessage.reset();
+    // buttonSendMessage.disabled = true;
+  });
+
+  function sendMessage() {
     console.log('сообщение отправлено');
 
-    /* ****************************************** */
-    // для редактирования (при срабатывании кнопки Edit)
+    // Для редактирования (при срабатывании кнопки Edit)
     const { currentEditMessageMain } = constrols.page.main;
     if (currentEditMessageMain) {
       currentEditMessageMain.textContent = inputMessage.value;
-      // constrols.page.main.currentEditMessageMain.textContent = inputMessage.value;
-
-      // обнулить блок переменной сообщения
       constrols.page.main.currentEditMessageMain = null;
     } else {
       const { currentUserLogin } = constrols.page.main;
-
       const messageID = getUUID();
       constrols.page.main.messageSend.id = messageID;
 
@@ -102,8 +148,9 @@ function createFormMessage(parent) {
     }
 
     formMessage.reset();
+    inputMessage.style.height = 'auto'; // возвращаю высоту textarea
     buttonSendMessage.disabled = true;
-  });
+  }
 }
 
 const creatUserListItem = (parent, text, id) => {
