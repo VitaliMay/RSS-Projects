@@ -2,7 +2,7 @@ import { ws } from './api';
 import constrols from '../store/constrols';
 import storeLogin from '../store/store';
 import { creatUserListItem } from '../pages/main-page/main-page';
-import { getUUID, removeAllChild } from '../utils/elementUtils';
+import { createEl, getUUID, removeAllChild } from '../utils/elementUtils';
 import { createMessageSend } from '../pages/main-page/message';
 
 function handleLoginSuccess(userData) {
@@ -213,6 +213,14 @@ const messageHandlers = {
         createMessageSend(messageWrapper, text, 'message-item_receive');
       }
     });
+
+    if (messages.length === 0) {
+      createEl({
+        parent: messageWrapper,
+        classes: ['message-item__text'],
+        text: 'This is the beginning of the dialogue',
+      });
+    }
     // console.log(`from ${from} to ${to} text ${text}`);
 
     // if (from === currentLogin && to === currentUserLogin) {
