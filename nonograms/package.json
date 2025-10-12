@@ -1,0 +1,22 @@
+{
+  "name": "nonograms",
+  "version": "1.0.0",
+  "description": "Nonograms game task for RSSchool",
+  "scripts": {
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "ci:format": "prettier --check ."
+  },
+  "author": "VitaliMay",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.26.5",
+    "eslint": "^8.40.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "prettier": "^3.1.0"
+  },
+  "dependencies": {
+    "modern-normalize": "^3.0.1"
+  }
+}

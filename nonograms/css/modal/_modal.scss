@@ -1,0 +1,409 @@
+
+.modal-container {
+  position: fixed;
+  inset: 0;
+  // width: 100dvw;
+  // height: 100dvh;
+  width: 100vw;
+  height: 100vh;
+
+  padding: 0px 8px;
+
+  background: rgba(24, 28, 41, 0.80);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+ 
+
+  overflow-y: auto;
+
+  ///////////////////////////////
+  //  скрываю
+
+  z-index: 0;
+  opacity: 0;
+  transform: scale(0);
+
+  // z-index: 60;
+  // opacity: 1;
+  // transform: scale(1);
+
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  pointer-events: none; // Игнорируем события, когда окно скрыто
+
+  &--active {
+    z-index: 60; // Чтобы перекрыть кнопку и лого
+    // visibility: visible;
+    // opacity: 1;
+    // transition: visibility 0.8s, opacity 0.8s;
+    // transition: all 2s linear;
+    // transform: translate(-50%, -50%) scale(1);
+
+    opacity: 1;   // Полная видимость
+    transform: scale(1);  // Восстановление начального размера
+    pointer-events: auto; // Включаем события, когда окно активно
+
+  }
+
+}
+
+
+.modal {
+  width: 100%;
+  max-width: 400px;
+
+  height: 100%;
+  max-height: 300px;
+
+  overflow-y: auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  justify-content: center;
+
+  border-radius: 20px;
+  background: $content-background;
+
+  position: relative;
+
+}
+
+/***********************************************/
+/***********************************************/
+/***********************************************/
+.modal-container-select {
+  position: fixed;
+  inset: 0;
+  // width: 100dvw;
+  // height: 100dvh;
+  width: 100vw;
+  height: 100vh;
+
+  padding: 0px 8px;
+
+  background: rgba(24, 28, 41, 0.80);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+ 
+
+  overflow-y: auto;
+
+  ///////////////////////////////
+  //  скрываю
+
+  z-index: 0;
+  opacity: 0;
+  transform: scale(0);
+
+  // z-index: 60;
+  // opacity: 1;
+  // transform: scale(1);
+
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  pointer-events: none; // Игнорируем события, когда окно скрыто
+
+  &--active {
+    // z-index: 60; // Чтобы перекрыть кнопку и лого
+    // visibility: visible;
+    // opacity: 1;
+    // transition: visibility 0.8s, opacity 0.8s;
+    // transition: all 2s linear;
+    // transform: translate(-50%, -50%) scale(1);
+
+    opacity: 1;   // Полная видимость
+    transform: scale(1);  // Восстановление начального размера
+    pointer-events: auto; // Включаем события, когда окно активно
+
+  }
+
+}
+
+
+.modal {
+
+  &-select {
+    width: 100%;
+    max-width: 450px;
+    height: 100%;
+    max-height: 450px;
+    overflow-y: auto;
+    display: flex;
+    gap: 10px;
+    /* flex-direction: column; */
+    /* align-items: center; */
+    justify-content: center;
+    border-radius: 20px;
+    background: $content-background;
+    position: relative;
+    padding: 70px 10px 70px 10px;
+  }
+
+  &-winners {
+    width: 100%;
+    max-width: 450px;
+    height: 100%;
+    max-height: 450px;
+    overflow-y: auto;
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    align-items: center;
+    // justify-content: center;
+    border-radius: 20px;
+    background: $content-background;
+
+    position: relative;
+    padding: 70px 10px 70px 10px;
+
+    &__title {
+      // @include header-3;
+      color: var(--btn-color);
+      @include caption-btn;
+      font-size: 21px;
+    }
+
+    &__block {
+      // @include caption-btn;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      // justify-content: space-between;
+
+      // height: 20px;
+      // background-color: bisque;
+    }
+  }
+
+}
+
+/*****************************************/
+
+.winners-item {
+  @include caption-btn;
+  height: 30px;
+  // background-color: bisque;
+
+  padding-left: 20px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  border-bottom: solid 1px var(--btn-color);
+
+  &__el {
+    // background-color: tomato;
+    // width: 40px;
+    // height: 20px;
+
+
+
+    &_index {
+      width: 20px;
+    }
+    &_time {
+      width: 70px;
+    }
+    &_size {
+      width: 70px;
+    }
+    &_name {
+      width: 130px;
+    }
+  }
+}
+
+/*****************************************/
+
+
+// .modal-select {
+//   width: 100%;
+//   max-width: 450px;
+//   height: 100%;
+//   max-height: 450px;
+//   overflow-y: auto;
+//   display: flex;
+//   gap: 10px;
+//     /* flex-direction: column; */
+//     /* align-items: center; */
+//   justify-content: center;
+//   border-radius: 20px;
+//   background: $content-background;
+//   position: relative;
+//   padding: 70px 10px 70px 10px;
+
+// }
+
+.size-container {
+  height: 100%;
+  width: 100%;
+  // background-color: aqua;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+/**************************************************/
+/**************************************************/
+/**************************************************/
+
+.button-cross {
+  width: 40px;
+  height: 40px;
+  border: none;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  flex-shrink: 0;
+  // position: relative;
+  position: absolute;
+
+
+  @media (hover: hover) {
+    &:hover {
+
+      @include custom-cursor;
+      // cursor: pointer;
+    }
+  }
+
+  top: 20px;
+  right: 20px;
+}
+
+////////////////////////  рисую кнопку /////////////////////////////////
+
+.button-cross__item {
+  width: 30px;
+  height: 2px;
+  background-color: $dark;
+  border-radius: 1.5px;
+}
+
+/*****************************************/
+/* Анимация при появлении в крестик */
+
+.modal-container.modal-container--active  .button-cross__item--01 {
+  animation: rotateLine1 0.8s forwards;
+  animation-delay: 0.4s;
+}
+.modal-container.modal-container--active  .button-cross__item--02 {
+  animation: rotateLine2 0.8s forwards;
+  animation-delay: 0.4s;
+}
+
+@keyframes rotateLine1 {
+  0% {
+    transform: translate(0%, 0%) rotate(0deg);
+  }
+  100% {
+    transform: translate(0%, 0%) rotate(45deg);
+  }
+}
+
+@keyframes rotateLine2 {
+  0% {
+    transform: translate(0%, -2px) rotate(0deg);
+  }
+  100% {
+    transform: translate(0%, -2px) rotate(-45deg);
+  }
+}
+
+/******************************************/
+
+.button {
+  width: 200px;
+  height: 40px;
+  border: none;
+
+  &_select {
+    width: 100%;
+  }
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  flex-shrink: 0;
+
+  background-color: var(--bnt-background);
+  color: var(--btn-color);
+  @include caption-btn;
+
+  border-radius: 7px;
+  @include btn-shadow;
+
+  transition: transform 0.1s ease, box-shadow 0.1s ease; /* Переход для эффекта нажатия */
+
+  @media (hover: hover) {
+    &:hover {
+      @include custom-cursor;
+    }
+  }
+
+  &:active { // нажатие кнопки
+    @include btn-shadow-press;
+  }
+
+  &:disabled {
+    cursor: not-allowed; /* Курсор для отключенной кнопки */
+    @include btn-shadow-press;
+    color: rgb(255, 255, 255);
+  }
+}
+
+
+.button_close {
+  width: 100px;
+  height: 40px;
+  
+  position: absolute;
+  bottom: 20px;
+
+  @include caption;
+  font-size: 20px;
+  text-transform: none;
+
+  color: var(--primary);
+
+}
+
+.button-close:active { // нажатие кнопки
+    @include btn-shadow-press;
+}
+
+.button_setting {
+  width: 80px;
+  height: 25px;
+  font-size: 10px;
+}
+
+.modal-title {
+  @include header-4;
+  text-align: center;
+}
+
+.info {
+  color: var(--btn-color);
+  @include caption-btn;
+
+  position: absolute;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    gap: 10px;
+}
+

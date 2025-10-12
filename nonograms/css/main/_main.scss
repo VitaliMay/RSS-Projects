@@ -1,0 +1,103 @@
+
+.wrapper {
+  align-items: center;
+}
+
+.settings-container {
+  display: flex;
+  padding-top: 40px;
+  padding-right: 40px;
+  width: 100%;
+  // flex-direction: row-reverse;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
+  flex-wrap: wrap;
+}
+
+.btn-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 440px;
+  gap: 10px;
+
+  height: 100%;
+
+  // flex-direction: column;
+  // align-items: flex-start;
+}
+
+.canvas-container {
+  padding-bottom: 30px;
+
+  position: relative; // для таймера
+}
+
+
+/**************************************************/
+
+// .timer-container {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   row-gap: 8px;
+
+//   &__caption {
+//     @include caption;
+//   }
+// }
+
+.timer-box {
+  background-color: var(--back-timer);
+  // background-color: $primary;
+
+  border-radius: 7px 7px 0 0;
+  
+  // padding: 8px 12px 12px 12px;
+  padding: 4px;
+  // border-radius: 20px;
+  
+  width: 100%;
+  max-width: 85px;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  position: absolute;
+  top: -33px;
+  left: 0px;
+
+  &__item {
+  // &__box {
+    width: 35px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  @include header-3;
+
+  // &__item {
+  //   @include header-3;
+  // }
+
+  // &__date {
+  //   @include header-4;
+  // }
+
+  // &__separator {
+  //   width: 1px;
+  //   // height: 20px;
+  //   // background-color: var(--primary);
+  //   // background-color: $static-white-40;
+  // }
+}

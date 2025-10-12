@@ -1,0 +1,99 @@
+
+:root {
+  --bnt-background: rgb(219, 219, 219);
+  // --bnt-background: rgb(195 191 191);
+  // --bnt-background: rgb(172, 174, 176);
+
+  --btn-color: rgb(80, 78, 78);
+  --primary: rgb(255, 70, 70);
+
+  --shadow-press: rgb(170, 170, 170);
+  --shadow: rgb(255, 255, 255);
+
+  --border: rgb(77, 77, 77);
+
+  --back-timer: rgb(151, 151, 151);
+
+  --background-dark: rgb(225, 222, 222);
+  --background-light: rgb(188, 226, 246);
+
+  --disabled-color: rgb(255, 255, 255);
+}
+
+/***** mixins ***********************************************************************/
+
+////////  btn
+
+@mixin btn-shadow {
+  box-shadow:
+      // 0px -2px 4px 1px rgba(100, 100, 100, 0.5) inset, /* Темная тень внутрь */
+      // 0px 2px 4px 1px rgba(255, 255, 255, 0.3) inset;  /* Светлая тень внутрь */
+
+      0px -2px 4px 1px var(--shadow-press) inset,
+      0px 2px 4px 1px var(--shadow) inset;
+
+      // 0px -2px 4px 1px rgb(170, 170, 170) inset,
+      // 0px 2px 4px 1px rgb(255, 255, 255) inset;
+}
+
+@mixin btn-shadow-press {
+  box-shadow:
+      0px 0px 4px 1px var(--shadow-press) inset;
+      // 0px 0px 4px 1px rgb(170, 170, 170) inset;
+  transform: scale(0.95);
+}
+
+////////  cursor
+
+@mixin custom-cursor {
+  cursor: url(../assets/img/pointinghand.svg), pointer;
+}
+
+////////  fonts
+
+@mixin caption {
+  font-family: Allura;
+  font-size: 34px;
+  font-weight: 600;
+  line-height: 100%;
+  letter-spacing: 0.05em;
+}
+
+@mixin caption-btn {
+  font-family: Lato;
+  // font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 100%;
+  letter-spacing: 0.05em;
+
+  text-transform: uppercase;
+}
+
+@mixin header-3 {
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 152%;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+@mixin header-4 {
+  font-family: Montserrat;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 130%;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+@mixin cansel-color-touch { // убирает синий цвет при таче
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+
+
+
+
