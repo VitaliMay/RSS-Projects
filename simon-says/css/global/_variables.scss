@@ -1,0 +1,42 @@
+
+
+/***** variables ***********************************************************************/
+
+
+:root {
+  --size-tile: 50px;
+	--size-gap: 10px;
+}
+
+@media screen and (max-width: 640px) {
+    :root {
+        --size-tile: 40px;
+    }
+}
+@media screen and (max-width: 540px) {
+    :root {
+        --size-tile: 30px;
+    }
+}
+@media screen and (max-width: 440px) {
+    :root {
+        --size-tile: 25px;
+    }
+}
+
+
+	$primary: rgb(255, 70, 70);
+	$primary-10: rgba(255, 70, 70, 0.1);
+	$dark: #181c29;
+	$static-white: rgb(255, 255, 255);
+	$static-white-20: rgba(255, 255, 255, 0.2);
+	$static-white-40: rgba(255, 255, 255, 0.4);
+	$content-background: rgb(236, 243, 248);
+	$tag-purple: rgb(67, 97, 255);
+	$tag-pink: rgb(255, 67, 247);
+	$tag-green: rgb(182, 200, 196);
+	// $tag-green: rgb(6, 164, 80);
+	$tag-grey: rgb(132, 127, 128);
+	$tag-white: rgb(247, 247, 247);
+
+
