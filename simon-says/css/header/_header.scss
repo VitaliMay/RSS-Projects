@@ -1,0 +1,35 @@
+
+/***** header ***********************************************************************/
+
+.title-h1 {
+  text-align: center;
+  padding: 16px 0 10px 0;
+  @include caption;
+  color: $primary;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 20px;
+
+  @media screen and (max-width: 540px) {
+    flex-direction: column;
+    row-gap: 20px;
+  }
+}
+
+.start {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  @media screen and (max-width: 640px) {
+    order: 3;
+  }
+}
+
+// button:focus { // чтобы увидеть где tab
+//   outline: 2px solid $tag-green;
+// }
+

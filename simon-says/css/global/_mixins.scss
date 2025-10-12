@@ -1,0 +1,40 @@
+
+
+/***** mixins ***********************************************************************/
+
+
+@mixin custom-cursor {
+  cursor: url(../assets/img/pointinghand.svg), pointer;
+}
+
+////////  fonts
+
+
+@mixin caption {
+  font-family: Allura;
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 100%;
+  letter-spacing: 0.05em;
+}
+
+@mixin caption-check-h2 {
+  font-family: Lato;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 100%;
+  letter-spacing: 0.05em;
+
+  text-transform: uppercase;
+}
+
+
+@mixin cansel-color-touch { // убирает синий цвет при таче
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+
+
+
+
