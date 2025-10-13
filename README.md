@@ -6,6 +6,9 @@ https://vitalimay.github.io/RSS-Projects/random-game/
 ### Simon Says
 https://vitalimay.github.io/RSS-Projects/simon-says/
 
+### Nonograms
+https://vitalimay.github.io/RSS-Projects/nonograms/
+
 ### Christmas Shop
 https://vitalimay.github.io/RSS-Projects/christmas-shop/
 

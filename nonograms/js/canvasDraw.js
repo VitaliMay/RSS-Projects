@@ -1,0 +1,664 @@
+import { data } from './data.js';
+import { initModal, btnSelectArr } from './modal.js';
+// import { initModal, canvasContainer } from './modal.js';
+import { canvasContainer, settingWinners } from './interface.js';
+import { Timer } from './timer.js';
+import { soundObj, playSound } from './sound.js';
+import { gameWinnersStorage } from './modal-winners-LS.js';
+import { themaColors } from './thema.js';
+
+class CanvasGrid {
+  constructor(gridSize, squareSize, gapSize, matrix) {
+    this.squareSize = squareSize; // Размер квадрата
+    this.gridSize = gridSize; // Размер сетки
+    this.gapSize = gapSize; // Размер промежутка между квадратиками
+
+    this.matrix = matrix;
+    // Убрать этот бред
+    this.matrixName = this.nameMatrixFromSelectBtn();
+
+    this.isMouseEventsFlag = true; // Флаг для управления обработкой событий
+
+    this.squaresAll = []; // Для хранения информации о каждом квадрате
+    this.activeRow = -1; // Текущая активная строка
+    this.activeCol = -1; // Текущая активная колонка
+
+    // Определяю стартовые позиции для рисования поля игры
+    this.helpInfo = this.isHelp(matrix);
+    this.leftMaxLength = this.helpInfo.leftMaxLength;
+    this.topMaxLength = this.helpInfo.topMaxLength;
+
+    // Создаю canvas
+    this.canvas = document.createElement('canvas');
+    this.canvas.classList.add('canvas');
+
+    // добавляю базовый размер поля, чтобы меньше дублировать
+    const baseSize =
+      (this.gridSize + 1) * this.gapSize +
+      this.squareSize * this.gridSize +
+      this.gapSize * 6; // для разделительных линий
+    this.canvas.width = baseSize + this.squareSize * this.leftMaxLength;
+    this.canvas.height = baseSize + this.squareSize * this.topMaxLength;
+
+    canvasContainer.append(this.canvas);
+    // document.body.append(this.canvas);
+    this.ctx = this.canvas.getContext('2d', { alpha: false }); // пробую улучшить производительность
+
+    // заполняю squaresAll
+    this.initSquaresAll();
+
+    // Добавляю обработчики событий
+    this.setupEventListeners();
+
+    // Начальное рисование канвас (квадратики)
+    this.drawSquaresAll(); // без активного квадрата
+
+    // Для адаптива размера канваса
+    if (this.gridSize > 14) {
+      this.resizeCanvas();
+      window.addEventListener('resize', () => {
+        this.resizeCanvas();
+      });
+    }
+
+    this.timer = new Timer(canvasContainer);
+  }
+
+  /*************************************************************** */
+  // Метод для пересчета размеров и расположения квадратов
+
+  resizeCanvas() {
+    if (window.innerWidth < 700) {
+      this.squareSize = 20;
+    } else this.squareSize = 30;
+
+    // Tекущее состояние квадратов
+    // Делаю это уже второй раз (делал для сохранения игры)
+    // может имеет смысл вести состояние отдельно
+    const currentSquaresState = this.squaresAll.map((square) => ({
+      clicked: square.clicked,
+      crossed: square.crossed,
+    }));
+
+    // Новые размеры базовые размеры
+    const baseSize =
+      (this.gridSize + 1) * this.gapSize +
+      this.squareSize * this.gridSize +
+      this.gapSize * 6; // для разделительных линий
+    this.canvas.width = baseSize + this.squareSize * this.leftMaxLength;
+    this.canvas.height = baseSize + this.squareSize * this.topMaxLength;
+
+    // Снова переписываю квадраты
+    this.squaresAll = [];
+    this.initSquaresAll();
+
+    // Востанавливаю состояния квадратов
+    for (let i = 0; i < currentSquaresState.length; i++) {
+      this.squaresAll[i].clicked = currentSquaresState[i].clicked;
+      this.squaresAll[i].crossed = currentSquaresState[i].crossed;
+    }
+
+    // Рисую квадраты с новыми позициями
+    this.drawSquaresAll();
+  }
+
+  /*************************************************************** */
+  // Огромная дурость, но очень тороплюсь
+  // Получаю имя матрицы по нажатой кнопке select
+  nameMatrixFromSelectBtn() {
+    const disabledButton = btnSelectArr.find((btn) => btn.disabled === true);
+    return disabledButton ? disabledButton.getAttribute('data-name') : null;
+  }
+
+  // Метод для сохранения текущего состояния игры
+  saveGameState() {
+    const gameState = {
+      matrixName: this.matrixName,
+      gridSize: this.gridSize,
+      matrix: this.matrix,
+      timer: this.timer.totalTime(),
+      squares: this.squaresAll.map((square) => ({
+        clicked: square.clicked,
+        crossed: square.crossed,
+      })),
+    };
+    localStorage.setItem('VitaliMay_gameState', JSON.stringify(gameState));
+  }
+
+  // Метод визуализации сохранённого состояния игры
+  loadGameState() {
+    const savedState = localStorage.getItem('VitaliMay_gameState');
+    if (savedState) {
+      const gameState = JSON.parse(savedState);
+      const { squares, timer } = gameState;
+      this.squaresAll.forEach((square, index) => {
+        square.clicked = squares[index].clicked;
+        square.crossed = squares[index].crossed;
+        // square.clicked = gameState.squares[index].clicked;
+        // square.crossed = gameState.squares[index].crossed;
+        this.timer.setTime(timer);
+      });
+
+      this.drawSquaresAll();
+    }
+  }
+  /*************************************************************** */
+
+  // saveWinners() {
+  //   const gameWinners = {
+  //     matrixName: this.matrixName,
+  //     gridSize: this.gridSize,
+  //     timer: this.timer.totalTime(),
+  //   };
+  //   localStorage.setItem('gameWinners', JSON.stringify(gameWinners));
+  // }
+
+  /*************************************************************** */
+
+  // Метод удаления из разметки
+  removeCanvas() {
+    if (this.canvas) {
+      this.timer.removeTimer();
+      this.canvas.remove(); // удаление элемента из DOM
+      this.canvas = null; // обнуляю ссылку на элемент
+    }
+  }
+
+  // Первоначальное наполнение матрицы квадратов
+  initSquaresAll() {
+    // стартовые позиции с учётом max кол-ва подсказок
+    const startX = this.leftMaxLength * this.squareSize + this.gapSize * 4;
+    const startY = this.topMaxLength * this.squareSize + this.gapSize * 4;
+
+    for (let row = 0; row < this.gridSize; row += 1) {
+      for (let col = 0; col < this.gridSize; col += 1) {
+        const baseSizeSquare = this.squareSize + this.gapSize;
+        const x =
+          startX + col * baseSizeSquare + Math.floor(col / 5) * this.gapSize;
+        const y =
+          startY + row * baseSizeSquare + Math.floor(row / 5) * this.gapSize;
+
+        this.squaresAll.push({
+          x,
+          y,
+          row,
+          col,
+          color: 'pink',
+          clicked: false,
+          crossed: false,
+        }); // Добавил флаг для крестика
+      }
+    }
+    // console.log(this.squaresAll);
+  }
+
+  // Функция для рисования квадратиков
+  drawSquaresAll() {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // Очистка canvas перед перерисовкой
+
+    // Изменяю цвет канвас
+    // this.ctx.fillStyle = 'black';
+    this.ctx.fillStyle = themaColors.canvasColor;
+    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+    /********Блок закрашивания квадратов******************************** */
+    for (let square of this.squaresAll) {
+      // Устанавливаем цвет квадрата
+      if (square.crossed) {
+        this.ctx.fillStyle = themaColors.squareCrossed;
+        // this.ctx.fillStyle = 'rgb(128, 128, 128)';
+      } // Цвет для перечеркнутого квадрата
+      else if (square.clicked) {
+        this.ctx.fillStyle = themaColors.squareClicked; // Цвет при клике
+        // this.ctx.fillStyle = 'beige'; // Цвет при клике
+      } else if (
+        square.row === this.activeRow ||
+        square.col === this.activeCol
+      ) {
+        this.ctx.fillStyle = themaColors.squareRowColHover; // Цвет для всей строки и колонки
+        // this.ctx.fillStyle = 'rgb(107, 107, 107)'; // Цвет для всей строки и колонки
+      } else {
+        this.ctx.fillStyle = themaColors.squareAll; // Остальные квадраты — серые
+        // this.ctx.fillStyle = 'rgb(128, 128, 128)'; // Остальные квадраты — серые
+      }
+
+      // Если курсор наведен на квадрат, меняю его цвет
+      if (
+        square.row === this.activeRow &&
+        square.col === this.activeCol &&
+        !square.clicked
+      ) {
+        this.ctx.fillStyle = themaColors.squareHover; // Цвет hover, если не кликнутый
+        // this.ctx.fillStyle = 'rgb(88, 88, 88)'; // Цвет hover, если не кликнутый
+      }
+
+      this.ctx.fillRect(square.x, square.y, this.squareSize, this.squareSize);
+
+      // Если квадрат перечеркнут, рисую "X"
+      if (square.crossed) {
+        this.drawCross(square);
+      }
+    }
+
+    /********Блок подсказок *************************/
+    this.ctx.fillStyle = themaColors.textColor; // Цвет текста
+    // this.ctx.fillStyle = 'white'; // Цвет текста
+    this.ctx.textAlign = 'center'; // Центрируем текст
+    this.ctx.font = `${this.squareSize / 2}px Lato`; // ставлю шрифт
+
+    // this.ctx.fillText('O', 0, 10);
+
+    // Подсказки слева
+    for (let row = 0; row < this.helpInfo.left.length; row += 1) {
+      const hintY =
+        this.squaresAll[row * this.gridSize].y + (this.squareSize / 4) * 3;
+      this.helpInfo.left[row].forEach((value, index) => {
+        const hintX =
+          this.squaresAll[0].x -
+          this.gapSize -
+          this.squareSize / 2 -
+          index * this.squareSize -
+          2 * this.gapSize;
+
+        this.ctx.fillText(value, hintX, hintY);
+      });
+    }
+
+    // Подсказки сверху
+    for (let col = 0; col < this.helpInfo.top.length; col++) {
+      const hintX = this.squaresAll[col].x + this.squareSize / 2;
+      // const hintX = (col + this.leftMaxLength) * (this.squareSize + this.gapSize) + (this.squareSize / 2);
+      this.helpInfo.top[col].forEach((value, index) => {
+        const hintY =
+          this.squaresAll[0].y -
+          // this.squaresAll[col].y -
+          // this.gapSize -
+          this.squareSize / 2 -
+          index * this.squareSize -
+          2 * this.gapSize;
+        // const hintY = (this.topMaxLength * (this.squareSize + this.gapSize * 2)) - (this.gapSize + (this.squareSize) + (index * this.squareSize)) ;
+        // const hintY = (this.topMaxLength * (this.squareSize + this.gapSize * 2)) - (this.gapSize + (this.squareSize / 2) + (index * this.squareSize)) ;
+        this.ctx.fillText(value, hintX, hintY);
+        // this.ctx.fillText(value, hintX, hintY + (index * this.gapSize));
+      });
+    }
+
+    /********Блок разделительных линий *************************/
+    this.ctx.strokeStyle = 'red'; // Цвет линии
+    this.ctx.lineWidth = this.gapSize * 2; // Ширину линии
+
+    // Разделительных линии по горизонтали (top)
+    // Перебираю строки с границей через 5 квадратов
+    for (let row = 1; row <= this.gridSize; row += 5) {
+      const previousSquare = this.squaresAll[row * this.gridSize]; // Квадрат в первой колонке текущей строки
+      const lineY = previousSquare.y - this.squareSize - 2 * this.gapSize; //  Y для линии
+
+      this.ctx.beginPath();
+      this.ctx.moveTo(this.gapSize * 2, lineY); // Начало линии (слева)
+      // this.ctx.moveTo(0, lineY); // Начало линии (слева)
+
+      this.ctx.lineTo(previousSquare.x - this.gapSize * 4, lineY); // Конец линии (справа)
+      if (row === 1) {
+        this.ctx.moveTo(previousSquare.x - this.gapSize * 2, lineY); // Начало линии (слева)
+        this.ctx.lineTo(
+          this.squaresAll[this.gridSize - 1].x + this.squareSize,
+          lineY,
+        ); // Конец линии (справа)
+        // this.ctx.lineTo(this.squares[this.gridSize - 1].x + this.squareSize, lineY); // Конец линии (справа)
+      }
+      // this.ctx.lineTo(this.canvas.width, lineY); // Конец линии (справа)
+      this.ctx.stroke();
+    }
+
+    // Разделительные линии по вертикали (left)
+    // Перебираю колонки с границей через 5 квадратов
+    for (let col = 1; col <= this.gridSize; col += 5) {
+      const previousSquare = this.squaresAll[col - 1]; // Квадрат в первой колонке текущей строки
+      const lineX = previousSquare.x - this.gapSize; // X для линии
+      // const lineY = previousSquare.y + this.squareSize + this.gapSize;
+
+      this.ctx.beginPath();
+      this.ctx.moveTo(lineX, this.gapSize * 2); // Начало линии
+      // this.ctx.moveTo(lineX, this.gapSize * 2 ); // Начало линии
+
+      this.ctx.lineTo(lineX, previousSquare.y - this.gapSize * 4); // Конец линии
+      // this.ctx.lineTo(lineX, previousSquare.y); // Конец линии
+      if (col === 1) {
+        this.ctx.moveTo(lineX, previousSquare.y - this.gapSize * 2); // Начало линии
+        this.ctx.lineTo(
+          lineX,
+          this.squaresAll[this.squaresAll.length - this.gridSize].y +
+            this.squareSize,
+        ); // Конец линии (справа)
+      }
+      // this.ctx.lineTo(this.canvas.width, lineY); // Конец линии (справа)
+      this.ctx.stroke();
+    }
+  }
+
+  // Метод рисования "X" на квадрате
+  drawCross(square) {
+    const x1 = square.x + 5; // Отступ от границы квадрата
+    const y1 = square.y + 5; // Отступ от границы квадрата
+    const x2 = square.x + this.squareSize - 5; // Отступ от границы квадрата
+    const y2 = square.y + this.squareSize - 5; // Отступ от границы квадрата
+
+    this.ctx.strokeStyle = 'red'; // Цвет "X"
+    this.ctx.lineWidth = 2; // Ширина линии
+
+    this.ctx.beginPath();
+    this.ctx.moveTo(x1, y1);
+    this.ctx.lineTo(x2, y2);
+    this.ctx.moveTo(x2, y1);
+    this.ctx.lineTo(x1, y2);
+    this.ctx.stroke();
+  }
+
+  // Установка обработчиков событий
+  setupEventListeners() {
+    // ловлю положение мыши над канвасом
+    const getMousePosition = (event) => {
+      const canvasRect = this.canvas.getBoundingClientRect();
+      const mouseX = event.clientX - canvasRect.left;
+      const mouseY = event.clientY - canvasRect.top;
+      return { mouseX, mouseY };
+    };
+
+    // Нахожу квадрат, над которым курсор
+    const findSquare = (mouseX, mouseY) => {
+      for (const square of this.squaresAll) {
+        if (
+          mouseX > square.x &&
+          mouseX < square.x + this.squareSize &&
+          mouseY > square.y &&
+          mouseY < square.y + this.squareSize
+        ) {
+          return square;
+        }
+      }
+      return null; // Если квадрат не найден
+    };
+
+    // Последний активный квадрат (чтобы не рисовать при каждом движении мышью)
+    let lastActiveSquare = null;
+
+    this.canvas.addEventListener('mousemove', (event) => {
+      if (!this.isMouseEventsFlag) return; // Проверяем флаг перед обработкой клика
+
+      const { mouseX, mouseY } = getMousePosition(event);
+      let activeSquare = findSquare(mouseX, mouseY);
+
+      // Проверяю, изменился ли активный квадрат
+      if (activeSquare !== lastActiveSquare) {
+        this.activeRow = activeSquare ? activeSquare.row : -1;
+        this.activeCol = activeSquare ? activeSquare.col : -1;
+
+        lastActiveSquare = activeSquare; // Обновляю последний активный квадрат
+        this.drawSquaresAll(); // Перерисовываю только если изменился активный квадрат
+      }
+    });
+
+    this.canvas.addEventListener('mouseleave', () => {
+      // Сброс активного ряда и колонки, когда мышь покидает canvas
+      this.activeRow = -1;
+      this.activeCol = -1;
+      this.drawSquaresAll(); // Перерисовываю квадраты без активного выделения
+    });
+
+    this.canvas.addEventListener('click', (event) => {
+      if (!this.isMouseEventsFlag) return; // Проверяем флаг перед обработкой клика
+
+      const { mouseX, mouseY } = getMousePosition(event);
+      let clickedSquare = findSquare(mouseX, mouseY);
+
+      // Меняю состояние clicked
+      if (clickedSquare) {
+        this.timer.init();
+
+        if (!clickedSquare.clicked) {
+          playSound(soundObj.clickSound);
+        } else {
+          playSound(soundObj.noClickSound);
+        }
+
+        clickedSquare.clicked = !clickedSquare.clicked;
+        // Если квадрат кликнутый, то он не перечёркнутый
+        clickedSquare.crossed = false;
+      }
+
+      // Имеет смысл перерисовывать только один квадрат
+      this.drawSquaresAll(); // Перерисовываю квадраты после изменения цвета
+      // console.log(this.squaresAll);
+
+      // Проверка соответствие матрицы после клика
+      // Имеет смысл запускать не каждый раз,
+      // а только если кол-во кликнутых элементов совпадает с матрицей
+      this.checkMatrix();
+    });
+
+    // Клик по правой мыши - ставит крестик
+    this.canvas.addEventListener('contextmenu', (event) => {
+      event.preventDefault(); // Убираю дефолтное контекстное меню
+
+      if (!this.isMouseEventsFlag) return;
+
+      const { mouseX, mouseY } = getMousePosition(event);
+      let clickedSquare = findSquare(mouseX, mouseY);
+
+      // Меняю состояние crossed
+      if (clickedSquare) {
+        this.timer.init();
+
+        if (!clickedSquare.crossed) {
+          playSound(soundObj.crossSound);
+        } else {
+          playSound(soundObj.noCrossSound);
+        }
+
+        clickedSquare.crossed = !clickedSquare.crossed;
+        // Если квадрат перечёркнутый, то он не кликнутый
+        clickedSquare.clicked = false;
+      }
+
+      // Имеет смысл перерисовывать только один квадрат
+      this.drawSquaresAll(); // Перерисовываем квадраты после изменения цвета
+    });
+  }
+
+  // Метод проверки соответствия матрицы
+  checkMatrix() {
+    for (let row = 0; row < this.gridSize; row += 1) {
+      for (let col = 0; col < this.gridSize; col += 1) {
+        const expectedValue = this.matrix[row][col]; // Значение из матрицы
+        const currentValue = this.squaresAll[row * this.gridSize + col].clicked
+          ? 1
+          : 0;
+        // 1, если кликнут, иначе 0
+
+        // Если значения не совпадают, выходим из функции
+        if (expectedValue !== currentValue) {
+          return;
+        }
+      }
+    }
+
+    playSound(soundObj.succesSound);
+    // if (soundObj.isSoundOn) {
+    //   soundObj.succesSound.play(); // Проигрываем звук, если он включен
+    // }
+
+    const totalSeconds = this.timer.totalTime();
+    // console.log('totalSeconds', totalSeconds);
+    initModal(totalSeconds);
+
+    gameWinnersStorage.addWinner(this.matrixName, this.gridSize, totalSeconds);
+    settingWinners.disabled = false;
+    // this.matrixName
+    // this.gridSize
+    // totalSeconds
+
+    this.showSolution();
+
+    // const { seconds, minutes } = this.timer.timer();
+    // const totalSeconds = minutes * 60 + seconds;
+
+    // Если все значения совпадают, выводим поздравление
+    // console.log('Ура! Кроссфорд решен, картинка собрана!');
+    // return;
+  }
+
+  // Метод для сброса clicked и crossed
+  resetGame() {
+    for (let square of this.squaresAll) {
+      square.clicked = false;
+      square.crossed = false;
+    }
+    // Перерисовываем квадраты
+    this.drawSquaresAll();
+
+    this.enableMouseEvents();
+
+    this.timer.reset();
+  }
+
+  /**************************************** */
+  /**************************************** */
+  showSolution() {
+    for (let row = 0; row < this.gridSize; row += 1) {
+      for (let col = 0; col < this.gridSize; col += 1) {
+        this.squaresAll[row * this.gridSize + col].crossed = false; // убираю перечёркивание
+        // Ставлю clicked если в матрице стоит 1
+        this.squaresAll[row * this.gridSize + col].clicked =
+          this.matrix[row][col] === 1;
+      }
+    }
+
+    // Перерисовываю канвас
+    this.drawSquaresAll();
+
+    // Отключаю события
+    this.disableMouseEvents();
+
+    // this.timer.reset();
+    this.timer.stop();
+  }
+
+  // Отключение событий
+  disableMouseEvents() {
+    this.isMouseEventsFlag = false;
+  }
+
+  // Включение событий
+  enableMouseEvents() {
+    this.isMouseEventsFlag = true;
+  }
+
+  /********************************** */
+  /********************************** */
+
+  // Метод для расчёта (формрования) подсказок
+  isHelp(matrix) {
+    const result = {
+      left: [],
+      top: [],
+      leftMaxLength: 0,
+      topMaxLength: 0,
+    };
+
+    const numRows = matrix.length;
+    const numCols = matrix[0].length;
+
+    // Обработка рядов (строк)
+    for (let i = 0; i < numRows; i += 1) {
+      const row = matrix[i];
+      let count = 0;
+      const temp = [];
+
+      for (let j = 0; j < numCols; j += 1) {
+        if (row[j] === 1) {
+          count += 1;
+        } else {
+          if (count > 0) {
+            temp.push(count);
+            count = 0;
+          }
+        }
+      }
+
+      // В конце строки могут быть единицы
+      if (count > 0) {
+        temp.push(count);
+      }
+
+      // Расчитываю максимальное кол-во подсказок,
+      // для позиционирования игрового поля
+      if (temp.length > result.leftMaxLength) {
+        result.leftMaxLength = temp.length;
+      }
+
+      // Формирую результаты для left
+      if (temp.length === 0) {
+        result.left.push([]);
+      } else {
+        result.left.push(temp.reverse());
+      }
+    }
+
+    // Обработка колонок
+    for (let j = 0; j < numCols; j += 1) {
+      let count = 0;
+      const temp = [];
+
+      for (let i = 0; i < numRows; i += 1) {
+        if (matrix[i][j] === 1) {
+          count += 1;
+        } else {
+          if (count > 0) {
+            temp.push(count);
+            count = 0;
+          }
+        }
+      }
+
+      // В конце колонки могут быть единицы
+      if (count > 0) {
+        temp.push(count);
+      }
+
+      // Расчитываю максимальное кол-во подсказок,
+      // для позиционирования игрового поля
+      if (temp.length > result.topMaxLength) {
+        result.topMaxLength = temp.length;
+      }
+
+      // Формирую результаты для top
+      if (temp.length === 0) {
+        result.top.push([]);
+      } else {
+        result.top.push(temp.reverse());
+      }
+    }
+
+    // console.log('Подсказки', result);
+    return result;
+  }
+}
+
+// const canvasGame = new CanvasGrid(5, 40, 2, data.butterfly.matrix);
+// const canvasGame = new CanvasGrid(10, 40, 2, data.kat.matrix);
+
+const squareSize = { value: 30, gapSize: 1 };
+
+const canvasGame = {
+  currentGame: new CanvasGrid(
+    5,
+    squareSize.value,
+    squareSize.gapSize,
+    data.butterfly.matrix,
+  ),
+  // currentGame: new CanvasGrid(5, squareSize.value, 1, data.butterfly.matrix),
+  // currentGame: new CanvasGrid(5, 40, 2, data.butterfly.matrix),
+};
+
+// export { CanvasGrid };
+export { CanvasGrid, canvasGame, squareSize };
