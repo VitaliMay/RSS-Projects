@@ -1,0 +1,139 @@
+@charset "UTF-8";
+:root {
+  --background-primary: linear-gradient(rgb(0, 0, 0), rgba(255, 255, 255, 0.7));
+  --background-scroll: linear-gradient(rgb(100, 100, 100), rgba(255, 255, 255, 0.7));
+  --color-source-border: rgb(48, 197, 255);
+  --background-body: rgb(109, 170, 194);
+  --bnt-background: rgb(219, 219, 219);
+  --btn-color: rgb(80, 78, 78);
+  --primary: rgb(255, 70, 70);
+  --shadow-press: rgb(170, 170, 170);
+  --shadow: rgb(255, 255, 255);
+  --border: rgb(77, 77, 77);
+  --back-timer: rgb(151, 151, 151);
+  --background-dark: rgb(225, 222, 222);
+  --background-light: rgb(188, 226, 246);
+  --disabled-color: rgb(255, 255, 255);
+  --background-canvas: rgb(109, 170, 194);
+  --color-title: rgb(250, 235, 215);
+  --background-modal: rgb(236, 243, 248);
+  --modal-min-hight: 400px;
+  --color-paste: rgb(13, 138, 132);
+}
+
+body {
+  background: var(--background-body);
+  font-family: sans-serif;
+}
+
+/***************************************************************/
+/* сбрасываю, то что может мешать */
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+}
+
+ul[class],
+ol[class] {
+  padding: 0;
+}
+
+body,
+h1, h2, h3, h4, h5, h6,
+p,
+ul, ol, li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+ul[class] {
+  list-style: none;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+a {
+  text-decoration: none;
+  /*чтобы наследовали цвет родителя*/
+  color: inherit;
+}
+
+button {
+  border: none;
+  outline: none; /*убираю фокус*/
+  background: none;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none; /* Removes platform-specific styling */
+  border: solid 2px blue; /*чтобы увидеть кнопку*/
+}
+
+/***************************************************************/
+/***************************************************************/
+* {
+  box-sizing: border-box;
+}
+
+html {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  font-size: 10px;
+}
+
+/* чтобы прижать футер к низу страницы*/
+/*! чтобы всегда была полоса прокрутки и не дергалось при пиксель перфект. 
+Надо убрать для мобилок*/
+html {
+  height: 100.1%;
+}
+
+body {
+  height: 100%;
+}
+
+/* чтобы прижать футер к низу страницы*/
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+/* чтобы прижать футер к низу страницы*/
+.main {
+  flex-grow: 1;
+}
+
+.footer {
+  flex: 0 0 auto;
+}
+
+/* убираю скролл */
+body.lock {
+  overflow: hidden;
+}
+@media (hover: hover) {
+  body.lock {
+    margin-right: 17px;
+  }
+}
+
+/**************************************************************/
+.title-h1 {
+  align-self: center;
+  font-size: 3rem;
+  color: var(--color-title);
+}
+
+/**************************************************************//*# sourceMappingURL=global.css.map */
